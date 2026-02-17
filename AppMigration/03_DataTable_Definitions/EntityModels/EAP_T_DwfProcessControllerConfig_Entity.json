@@ -1,0 +1,235 @@
+{
+  "entityName": "EAP_T_DwfProcessControllerConfig",
+  "pegaClassName": "Data-EAP-T-DwfProcessControllerConfig",
+  "namespace": "urn:com:appian:types:eap",
+  "description": "Pega Data Type mapped from Appian CDT: EAP_T_DwfProcessControllerConfig",
+  "sourceAppianArtifact": "CDT: EAP_T_DwfProcessControllerConfig",
+  "attributes": [
+    {
+      "appianFieldName": "process_controller_config_id",
+      "pegaPropertyName": "ProcessControllerConfigId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "process_controller_id",
+      "pegaPropertyName": "ProcessControllerId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "next_process_controller_id",
+      "pegaPropertyName": "NextProcessControllerId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "process_model_uuid",
+      "pegaPropertyName": "ProcessModelUuid",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "run_config_id",
+      "pegaPropertyName": "RunConfigId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "io_config_id",
+      "pegaPropertyName": "IoConfigId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "parsing_id",
+      "pegaPropertyName": "ParsingId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "transformation_id",
+      "pegaPropertyName": "TransformationId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "output_generation_id",
+      "pegaPropertyName": "OutputGenerationId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "data_validation_id",
+      "pegaPropertyName": "DataValidationId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "is_system_driven",
+      "pegaPropertyName": "IsSystemDriven",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "is_generic_process_model",
+      "pegaPropertyName": "IsGenericProcessModel",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "assignee",
+      "pegaPropertyName": "Assignee",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "action",
+      "pegaPropertyName": "Action",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "is_active",
+      "pegaPropertyName": "IsActive",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "created_by",
+      "pegaPropertyName": "CreatedBy",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "created_on",
+      "pegaPropertyName": "CreatedOn",
+      "appianDataType": "Date and Time",
+      "pegaDataType": "DateTime",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "modified_on",
+      "pegaPropertyName": "ModifiedOn",
+      "appianDataType": "Date and Time",
+      "pegaDataType": "DateTime",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "modified_by",
+      "pegaPropertyName": "ModifiedBy",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "process_param_pg_id",
+      "pegaPropertyName": "ProcessParamPgId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    }
+  ],
+  "relationships": [],
+  "migrationNotes": {
+    "complexity": "Medium",
+    "requiresCustomTransform": false,
+    "pegaClassHierarchy": "Data- > Data-EAP-T-DwfProcessControllerConfig"
+  }
+}

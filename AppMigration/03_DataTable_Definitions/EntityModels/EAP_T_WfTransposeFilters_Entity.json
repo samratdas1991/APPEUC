@@ -1,0 +1,136 @@
+{
+  "entityName": "EAP_T_WfTransposeFilters",
+  "pegaClassName": "Data-EAP-T-WfTransposeFilters",
+  "namespace": "urn:com:appian:types:eap",
+  "description": "Pega Data Type mapped from Appian CDT: EAP_T_WfTransposeFilters",
+  "sourceAppianArtifact": "CDT: EAP_T_WfTransposeFilters",
+  "attributes": [
+    {
+      "appianFieldName": "transpose_filter_id",
+      "pegaPropertyName": "TransposeFilterId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "transpose_config_id",
+      "pegaPropertyName": "TransposeConfigId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "entity_filter_column_name",
+      "pegaPropertyName": "EntityFilterColumnName",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "filter_generation",
+      "pegaPropertyName": "FilterGeneration",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "filter_operator",
+      "pegaPropertyName": "FilterOperator",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "filter_value",
+      "pegaPropertyName": "FilterValue",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "is_active",
+      "pegaPropertyName": "IsActive",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "created_by",
+      "pegaPropertyName": "CreatedBy",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "created_on",
+      "pegaPropertyName": "CreatedOn",
+      "appianDataType": "Date and Time",
+      "pegaDataType": "DateTime",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "modified_by",
+      "pegaPropertyName": "ModifiedBy",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "modified_on",
+      "pegaPropertyName": "ModifiedOn",
+      "appianDataType": "Date and Time",
+      "pegaDataType": "DateTime",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    }
+  ],
+  "relationships": [],
+  "migrationNotes": {
+    "complexity": "Medium",
+    "requiresCustomTransform": false,
+    "pegaClassHierarchy": "Data- > Data-EAP-T-WfTransposeFilters"
+  }
+}

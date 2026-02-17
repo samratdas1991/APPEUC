@@ -1,0 +1,92 @@
+{
+  "entityName": "EAP_U_ManualUploadAttachmentData",
+  "pegaClassName": "Data-EAP-U-ManualUploadAttachmentData",
+  "namespace": "urn:com:appian:types:EAP",
+  "description": "Pega Data Type mapped from Appian CDT: EAP_U_ManualUploadAttachmentData",
+  "sourceAppianArtifact": "CDT: EAP_U_ManualUploadAttachmentData",
+  "attributes": [
+    {
+      "appianFieldName": "requestId",
+      "pegaPropertyName": "RequestId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "configId",
+      "pegaPropertyName": "ConfigId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "processTransId",
+      "pegaPropertyName": "ProcessTransId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "appianDocumentId",
+      "pegaPropertyName": "AppianDocumentId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "documentName",
+      "pegaPropertyName": "DocumentName",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "isOptional",
+      "pegaPropertyName": "IsOptional",
+      "appianDataType": "Boolean",
+      "pegaDataType": "True/False",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "usePriorData",
+      "pegaPropertyName": "UsePriorData",
+      "appianDataType": "Boolean",
+      "pegaDataType": "True/False",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    }
+  ],
+  "relationships": [],
+  "migrationNotes": {
+    "complexity": "Simple",
+    "requiresCustomTransform": false,
+    "pegaClassHierarchy": "Data- > Data-EAP-U-ManualUploadAttachmentData"
+  }
+}

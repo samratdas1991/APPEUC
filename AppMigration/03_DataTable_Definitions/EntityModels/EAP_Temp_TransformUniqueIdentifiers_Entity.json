@@ -1,0 +1,180 @@
+{
+  "entityName": "EAP_Temp_TransformUniqueIdentifiers",
+  "pegaClassName": "Data-EAP-Temp-TransformUniqueIdentifiers",
+  "namespace": "urn:com:appian:types:eap",
+  "description": "Pega Data Type mapped from Appian CDT: EAP_Temp_TransformUniqueIdentifiers",
+  "sourceAppianArtifact": "CDT: EAP_Temp_TransformUniqueIdentifiers",
+  "attributes": [
+    {
+      "appianFieldName": "process_id",
+      "pegaPropertyName": "ProcessId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "config_id",
+      "pegaPropertyName": "ConfigId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "in_file_type_config_id",
+      "pegaPropertyName": "InFileTypeConfigId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "in_file_entity_mapping_id",
+      "pegaPropertyName": "InFileEntityMappingId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "sheet_entity_field_mapping_id",
+      "pegaPropertyName": "SheetEntityFieldMappingId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "activeStep",
+      "pegaPropertyName": "ActiveStep",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "actionTypeActiveStep",
+      "pegaPropertyName": "ActionTypeActiveStep",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "selectedCard",
+      "pegaPropertyName": "SelectedCard",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "selectedEntityCard",
+      "pegaPropertyName": "SelectedEntityCard",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "selectedTemplateType",
+      "pegaPropertyName": "SelectedTemplateType",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "actionTypeSelectedStep",
+      "pegaPropertyName": "ActionTypeSelectedStep",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "selectedStep",
+      "pegaPropertyName": "SelectedStep",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "selectedSheetCopy",
+      "pegaPropertyName": "SelectedSheetCopy",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "selectedOutputCopy",
+      "pegaPropertyName": "SelectedOutputCopy",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "selectedCustomAction",
+      "pegaPropertyName": "SelectedCustomAction",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    }
+  ],
+  "relationships": [],
+  "migrationNotes": {
+    "complexity": "Medium",
+    "requiresCustomTransform": false,
+    "pegaClassHierarchy": "Data- > Data-EAP-Temp-TransformUniqueIdentifiers"
+  }
+}

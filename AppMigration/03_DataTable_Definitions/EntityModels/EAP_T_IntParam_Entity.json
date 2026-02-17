@@ -1,0 +1,136 @@
+{
+  "entityName": "EAP_T_IntParam",
+  "pegaClassName": "Data-EAP-T-IntParam",
+  "namespace": "urn:com:appian:types:eap",
+  "description": "Pega Data Type mapped from Appian CDT: EAP_T_IntParam",
+  "sourceAppianArtifact": "CDT: EAP_T_IntParam",
+  "attributes": [
+    {
+      "appianFieldName": "process_parameter_id",
+      "pegaPropertyName": "ProcessParameterId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "config_id",
+      "pegaPropertyName": "ConfigId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "parameter_code",
+      "pegaPropertyName": "ParameterCode",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "parameter_value",
+      "pegaPropertyName": "ParameterValue",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "parameter_support_value",
+      "pegaPropertyName": "ParameterSupportValue",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "parameter_type",
+      "pegaPropertyName": "ParameterType",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "is_active",
+      "pegaPropertyName": "IsActive",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "created_by",
+      "pegaPropertyName": "CreatedBy",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "created_on",
+      "pegaPropertyName": "CreatedOn",
+      "appianDataType": "Date and Time",
+      "pegaDataType": "DateTime",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "modified_by",
+      "pegaPropertyName": "ModifiedBy",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "modified_on",
+      "pegaPropertyName": "ModifiedOn",
+      "appianDataType": "Date and Time",
+      "pegaDataType": "DateTime",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    }
+  ],
+  "relationships": [],
+  "migrationNotes": {
+    "complexity": "Medium",
+    "requiresCustomTransform": false,
+    "pegaClassHierarchy": "Data- > Data-EAP-T-IntParam"
+  }
+}

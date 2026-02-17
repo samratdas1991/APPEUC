@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_INTTRANSATTACHMENTS
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_INTTRANSATTACHMENTS_CREATED ON EAP_T_INTTRANSATTACHMENTS (created_on);
+CREATE INDEX IDX_EAP_T_INTTRANSATTACHMENTS_MODIFIED ON EAP_T_INTTRANSATTACHMENTS (modified_on);
+CREATE INDEX IDX_EAP_T_INTTRANSATTACHMENTS_CREATED_BY ON EAP_T_INTTRANSATTACHMENTS (created_by);
+

@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_U_OUTPUTCONFIGREQUEST
+-- ============================================================
+
+CREATE INDEX IDX_EAP_U_OUTPUTCONFIGREQUEST_CREATED ON EAP_U_OUTPUTCONFIGREQUEST (created_on);
+CREATE INDEX IDX_EAP_U_OUTPUTCONFIGREQUEST_MODIFIED ON EAP_U_OUTPUTCONFIGREQUEST (modified_on);
+CREATE INDEX IDX_EAP_U_OUTPUTCONFIGREQUEST_CREATED_BY ON EAP_U_OUTPUTCONFIGREQUEST (created_by);
+

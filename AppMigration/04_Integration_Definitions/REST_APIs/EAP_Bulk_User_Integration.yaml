@@ -1,0 +1,25 @@
+integrationName: EAP_Bulk_User_Integration
+pegaConnectorType: REST Connector
+description: Handles bulk user import and validation
+baseURL: https://env.integration.userdir.baseUrl
+authentication:
+  type: OAuth2
+  configuration:
+    grantType: client_credentials
+endpoints:
+- name: validateUsers
+  method: POST
+  path: /api/v1/users/validate
+  requestHeaders:
+    Content-Type: application/json
+  requestBody:
+    users: array
+    validationRules: object
+  responseBody:
+    validUsers: array
+    invalidUsers: array
+  errorHandling:
+    retryCount: 2
+    timeout: 120s
+pegaMappingNotes: Map to Pega Connect-REST with Data Flow for bulk processing
+sourceAppianArtifact: EAP Invoke Bulk User Integration

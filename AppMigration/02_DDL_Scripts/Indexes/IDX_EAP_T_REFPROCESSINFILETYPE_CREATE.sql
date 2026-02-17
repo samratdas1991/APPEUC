@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_REFPROCESSINFILETYPE
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_REFPROCESSINFILETYPE_CREATED ON EAP_T_REFPROCESSINFILETYPE (created_on);
+CREATE INDEX IDX_EAP_T_REFPROCESSINFILETYPE_MODIFIED ON EAP_T_REFPROCESSINFILETYPE (modified_on);
+CREATE INDEX IDX_EAP_T_REFPROCESSINFILETYPE_CREATED_BY ON EAP_T_REFPROCESSINFILETYPE (created_by);
+

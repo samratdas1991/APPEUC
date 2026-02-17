@@ -1,0 +1,125 @@
+{
+  "entityName": "EAP_Temp_HistoricalDataCallParam",
+  "pegaClassName": "Data-EAP-Temp-HistoricalDataCallParam",
+  "namespace": "urn:com:appian:types",
+  "description": "Pega Data Type mapped from Appian CDT: EAP_Temp_HistoricalDataCallParam",
+  "sourceAppianArtifact": "CDT: EAP_Temp_HistoricalDataCallParam",
+  "attributes": [
+    {
+      "appianFieldName": "processId",
+      "pegaPropertyName": "ProcessId",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "requestId",
+      "pegaPropertyName": "RequestId",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "appianDocumentId",
+      "pegaPropertyName": "AppianDocumentId",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "month",
+      "pegaPropertyName": "Month",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "year",
+      "pegaPropertyName": "Year",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "action",
+      "pegaPropertyName": "Action",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "entityMappingId",
+      "pegaPropertyName": "EntityMappingId",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "parsingHistTransId",
+      "pegaPropertyName": "ParsingHistTransId",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "frequency",
+      "pegaPropertyName": "Frequency",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "date",
+      "pegaPropertyName": "Date",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    }
+  ],
+  "relationships": [],
+  "migrationNotes": {
+    "complexity": "Simple",
+    "requiresCustomTransform": false,
+    "pegaClassHierarchy": "Data- > Data-EAP-Temp-HistoricalDataCallParam"
+  }
+}

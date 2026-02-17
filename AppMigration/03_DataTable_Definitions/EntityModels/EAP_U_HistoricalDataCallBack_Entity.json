@@ -1,0 +1,103 @@
+{
+  "entityName": "EAP_U_HistoricalDataCallBack",
+  "pegaClassName": "Data-EAP-U-HistoricalDataCallBack",
+  "namespace": "urn:com:appian:types",
+  "description": "Pega Data Type mapped from Appian CDT: EAP_U_HistoricalDataCallBack",
+  "sourceAppianArtifact": "CDT: EAP_U_HistoricalDataCallBack",
+  "attributes": [
+    {
+      "appianFieldName": "processId",
+      "pegaPropertyName": "ProcessId",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "requestId",
+      "pegaPropertyName": "RequestId",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "appianDocumentId",
+      "pegaPropertyName": "AppianDocumentId",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "entityMappingId",
+      "pegaPropertyName": "EntityMappingId",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "status",
+      "pegaPropertyName": "Status",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "exceptionType",
+      "pegaPropertyName": "ExceptionType",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "exceptionMessage",
+      "pegaPropertyName": "ExceptionMessage",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "parsingHistTransId",
+      "pegaPropertyName": "ParsingHistTransId",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    }
+  ],
+  "relationships": [],
+  "migrationNotes": {
+    "complexity": "Simple",
+    "requiresCustomTransform": false,
+    "pegaClassHierarchy": "Data- > Data-EAP-U-HistoricalDataCallBack"
+  }
+}

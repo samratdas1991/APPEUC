@@ -1,0 +1,34 @@
+reportName: Process Request Status Report
+description: Overview of all process requests with current status
+dataSource: EAP_T_ProcessRequest
+columns:
+- name: requestId
+  dataType: Integer
+  aggregation: COUNT
+- name: processName
+  dataType: Text
+  aggregation: NONE
+- name: status
+  dataType: Text
+  aggregation: GROUP
+- name: createdDate
+  dataType: DateTime
+  aggregation: NONE
+- name: assignee
+  dataType: Text
+  aggregation: NONE
+filters:
+- field: status
+  operator: equals
+  defaultValue: Active
+- field: createdDate
+  operator: between
+  defaultValue: Last 30 days
+sorting:
+- field: createdDate
+  direction: DESC
+grouping:
+- status
+pegaReportType: Report Definition (List)
+pegaImplementationNotes: Create as Pega Report Definition on Work- class. Use pyStatusWork
+  for status filtering.

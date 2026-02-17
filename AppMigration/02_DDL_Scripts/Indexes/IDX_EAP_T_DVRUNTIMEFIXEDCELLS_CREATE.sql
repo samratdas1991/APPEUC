@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_DVRUNTIMEFIXEDCELLS
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_DVRUNTIMEFIXEDCELLS_CREATED ON EAP_T_DVRUNTIMEFIXEDCELLS (created_on);
+CREATE INDEX IDX_EAP_T_DVRUNTIMEFIXEDCELLS_MODIFIED ON EAP_T_DVRUNTIMEFIXEDCELLS (modified_on);
+CREATE INDEX IDX_EAP_T_DVRUNTIMEFIXEDCELLS_CREATED_BY ON EAP_T_DVRUNTIMEFIXEDCELLS (created_by);
+

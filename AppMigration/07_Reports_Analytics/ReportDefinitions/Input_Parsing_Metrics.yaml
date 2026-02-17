@@ -1,0 +1,31 @@
+reportName: Input Parsing Metrics
+description: Metrics on input file parsing success/failure rates
+dataSource: EAP_T_InputParsingConfig
+columns:
+- name: parserType
+  dataType: Text
+  aggregation: GROUP
+- name: totalFiles
+  dataType: Integer
+  aggregation: SUM
+- name: successCount
+  dataType: Integer
+  aggregation: SUM
+- name: failureCount
+  dataType: Integer
+  aggregation: SUM
+- name: avgProcessingTime
+  dataType: Decimal
+  aggregation: AVG
+filters:
+- field: processedDate
+  operator: between
+  defaultValue: Last 7 days
+sorting:
+- field: totalFiles
+  direction: DESC
+grouping:
+- parserType
+pegaReportType: Report Definition (Summary)
+pegaImplementationNotes: Create as Pega Summary report. Consider Pega Insights for
+  real-time dashboard.

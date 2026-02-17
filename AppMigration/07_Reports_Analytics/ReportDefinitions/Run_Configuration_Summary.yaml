@@ -1,0 +1,32 @@
+reportName: Run Configuration Summary
+description: Summary of all run configurations and their execution status
+dataSource: EAP_T_RunConfig
+columns:
+- name: configName
+  dataType: Text
+  aggregation: NONE
+- name: configType
+  dataType: Text
+  aggregation: GROUP
+- name: lastRunDate
+  dataType: DateTime
+  aggregation: MAX
+- name: runCount
+  dataType: Integer
+  aggregation: SUM
+- name: status
+  dataType: Text
+  aggregation: GROUP
+filters:
+- field: status
+  operator: equals
+  defaultValue: Active
+sorting:
+- field: lastRunDate
+  direction: DESC
+grouping:
+- configType
+- status
+pegaReportType: Report Definition (Summary)
+pegaImplementationNotes: Create as Summary report with grouping by config type and
+  status.

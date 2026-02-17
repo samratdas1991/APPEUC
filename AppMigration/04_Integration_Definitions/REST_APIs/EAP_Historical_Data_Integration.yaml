@@ -1,0 +1,25 @@
+integrationName: EAP_Historical_Data_Integration
+pegaConnectorType: REST Connector
+description: Manages historical data loading and callback processing
+baseURL: https://env.integration.historical.baseUrl
+authentication:
+  type: Basic
+  configuration:
+    username: env.historical.username
+endpoints:
+- name: loadHistoricalData
+  method: POST
+  path: /api/v1/historical/load
+  requestHeaders:
+    Content-Type: application/json
+  requestBody:
+    dataSource: string
+    dateRange: object
+  responseBody:
+    jobId: string
+    recordCount: integer
+  errorHandling:
+    retryCount: 2
+    timeout: 600s
+pegaMappingNotes: Map to Pega Connect-REST with Data Flow for bulk loading
+sourceAppianArtifact: EAP Historical Data Call Back Initiation

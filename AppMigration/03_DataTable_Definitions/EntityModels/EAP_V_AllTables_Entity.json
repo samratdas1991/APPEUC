@@ -1,0 +1,26 @@
+{
+  "entityName": "EAP_V_AllTables",
+  "pegaClassName": "Data-EAP-V-AllTables",
+  "namespace": "urn:com:appian:types:EAP",
+  "description": "Pega Data Type mapped from Appian CDT: EAP_V_AllTables",
+  "sourceAppianArtifact": "CDT: EAP_V_AllTables",
+  "attributes": [
+    {
+      "appianFieldName": "tableName",
+      "pegaPropertyName": "TableName",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    }
+  ],
+  "relationships": [],
+  "migrationNotes": {
+    "complexity": "Simple",
+    "requiresCustomTransform": false,
+    "pegaClassHierarchy": "Data- > Data-EAP-V-AllTables"
+  }
+}

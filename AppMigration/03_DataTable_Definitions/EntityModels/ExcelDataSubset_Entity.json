@@ -1,0 +1,81 @@
+{
+  "entityName": "ExcelDataSubset",
+  "pegaClassName": "Data-ExcelDataSubset",
+  "namespace": "urn:com:appian:ps:excel:types",
+  "description": "Pega Data Type mapped from Appian CDT: ExcelDataSubset",
+  "sourceAppianArtifact": "CDT: ExcelDataSubset",
+  "attributes": [
+    {
+      "appianFieldName": "startIndex",
+      "pegaPropertyName": "StartIndex",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "batchSize",
+      "pegaPropertyName": "BatchSize",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "sort",
+      "pegaPropertyName": "Sort",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": false,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Default mapping"
+    },
+    {
+      "appianFieldName": "totalCount",
+      "pegaPropertyName": "TotalCount",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "data",
+      "pegaPropertyName": "Data",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": false,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Default mapping"
+    },
+    {
+      "appianFieldName": "identifiers",
+      "pegaPropertyName": "Identifiers",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": false,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Default mapping"
+    }
+  ],
+  "relationships": [],
+  "migrationNotes": {
+    "complexity": "Simple",
+    "requiresCustomTransform": false,
+    "pegaClassHierarchy": "Data- > Data-ExcelDataSubset"
+  }
+}

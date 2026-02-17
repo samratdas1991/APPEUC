@@ -1,0 +1,24 @@
+integrationName: EAP_Scheduler_Service
+pegaConnectorType: REST Connector
+description: Manages scheduled job execution and triggers
+baseURL: https://env.integration.scheduler.baseUrl
+authentication:
+  type: APIKey
+  configuration:
+    headerName: X-API-Key
+endpoints:
+- name: triggerSchedule
+  method: POST
+  path: /api/v1/scheduler/trigger
+  requestHeaders:
+    Content-Type: application/json
+  requestBody:
+    configId: integer
+    scheduleType: string
+  responseBody:
+    jobId: string
+    nextRun: datetime
+  errorHandling:
+    retryCount: 3
+pegaMappingNotes: Map to Pega Job Scheduler or Agent rules
+sourceAppianArtifact: EAP Run Config Scheduler

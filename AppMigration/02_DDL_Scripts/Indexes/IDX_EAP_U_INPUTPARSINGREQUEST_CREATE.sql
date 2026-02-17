@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_U_INPUTPARSINGREQUEST
+-- ============================================================
+
+CREATE INDEX IDX_EAP_U_INPUTPARSINGREQUEST_CREATED ON EAP_U_INPUTPARSINGREQUEST (created_on);
+CREATE INDEX IDX_EAP_U_INPUTPARSINGREQUEST_MODIFIED ON EAP_U_INPUTPARSINGREQUEST (modified_on);
+CREATE INDEX IDX_EAP_U_INPUTPARSINGREQUEST_CREATED_BY ON EAP_U_INPUTPARSINGREQUEST (created_by);
+

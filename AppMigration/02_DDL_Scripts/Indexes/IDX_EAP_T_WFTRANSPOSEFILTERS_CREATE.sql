@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_WFTRANSPOSEFILTERS
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_WFTRANSPOSEFILTERS_CREATED ON EAP_T_WFTRANSPOSEFILTERS (created_on);
+CREATE INDEX IDX_EAP_T_WFTRANSPOSEFILTERS_MODIFIED ON EAP_T_WFTRANSPOSEFILTERS (modified_on);
+CREATE INDEX IDX_EAP_T_WFTRANSPOSEFILTERS_CREATED_BY ON EAP_T_WFTRANSPOSEFILTERS (created_by);
+

@@ -1,0 +1,8 @@
+connectorName: EAP_File_System_Connector
+pegaConnectorType: File Connector
+description: File system connector for document and template management via NAS
+connectionDetails:
+  basePath: /mnt/nas/eap
+  protocol: SMB/CIFS
+pegaMappingNotes: Map to Pega File Listener or Connect-File rule
+sourceAppianArtifact: EAP Manage NAS Configuration

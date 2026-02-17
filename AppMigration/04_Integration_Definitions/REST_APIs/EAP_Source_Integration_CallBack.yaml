@@ -1,0 +1,27 @@
+integrationName: EAP_Source_Integration_CallBack
+pegaConnectorType: REST Connector
+description: Handles source data integration callbacks from external systems
+baseURL: https://env.integration.source.baseUrl
+authentication:
+  type: OAuth2
+  configuration:
+    grantType: client_credentials
+    tokenUrl: https://env.auth.tokenUrl
+endpoints:
+- name: initiateCallback
+  method: POST
+  path: /api/v1/source/callback
+  requestHeaders:
+    Content-Type: application/json
+  requestBody:
+    requestId: integer
+    processId: integer
+    status: string
+  responseBody:
+    success: boolean
+    message: string
+  errorHandling:
+    retryCount: 3
+    retryInterval: 5s
+pegaMappingNotes: Map to Pega Connect-REST rule with OAuth2 Authentication Profile
+sourceAppianArtifact: EAP Source Integration Call Back Initiation

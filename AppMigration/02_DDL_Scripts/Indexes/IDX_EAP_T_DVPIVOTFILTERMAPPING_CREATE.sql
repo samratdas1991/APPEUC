@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_DVPIVOTFILTERMAPPING
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_DVPIVOTFILTERMAPPING_CREATED ON EAP_T_DVPIVOTFILTERMAPPING (created_on);
+CREATE INDEX IDX_EAP_T_DVPIVOTFILTERMAPPING_MODIFIED ON EAP_T_DVPIVOTFILTERMAPPING (modified_on);
+CREATE INDEX IDX_EAP_T_DVPIVOTFILTERMAPPING_CREATED_BY ON EAP_T_DVPIVOTFILTERMAPPING (created_by);
+

@@ -1,0 +1,19 @@
+serviceName: EAP_Legacy_Data_Service
+pegaConnectorType: SOAP Connector
+description: Legacy SOAP service for enterprise data retrieval
+wsdlUrl: https://env.legacy.wsdlUrl
+operations:
+- name: GetEntityData
+  soapAction: urn:getEntityData
+  inputMessage: GetEntityDataRequest
+  outputMessage: GetEntityDataResponse
+- name: UpdateEntityData
+  soapAction: urn:updateEntityData
+  inputMessage: UpdateEntityDataRequest
+  outputMessage: UpdateEntityDataResponse
+authentication:
+  type: WS-Security
+  configuration:
+    usernameToken: true
+pegaMappingNotes: Map to Pega Connect-SOAP rule with WS-Security Authentication Profile
+sourceAppianArtifact: Appian Connected System (SOAP)

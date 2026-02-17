@@ -1,0 +1,25 @@
+integrationName: EAP_Document_Management
+pegaConnectorType: REST Connector
+description: Manages document upload, download, and generation
+baseURL: https://env.integration.docmgmt.baseUrl
+authentication:
+  type: OAuth2
+  configuration:
+    grantType: authorization_code
+endpoints:
+- name: uploadDocument
+  method: POST
+  path: /api/v1/documents/upload
+  requestHeaders:
+    Content-Type: multipart/form-data
+  requestBody:
+    file: binary
+    metadata: object
+  responseBody:
+    documentId: string
+    url: string
+  errorHandling:
+    retryCount: 2
+    timeout: 120s
+pegaMappingNotes: Map to Pega Content Management or Connect-REST with pxAttachStream
+sourceAppianArtifact: EAP Generate Output Files / EAP DWF Manual Upload

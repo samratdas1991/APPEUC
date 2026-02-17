@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_PROCESSPARAMCONFIG
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_PROCESSPARAMCONFIG_CREATED ON EAP_T_PROCESSPARAMCONFIG (created_on);
+CREATE INDEX IDX_EAP_T_PROCESSPARAMCONFIG_MODIFIED ON EAP_T_PROCESSPARAMCONFIG (modified_on);
+CREATE INDEX IDX_EAP_T_PROCESSPARAMCONFIG_CREATED_BY ON EAP_T_PROCESSPARAMCONFIG (created_by);
+

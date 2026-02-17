@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_DVSHEETCOPYMAPPING
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_DVSHEETCOPYMAPPING_CREATED ON EAP_T_DVSHEETCOPYMAPPING (created_on);
+CREATE INDEX IDX_EAP_T_DVSHEETCOPYMAPPING_MODIFIED ON EAP_T_DVSHEETCOPYMAPPING (modified_on);
+CREATE INDEX IDX_EAP_T_DVSHEETCOPYMAPPING_CREATED_BY ON EAP_T_DVSHEETCOPYMAPPING (created_by);
+

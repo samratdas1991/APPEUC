@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EXPORTABLEDATASUBSET
+-- ============================================================
+
+CREATE INDEX IDX_EXPORTABLEDATASUBSET_CREATED ON EXPORTABLEDATASUBSET (created_on);
+CREATE INDEX IDX_EXPORTABLEDATASUBSET_MODIFIED ON EXPORTABLEDATASUBSET (modified_on);
+CREATE INDEX IDX_EXPORTABLEDATASUBSET_CREATED_BY ON EXPORTABLEDATASUBSET (created_by);
+

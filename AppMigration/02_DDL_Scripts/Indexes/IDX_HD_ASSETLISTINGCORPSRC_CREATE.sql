@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: HD_ASSETLISTINGCORPSRC
+-- ============================================================
+
+CREATE INDEX IDX_HD_ASSETLISTINGCORPSRC_CREATED ON HD_ASSETLISTINGCORPSRC (created_on);
+CREATE INDEX IDX_HD_ASSETLISTINGCORPSRC_MODIFIED ON HD_ASSETLISTINGCORPSRC (modified_on);
+CREATE INDEX IDX_HD_ASSETLISTINGCORPSRC_CREATED_BY ON HD_ASSETLISTINGCORPSRC (created_by);
+

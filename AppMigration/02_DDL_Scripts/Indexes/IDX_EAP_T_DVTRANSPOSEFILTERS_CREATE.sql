@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_DVTRANSPOSEFILTERS
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_DVTRANSPOSEFILTERS_CREATED ON EAP_T_DVTRANSPOSEFILTERS (created_on);
+CREATE INDEX IDX_EAP_T_DVTRANSPOSEFILTERS_MODIFIED ON EAP_T_DVTRANSPOSEFILTERS (modified_on);
+CREATE INDEX IDX_EAP_T_DVTRANSPOSEFILTERS_CREATED_BY ON EAP_T_DVTRANSPOSEFILTERS (created_by);
+
