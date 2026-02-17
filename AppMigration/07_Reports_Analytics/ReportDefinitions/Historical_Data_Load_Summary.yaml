@@ -1,0 +1,32 @@
+reportName: Historical Data Load Summary
+description: Summary of historical data loading operations
+dataSource: HD_T_HistoricalData
+columns:
+- name: loadId
+  dataType: Integer
+  aggregation: COUNT
+- name: dataSource
+  dataType: Text
+  aggregation: GROUP
+- name: recordsLoaded
+  dataType: Integer
+  aggregation: SUM
+- name: loadDate
+  dataType: DateTime
+  aggregation: NONE
+- name: status
+  dataType: Text
+  aggregation: GROUP
+filters:
+- field: loadDate
+  operator: between
+  defaultValue: Last 90 days
+sorting:
+- field: loadDate
+  direction: DESC
+grouping:
+- dataSource
+- status
+pegaReportType: Report Definition (Summary)
+pegaImplementationNotes: Create as Summary report. Consider separate reporting class
+  for historical data metrics.

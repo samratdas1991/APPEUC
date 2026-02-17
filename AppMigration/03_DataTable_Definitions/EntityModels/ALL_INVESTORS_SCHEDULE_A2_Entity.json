@@ -1,0 +1,224 @@
+{
+  "entityName": "ALL_INVESTORS_SCHEDULE_A2",
+  "pegaClassName": "Data-ALL-INVESTORS-SCHEDULE-A2",
+  "namespace": "urn:com:appian:types",
+  "description": "Pega Data Type mapped from Appian CDT: ALL_INVESTORS_SCHEDULE_A2",
+  "sourceAppianArtifact": "CDT: ALL_INVESTORS_SCHEDULE_A2",
+  "attributes": [
+    {
+      "appianFieldName": "aInvestorControl",
+      "pegaPropertyName": "AInvestorControl",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "bInvestor",
+      "pegaPropertyName": "BInvestor",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "requestid",
+      "pegaPropertyName": "Requestid",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "processid",
+      "pegaPropertyName": "Processid",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "surrgtKey",
+      "pegaPropertyName": "SurrgtKey",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "cEntity",
+      "pegaPropertyName": "CEntity",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "dInvestment",
+      "pegaPropertyName": "DInvestment",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "eReturnOfCapital",
+      "pegaPropertyName": "EReturnOfCapital",
+      "appianDataType": "Number (Decimal)",
+      "pegaDataType": "Decimal",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "fNetGain",
+      "pegaPropertyName": "FNetGain",
+      "appianDataType": "Number (Decimal)",
+      "pegaDataType": "Decimal",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "gNetCurrentIncome",
+      "pegaPropertyName": "GNetCurrentIncome",
+      "appianDataType": "Number (Decimal)",
+      "pegaDataType": "Decimal",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "hPrincipal",
+      "pegaPropertyName": "HPrincipal",
+      "appianDataType": "Number (Decimal)",
+      "pegaDataType": "Decimal",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "iInterest",
+      "pegaPropertyName": "IInterest",
+      "appianDataType": "Number (Decimal)",
+      "pegaDataType": "Decimal",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "jStateTaxWithholding",
+      "pegaPropertyName": "JStateTaxWithholding",
+      "appianDataType": "Number (Decimal)",
+      "pegaDataType": "Decimal",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "kCorporateTax",
+      "pegaPropertyName": "KCorporateTax",
+      "appianDataType": "Number (Decimal)",
+      "pegaDataType": "Decimal",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "lForeignTax1441Withholding",
+      "pegaPropertyName": "LForeignTax1441Withholding",
+      "appianDataType": "Number (Decimal)",
+      "pegaDataType": "Decimal",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "mForeignTax1446Withholding",
+      "pegaPropertyName": "MForeignTax1446Withholding",
+      "appianDataType": "Number (Decimal)",
+      "pegaDataType": "Decimal",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "nFeederExpenseWithHolding",
+      "pegaPropertyName": "NFeederExpenseWithHolding",
+      "appianDataType": "Number (Decimal)",
+      "pegaDataType": "Decimal",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "oUkWht",
+      "pegaPropertyName": "OUkWht",
+      "appianDataType": "Number (Decimal)",
+      "pegaDataType": "Decimal",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "pTotalDistribution",
+      "pegaPropertyName": "PTotalDistribution",
+      "appianDataType": "Number (Decimal)",
+      "pegaDataType": "Decimal",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    }
+  ],
+  "relationships": [],
+  "migrationNotes": {
+    "complexity": "Medium",
+    "requiresCustomTransform": false,
+    "pegaClassHierarchy": "Data- > Data-ALL-INVESTORS-SCHEDULE-A2"
+  }
+}

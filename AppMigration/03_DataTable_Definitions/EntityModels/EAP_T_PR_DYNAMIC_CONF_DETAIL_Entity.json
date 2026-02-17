@@ -1,0 +1,59 @@
+{
+  "entityName": "EAP_T_PR_DYNAMIC_CONF_DETAIL",
+  "pegaClassName": "Data-EAP-T-PR-DYNAMIC-CONF-DETAIL",
+  "namespace": "urn:com:appian:types:eap",
+  "description": "Pega Data Type mapped from Appian CDT: EAP_T_PR_DYNAMIC_CONF_DETAIL",
+  "sourceAppianArtifact": "CDT: EAP_T_PR_DYNAMIC_CONF_DETAIL",
+  "attributes": [
+    {
+      "appianFieldName": "eap_pr_dynamic_conf_detail_id",
+      "pegaPropertyName": "EapPrDynamicConfDetailId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "eap_pr_dynamic_conf_id",
+      "pegaPropertyName": "EapPrDynamicConfId",
+      "appianDataType": "Number (Integer)",
+      "pegaDataType": "Integer",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "attribute_name",
+      "pegaPropertyName": "AttributeName",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "attribute_value",
+      "pegaPropertyName": "AttributeValue",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    }
+  ],
+  "relationships": [],
+  "migrationNotes": {
+    "complexity": "Simple",
+    "requiresCustomTransform": false,
+    "pegaClassHierarchy": "Data- > Data-EAP-T-PR-DYNAMIC-CONF-DETAIL"
+  }
+}

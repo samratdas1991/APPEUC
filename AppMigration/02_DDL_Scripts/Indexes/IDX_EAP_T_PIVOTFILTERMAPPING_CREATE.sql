@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_PIVOTFILTERMAPPING
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_PIVOTFILTERMAPPING_CREATED ON EAP_T_PIVOTFILTERMAPPING (created_on);
+CREATE INDEX IDX_EAP_T_PIVOTFILTERMAPPING_MODIFIED ON EAP_T_PIVOTFILTERMAPPING (modified_on);
+CREATE INDEX IDX_EAP_T_PIVOTFILTERMAPPING_CREATED_BY ON EAP_T_PIVOTFILTERMAPPING (created_by);
+

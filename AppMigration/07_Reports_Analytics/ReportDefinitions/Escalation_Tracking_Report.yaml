@@ -1,0 +1,32 @@
+reportName: Escalation Tracking Report
+description: Tracks all escalations with SLA compliance metrics
+dataSource: EAP_T_EscalationMaster
+columns:
+- name: escalationId
+  dataType: Integer
+  aggregation: COUNT
+- name: processName
+  dataType: Text
+  aggregation: NONE
+- name: escalationLevel
+  dataType: Integer
+  aggregation: MAX
+- name: slaStatus
+  dataType: Text
+  aggregation: GROUP
+- name: resolvedDate
+  dataType: DateTime
+  aggregation: NONE
+filters:
+- field: slaStatus
+  operator: equals
+  defaultValue: Breached
+sorting:
+- field: escalationLevel
+  direction: DESC
+grouping:
+- slaStatus
+- escalationLevel
+pegaReportType: Report Definition (Summary)
+pegaImplementationNotes: Leverage Pega SLA reporting. Map to pxUrgencyWork and pxSLAStatus
+  properties.

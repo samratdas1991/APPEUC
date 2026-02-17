@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_GTOUTENTITYFILTERS
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_GTOUTENTITYFILTERS_CREATED ON EAP_T_GTOUTENTITYFILTERS (created_on);
+CREATE INDEX IDX_EAP_T_GTOUTENTITYFILTERS_MODIFIED ON EAP_T_GTOUTENTITYFILTERS (modified_on);
+CREATE INDEX IDX_EAP_T_GTOUTENTITYFILTERS_CREATED_BY ON EAP_T_GTOUTENTITYFILTERS (created_by);
+

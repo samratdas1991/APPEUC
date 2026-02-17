@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_DWFMILESTONECONFIG
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_DWFMILESTONECONFIG_CREATED ON EAP_T_DWFMILESTONECONFIG (created_on);
+CREATE INDEX IDX_EAP_T_DWFMILESTONECONFIG_MODIFIED ON EAP_T_DWFMILESTONECONFIG (modified_on);
+CREATE INDEX IDX_EAP_T_DWFMILESTONECONFIG_CREATED_BY ON EAP_T_DWFMILESTONECONFIG (created_by);
+

@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_WFTRANSPOSEMAPPING
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_WFTRANSPOSEMAPPING_CREATED ON EAP_T_WFTRANSPOSEMAPPING (created_on);
+CREATE INDEX IDX_EAP_T_WFTRANSPOSEMAPPING_MODIFIED ON EAP_T_WFTRANSPOSEMAPPING (modified_on);
+CREATE INDEX IDX_EAP_T_WFTRANSPOSEMAPPING_CREATED_BY ON EAP_T_WFTRANSPOSEMAPPING (created_by);
+

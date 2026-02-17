@@ -1,0 +1,25 @@
+integrationName: EAP_Transformation_CallBack
+pegaConnectorType: REST Connector
+description: Handles DWF transformation callbacks and data validation
+baseURL: https://env.integration.transform.baseUrl
+authentication:
+  type: OAuth2
+  configuration:
+    grantType: client_credentials
+endpoints:
+- name: initiateTransform
+  method: POST
+  path: /api/v1/transform/callback
+  requestHeaders:
+    Content-Type: application/json
+  requestBody:
+    requestId: integer
+    templateId: integer
+    transformType: string
+  responseBody:
+    transformId: string
+    status: string
+  errorHandling:
+    retryCount: 3
+pegaMappingNotes: Map to Pega Connect-REST with Data Pages for caching
+sourceAppianArtifact: EAP Transformation Call Back Initiation

@@ -1,0 +1,33 @@
+reportName: Transformation Execution Log
+description: Log of all transformation executions with results
+dataSource: EAP_T_TransformationConfig
+columns:
+- name: transformId
+  dataType: Integer
+  aggregation: NONE
+- name: templateName
+  dataType: Text
+  aggregation: NONE
+- name: executionDate
+  dataType: DateTime
+  aggregation: NONE
+- name: status
+  dataType: Text
+  aggregation: GROUP
+- name: recordsProcessed
+  dataType: Integer
+  aggregation: SUM
+filters:
+- field: executionDate
+  operator: between
+  defaultValue: Last 30 days
+- field: status
+  operator: equals
+  defaultValue: ALL
+sorting:
+- field: executionDate
+  direction: DESC
+grouping:
+- status
+pegaReportType: Report Definition (List)
+pegaImplementationNotes: Create as Pega List report on transformation history class.

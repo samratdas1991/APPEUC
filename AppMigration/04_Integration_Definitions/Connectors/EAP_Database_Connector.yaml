@@ -1,0 +1,26 @@
+connectorName: EAP_Database_Connector
+pegaConnectorType: Database Connector (JDBC)
+description: Primary database connection for EAP data stores
+connectionDetails:
+  driverClass: com.mysql.cj.jdbc.Driver
+  jdbcUrl: jdbc:mysql://env.db.url
+  maxPoolSize: 20
+  minPoolSize: 5
+dataStores:
+- EAP Global DS
+- EAP DS Views
+- EAP Run Config DS
+- EAP IO Integration Config DS
+- EAP Input Parsing Config DS
+- EAP Transformation Config DS
+- EAP UI View Config DS
+- EAP Dynamic Workflow DS
+- EAP Dynamic Workflow View DS
+- EAP DataValidation Config DS
+- EAP Data Validation Views
+- EAP Historical Data DS
+- EAP Output Generation Config DS
+- HD DS
+pegaMappingNotes: Configure Pega Database instance. Map each Appian Data Store to
+  Pega class-to-table mapping.
+sourceAppianArtifact: Appian Data Stores (14 total)

@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_GTCUSTOMGENERATION
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_GTCUSTOMGENERATION_CREATED ON EAP_T_GTCUSTOMGENERATION (created_on);
+CREATE INDEX IDX_EAP_T_GTCUSTOMGENERATION_MODIFIED ON EAP_T_GTCUSTOMGENERATION (modified_on);
+CREATE INDEX IDX_EAP_T_GTCUSTOMGENERATION_CREATED_BY ON EAP_T_GTCUSTOMGENERATION (created_by);
+

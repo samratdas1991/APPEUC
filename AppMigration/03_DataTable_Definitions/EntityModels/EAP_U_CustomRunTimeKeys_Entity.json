@@ -1,0 +1,37 @@
+{
+  "entityName": "EAP_U_CustomRunTimeKeys",
+  "pegaClassName": "Data-EAP-U-CustomRunTimeKeys",
+  "namespace": "urn:com:appian:types:EAP",
+  "description": "Pega Data Type mapped from Appian CDT: EAP_U_CustomRunTimeKeys",
+  "sourceAppianArtifact": "CDT: EAP_U_CustomRunTimeKeys",
+  "attributes": [
+    {
+      "appianFieldName": "key",
+      "pegaPropertyName": "Key",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "value",
+      "pegaPropertyName": "Value",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    }
+  ],
+  "relationships": [],
+  "migrationNotes": {
+    "complexity": "Simple",
+    "requiresCustomTransform": false,
+    "pegaClassHierarchy": "Data- > Data-EAP-U-CustomRunTimeKeys"
+  }
+}

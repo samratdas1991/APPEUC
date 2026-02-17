@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_DVENTITYSHEETMAPPING
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_DVENTITYSHEETMAPPING_CREATED ON EAP_T_DVENTITYSHEETMAPPING (created_on);
+CREATE INDEX IDX_EAP_T_DVENTITYSHEETMAPPING_MODIFIED ON EAP_T_DVENTITYSHEETMAPPING (modified_on);
+CREATE INDEX IDX_EAP_T_DVENTITYSHEETMAPPING_CREATED_BY ON EAP_T_DVENTITYSHEETMAPPING (created_by);
+

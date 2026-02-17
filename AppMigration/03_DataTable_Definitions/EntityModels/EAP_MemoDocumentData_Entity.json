@@ -1,0 +1,103 @@
+{
+  "entityName": "EAP_MemoDocumentData",
+  "pegaClassName": "Data-EAP-MemoDocumentData",
+  "namespace": "urn:com:appian:types:eap",
+  "description": "Pega Data Type mapped from Appian CDT: EAP_MemoDocumentData",
+  "sourceAppianArtifact": "CDT: EAP_MemoDocumentData",
+  "attributes": [
+    {
+      "appianFieldName": "fundName",
+      "pegaPropertyName": "FundName",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "to",
+      "pegaPropertyName": "To",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "from",
+      "pegaPropertyName": "From",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "cc",
+      "pegaPropertyName": "Cc",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "subject",
+      "pegaPropertyName": "Subject",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "date",
+      "pegaPropertyName": "Date",
+      "appianDataType": "Date",
+      "pegaDataType": "Date",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "quarterEndDate",
+      "pegaPropertyName": "QuarterEndDate",
+      "appianDataType": "Date",
+      "pegaDataType": "Date",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "wireTransferDate",
+      "pegaPropertyName": "WireTransferDate",
+      "appianDataType": "Date",
+      "pegaDataType": "Date",
+      "maxLength": null,
+      "required": true,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    }
+  ],
+  "relationships": [],
+  "migrationNotes": {
+    "complexity": "Simple",
+    "requiresCustomTransform": false,
+    "pegaClassHierarchy": "Data- > Data-EAP-MemoDocumentData"
+  }
+}

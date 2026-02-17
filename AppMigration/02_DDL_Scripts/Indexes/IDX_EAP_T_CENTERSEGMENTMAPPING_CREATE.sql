@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_CENTERSEGMENTMAPPING
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_CENTERSEGMENTMAPPING_CREATED ON EAP_T_CENTERSEGMENTMAPPING (created_on);
+CREATE INDEX IDX_EAP_T_CENTERSEGMENTMAPPING_MODIFIED ON EAP_T_CENTERSEGMENTMAPPING (modified_on);
+CREATE INDEX IDX_EAP_T_CENTERSEGMENTMAPPING_CREATED_BY ON EAP_T_CENTERSEGMENTMAPPING (created_by);
+

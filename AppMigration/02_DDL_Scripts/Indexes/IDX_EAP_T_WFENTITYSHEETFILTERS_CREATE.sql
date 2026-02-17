@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_WFENTITYSHEETFILTERS
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_WFENTITYSHEETFILTERS_CREATED ON EAP_T_WFENTITYSHEETFILTERS (created_on);
+CREATE INDEX IDX_EAP_T_WFENTITYSHEETFILTERS_MODIFIED ON EAP_T_WFENTITYSHEETFILTERS (modified_on);
+CREATE INDEX IDX_EAP_T_WFENTITYSHEETFILTERS_CREATED_BY ON EAP_T_WFENTITYSHEETFILTERS (created_by);
+

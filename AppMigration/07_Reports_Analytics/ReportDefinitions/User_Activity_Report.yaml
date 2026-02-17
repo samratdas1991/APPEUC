@@ -1,0 +1,31 @@
+reportName: User Activity Report
+description: User login and action activity tracking
+dataSource: EAP_T_UserMaster
+columns:
+- name: userName
+  dataType: Text
+  aggregation: NONE
+- name: userGroup
+  dataType: Text
+  aggregation: GROUP
+- name: lastLoginDate
+  dataType: DateTime
+  aggregation: MAX
+- name: actionCount
+  dataType: Integer
+  aggregation: SUM
+- name: isActive
+  dataType: Boolean
+  aggregation: NONE
+filters:
+- field: isActive
+  operator: equals
+  defaultValue: 'true'
+sorting:
+- field: lastLoginDate
+  direction: DESC
+grouping:
+- userGroup
+pegaReportType: Report Definition (Summary)
+pegaImplementationNotes: Use Pega Operator activity data. Map to pyUserIdentifier
+  for operator tracking.

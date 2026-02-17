@@ -1,0 +1,25 @@
+integrationName: EAP_Email_Service
+pegaConnectorType: REST Connector
+description: Handles outbound email notifications and escalation emails
+baseURL: https://env.integration.email.baseUrl
+authentication:
+  type: APIKey
+  configuration:
+    headerName: Authorization
+endpoints:
+- name: sendEmail
+  method: POST
+  path: /api/v1/email/send
+  requestHeaders:
+    Content-Type: application/json
+  requestBody:
+    to: array
+    subject: string
+    body: string
+  responseBody:
+    messageId: string
+    status: string
+  errorHandling:
+    retryCount: 3
+pegaMappingNotes: Map to Pega Correspondence rule or Connect-REST
+sourceAppianArtifact: EAP Send Email / EAP Send Escalation Email

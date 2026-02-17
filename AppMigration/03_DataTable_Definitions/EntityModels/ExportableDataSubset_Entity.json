@@ -1,0 +1,59 @@
+{
+  "entityName": "ExportableDataSubset",
+  "pegaClassName": "Data-ExportableDataSubset",
+  "namespace": "urn:com:appian:ps:excel:types",
+  "description": "Pega Data Type mapped from Appian CDT: ExportableDataSubset",
+  "sourceAppianArtifact": "CDT: ExportableDataSubset",
+  "attributes": [
+    {
+      "appianFieldName": "fieldNames",
+      "pegaPropertyName": "FieldNames",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": false,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "fieldLabels",
+      "pegaPropertyName": "FieldLabels",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": false,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    },
+    {
+      "appianFieldName": "datasubset",
+      "pegaPropertyName": "Datasubset",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": false,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Default mapping"
+    },
+    {
+      "appianFieldName": "filename",
+      "pegaPropertyName": "Filename",
+      "appianDataType": "Text",
+      "pegaDataType": "Text (String)",
+      "maxLength": 255,
+      "required": false,
+      "defaultValue": null,
+      "validationRules": [],
+      "conversionNotes": "Direct mapping"
+    }
+  ],
+  "relationships": [],
+  "migrationNotes": {
+    "complexity": "Simple",
+    "requiresCustomTransform": false,
+    "pegaClassHierarchy": "Data- > Data-ExportableDataSubset"
+  }
+}

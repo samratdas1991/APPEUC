@@ -1,0 +1,25 @@
+integrationName: EAP_Parsing_Integration
+pegaConnectorType: REST Connector
+description: Invokes external parsing service for input file processing
+baseURL: https://env.integration.parsing.baseUrl
+authentication:
+  type: APIKey
+  configuration:
+    headerName: X-API-Key
+endpoints:
+- name: invokeParsing
+  method: POST
+  path: /api/v1/parse
+  requestHeaders:
+    Content-Type: multipart/form-data
+  requestBody:
+    fileId: integer
+    parserType: string
+  responseBody:
+    jobId: string
+    status: string
+  errorHandling:
+    retryCount: 3
+    timeout: 300s
+pegaMappingNotes: Map to Pega Connect-REST with async Queue Processor pattern
+sourceAppianArtifact: EAP Invoke Parsing Integration Call

@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_BULKCONFUPLOADTRANS
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_BULKCONFUPLOADTRANS_CREATED ON EAP_T_BULKCONFUPLOADTRANS (created_on);
+CREATE INDEX IDX_EAP_T_BULKCONFUPLOADTRANS_MODIFIED ON EAP_T_BULKCONFUPLOADTRANS (modified_on);
+CREATE INDEX IDX_EAP_T_BULKCONFUPLOADTRANS_CREATED_BY ON EAP_T_BULKCONFUPLOADTRANS (created_by);
+

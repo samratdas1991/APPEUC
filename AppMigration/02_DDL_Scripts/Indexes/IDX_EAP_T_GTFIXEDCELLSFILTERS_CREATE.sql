@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_GTFIXEDCELLSFILTERS
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_GTFIXEDCELLSFILTERS_CREATED ON EAP_T_GTFIXEDCELLSFILTERS (created_on);
+CREATE INDEX IDX_EAP_T_GTFIXEDCELLSFILTERS_MODIFIED ON EAP_T_GTFIXEDCELLSFILTERS (modified_on);
+CREATE INDEX IDX_EAP_T_GTFIXEDCELLSFILTERS_CREATED_BY ON EAP_T_GTFIXEDCELLSFILTERS (created_by);
+

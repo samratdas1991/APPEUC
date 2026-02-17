@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_REFPROCESSHISTTRANS
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_REFPROCESSHISTTRANS_CREATED ON EAP_T_REFPROCESSHISTTRANS (created_on);
+CREATE INDEX IDX_EAP_T_REFPROCESSHISTTRANS_MODIFIED ON EAP_T_REFPROCESSHISTTRANS (modified_on);
+CREATE INDEX IDX_EAP_T_REFPROCESSHISTTRANS_CREATED_BY ON EAP_T_REFPROCESSHISTTRANS (created_by);
+

@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_UIOUTENTITYMAPPING
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_UIOUTENTITYMAPPING_CREATED ON EAP_T_UIOUTENTITYMAPPING (created_on);
+CREATE INDEX IDX_EAP_T_UIOUTENTITYMAPPING_MODIFIED ON EAP_T_UIOUTENTITYMAPPING (modified_on);
+CREATE INDEX IDX_EAP_T_UIOUTENTITYMAPPING_CREATED_BY ON EAP_T_UIOUTENTITYMAPPING (created_by);
+

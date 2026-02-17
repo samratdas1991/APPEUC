@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_DVSHEETENTITYMAPPING
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_DVSHEETENTITYMAPPING_CREATED ON EAP_T_DVSHEETENTITYMAPPING (created_on);
+CREATE INDEX IDX_EAP_T_DVSHEETENTITYMAPPING_MODIFIED ON EAP_T_DVSHEETENTITYMAPPING (modified_on);
+CREATE INDEX IDX_EAP_T_DVSHEETENTITYMAPPING_CREATED_BY ON EAP_T_DVSHEETENTITYMAPPING (created_by);
+

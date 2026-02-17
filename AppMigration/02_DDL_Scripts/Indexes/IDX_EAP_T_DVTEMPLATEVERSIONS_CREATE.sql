@@ -1,0 +1,8 @@
+-- ============================================================
+-- Indexes for: EAP_T_DVTEMPLATEVERSIONS
+-- ============================================================
+
+CREATE INDEX IDX_EAP_T_DVTEMPLATEVERSIONS_CREATED ON EAP_T_DVTEMPLATEVERSIONS (created_on);
+CREATE INDEX IDX_EAP_T_DVTEMPLATEVERSIONS_MODIFIED ON EAP_T_DVTEMPLATEVERSIONS (modified_on);
+CREATE INDEX IDX_EAP_T_DVTEMPLATEVERSIONS_CREATED_BY ON EAP_T_DVTEMPLATEVERSIONS (created_by);
+

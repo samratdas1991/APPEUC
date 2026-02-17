@@ -1,0 +1,9 @@
+connectorName: EAP_Excel_Processing_Connector
+pegaConnectorType: Custom Connector
+description: Excel file processing for data extraction and report generation
+connectionDetails:
+  processingEngine: Apache POI
+  maxFileSize: 50MB
+pegaMappingNotes: Use Pega File Utility or custom Java function. Consider Data Flow
+  with file source.
+sourceAppianArtifact: Appian Excel Plugin / ExcelDataSubset CDT
