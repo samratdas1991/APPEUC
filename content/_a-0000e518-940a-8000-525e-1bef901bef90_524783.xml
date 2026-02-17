@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_257312</versionUuid>
+    <interface>
+        <name>EAP_sectionHeadingSimple</name>
+        <uuid>_a-0000e518-940a-8000-525e-1bef901bef90_524783</uuid>
+        <description>Returns a richTextDisplayField including an optional icon and some text</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_richTextDisplayField"(
+  value: {
+    #"SYSTEM_SYSRULES_richTextItem_v1"(
+      text: {
+        #"SYSTEM_SYSRULES_richTextIcon"(
+          icon: ri!icon,
+          size: "MEDIUM",
+          color: #"_a-0000e518-940a-8000-525e-1bef901bef90_524789"(ri!color, "SECONDARY")
+        ),
+        if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!icon), "", " "),
+        ri!label
+      },
+      size: #"_a-0000e518-940a-8000-525e-1bef901bef90_524789"(ri!size, "MEDIUM"),
+      style: #"_a-0000e518-940a-8000-525e-1bef901bef90_524789"(ri!style, "STRONG"),
+      color: #"_a-0000e518-940a-8000-525e-1bef901bef90_524789"(ri!color, "SECONDARY"),
+    )
+  },
+  showWhen: ri!showWhen
+)</definition>
+        <namedTypedValue>
+            <name>showWhen</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>icon</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>size</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>label</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>style</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>color</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_524913"/>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_257312"/>
+    </history>
+</contentHaul>

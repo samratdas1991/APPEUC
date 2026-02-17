@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_408538</versionUuid>
+    <rule>
+        <name>EAP_DataValidation_CustomActionGridRowLayout</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377362</uuid>
+        <description>Hold custom action grid row layout.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  id: ri!index,
+  contents: {
+    /*Custom Method Name*/
+    if(
+      or(
+        ri!isReadOnly = true()
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value: index(
+          ri!customAction[ri!index],
+          "custom_method_name",
+          {}
+        ),
+        placeholder: "--Enter Custom Method Name--",
+        saveInto:{
+          a!save(
+            ri!customAction[ri!index].custom_method_name,
+            save!value
+          ),
+          a!save(
+            ri!customAction[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!customAction[ri!index].modified_on,
+            now()
+          )
+        },
+        readOnly: ri!isReadOnly
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Enter Custom Method Name--",
+        choiceLabels: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!customMethodNameList
+          ),
+          null,
+          touniformstring(
+            ri!customMethodNameList
+          )
+        ),
+        choiceValues: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!customMethodNameList
+          ),
+          null,
+          touniformstring(
+            ri!customMethodNameList
+          )
+        ),
+        value: if(
+          #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+            value:  index(
+              ri!customAction[ri!index],
+              "custom_method_name",
+              {}
+            ),
+            choiceValue: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!customMethodNameList
+              ),
+              null,
+              touniformstring(
+                ri!customMethodNameList
+              )
+            )
+          ),
+          index(
+            ri!customAction[ri!index],
+            "custom_method_name",
+            {}
+          ),
+          null
+        ),
+        saveInto:{
+          a!save(
+            ri!customAction[ri!index].custom_method_name,
+            save!value
+          ),
+          a!save(
+            ri!customAction[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!customAction[ri!index].modified_on,
+            now()
+          )
+        },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value:index(
+                ri!customAction[ri!index],
+                "custom_method_name",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          )
+        },
+        required: if(
+          or(
+            ri!isReadOnly = true(),
+
+          ),
+          false(),
+          true()
+        )
+      )
+    )
+   ,
+    /*Status*/
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      align: "CENTER",
+      value: {
+        if(
+          or(
+            tointeger(
+              index(
+                ri!customAction[ri!index],
+                "isactive",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              value: 1,
+              showWhen: if(
+                or(
+                  ri!isReadOnly = true(),
+
+                ),
+                false(),
+                true()
+              ),
+              saveInto:{
+                a!save(
+                ri!customAction[ri!index].isactive,
+                0
+                ),
+                a!save(
+                  ri!customAction[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!customAction[ri!index].modified_on,
+                  now()
+                )
+              }
+            ),
+            linkStyle: "STANDALONE",
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-off",
+            caption: "No",
+            linkStyle: "STANDALONE",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              value: 0,
+              showWhen: if(
+                or(
+                  ri!isReadOnly = true(),
+
+                ),
+                false(),
+                true()
+              ),
+              saveInto: {
+                a!save(
+                ri!customAction[ri!index].isactive,
+                1
+              ),              
+
+              a!save(
+                ri!customAction[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!customAction[ri!index].modified_on,
+                now()
+              )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          )
+        )
+      }
+    ),
+    /*Delete*/
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        index(
+          ri!customAction[ri!index],
+          "custom_action_id",
+          {}
+        )
+      ),
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        label: "",
+        showWhen: if(
+          or(
+            ri!isReadOnly = true()
+          ),
+          false(),
+          true()
+        ),
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            "REMOVE"
+          ),
+          link: #"SYSTEM_SYSRULES_dynamicLink"(
+            saveInto: {
+              a!save(
+                ri!customAction,
+                remove(
+                  ri!customAction,
+                  ri!index
+                )
+              )
+            }
+          )
+        )
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        showWhen: if(
+          or(
+            ri!isReadOnly = true()
+          ),
+          false(),
+          true()
+        )
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>customAction</name>
+            <type>
+                <name>EAP_T_DVCustomAction?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>customMethodNameList</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377366"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_394821"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_408538"/>
+    </history>
+</contentHaul>

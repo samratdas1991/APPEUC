@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_256568</versionUuid>
+    <interface>
+        <name>EAP_AuditProcessRecipientEscalations</name>
+        <uuid>_a-0000e518-940a-8000-525e-1bef901bef90_473524</uuid>
+        <description>Holds audit grid for process recipient escalations.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!auditData: #"_a-0000e518-940a-8000-525e-1bef901bef90_471261"(
+    requestId: ri!requestId
+  ),
+  local!processController: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_361812"(
+    processControllerId: index(
+      local!auditData,
+      "process_controller_id",
+      {}
+    )
+  ),
+  local!milestone: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_350906"(
+    milestoneId: null
+  ),
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    label: "Audit Process Recipient Escalations",
+    contents: {
+      #"SYSTEM_SYSRULES_gridField_v1"(
+        data: local!auditData,
+        columns: {
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Escalation Type",
+            value: fv!row.escalation_type,
+            align: "CENTER"
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Soe Id",
+            value: fv!row.soe_id,
+            align: "CENTER"
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Step Name",
+            value: index(
+              index(
+                local!processController,
+                wherecontains(
+                  tointeger(
+                    fv!row.process_controller_id
+                  ),
+                  tointeger(
+                    index(
+                      local!processController,
+                      "process_controller_id",
+                      {}
+                    )
+                  )
+                ),
+                {}
+              ),
+              "step_name",
+              {}
+            ),
+            align: "CENTER"
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Milestone",
+            value: index(
+              index(
+                local!milestone,
+                wherecontains(
+                  tointeger(
+                    fv!row.milestone_id
+                  ),
+                  tointeger(
+                    index(
+                      local!milestone,
+                      "milestone_id",
+                      {}
+                    )
+                  )
+                ),
+                {}
+              ),
+              "name",
+              {}
+            ),
+            align: "CENTER"
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Created By",
+            value: fv!row.created_by,
+            align: "CENTER"
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Created On",
+            value: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3252928"(
+              dateTime: fv!row.created_on
+              
+            ),
+            align: "CENTER"
+          )
+          
+        },
+        pageSize: 10,
+        initialSorts: {},
+        shadeAlternateRows: false
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_473665"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_488400"/>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_256568"/>
+    </history>
+</contentHaul>

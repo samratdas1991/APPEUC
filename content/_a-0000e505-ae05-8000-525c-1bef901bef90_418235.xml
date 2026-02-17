@@ -1,0 +1,1118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e595-3324-8000-5263-1bef901bef90_736462</versionUuid>
+    <rule>
+        <name>EAP_LinkEUCMappingEditableGridRowLayout</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_418235</uuid>
+        <description>Holds gridRowLayout for link euc Mapping editable grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!runConfigData: a!refreshVariable(
+    value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+      processId: index(
+        ri!linkEucMapping[ri!index],
+        "process_id",
+        {}
+      ),
+      isActive: true()
+    ),
+    refreshOnReferencedVarChange: true()
+  ),
+  local!linkMappingId:if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!linkEucMapping[ri!index].existing_link_config_id
+    ),
+    null,
+    #"_a-0000e505-ae05-8000-525c-1bef901bef90_417610"(
+      linkConfigId:index(ri!linkEucMapping[ri!index],"existing_link_config_id",{}),
+      processId:index(
+        ri!linkEucMapping[ri!index],
+        "process_id",
+        {}
+      ),
+      runConfigId:index(
+        ri!linkEucMapping[ri!index],
+        "run_config_id",
+        {}
+      )
+    )
+  ),
+ 
+  local!data,
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    contents: {
+      /*Is Existing EUC?*/
+      if(
+        or(ri!isReadOnly),
+        #"SYSTEM_SYSRULES_textField"(
+          readOnly: true(),
+          value: if(
+            tointeger(
+              index(
+                ri!linkEucMapping[ri!index],
+                "is_existing_euc",
+                {}
+              )
+            )=0,
+            "No",
+            "Yes"
+          )
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288522"(
+          choiceLayout: "COMPACT",
+          choiceLabels: touniformstring(
+            {
+              "Yes",
+              "No"
+            }
+          ),
+          choiceValues: tointeger(
+            {
+              1,
+              0
+            }
+          ),
+          value: if(
+            contains(
+              tointeger(
+                {
+                  0,
+                  1
+                }
+              ),
+              tointeger(
+                index(
+                  ri!linkEucMapping[ri!index],
+                  "is_existing_euc",
+                  {}
+                )
+              )
+            ),
+            tointeger(
+              index(
+                ri!linkEucMapping[ri!index],
+                "is_existing_euc",
+                {}
+              )
+            ),
+            null
+          ),
+          saveInto: {
+            a!save(
+              ri!linkEucMapping[ri!index].is_existing_euc,
+              save!value
+            ),
+            a!save(
+              ri!linkEucMapping[ri!index].existing_link_config_id,
+              null
+            ),
+            a!save(
+              ri!linkEucMapping[ri!index].process_id,
+              null
+            ),
+            a!save(
+              ri!linkEucMapping[ri!index].run_config_id,
+              null
+            )
+          },
+          required: if(
+            or(
+              ri!isReadOnly
+            ),
+            false(),
+            true()
+          ),
+          disabled: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!linkEucMapping[ri!index],
+                "link_mapping_id",
+                {}
+              )
+            ),false(),true())
+        )
+      ),
+      /*LInk Config Name*/
+      if(
+        or(ri!isReadOnly),
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(tointeger(
+            index(
+              ri!linkEucMapping[ri!index],
+              "existing_link_config_id",
+              {}
+            )
+          )),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value:#"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "N/A"
+            )
+          ),
+          #"SYSTEM_SYSRULES_textField"(
+            readOnly: true(),
+            value: index(
+              index(
+                ri!linkEucConfig,
+                wherecontains(
+
+                  tointeger(
+                    index(
+                      ri!linkEucMapping[ri!index],
+                      "existing_link_config_id",
+                      {}
+                    )
+                  ),
+                  tointeger(index(ri!linkEucConfig,"link_config_id",{}))
+                ),
+                {}
+              ),
+              "link_config_name",
+              {}
+            )
+          )
+        )
+        ,
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+          disabled: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!linkEucMapping[ri!index],
+                "link_mapping_id",
+                {}
+              )
+            ),
+            if(
+              or(
+                index(
+                  ri!linkEucMapping[ri!index],
+                  "is_existing_euc",
+                  {}
+                ),
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!linkEucMapping[ri!index],
+                    "is_existing_euc",
+                    {}
+                  )
+                )
+              ),
+              false(),
+              true()
+            ),
+            true()
+          )
+          ,
+          placeholderLabel: "--Select Link Config Name--",
+          choiceLabels: touniformstring(
+            difference(
+              index(
+                ri!linkEucConfig,
+                "link_config_name",
+                {}
+              ),
+              index(
+                index(
+                  ri!linkEucConfig,
+                  wherecontains(
+                    tointeger(
+                      ri!linkConfigId
+                    ),
+                    tointeger(
+                      index(
+                        ri!linkEucConfig,
+                        "link_config_id",
+                        {}
+                      )
+                    )
+                  ),
+                  {}
+                ),
+                "link_config_name",
+                {}
+              )
+            )
+          ),
+          choiceValues: tointeger(
+            difference(
+              index(
+                ri!linkEucConfig,
+                "link_config_id",
+                {}
+              ),
+              ri!linkConfigId
+            )
+          ),
+          value: if(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+              value: index(
+                ri!linkEucMapping[ri!index],
+                "existing_link_config_id",
+                {}
+              ),
+              choiceValue: {
+                tointeger(
+                  difference(
+                    index(
+                      ri!linkEucConfig,
+                      "link_config_id",
+                      {}
+                    ),
+                    ri!linkConfigId
+                  )
+                ),
+
+              }
+            ),
+            index(
+              ri!linkEucMapping[ri!index],
+              "existing_link_config_id",
+              {}
+            ),
+            null
+          ),
+          saveInto: {
+            ri!linkEucMapping[ri!index].existing_link_config_id,
+            a!save(
+              ri!linkEucMapping[ri!index].process_id,
+              null
+            ),
+            a!save(
+              ri!linkEucMapping[ri!index].run_config_id,
+              null
+            )
+          },
+          required: false()/*if(*/
+          /*or(*/
+          /*index(*/
+          /*ri!linkEucMapping[ri!index],*/
+          /*"is_existing_euc",*/
+          /*{}*/
+          /*),*/
+          /*rule!EAP_Utils_CheckIsNull(*/
+          /*index(*/
+          /*ri!linkEucMapping[ri!index],*/
+          /*"is_existing_euc",*/
+          /*{}*/
+          /*)*/
+          /*),*/
+          /*ri!isReadOnly = true()*/
+          /*),*/
+          /*false(),*/
+          /*true()*/
+          /*)*/
+
+        )
+      ),
+      /*Process Name*/
+      if(
+        or(ri!isReadOnly),
+        #"SYSTEM_SYSRULES_textField"(
+          readOnly: true(),
+          value: index(index(
+            ri!processData,
+            wherecontains(
+              tointeger(
+                index(
+                  ri!linkEucMapping[ri!index],
+                  "process_id",
+                  {}
+                )
+              ),
+              tointeger(
+                index(
+                  ri!processData,
+                  "process_id",
+                  {}
+                )
+              )
+            ),
+            {}
+          ),"name",{})
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+          label: "process",
+          placeholderLabel: "--Select Process Name--",
+          choiceLabels: {
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!linkEucMapping[ri!index].existing_link_config_id
+              ),
+              index(
+                ri!processData,
+                "name",
+                {}
+              ),
+              index(
+                index(
+                  ri!processData,
+                  wherecontains(
+                    tointeger(
+                      index(
+                        #"_a-0000e505-ae05-8000-525c-1bef901bef90_417610"(
+                          linkConfigId: ri!linkEucMapping[ri!index].existing_link_config_id
+                        ),
+                        "process_id",
+                        {}
+                      )
+                    ),
+                    tointeger(
+                      index(
+                        ri!processData,
+                        "process_id",
+                        {}
+                      )
+                    )
+                  ),
+                  {}
+                ),
+                "name",
+                {}
+              )
+            )
+          },
+          choiceValues: {
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!linkEucMapping[ri!index].existing_link_config_id
+              ),
+              index(
+                ri!processData,
+                "process_id",
+                {}
+              ),
+              index(
+                index(
+                  ri!processData,
+                  wherecontains(
+                    tointeger(
+                      index(
+                        #"_a-0000e505-ae05-8000-525c-1bef901bef90_417610"(
+                          linkConfigId: ri!linkEucMapping[ri!index].existing_link_config_id
+                        ),
+                        "process_id",
+                        {}
+                      )
+                    ),
+                    tointeger(
+                      index(
+                        ri!processData,
+                        "process_id",
+                        {}
+                      )
+                    )
+                  ),
+                  {}
+                ),
+                "process_id",
+                {}
+              )
+            )
+          },
+          value: if(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+              value: index(
+                ri!linkEucMapping[ri!index],
+                "process_id",
+                {}
+              ),
+              choiceValue: {
+                tointeger(
+                  index(
+                    ri!processData,
+                    "process_id",
+                    {}
+                  )
+                )
+              }
+            ),
+            index(
+              ri!linkEucMapping[ri!index],
+              "process_id",
+              {}
+            ),
+            null
+          ),
+          saveInto: {
+            ri!linkEucMapping[ri!index].process_id,
+            a!save(
+              ri!linkEucMapping[ri!index].run_config_id,
+              null
+            )
+          },
+          required: if(
+            or(
+              ri!isReadOnly = true()
+            ),
+            false(),
+            true()
+          ),
+          disabled: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!linkEucMapping[ri!index],
+                "link_mapping_id",
+                {}
+              )
+            ),false(),true())
+        )
+      ),
+      if(
+        or(ri!isReadOnly),
+        #"SYSTEM_SYSRULES_textField"(
+          readOnly: true(),
+          value: index(
+            index(
+              local!runConfigData,
+              wherecontains(
+                tointeger(index(
+                  ri!linkEucMapping[ri!index],
+                  "run_config_id",
+                  {}
+                )),
+                tointeger(index(
+                  local!runConfigData,
+                  "run_config_id",
+                  {}
+                ))
+
+              ),
+              {}
+            ),
+            "process_display_name",
+            {}
+          )
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+          label: "run",
+          placeholderLabel: "--Select Run Config--",
+          choiceLabels: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!linkEucMapping[ri!index].existing_link_config_id
+            ),if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(touniformstring(
+                index(
+                  local!runConfigData,
+                  "process_display_name",
+                  {}
+                )
+              )),
+              null,
+              touniformstring(
+                index(
+                  local!runConfigData,
+                  "process_display_name",
+                  {}
+                )
+              )
+            ),
+            index(
+              index(
+                ri!runConfig,
+                wherecontains(
+                  tointeger(
+                    index(
+                      #"_a-0000e505-ae05-8000-525c-1bef901bef90_417610"(
+                        linkConfigId: ri!linkEucMapping[ri!index].existing_link_config_id,
+                        processId:index(
+                          ri!linkEucMapping[ri!index],
+                          "process_id",
+                          {}
+                        )
+                      ),
+                      "run_config_id",
+                      {}
+                    )
+                  ),
+                  tointeger(
+                    index(
+                      ri!runConfig,
+                      "run_config_id",
+                      {}
+                    )
+                  )
+                ),
+                {}
+              ),
+              "process_display_name",
+              {}
+            )
+
+          ) ,
+          choiceValues: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!linkEucMapping[ri!index].existing_link_config_id
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                local!runConfigData,
+                "process_display_name",
+                {}
+              )),
+              null, tointeger(
+                index(
+                  local!runConfigData,
+                  "run_config_id",
+                  {}
+                )
+              )),
+              index(
+                index(
+                  ri!runConfig,
+                  wherecontains(
+                    tointeger(
+                      index(
+                        #"_a-0000e505-ae05-8000-525c-1bef901bef90_417610"(
+                          linkConfigId: ri!linkEucMapping[ri!index].existing_link_config_id,
+                          processId:index(
+                            ri!linkEucMapping[ri!index],
+                            "process_id",
+                            {}
+                          )
+                        ),
+                        "run_config_id",
+                        {}
+                      )
+                    ),
+                    tointeger(
+                      index(
+                        ri!runConfig,
+                        "run_config_id",
+                        {}
+                      )
+                    )
+                  ),
+                  {}
+                ),
+                "run_config_id",
+                {}
+              )
+          ),
+          value: if(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+              value: index(
+                ri!linkEucMapping[ri!index],
+                "run_config_id",
+                {}
+              ),
+              choiceValue:if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!linkEucMapping[ri!index].existing_link_config_id
+                ),
+                if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                    local!runConfigData,
+                    "process_display_name",
+                    {}
+                  )),
+                  null, tointeger(
+                    index(
+                      local!runConfigData,
+                      "run_config_id",
+                      {}
+                    )
+                  )),
+                  index(
+                    index(
+                      ri!runConfig,
+                      wherecontains(
+                        tointeger(
+                          index(
+                            #"_a-0000e505-ae05-8000-525c-1bef901bef90_417610"(
+                              linkConfigId: ri!linkEucMapping[ri!index].existing_link_config_id,
+                              processId:index(
+                                ri!linkEucMapping[ri!index],
+                                "process_id",
+                                {}
+                              )
+                            ),
+                            "run_config_id",
+                            {}
+                          )
+                        ),
+                        tointeger(
+                          index(
+                            ri!runConfig,
+                            "run_config_id",
+                            {}
+                          )
+                        )
+                      ),
+                      {}
+                    ),
+                    "run_config_id",
+                    {}
+                  )
+              )
+            ),
+            index(
+              ri!linkEucMapping[ri!index],
+              "run_config_id",
+              {}
+            ),
+            null
+          ),
+          saveInto: ri!linkEucMapping[ri!index].run_config_id,
+          required: if(
+            or(
+              ri!isReadOnly = true()
+            ),
+            false(),
+            true()
+          ),
+          disabled: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!linkEucMapping[ri!index],
+                "link_mapping_id",
+                {}
+              )
+            ),false(),true())
+        )
+      ),
+      /* Manage link euc mapping */
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!linkEucMapping[ri!index].link_mapping_id
+        ),
+        {
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            readOnly: true()
+          )
+        },
+        if(
+          or(
+            ri!isReadOnly = true(),
+            not(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!linkEucMapping[ri!index].existing_link_config_id
+            ))
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: #"SYSTEM_SYSRULES_richTextIcon"(
+              icon:if(
+                or(tointeger(ri!manageLinkEucMappingId) = tointeger(ri!linkEucMapping[ri!index].link_mapping_id)),"eye-slash","eye"),
+              size: "MEDIUM",
+              caption: "Manage Linked Euc Mapping",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  if(
+                    not(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      ri!linkEucMapping[ri!index].existing_link_config_id
+                    )),
+                    a!save(
+                      ri!manageLinkEucMappingId,
+                      local!linkMappingId.link_mapping_id
+                    ),
+                    a!save(
+                      ri!manageLinkEucMappingId,
+                      ri!linkEucMapping[ri!index].link_mapping_id
+                    )
+                  )
+                  ,
+                  a!save(
+                    ri!showLinkMapping,
+                    1
+                  ),
+
+                  if(
+                    not(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      ri!linkEucMapping[ri!index].existing_link_config_id
+                    )),
+                    a!save(ri!readOnly,true()),
+                    {}
+                  )
+
+                }
+              )
+            ),
+            align: "CENTER"
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "cogs",
+              size: "MEDIUM",
+              caption: "Manage Linked Euc Mapping",
+              link: #"SYSTEM_SYSRULES_submitLink"(
+                saveInto: {
+                  a!save(
+                    ri!manageLinkEucMappingId,
+                    ri!linkEucMapping[ri!index].link_mapping_id
+                  )/*a!save(*/
+                  /*ri!showLinkMapping,*/
+                  /*1*/
+                  /*)*/
+
+                },
+                skipValidation: true()
+              )
+            ),
+            align: "CENTER"
+          )
+        )
+      ),
+      /*Is Active*/
+      if(
+        ri!isReadOnly = true(),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          images: {
+            #"SYSTEM_SYSRULES_documentImage"(
+              document: #"SYSTEM_SYSRULES_iconIndicator"(
+                icon: if(
+                  contains(
+                    toboolean(
+                      index(
+                        ri!linkEucMapping[ri!index],
+                        "is_active",
+                        {}
+                      )
+                    ),
+                    true()
+                  ),
+                  "STATUS_OK",
+                  "STATUS_NOTDONE"
+                )
+              )
+            )
+          },
+          align: "CENTER"
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          value: if(
+            or(
+              tointeger(
+                index(
+                  ri!linkEucMapping[ri!index],
+                  "is_active",
+                  {}
+                )
+              ) = 1
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "toggle-on",
+              caption: "Yes",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    ri!linkEucMapping[ri!index].is_active,
+                    0
+                  )
+                },
+                showWhen: or(not(
+
+                  ri!isReadOnly
+                ), #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!linkEucMapping[ri!index],"link_mapping_id",null)),)
+              ),
+              size: "MEDIUM_PLUS"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "toggle-off",
+              caption: "No",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    ri!linkEucMapping[ri!index].is_active,
+                    1
+                  )
+                },
+                showWhen:or( not(
+                  ri!isReadOnly
+                ), #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!linkEucMapping[ri!index],"link_mapping_id",null)),)
+              ),
+              size: "MEDIUM_PLUS"
+            )
+          ),
+          align: "CENTER"
+        )
+      ),
+      /* Move Up */
+      if(
+        or(
+          ri!isReadOnly = true(),
+          count(
+            ri!linkEucMapping
+          ) &lt; 2
+        ),
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: " ",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(
+                ri!index = 1,
+                "MOVE_UP_DISABLED",
+                "MOVE_UP"
+              )
+            ),
+            link: if(
+              ri!index = 1,
+              {},
+              #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    local!data,
+                    ri!linkEucMapping[ri!index - 1]
+                  ),
+                  a!save(
+                    ri!linkEucMapping[ri!index - 1],
+                    ri!linkEucMapping[ri!index]
+                  ),
+                  a!save(
+                    ri!linkEucMapping[ri!index],
+                    local!data
+                  ),
+                  #"SYSTEM_SYSRULES_forEach"(
+                    items: ri!linkEucMapping,
+                    expression: a!save(
+                      ri!linkEucMapping[fv!index].sequence_order,
+                      fv!index
+                    )
+                  ),
+                  a!save(
+                    ri!linkEucMapping[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!linkEucMapping[ri!index].modified_on,
+                    now()
+                  )
+                }
+              )
+            )
+          )
+        )
+      ),
+      /* Move Down */
+      if(
+        or(
+          ri!isReadOnly = true(),
+          count(
+            ri!linkEucMapping
+          ) &lt; 2
+        ),
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              if(
+                or(
+                  length(
+                    ri!linkEucMapping
+                  ) = 1,
+                  ri!index = count(
+                    ri!linkEucMapping
+                  )
+                ),
+                "MOVE_DOWN_DISABLED",
+                "MOVE_DOWN"
+              )
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  local!data,
+                  ri!linkEucMapping[ri!index]
+                ),
+                a!save(
+                  ri!linkEucMapping[ri!index],
+                  ri!linkEucMapping[ri!index + 1],
+
+                ),
+                a!save(
+                  ri!linkEucMapping[ri!index + 1],
+                  local!data
+                ),
+                #"SYSTEM_SYSRULES_forEach"(
+                  items: ri!linkEucMapping,
+                  expression: a!save(
+                    ri!linkEucMapping[fv!index].sequence_order,
+                    fv!index
+                  )
+                ),
+                a!save(
+                  ri!linkEucMapping[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!linkEucMapping[ri!index].modified_on,
+                  now()
+                )
+              },
+              showWhen: not(
+                or(
+                  length(
+                    ri!linkEucMapping
+                  ) = 1,
+                  ri!index = count(
+                    ri!linkEucMapping
+                  )
+                )
+              )
+            )
+          )
+        )
+      ),
+      /*Delete*/
+      if(
+        ri!isReadOnly,
+        {},
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!linkEucMapping[ri!index].link_mapping_id
+          ),
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            label: "",
+            images: #"SYSTEM_SYSRULES_documentImage"(
+              document: #"SYSTEM_SYSRULES_iconIndicator"(
+                "REMOVE"
+              ),
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    ri!linkEucMapping,
+                    remove(
+                      ri!linkEucMapping,
+                      ri!index
+                    )
+                  )
+                }
+              )
+            )
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            readOnly: true()
+          )
+        )
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>linkEucMapping</name>
+            <type>
+                <name>EAP_T_LinkEucMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>linkEucConfig</name>
+            <type>
+                <name>EAP_T_LinkEucConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>manageLinkEucMappingId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showLinkMapping</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>linkConfigName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>linkConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>allLinkEucMapping</name>
+            <type>
+                <name>EAP_T_LinkEucMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>readOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfig</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_445106"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_518331"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_523833"/>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_562878"/>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_736462"/>
+    </history>
+</contentHaul>

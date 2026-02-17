@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e562-1342-8000-d947-a7ef90a7ef90_5733515</versionUuid>
+    <rule>
+        <name>EAP_setRuntimeConfigValues</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_157881</uuid>
+        <description>Set Runtime Configuration values for the given Key</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  ri!configRtKey = "LAST_MONTH",
+  text(
+    eomonth(
+      todate(
+        now()
+      ),
+      - 1
+    ),
+    "MMMM"
+  ),
+  if(
+    ri!configRtKey = "CURRENT_MONTH",
+    text(
+      eomonth(
+        todate(
+          now()
+        ),
+        0
+      ),
+      "MMMM"
+    ),
+    if(
+      ri!configRtKey = "NEXT_MONTH",
+      text(
+        eomonth(
+          todate(
+            now()
+          ),
+          1
+        ),
+        "MMMM"
+      ),
+      if(
+        ri!configRtKey = "LAST_MONTH_INT",
+        text(
+          eomonth(
+            todate(
+              now()
+            ),
+            - 1
+          ),
+          "MM"
+        ),
+        if(
+          ri!configRtKey = "CURRENT_MONTH_INT",
+          text(
+            eomonth(
+              todate(
+                now()
+              ),
+              0
+            ),
+            "MM"
+          ),
+          if(
+            ri!configRtKey = "NEXT_MONTH_INT",
+            text(
+              eomonth(
+                todate(
+                  now()
+                ),
+                1
+              ),
+              "MM"
+            ),
+            if(
+              ri!configRtKey = "LAST_YEAR_INT",
+              text(
+                addyears(
+                  todatetime(
+                    now()
+                  ),
+                  - 1
+                ),
+                "YYYY"
+              ),
+              if(
+                ri!configRtKey = "CURRENT_YEAR_INT",
+                text(
+                  addyears(
+                    todatetime(
+                      now()
+                    ),
+                    0
+                  ),
+                  "YYYY"
+                ),
+                if(
+                  ri!configRtKey = "NEXT_YEAR_INT",
+                  text(
+                    addyears(
+                      todatetime(
+                        now()
+                      ),
+                      + 1
+                    ),
+                    "YYYY"
+                  ),
+                  if(
+                    ri!configRtKey = "PROCESS_ID",
+                    ri!processId,
+                    if(
+                      ri!configRtKey = "REQUEST_ID",
+                      ri!requestId,
+                      if(
+                        ri!configRtKey = "CURRENT_MONTH_YEAR_TEXT",
+                        text(
+                          eomonth(
+                            todate(
+                              now()
+                            ),
+                            0
+                          ),
+                          "MM"
+                        ) &amp; "." &amp; text(
+                          addyears(
+                            todatetime(
+                              now()
+                            ),
+                            0
+                          ),
+                          "YYYY"
+                        ),
+                        if(
+                          ri!configRtKey = "MAKER_ID",
+                          ri!makerId,
+                          if(
+                            ri!configRtKey = "PREVIOUS_MONTH_YEAR_TEXT_MMMYYYY",
+                            upper(
+                              text(
+                                eomonth(
+                                  todate(
+                                    now()
+                                  ),
+                                  - 1
+                                ),
+                                "MMM"
+                              )
+                            ) &amp; year(
+                              eomonth(
+                                todate(
+                                  now()
+                                ),
+                                - 1
+                              )
+                            ),
+                            if(
+                              ri!configRtKey = "SECOND_PREVIOUS_MONTH_YEAR_TEXT_MMMYYYY",
+                              upper(
+                                text(
+                                  eomonth(
+                                    todate(
+                                      now()
+                                    ),
+                                    - 2
+                                  ),
+                                  "MMM"
+                                )
+                              ) &amp; year(
+                                eomonth(
+                                  todate(
+                                    now()
+                                  ),
+                                  - 2
+                                )
+                              ),
+                              if(
+                                ri!configRtKey = "THIRD_PREVIOUS_MONTH_YEAR_TEXT_MMMYYYY",
+                                upper(
+                                  text(
+                                    eomonth(
+                                      todate(
+                                        now()
+                                      ),
+                                      - 3
+                                    ),
+                                    "MMM"
+                                  )
+                                ) &amp; year(
+                                  eomonth(
+                                    todate(
+                                      now()
+                                    ),
+                                    - 3
+                                  )
+                                ),
+                                if(
+                                  ri!configRtKey = "SECOND_PREVIOUS_MONTH_YEAR_TEXT_MMM YYYY",
+                                  text(
+                                    eomonth(
+                                      todate(
+                                        now()
+                                      ),
+                                      - 2
+                                    ),
+                                    "MMM"
+                                  ) &amp; " " &amp; year(
+                                    eomonth(
+                                      todate(
+                                        now()
+                                      ),
+                                      - 2
+                                    )
+                                  ),
+                                  if(
+                                    ri!configRtKey = "PREV_MONTH_REQ_ID",
+                                    #"_a-0000e4eb-4158-8000-d8ef-a7ef90a7ef90_1572444"(
+                                      processId: ri!processId,
+                                      requestMonth: ri!requestMonth,
+                                      requestYear: ri!requestYear
+                                    ),
+                                    if(
+                                      ri!configRtKey = "ACCOUNT_NUMBER",
+                                      ri!accountNumber,
+                                      if(
+                                        ri!configRtKey = "TEXT_FILTER",
+                                        #"_a-0000e518-940a-8000-525e-1bef901bef90_524789"(
+                                          ri!textFilter,
+                                          0
+                                        ),
+                                        if(
+                                          ri!configRtKey = "NUMBER_FILTER",
+                                          #"_a-0000e518-940a-8000-525e-1bef901bef90_524789"(
+                                            ri!numberFilter,
+                                            0
+                                          ),
+                                          if(
+                                            ri!configRtKey = "LAST_DAY_OF_CURRENT_MONTH_MM/DD/YYYY",
+                                            text(
+                                              eomonth(
+                                                todate(
+                                                  now()
+                                                ),
+                                                0
+                                              ),
+                                              "MM/DD/YYYY"
+                                            ),
+                                            if(
+                                              ri!configRtKey = "CURRENT_MONTH_YEAR_MMM-YYYY",
+                                              UPPER(
+                                                text(
+                                                  eomonth(
+                                                    todate(
+                                                      now()
+                                                    ),
+                                                    0
+                                                  ),
+                                                  "MMM"
+                                                )
+                                              ) &amp; "-" &amp; text(
+                                                addyears(
+                                                  todatetime(
+                                                    now()
+                                                  ),
+                                                  0
+                                                ),
+                                                "YYYY"
+                                              ),
+                                              if(
+                                                ri!configRtKey = "CURRENT_MONTH_YEAR_MMM-YY",
+                                                proper(
+                                                  text(
+                                                    eomonth(
+                                                      todate(
+                                                        now()
+                                                      ),
+                                                      0
+                                                    ),
+                                                    "MMM"
+                                                  )
+                                                ) &amp; "-" &amp; text(
+                                                  addyears(
+                                                    todatetime(
+                                                      now()
+                                                    ),
+                                                    0
+                                                  ),
+                                                  "YY"
+                                                ),
+                                                if(
+                                                  ri!configRtKey = "HISTORICAL_TWO_MONTHS_REQ_ID",
+                                                  #"_a-0000e546-64c0-8000-d92e-a7ef90a7ef90_4276576"(
+                                                    processId: ri!processId,
+                                                    noOfMonths: 2,
+                                                    requestId: ri!requestId
+                                                  ),
+                                                  if(
+                                                    ri!configRtKey = "HISTORICAL_THREE_MONTHS_REQ_ID",
+                                                    #"_a-0000e546-64c0-8000-d92e-a7ef90a7ef90_4276576"(
+                                                      processId: ri!processId,
+                                                      noOfMonths: 3,
+                                                      requestId: ri!requestId
+                                                    ),
+                                                    if(
+                                                      ri!configRtKey = "HISTORICAL_FOUR_MONTHS_REQ_ID",
+                                                      #"_a-0000e546-64c0-8000-d92e-a7ef90a7ef90_4276576"(
+                                                        processId: ri!processId,
+                                                        noOfMonths: 4,
+                                                        requestId: ri!requestId
+                                                      ),
+                                                    if(
+                                                      ri!configRtKey = "HISTORICAL_FIVE_MONTHS_REQ_ID",
+                                                      #"_a-0000e546-64c0-8000-d92e-a7ef90a7ef90_4276576"(
+                                                        processId: ri!processId,
+                                                        noOfMonths: 5,
+                                                        requestId: ri!requestId
+                                                      ),
+                                                      if(
+                                                        ri!configRtKey = "HISTORICAL_ELEVEN_MONTHS_REQ_ID",
+                                                        #"_a-0000e546-64c0-8000-d92e-a7ef90a7ef90_4276576"(
+                                                          processId: ri!processId,
+                                                          noOfMonths: 11,
+                                                          requestId: ri!requestId
+                                                        ),
+                                                        if(
+                                                          and(
+                                                            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9906"(
+                                                              ri!customRunTimeKeys
+                                                            ),
+                                                            contains(
+                                                              touniformstring(
+                                                                index(
+                                                                  ri!customRunTimeKeys,
+                                                                  "key",
+                                                                  null
+                                                                )
+                                                              ),
+                                                              tostring(
+                                                                ri!configRtKey
+                                                              )
+                                                            )
+                                                          ),
+                                                          #"_a-0000e518-940a-8000-525e-1bef901bef90_524789"(
+                                                            index(
+                                                              index(
+                                                                index(
+                                                                  ri!customRunTimeKeys,
+                                                                  wherecontains(
+                                                                    tostring(
+                                                                      ri!configRtKey
+                                                                    ),
+                                                                    touniformstring(
+                                                                      index(
+                                                                        ri!customRunTimeKeys,
+                                                                        "key",
+                                                                        null
+                                                                      )
+                                                                    )
+                                                                  ),
+                                                                  null
+                                                                ),
+                                                                1,
+                                                                null
+                                                              ),
+                                                              "value",
+                                                              null
+                                                            ),
+                                                            0
+                                                          ),
+                                                          if(
+                                                            contains(
+                                                              {
+                                                                "MM_YYYY",
+                                                                "YYYYMMDD_HHMMSS",
+                                                                "MMYYYY",
+                                                                "MMMYYYY",
+                                                                "DDMMYYYY",
+                                                                "YYYY",
+                                                                "YYYYMM",
+                                                                "MMDD"
+                                                              },
+                                                              ri!configRtKey
+                                                            ),
+                                                            text(
+                                                              addyears(todatetime(now()),0),
+                                                              #"_a-0000e518-940a-8000-525e-1bef901bef90_524789"(ri!configRtKey,"YYYYMMDD_HHMMSS")
+                                                            ),
+                                                            "Invalid Runtime Key"
+                                                          )
+                                                        )
+                                                      )
+                                                    )
+                                                  )
+                                                )
+                                              )
+                                            )
+                                          )
+                                        )
+                                      )
+                                    )
+                                    )
+                                  )
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>configRtKey</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>makerId</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>accountNumber</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>textFilter</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>numberFilter</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestMonth</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestYear</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>customRunTimeKeys</name>
+            <type>
+                <name>EAP_U_CustomRunTimeKeys?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_191976"/>
+        <historyInfo versionUuid="_a-0000e4de-321b-8000-d8ea-a7ef90a7ef90_1355015"/>
+        <historyInfo versionUuid="_a-0000e4e2-51bd-8000-d8ec-a7ef90a7ef90_1434764"/>
+        <historyInfo versionUuid="_a-0000e4e2-51bd-8000-d8ec-a7ef90a7ef90_1536638"/>
+        <historyInfo versionUuid="_a-0000e4eb-4158-8000-d8ef-a7ef90a7ef90_1572713"/>
+        <historyInfo versionUuid="_a-0000e4fa-5365-8000-d8f6-a7ef90a7ef90_1837792"/>
+        <historyInfo versionUuid="_a-0000e503-3bb4-8000-d8f9-a7ef90a7ef90_2012810"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_406539"/>
+        <historyInfo versionUuid="_a-0000e51e-d772-8000-d90e-a7ef90a7ef90_2704569"/>
+        <historyInfo versionUuid="_a-0000e532-9d92-8000-d91b-a7ef90a7ef90_3557732"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_559081"/>
+        <historyInfo versionUuid="_a-0000e54f-9d27-8000-d937-a7ef90a7ef90_4803268"/>
+        <historyInfo versionUuid="_a-0000e556-357d-8000-d93d-a7ef90a7ef90_5017894"/>
+        <historyInfo versionUuid="_a-0000e560-c151-8000-d946-a7ef90a7ef90_5706244"/>
+        <historyInfo versionUuid="_a-0000e562-1342-8000-d947-a7ef90a7ef90_5733515"/>
+    </history>
+</contentHaul>

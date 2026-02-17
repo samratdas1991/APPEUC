@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_712751</versionUuid>
+    <constant>
+        <name>EAP_BULK_TRANSACTION_STATUS_LABELS</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_712747</uuid>
+        <description>1. Initiated |
+2. Import Document |
+3. Data Validation |
+4. User/Role Validation |
+5. Pending User Verification |
+6. Bulk Load Users |
+7. Success |
+8. Aborted |
+9. Failed |</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>Initiated</el>
+                <el>Import Document</el>
+                <el>Data Validation</el>
+                <el>User/Role Validation</el>
+                <el>Pending User Verification</el>
+                <el>Bulk Load Users</el>
+                <el>Success</el>
+                <el>Aborted</el>
+                <el>Failed</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_712751"/>
+    </history>
+</contentHaul>

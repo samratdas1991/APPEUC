@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_758426</versionUuid>
+    <interface>
+        <name>EAP_FileTypeEditableGrid</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_7955</uuid>
+        <description>Contains editable grid for creating file types.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridLayout"(
+  label: "",
+  shadeAlternateRows: false(),
+  headerCells: {
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Config Name",
+      align: "LEFT",
+      helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+        helpToolTip: "List of Config Names Coming from IO Config of source type"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "File Config Name",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+        categoryGroup : #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] ,
+        uniqueKey :#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[10]
+      ),
+      label: "File Type",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+        categoryGroup : #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] ,
+        uniqueKey :#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1]
+      ),
+      label: "Delimiter",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Password Protected?",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Password",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Avg. File Size (MB)",
+      align: "RIGHT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Optional",
+      align: "CENTER",
+      helpTooltip: if(ri!isReadOnly=true,"",#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+        helpToolTip: "Value is comming on the basis of IO Configuration"
+      ))
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Parsing Required",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Active",
+      align: "CENTER"
+    ),
+    if(
+      ri!isReadOnly,
+      {},
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "",
+        align: "LEFT"
+      )
+    )
+    
+  },
+  columnConfigs: {
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    ),
+    if(
+      ri!isReadOnly,
+      {},
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "ICON"
+      )
+    )
+    
+  },
+  rows: {
+    #"SYSTEM_SYSRULES_applyComponents"(
+      function: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_8059"(
+        index: _,
+        fileTypeConfig: ri!fileTypeConfig,
+        masterLookUpData: ri!masterLookUpData,
+        isReadOnly:ri!isReadOnly,
+        configInfo: ri!configInfo,
+        processControllerData:ri!processControllerConfigData
+      ),
+      array: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!fileTypeConfig
+          ),
+          count(
+            ri!fileTypeConfig
+          ) = 0
+        ),
+        null,
+        tointeger(
+          enumerate(
+            count(
+              ri!fileTypeConfig
+            )
+          ) + 1
+        )
+      )
+    )
+  },
+  selectionSaveInto: {},
+  addRowLink: if(
+    ri!isReadOnly,
+    {},
+    #"SYSTEM_SYSRULES_dynamicLink"(
+      label: "Add line items",
+      value: 'type!{urn:com:appian:types:eap}EAP_T_RefProcessInFileType'(
+       
+        process_id: tointeger(index(ri!uniqueIdentifiers,"process_id",{})),
+        /*config_id: 1,*/
+        is_active: 1,
+        is_optional:0,
+        is_password_protected: tostring(
+          "N"
+        ),
+        created_by: loggedInUser(),
+        created_on: now(),
+        modified_by: loggedInUser(),
+        modified_on: now(),
+        is_parsing_reqd:0
+      ),
+      saveInto: a!save(
+        ri!fileTypeConfig,
+        append(
+          ri!fileTypeConfig,
+          save!value
+        )
+      )
+    )
+  ),
+  spacing:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_40702"
+)</definition>
+        <namedTypedValue>
+            <name>fileTypeConfig</name>
+            <type>
+                <name>EAP_T_RefProcessInFileType?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>uniqueIdentifiers</name>
+            <type>
+                <name>EAP_Temp_ParsingUniqueIdentifiers?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>configInfo</name>
+            <type>
+                <name>EAP_T_Int?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerConfigData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_46317"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_88914"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_94972"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_175546"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_226946"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_313917"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_367055"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_463050"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_493512"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_554224"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_757141"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_758426"/>
+    </history>
+</contentHaul>

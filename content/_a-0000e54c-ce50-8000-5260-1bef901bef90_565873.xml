@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_752052</versionUuid>
+    <interface>
+        <name>EAP_RecalculateNextTriggerTimeScreen</name>
+        <uuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_565873</uuid>
+        <description>Hold screen to recalculate next trigger time</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  
+  local!process:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+    isActive: 1
+  ),
+  local!processDetails:a!refreshVariable(value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+    processId:ri!processId,
+    isActive: 1
+  ),
+  refreshOnReferencedVarChange:true(),
+  refreshOnVarChange:ri!processId
+  ),
+ local!selectedId,
+ local!runConfigId,
+ local!runConfigDetails:a!refreshVariable(value: if(
+   or(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),
+   #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!runConfigId)
+   ),
+   null,
+   #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+     processId:ri!processId,
+     runConfigId:local!runConfigId,
+     isActive: 1,
+     pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+       startIndex: 1,
+       batchSize: -1
+     )
+   )
+ ),
+ refreshOnReferencedVarChange:true(),
+ refreshOnVarChange:{
+   ri!processId,
+   local!runConfigId
+ }
+ ),
+  local!runConfig:if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),
+    null,
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+      processId:ri!processId,
+      isActive: 1,
+      pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+        startIndex: 1,
+        batchSize: -1
+      )
+    )
+  ),
+  local!masterLookup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    type: {
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[3],
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[1],
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[2]
+    }
+  ),
+  local!recurrenceType: index(
+    local!masterLookup,
+    wherecontains(
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[3],
+      touniformstring(index(
+        local!masterLookup,
+        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[4],{}
+      ))
+    ),
+    {}
+  ),
+
+  local!country: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+    index(local!processDetails,"calendar_id",{})
+  ),
+  {},
+  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_125209"(
+    calendarId:  index(local!processDetails,"calendar_id",{})
+  )),
+  local!nonWorkingday:  if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(local!processDetails,"calendar_id",{})
+    ),
+    {},
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_125445"(
+      calendarId: index(local!country,"calendar_id",{}),
+      isActive:1
+    )
+
+  ),
+  local!holidayDate:  if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(local!processDetails,"calendar_id",{})
+    ),
+    {},
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_127093"(
+      calendarId: index(local!country,"calendar_id",{}),
+      isActive:1
+    )
+  ),
+  local!exceptionWorkingDay:  if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(local!processDetails,"calendar_id",{})
+    ),
+    {},
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_69112"(
+      calendarId: index(local!country,"calendar_id",{}),
+      isActive:1
+    )
+  ),
+  local!processingWeekdayId:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    categoryGroup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10373"[3],
+    type: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[2],
+    label:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!runConfigDetails),null,split(index(local!runConfigDetails,"processing_weekdays",{}),",")) 
+  ),
+ 
+  local!hour:  if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+    index(local!runConfigDetails,"trigger_time",{})
+  ),
+  {},
+  left(touniformstring(
+    index(local!runConfigDetails,"trigger_time",{})),
+    1)),
+    local!minute:  if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(local!runConfigDetails,"trigger_time",{})
+    ),
+    {},
+    extract(touniformstring(
+      index(local!runConfigDetails,"trigger_time",{})),
+      ":"," ")),
+      local!meridiem:  if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        index(local!runConfigDetails,"trigger_time",{})
+      ),
+      {},
+      right(touniformstring(
+        index(local!runConfigDetails,"trigger_time",{})),
+        2)),
+        local!triggerDate: 
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_68950"(
+          startbusinesdday:index(local!runConfigDetails,"start_businesss_days",{}),
+          processingMonth:index(local!runConfigDetails,"processing_month",{}),
+          recurrenceType:index(local!runConfigDetails,"recurrence_type",{}),
+          processingWeekday:index(local!processingWeekdayId,"code",{}),
+          nonWorkingDay:index(local!nonWorkingday,"non_working_day",{}),
+          holidayDate: index(local!holidayDate,"holiday_date",{}),
+          exceptionWorkingDay: index(local!exceptionWorkingDay,"exception_working_date",{}),
+          triggerTime: 
+          if(  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!hour),{},
+          totime(concat(local!hour,":",if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!minute),"00",local!minute)," ",local!meridiem))),
+          timezone: index(local!country,"timezone_id",{}),
+          recurrenceFrequency: index(
+            local!runConfigDetails,
+            "recurrence_frequency",
+            {}
+          ),
+        ),
+        local!triggerDateTime:if(or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!triggerDate),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!hour),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!meridiem)
+        ),
+        {},
+        concat(local!triggerDate," ",local!hour,":",if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!minute),"00",local!minute)," ",local!meridiem)
+        ),
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label:"Re-Calculate Next Trigger Time"
+    ),
+    if(
+      ri!isProductionSupport&lt;&gt;true(),
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns:{
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_177515"(
+                pickerLabel : "Process Name",
+                isRequired: true(),
+                placeholder: "--Select Process Name--",
+                maxSelections: 1,
+                identifiers: tointeger(index(local!process,"process_id",{})),
+                choiceLabels: index(local!process,"name",{}), 
+                selectedValue: tointeger(ri!processId),
+                saveInto:  {ri!processId,
+                a!save(ri!runConfig,null),
+                a!save(local!runConfigId,null),
+                a!save(local!selectedId,null)
+                }
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"()
+        }
+      ),
+      {}
+     
+    )
+ ,
+    #"SYSTEM_SYSRULES_gridField_v1"(
+      label: "",
+      data: local!runConfig,
+      columns: {
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Process Display Name",
+          sortField :"process_display_name",
+          value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"process_display_name",{})),
+          "N/A", index(fv!row,"process_display_name",{}))
+
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Recurrence Type",
+          sortField :"recurrence_type",
+          value: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"recurrence_type",{})),
+          "N/A",
+          index(
+            index(
+              local!recurrenceType,
+              wherecontains(
+                touniformstring(index(fv!row,"recurrence_type",{})),
+                touniformstring(index(local!recurrenceType,"label",{}))
+              ),
+              {}
+            ),
+            "label",
+            {}
+          ))
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Recurrence Frequency",
+          sortField :"recurrence_frequency",
+          value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"recurrence_frequency",{})),
+          "N/A", index(fv!row,"recurrence_frequency",{})),
+          align: "END"
+        ),
+        
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Current Trigger Date/Time",
+          sortField :"next_trigger_datetime",
+          value:  if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"next_trigger_datetime",{})),
+          "N/A",
+          concat(todate(index(fv!row,"next_trigger_datetime",{}))," ",
+          totime(index(fv!row,"next_trigger_datetime",{})))),
+          align: "END"
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Current Trigger Date/Time(In GMT)",
+          sortField :"next_trigger_datetime_gmt",
+          value:  if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"next_trigger_datetime_gmt",{})),
+          "N/A",
+          concat(todate(index(fv!row,"next_trigger_datetime_gmt",{}))," ",
+          totime(index(fv!row,"next_trigger_datetime_gmt",{})))),
+          align: "END"
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Start Business Day",
+          sortField :"start_businesss_days",
+          value: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"start_businesss_days",{})),
+          "N/A",index(fv!row,"start_businesss_days",{})),
+          align: "END"
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "End Business Day",
+          sortField :"end_business_days",
+          value: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"end_business_days",{})),
+          "N/A",index(fv!row,"end_business_days",{})),
+          align: "END"
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Trigger Time",
+          sortField :"trigger_time",
+          value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"trigger_time",{})),
+          "N/A",
+          index(fv!row,"trigger_time",{})),
+          align: "END"
+        ),
+        
+        
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Is Adhoc Trigger",
+          sortField :"is_adhoc_trigger",
+          value: 
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            images: {
+              #"SYSTEM_SYSRULES_documentImage"(
+                document: #"SYSTEM_SYSRULES_iconIndicator"(
+                  icon: if(
+                    contains(
+                      tointeger(
+                        index(fv!row, "is_adhoc_trigger", {})
+                      ),
+                      1
+                    ),
+                    "STATUS_OK",
+                    "STATUS_NOTDONE"
+                  )
+                ),
+                caption: if(
+                  contains(
+                    tointeger(
+                      index(fv!row,"is_adhoc_trigger", {})
+                    ),
+                    1
+                  ),
+                  "Yes",
+                  "No"
+                )
+              )
+            }
+          ),
+          align: "CENTER"
+
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Is Active",
+          value:  #"SYSTEM_SYSRULES_imageField_v1"(
+            images: {
+              #"SYSTEM_SYSRULES_documentImage"(
+                document: #"SYSTEM_SYSRULES_iconIndicator"(
+                  icon: if(
+                    contains(
+                      toboolean(
+                        index(fv!row, "is_active", {})
+                      ),
+                      true()
+                    ),
+                    "STATUS_OK",
+                    "STATUS_NOTDONE"
+                  )
+                ),
+                caption: if(
+                  contains(
+                    toboolean(
+                      index(fv!row, "is_active", {})
+                    ),
+                    true()
+                  ),
+                  "Active",
+                  "In-Active"
+                )
+              )
+            }
+          ),
+          align: "CENTER"
+        )
+      },
+      selectable:true(),
+      selectionStyle:"CHECKBOX",
+      selectionValue:local!selectedId,
+      selectionSaveInto:{
+        a!save(
+          local!selectedId,
+          if(
+            count(save!value)&gt;1,
+        save!value[count(save!value)],
+        save!value
+        )),
+        a!save(
+          local!runConfigId,fv!selectedRows.run_config_id
+        ),
+        a!save(ri!runConfig,null)
+      },
+      pageSize: 10
+    ),
+  #"SYSTEM_SYSRULES_ButtonLayout"(
+    primaryButtons:{
+      #"SYSTEM_SYSRULES_ButtonWidget"(
+        label:"Calculate Next Trigger Time",
+        
+        saveInto:{
+          a!save(
+            ri!runConfig,#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12181"(
+              refRunConfig:local!runConfigDetails,
+              nextTriggerDatetime:local!triggerDateTime,
+              nextTriggerDateTimeGmt: gmt(
+                local!triggerDateTime,
+                if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(local!country,"timezone_id",{})
+                ),
+                0,
+                index(local!country,"timezone_id",{}))
+              )
+            )
+          )
+        },
+        disabled:  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!runConfigId)
+      )
+    }
+  ),
+ 
+#"SYSTEM_SYSRULES_columnsLayout"(
+  showWhen:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!runConfig),false(),true()),
+  columns: {#"SYSTEM_SYSRULES_columnLayout"(
+  contents:{
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      label:  "Next Trigger Date/Time",
+      value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+        text:local!triggerDateTime,
+        color:"POSITIVE"
+      ),
+     
+    )
+  }
+),
+#"SYSTEM_SYSRULES_columnLayout"(
+  contents:{
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      label:  "Next Trigger Date/Time In GMT",
+      value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+        text:ri!runConfig.next_trigger_datetime_gmt,
+        color:"POSITIVE"
+      ),
+
+    )
+  }
+),
+#"SYSTEM_SYSRULES_columnLayout"()
+  }),
+  #"SYSTEM_SYSRULES_richTextDisplayField"(),
+  #"SYSTEM_SYSRULES_ButtonLayout"(
+    primaryButtons:{
+      #"SYSTEM_SYSRULES_ButtonWidget"(
+        label:"Submit",
+value:"Submit",
+style:"PRIMARY",
+        saveInto:{
+         ri!buttonAction
+        },
+        submit:true(),
+        validate: false(),
+        disabled: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!runConfig)
+      )
+    },
+    secondaryButtons: {
+      #"SYSTEM_SYSRULES_ButtonWidget"(
+        label:"Cancel",
+        value:"Cancel",
+        style:"DESTRUCTIVE",
+        saveInto:{
+          ri!buttonAction
+        },
+        submit:true(),
+        validate: false()
+      )
+    }
+  ),
+  }
+)</definition>
+        <namedTypedValue>
+            <name>runConfig</name>
+            <type>
+                <name>EAP_T_RefRunConfig</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isProductionSupport</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_566993"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_650133"/>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_752052"/>
+    </history>
+</contentHaul>

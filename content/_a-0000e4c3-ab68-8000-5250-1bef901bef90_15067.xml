@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_202638</versionUuid>
+    <interface>
+        <name>EAP_ActionTypeRefreshPivotEditableGrid</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_15067</uuid>
+        <description>Hold action type refresh pivot grid.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridLayout"(
+  /*label: "Refresh Pivot Action Config",*/
+  labelPosition: "ABOVE",
+  headerCells: {
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Sheet Name"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Pivot Table Name"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Active",
+      align: "CENTER",
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "",
+      align: "CENTER",
+      showWhen: if(
+        or(
+          ri!isReadonly=true(),
+          length(
+            wherecontains(
+              tointeger(
+                ri!actionId
+              ),
+              tointeger(
+                index(
+                  ri!actionTypeRefreshPivot,
+                  "wf_action_id",
+                  null
+                )
+              )
+            )
+          )&lt;2
+        ),
+        false(),
+        true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "",
+      align: "CENTER",
+      showWhen: if(
+        or(
+          ri!isReadonly=true(),
+          length(
+            wherecontains(
+              tointeger(
+                ri!actionId
+              ),
+              tointeger(
+                index(
+                  ri!actionTypeRefreshPivot,
+                  "wf_action_id",
+                  null
+                )
+              )
+            )
+          )&lt;2
+        ),
+        false(),
+        true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      align: "CENTER",
+      showWhen: if(
+        or(
+          ri!isReadOnly = true()
+        ),
+        false(),
+        true()
+      )
+    )
+  },
+  columnConfigs: {
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON",
+      showWhen: if(
+        or(
+          ri!isReadonly=true(),
+          length(
+            wherecontains(
+              tointeger(
+                ri!actionId
+              ),
+              tointeger(
+                index(
+                  ri!actionTypeRefreshPivot,
+                  "wf_action_id",
+                  null
+                )
+              )
+            )
+          )&lt;2
+        ),
+        false(),
+        true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON",
+      showWhen: if(
+        or(
+          ri!isReadonly=true(),
+          length(
+            wherecontains(
+              tointeger(
+                ri!actionId
+              ),
+              tointeger(
+                index(
+                  ri!actionTypeRefreshPivot,
+                  "wf_action_id",
+                  null
+                )
+              )
+            )
+          )&lt;2
+        ),
+        false(),
+        true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON",
+      showWhen: if(
+        or(
+          ri!isReadOnly = true()
+        ),
+        false(),
+        true()
+      )
+    )
+  },
+  rows: {
+    #"SYSTEM_SYSRULES_applyComponents"(
+      function: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_14793"(
+        index: _,
+        actionTypeRefreshPivot: ri!actionTypeRefreshPivot,
+        IsReadOnly: ri!isReadOnly,
+        actionId : ri!actionId
+      ),
+      array: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!actionTypeRefreshPivot
+          ),
+          count(
+            ri!actionTypeRefreshPivot
+          ) = 0
+        ),
+        null,
+     wherecontains(
+          tointeger(
+            ri!actionId
+          ),
+          tointeger(
+            index(
+              ri!actionTypeRefreshPivot,
+              "wf_action_id",
+              null
+            )
+          )
+        )
+      )
+    )
+  },
+  selectionSaveInto: {},
+  addRowLink: if(
+    ri!isReadOnly,
+    {},
+    #"SYSTEM_SYSRULES_dynamicLink"(
+      label: "Add line items",
+      value: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_70991"(
+        isActive: 1,
+        wfActionId: ri!actionId,
+        createdBy: loggedInUser(),
+        createdOn: now()
+      ),
+      saveInto: a!save(
+        ri!actionTypeRefreshPivot,
+        append(
+          ri!actionTypeRefreshPivot,
+          save!value
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>actionTypeRefreshPivot</name>
+            <type>
+                <name>EAP_T_RefProcessWfRefreshPivot?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_78732"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_158101"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_202638"/>
+    </history>
+</contentHaul>

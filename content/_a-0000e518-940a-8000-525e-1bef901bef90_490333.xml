@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_506148</versionUuid>
+    <interface>
+        <name>EAP_IntegratedSystemGrid</name>
+        <uuid>_a-0000e518-940a-8000-525e-1bef901bef90_490333</uuid>
+        <description>Hold grid for intergrated system</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!intSystem: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_57368"(
+   isActive: 1
+  ),
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+  label:if(ri!isReadOnly=true(),
+  "IO Integrated System",
+  "Manage Integrated System"
+  ),
+  contents: {
+    #"SYSTEM_SYSRULES_richTextDisplayField"(),
+    #"SYSTEM_SYSRULES_gridLayout"(
+      label: "",
+      shadeAlternateRows: false(),
+      headerCells: {
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "System Type Code",
+          align: "LEFT",
+          helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+            uniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[23],
+            categoryGroup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10373"[5]
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "Lookup System Type Code",
+          align: "LEFT",
+          helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+            uniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[24],
+            categoryGroup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10373"[5]
+          )
+        ),
+
+
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "Is Active",
+          align: "LEFT"
+        ),
+        if(
+          ri!isReadOnly,
+          {},
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "",
+            align: "LEFT"
+          )
+        )
+
+      },
+      columnConfigs: {
+
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "DISTRIBUTE",
+          weight: 3
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "DISTRIBUTE",
+          weight: 3
+        ),
+
+
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "ICON"
+        ),
+        if(
+          ri!isReadOnly,
+          {},
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "ICON"
+          )
+        )
+
+      },
+      rows: #"SYSTEM_SYSRULES_applyComponents"(
+        function: #"_a-0000e518-940a-8000-525e-1bef901bef90_490345"(
+          index: _,
+          integratedSystemConfig: ri!integratedSystemConfig,
+          masterLookUpData: ri!masterLookUpData,
+          isReadOnly: ri!isReadOnly,
+          lookupSytemCode:ri!lookupSytemCode,
+          intSysQE:local!intSystem
+        ),
+        array: if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!integratedSystemConfig
+            ),
+            count(
+              ri!integratedSystemConfig
+            ) = 0
+          ),
+          null,
+          tointeger(
+            enumerate(
+              count(
+                ri!integratedSystemConfig
+              )
+            ) + 1
+          )
+        )
+      ),
+      selectionSaveInto: {},
+      addRowLink: if(
+        ri!isReadOnly,
+        {},
+        #"SYSTEM_SYSRULES_dynamicLink"(
+          label: "Add line items",
+          value: 'type!{urn:com:appian:types:eap}EAP_T_IntSys'(
+            is_active: true,
+            created_by: loggedInUser(),
+            created_on: now(),
+            modified_by: loggedInUser(),
+            modified_on: now(),
+            lookup_system_type_code:ri!lookupSytemCode
+          ),
+          saveInto: a!save(
+            ri!integratedSystemConfig,
+            append(
+              ri!integratedSystemConfig,
+              save!value
+            )
+          )
+        )
+      ),
+      spacing:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_40702"
+    ),
+    if(
+      ri!isReadOnly=true(),
+      {},
+    #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[1],
+          value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[1],
+          saveInto: {
+            ri!buttonAction
+
+          },
+          submit: true,
+          validate:true(),
+          style: "PRIMARY",
+
+        ),
+      },
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+          value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+          saveInto: ri!buttonAction,
+          submit: true,
+          style: "DESTRUCTIVE",
+          validate: false
+        )
+      }
+    ))
+  }
+))
+
+</definition>
+        <namedTypedValue>
+            <name>integratedSystemConfig</name>
+            <type>
+                <name>EAP_T_IntSys?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>lookupSytemCode</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_506148"/>
+    </history>
+</contentHaul>

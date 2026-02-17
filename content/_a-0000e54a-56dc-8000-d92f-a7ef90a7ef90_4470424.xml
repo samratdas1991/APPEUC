@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e563-1019-8000-d948-a7ef90a7ef90_5811175</versionUuid>
+    <rule>
+        <name>EAP_GetStatusForAudit</name>
+        <uuid>_a-0000e54a-56dc-8000-d92f-a7ef90a7ef90_4470424</uuid>
+        <description>Rule to fetch status for audit</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>
+  if(
+    ri!statusType = "success",
+    if(
+      ri!sourceCode = "IN_EMAIL",
+      /*cons!EI_STATUS_CODE[1],*/ /* Commenting out as Temp Fix to move the dependent objects to SIT*/
+      "EMAIL_SRC_RECEIVED",
+      {}  
+    ),
+    if(
+      ri!statusType = "failed",
+      if(
+        ri!sourceCode = "IN_EMAIL",
+        /*cons!EI_STATUS_CODE[2],*/  /* Commenting out as Temp Fix to move the dependent objects to SIT*/
+        "EMAIL_SRC_NOT_FOUND",
+        {}  
+      ),
+      {}
+    )
+
+  )</definition>
+        <namedTypedValue>
+            <name>statusType</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sourceCode</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e560-c151-8000-d946-a7ef90a7ef90_5701587"/>
+        <historyInfo versionUuid="_a-0000e563-1019-8000-d948-a7ef90a7ef90_5811175"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<siteHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>426ef930-8ea1-4755-8572-64a2fc94713e</versionUuid>
+  <site a:uuid="c99cbd22-504a-4a21-a56a-72d147a87dbc" name="End User Computing">
+    <description>site for the EAP Application.</description>
+    <urlStub>end-user-computing</urlStub>
+    <page a:uuid="a942cfe9-5584-312e-8726-30501578b35a">
+      <staticName>Process</staticName>
+      <description/>
+      <urlStub>process</urlStub>
+      <uiObject a:uuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_254036" xsi:type="a:ContentFreeformRule"/>
+      <iconId>f00b</iconId>
+      <visibilityExpr>fn!true()</visibilityExpr>
+      <pageWidth>FULL</pageWidth>
+      <areUrlParamsEncrypted>true</areUrlParamsEncrypted>
+      <autoContextUpdateEnabled>false</autoContextUpdateEnabled>
+      <siteBrandingEnabled>true</siteBrandingEnabled>
+      <darkThemeEnabled>false</darkThemeEnabled>
+    </page>
+    <page a:uuid="fd589870-0099-334d-9918-f72422bf3b0e">
+      <staticName>Master LookUp Configs</staticName>
+      <description/>
+      <urlStub>master-lookup-configs</urlStub>
+      <uiObject a:uuid="8e01e0e8-cb19-4023-a394-043e4c57053c" xsi:type="a:RecordType"/>
+      <iconId>f1e5</iconId>
+      <visibilityExpr>fn!true()</visibilityExpr>
+      <pageWidth>WIDE</pageWidth>
+      <areUrlParamsEncrypted>true</areUrlParamsEncrypted>
+      <autoContextUpdateEnabled>false</autoContextUpdateEnabled>
+      <siteBrandingEnabled>true</siteBrandingEnabled>
+      <darkThemeEnabled>false</darkThemeEnabled>
+    </page>
+    <page a:uuid="4dfe3011-dee0-3616-b789-857e418b6fcd">
+      <staticName>Integrated System</staticName>
+      <description/>
+      <urlStub>lookup-system</urlStub>
+      <uiObject a:uuid="215137f6-2e5e-4054-a058-325760b36aba" xsi:type="a:RecordType"/>
+      <iconId>f0e8</iconId>
+      <visibilityExpr>fn!true()</visibilityExpr>
+      <pageWidth>FULL</pageWidth>
+      <areUrlParamsEncrypted>true</areUrlParamsEncrypted>
+      <autoContextUpdateEnabled>false</autoContextUpdateEnabled>
+      <siteBrandingEnabled>true</siteBrandingEnabled>
+      <darkThemeEnabled>false</darkThemeEnabled>
+    </page>
+    <page a:uuid="25789195-7533-37ab-8461-6e8156464fba">
+      <staticName>Admin Console</staticName>
+      <description/>
+      <urlStub>admin-console</urlStub>
+      <uiObject a:uuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_254451" xsi:type="a:ContentFreeformRule"/>
+      <iconId>f085</iconId>
+      <visibilityExpr>fn!true()</visibilityExpr>
+      <pageWidth>WIDE</pageWidth>
+      <areUrlParamsEncrypted>true</areUrlParamsEncrypted>
+      <autoContextUpdateEnabled>false</autoContextUpdateEnabled>
+      <siteBrandingEnabled>true</siteBrandingEnabled>
+      <darkThemeEnabled>false</darkThemeEnabled>
+    </page>
+    <visibility>268435456</visibility>
+    <headerBackgroundColor>#003b70</headerBackgroundColor>
+    <selectedTabBackgroundColor>#d9261C</selectedTabBackgroundColor>
+    <faviconRef a:uuid="SYSTEM_CONTENT_SITES_DEFAULT_FAVICON" xsi:type="a:CollaborationDocument"/>
+    <logoRef a:uuid="SYSTEM_CONTENT_SITES_DEFAULT_LOGO" xsi:type="a:CollaborationDocument"/>
+    <accentColor>#003b70</accentColor>
+    <showName>true</showName>
+    <tempoLinkVisibility>HIDDEN</tempoLinkVisibility>
+    <showRecordNews>true</showRecordNews>
+    <tasksInSitesVisibility>HIDDEN</tasksInSitesVisibility>
+    <buttonShape>SQUARED</buttonShape>
+    <navigationBarStyle>STYLE2</navigationBarStyle>
+    <inputShape>SQUARED</inputShape>
+    <isSystem>false</isSystem>
+    <displayName>End User Computing</displayName>
+    <isStaticDisplayName>true</isStaticDisplayName>
+    <nameExprIsEvaluable>true</nameExprIsEvaluable>
+    <primaryNavLayoutType>TOPBAR</primaryNavLayoutType>
+    <buttonLabelCase>UPPERCASE</buttonLabelCase>
+    <dialogShape>SQUARED</dialogShape>
+    <pageNameCase>UPPERCASE</pageNameCase>
+    <showUserProfile>true</showUserProfile>
+    <showUserSettings>true</showUserSettings>
+  </site>
+  <roleMap>
+    <role name="site_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+      </groups>
+    </role>
+    <role name="site_viewer">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000eda1-5e24-8000-9b5a-01075c01075c_4696</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="d3edf4e6-77d4-4cf9-8f48-a03f3b98fd40"/>
+    <historyInfo versionUuid="33cd430c-3ab8-4bcb-a256-013e0fab8a91"/>
+    <historyInfo versionUuid="12459d28-666a-4672-be19-c8fb6a374ba3"/>
+    <historyInfo versionUuid="b9a80588-38a5-417b-af06-b9bc39f92c93"/>
+    <historyInfo versionUuid="5de16ef4-9e31-423b-bcb2-4e740bef902c"/>
+    <historyInfo versionUuid="118630bf-bd67-483e-b179-d0ab3e4b3287"/>
+    <historyInfo versionUuid="1439f602-cd45-4721-892b-a74f4a5c2243"/>
+    <historyInfo versionUuid="274dbd7a-0337-4f17-b5fc-05adddf518a4"/>
+    <historyInfo versionUuid="901cece6-9a7d-4d7a-a0df-a378a8372a36"/>
+    <historyInfo versionUuid="aef6c29f-6c90-475f-a206-1c2cb2b830e7"/>
+    <historyInfo versionUuid="2a44a22f-ea92-4ee9-bd05-6a49fe55ace1"/>
+    <historyInfo versionUuid="426ef930-8ea1-4755-8572-64a2fc94713e"/>
+  </history>
+</siteHaul>

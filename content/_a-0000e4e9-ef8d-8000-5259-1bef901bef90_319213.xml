@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_319414</versionUuid>
+    <rule>
+        <name>EAP_SetValueForUiOutViewFilters</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_319213</uuid>
+        <description>Sets value to Ui Out View Filters.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+    ri!uiOutViewFilters
+  ),
+  null,
+  #"SYSTEM_SYSRULES_forEach"(
+    items: ri!uiViewFilterId,
+    expression: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_319201"(
+      uiViewFilterId:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!uiViewFilterId
+        ),
+        ri!uiOutViewFilters[fv!index].uiViewFilterId,
+        ri!uiViewFilterId
+      ),
+      processId: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!processId
+        ),
+        ri!uiOutViewFilters[fv!index].processId,
+        ri!processId
+      ),
+      uiEntityMappingId: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!uiEntityMappingId
+        ),
+        ri!uiOutViewFilters[fv!index].ui_entity_mapping_id,
+        ri!uiEntityMappingId
+      ),
+      filterName:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!filterName
+        ),
+        ri!uiOutViewFilters[fv!index].filterName,
+        ri!filterName
+      ),
+      filterType:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!filterType
+        ),
+        ri!uiOutViewFilters[fv!index].filterType,
+        ri!filterType
+      ),
+      isActive: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!isActive
+        ),
+        ri!uiOutViewFilters[fv!index].isActive,
+        ri!isActive
+      ),
+      createdBy: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!uiOutViewFilters[fv!index].createdBy
+        ),
+        ri!createdBy,
+        ri!uiOutViewFilters[fv!index].createdBy,
+
+      ),
+      createdOn: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!uiOutViewFilters[fv!index].createdOn
+        ),
+        ri!createdOn,
+        ri!uiOutViewFilters[fv!index].createdOn,
+
+      ),
+      modifiedBy: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!modifiedBy
+        ),
+        ri!uiOutViewFilters[fv!index].modifiedBy,
+        ri!modifiedBy
+      ),
+      modifiedOn: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!modifiedOn
+        ),
+        ri!uiOutViewFilters[fv!index].modifiedOn,
+        ri!modifiedOn
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>uiViewFilterId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>uiEntityMappingId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>filterName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>filterType</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>uiOutViewFilters</name>
+            <type>
+                <name>EAP_T_UiOutViewFilters?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_319414"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_369180</versionUuid>
+    <interface>
+        <name>EAP_Utils_CustomPicker</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_177515</uuid>
+        <description>holds the generic custom picker interface</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_pickerFieldCustom"(
+  label: ri!pickerLabel,
+  labelPosition: ri!labelPosition,
+  required: ri!isRequired,
+  placeholder: ri!placeholder,
+  instructions: ri!instructions,
+  maxSelections: ri!maxSelections,
+  readOnly: ri!isReadOnly,
+  requiredMessage: ri!requiredMessage,
+  helpTooltip: ri!helpTooltip,
+  validations: ri!validations,
+  disabled: ri!isDisabled,
+  showWhen: ri!isShowWhen,
+  suggestFunction: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_185945"(
+    filter: _,
+    labels: ri!choiceLabels,
+    idenifiers: ri!identifiers
+  ),
+  selectedLabels: if(
+    count(
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!type
+          ),
+          wherecontains(
+            ri!selectedValue,
+            ri!identifiers
+          ),
+          wherecontains(
+        cast(
+          ri!type,
+          ri!selectedValue
+          ),
+          cast(
+            ri!type,
+            ri!identifiers
+            )
+      )
+      )
+    )&lt;1,
+    null,
+    #"SYSTEM_SYSRULES_forEach"(
+      items: ri!selectedValue,
+      expression: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_186587"(
+        identifier: tostring(fv!item),
+        labels: touniformstring(ri!choiceLabels),
+        identifiers: touniformstring(ri!identifiers)
+      )
+    )
+  ),
+  value: if(
+    count(
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!type
+        ),
+        wherecontains(
+          ri!selectedValue,
+          ri!identifiers
+        ),
+        wherecontains(
+          cast(
+            ri!type,
+            ri!selectedValue
+          ),
+          cast(
+            ri!type,
+            ri!identifiers
+          )
+        )
+      )
+      
+    )&gt;0,
+    ri!selectedValue,
+    null
+  ),
+  saveInto: {
+    a!save(
+      ri!saveInto,
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_186376"(
+        array: save!value
+      )
+    ),
+    ri!additionalSave
+  }
+)</definition>
+        <namedTypedValue>
+            <name>pickerLabel</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>labelPosition</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isRequired</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>placeholder</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>instructions</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>maxSelections</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requiredMessage</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>helpTooltip</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>validations</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isDisabled</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isShowWhen</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>identifiers</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>additionalSave</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>choiceLabels</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedValue</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>saveInto</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>type</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_192462"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_192482"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_192891"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_204318"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_360022"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_369180"/>
+    </history>
+</contentHaul>

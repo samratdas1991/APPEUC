@@ -1,0 +1,943 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_772398</versionUuid>
+    <interface>
+        <name>EAP_OutputFileTypeForm</name>
+        <uuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_247482</uuid>
+        <description>Form to create output file type</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  
+  #"SYSTEM_SYSRULES_columnsLayout"(
+    columns: {
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: {
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+            label: "Config Name",
+            helpTooltip:"List of Config Names from I/O Config.",            
+            placeholderLabel: "--Select Config Name--",
+            choiceLabels: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!configChoiceLabel
+              ),
+              null,
+              touniformstring(
+                ri!configChoiceLabel
+              )
+            ),
+            choiceValues: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!configChoiceValue
+              ),
+              null,
+              tointeger(
+                ri!configChoiceValue
+              )
+            ),
+            value: if(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                value: index(
+                  ri!outputFileType,
+                  "config_id",
+                  null
+                ),
+                choiceValue: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!configChoiceValue
+                  ),
+                  null,
+                  tointeger(
+                    ri!configChoiceValue
+                  )
+                )
+              ),
+              index(
+                ri!outputFileType,
+                "config_id",
+                null
+              ),
+              null
+            ),
+            saveInto: {
+              a!save(
+                ri!outputFileType.config_id,
+                save!value
+              ),
+              a!save(
+                ri!outputFileType.modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!outputFileType.modified_on,
+                now()
+              )
+            },
+            required:if(
+              ri!isReadOnly=true(),
+              false(),
+              true()
+            ),
+            isReadOnly:ri!isReadOnly
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: {
+         
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            label: "Output File Type",
+            placeHolder: "--Enter Output File Type--",
+            value: index(
+              ri!outputFileType,
+              "file_config_name",
+              {}
+            ),
+            saveInto: {
+              a!save(
+                ri!outputFileType.file_config_name,
+                trim(
+                  save!value
+                )
+              ),
+              a!save(
+                ri!outputFileType.modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!outputFileType.modified_on,
+                now()
+              )
+            },
+            required: if(
+              ri!isReadOnly = true(),
+              false(),
+              true()
+            ),
+            readOnly: if(
+              ri!isReadOnly = true(),
+              true(),
+              false()
+            )
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: {
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+            label: "Runtime File Name",
+            helpTooltip:"Master Lookup Type - Append Runtime File Name, Category - Output Config",
+            placeholderLabel: "--Select Runtime File Name--",
+            choiceLabels: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!masterLookUpData
+              ),
+              null,
+              touniformstring(
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                  MasterLookup: ri!masterLookUpData,
+                  UniqueKey:#"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_224185"[3],
+                  Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                )
+              )
+            ),
+            choiceValues: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!masterLookUpData
+              ),
+              null,
+              touniformstring(
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                  MasterLookup: ri!masterLookUpData,
+                  UniqueKey: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_224185"[3],
+                  Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                )
+              )
+            ),
+            value:  if(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                value: index(
+                  ri!outputFileType,
+                  "append_runtime_file_name",
+                  {}
+                ),
+                choiceValue:if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!masterLookUpData
+                  ),
+                  null,
+                  touniformstring(
+                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                      MasterLookup: ri!masterLookUpData,
+                      UniqueKey: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_224185"[3],
+                      Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                    )
+                  )
+                )
+              ),
+              index(
+                ri!outputFileType,
+                "append_runtime_file_name",
+                {}
+              ),
+              null
+            ),
+            saveInto: {
+              a!save(
+                ri!outputFileType.append_runtime_file_name,
+                save!value
+              ),
+              a!save(
+                ri!outputFileType.modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!outputFileType.modified_on,
+                now()
+              )
+            },
+            required: if(
+              ri!isReadOnly = true(),
+              false(),
+              true()
+            )
+          )
+        }
+      )
+      
+    }
+  ),
+  #"SYSTEM_SYSRULES_richTextDisplayField"(),
+  #"SYSTEM_SYSRULES_columnsLayout"(
+    columns: {
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: {
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+            label: "File Type",
+            helpTooltip:"Master Lookup Type - File Types, Category - Global",
+            placeholderLabel: "--Select File Type--",
+            choiceLabels: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!masterLookUpData
+              ),
+              null,
+              touniformstring(
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                  MasterLookup: ri!masterLookUpData,
+                  UniqueKey:  #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_224185"[6],
+                  Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                )
+              )
+            ),
+            choiceValues: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!masterLookUpData
+              ),
+              null,
+              touniformstring(
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                  MasterLookup: ri!masterLookUpData,
+                  UniqueKey:#"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_224185"[6],
+                  Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                )
+              )
+            ),
+            value: if(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                value: index(
+                  ri!outputFileType,
+                  "file_type",
+                  {}
+                ),
+                choiceValue: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!masterLookUpData
+                  ),
+                  null,
+                  touniformstring(
+                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                      MasterLookup: ri!masterLookUpData,
+                      UniqueKey:#"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_224185"[6],
+                      Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                    )
+                  )
+                )
+              ),
+              index(
+                ri!outputFileType,
+                "file_type",
+                {}
+              ),
+              null
+            ),
+            saveInto: {
+              a!save(
+                ri!outputFileType.file_type,
+                save!value
+              ),
+              a!save(
+                ri!outputFileType.modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!outputFileType.modified_on,
+                now()
+              ),
+              a!save(
+                ri!outputFileType.delimiter,
+                null
+              ),
+              a!save(
+                ri!outputFileType.generator_type,
+               null
+              ),
+              a!save(
+                ri!document,
+                null
+              ),
+              a!save(ri!outputFileType.include_base_template,if(
+                contains(
+                  #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_379282",
+                  index(
+                    ri!outputFileType,
+                    "file_type",
+                    {}
+                  )),
+                  1,
+                  0
+              ))
+            },
+            required: if(
+              ri!isReadOnly = true(),
+              false(),
+              true()
+            )
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: {
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+            label: "Delimiter",
+            helpTooltip:"Master Lookup Type - Delimiter, Category - Global",
+            placeholderLabel: "--Select delimiter--",
+            choiceLabels: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!masterLookUpData
+              ),
+              null,
+              union(
+                touniformstring(
+                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                    MasterLookup: ri!masterLookUpData,
+                    UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+                    Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                  )
+                ),
+                touniformstring(
+                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                    MasterLookup: ri!masterLookUpData,
+                    UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+                    Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                  )
+                )
+              )
+            ),
+            choiceValues: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!masterLookUpData
+              ),
+              null,
+              union(
+                touniformstring(
+                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                    MasterLookup: ri!masterLookUpData,
+                    UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+                    Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                  )
+                ),
+                touniformstring(
+                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                    MasterLookup: ri!masterLookUpData,
+                    UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+                    Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                  )
+                )
+              )
+            ),
+            value: if(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                value: index(
+                  ri!outputFileType,
+                  "delimiter",
+                  {}
+                ),
+                choiceValue: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!masterLookUpData
+                  ),
+                  null,
+                  union(
+                    touniformstring(
+                      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                        MasterLookup: ri!masterLookUpData,
+                        UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+                        Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                      )
+                    ),
+                    touniformstring(
+                      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                        MasterLookup: ri!masterLookUpData,
+                        UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+                        Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                      )
+                    )
+                  )
+                )
+              ),
+              index(
+                ri!outputFileType,
+                "delimiter",
+                {}
+              ),
+              null
+            ),
+            saveInto: {
+              a!save(
+                ri!outputFileType.delimiter,
+                save!value
+              ),
+              a!save(
+                ri!outputFileType.modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!outputFileType.modified_on,
+                now()
+              )
+            },
+            disabled: if(
+              contains(
+                #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_379282",
+                index(
+                  ri!outputFileType,
+                  "file_type",
+                  {}
+                )),
+                true(),
+                false()
+
+            ),
+            required: if(
+              ri!isReadOnly = true(),
+              false(),
+              {
+                if(
+                  or(
+                    index( ri!outputFileType,"file_type", {}) = "CSV",
+                    index( ri!outputFileType,"file_type", {}) = "PRN"
+                  ),
+
+                  true(),
+                  false()
+                )
+              }
+            ),
+            requiredMessage: {
+              if(
+                or(
+                  index( ri!outputFileType,"file_type", {}) = "CSV",
+                  index( ri!outputFileType,"file_type", {}) = "TXT"
+                ),
+
+                "Delimiter Value is required for file type CSV and TXT",
+                {}
+              )
+            }
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: {
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+            label: "Generator Type",
+            helpTooltip:"Master Lookup Type - Generator Type, Category - Global",
+            placeholderLabel: "--Select Generator Type--",
+            choiceLabels: if(
+              contains(
+                #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_379282",
+                index(
+                  ri!outputFileType,
+                  "file_type",
+                  {}
+                )),
+              if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!masterLookUpData
+                ),
+                null,
+                difference(touniformstring(
+                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                    MasterLookup: ri!masterLookUpData,
+                    UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[7],
+                    Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                  )
+                ),{"Export to Flat File","Export to CSV"})
+              ),
+              if(
+                contains(
+                  "CSV",
+                  index(
+                    ri!outputFileType,
+                    "file_type",
+                    {}
+                  )),
+                  if(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      ri!masterLookUpData
+                    ),
+                    null,
+                    difference(touniformstring(
+                      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                        MasterLookup: ri!masterLookUpData,
+                        UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[7],
+                        Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                      )
+                    ),{"Export to Flat File","Export to Excel"})
+                  ),
+                  if(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      ri!masterLookUpData
+                    ),
+                    null,
+                    difference(touniformstring(
+                      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                        MasterLookup: ri!masterLookUpData,
+                        UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[7],
+                        Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                      )
+                    ),{"Export to Excel","Export to CSV"})
+                  )
+              ),
+              
+            ),
+            choiceValues:if(
+              contains(
+                #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_379282",
+                index(
+                  ri!outputFileType,
+                  "file_type",
+                  {}
+                )),
+                if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!masterLookUpData
+                  ),
+                  null,
+                  difference(touniformstring(
+                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                      MasterLookup: ri!masterLookUpData,
+                      UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[7],
+                      Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                    )
+                  ),{"EXPORT_TO_CSV","EXPORT_TO_FLAT_FILE"})
+                ),
+                if(
+                  contains(
+                    "CSV",
+                    index(
+                      ri!outputFileType,
+                      "file_type",
+                      {}
+                    )),
+                    if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        ri!masterLookUpData
+                      ),
+                      null,
+                      difference(touniformstring(
+                        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                          MasterLookup: ri!masterLookUpData,
+                          UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[7],
+                          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                        )
+                      ),{"EXPORT_TO_FLAT_FILE","EXPORT_TO_EXCEL"})
+                    ),
+                    if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        ri!masterLookUpData
+                      ),
+                      null,
+                      difference(touniformstring(
+                        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                          MasterLookup: ri!masterLookUpData,
+                          UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[7],
+                          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                        )
+                      ),{"EXPORT_TO_EXCEL","EXPORT_TO_CSV"})
+                    )
+                    
+                ),
+
+            )
+         ,
+            value: if(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                value: index(
+                  ri!outputFileType,
+                  "generator_type",
+                  {}
+                ),
+                choiceValue: if(
+                  contains(
+                    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_379282",
+                    index(
+                      ri!outputFileType,
+                      "file_type",
+                      {}
+                    )),
+                    if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        ri!masterLookUpData
+                      ),
+                      null,
+                      difference(touniformstring(
+                        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                          MasterLookup: ri!masterLookUpData,
+                          UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[7],
+                          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                        )
+                      ),{"EXPORT_TO_CSV","EXPORT_TO_FLAT_FILE"})
+                    ),
+                    if(
+                      contains(
+                        "CSV",
+                        index(
+                          ri!outputFileType,
+                          "file_type",
+                          {}
+                        )),
+                        if(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            ri!masterLookUpData
+                          ),
+                          null,
+                          difference(touniformstring(
+                            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                              MasterLookup: ri!masterLookUpData,
+                              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[7],
+                              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                            )
+                          ),{"EXPORT_TO_FLAT_FILE","EXPORT_TO_EXCEL"})
+                        ),
+                        if(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            ri!masterLookUpData
+                          ),
+                          null,
+                          difference(touniformstring(
+                            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                              MasterLookup: ri!masterLookUpData,
+                              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[7],
+                              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                            )
+                          ),{"EXPORT_TO_EXCEL","EXPORT_TO_CSV"})
+                        )
+
+                    )
+
+                )
+              ),
+              index(
+                ri!outputFileType,
+                "generator_type",
+                {}
+              ),
+              null
+            ),
+            saveInto: {
+              a!save(
+                ri!outputFileType.generator_type,
+                save!value
+              ),
+              a!save(
+                ri!outputFileType.modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!outputFileType.modified_on,
+                now()
+              )
+            },
+            required: if(
+              ri!isReadOnly = true(),
+              false(),
+              true()
+            )
+          )
+        }
+      )
+    }
+  ),
+  #"SYSTEM_SYSRULES_richTextDisplayField"(),
+  #"SYSTEM_SYSRULES_columnsLayout"(
+    columns: {
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: {          
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288522"(
+            label: "Include Base Template",
+            choiceLabels: {"YES","NO"},
+            choiceValues:{1,0},
+            value: index(ri!outputFileType,"include_base_template",{}),
+            saveInto: ri!outputFileType.include_base_template,
+            choiceLayout : "COMPACT",
+            disabled: if(
+             
+              contains(
+                #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_379282",
+                index(
+                  ri!outputFileType,
+                  "file_type",
+                  {}
+                )),
+              true(),
+                false()
+              
+
+            )
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: {
+          if(
+            ri!isReadOnly = true(),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(  index(
+                ri!outputFileType,
+                "appian_base_template_doc_id",
+                {}
+              )),
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value:{
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text:"-"
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value: {
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: document(
+                      tointeger(
+                        index(
+                          ri!outputFileType,
+                          "appian_base_template_doc_id",
+                          {}
+                        )
+
+                      ),
+                      "name"
+                    ),
+                    link: #"SYSTEM_SYSRULES_documentDownloadLink"(
+                      document: todocument(
+                        tointeger(
+                          index(
+                            ri!outputFileType,
+                            "appian_base_template_doc_id",
+                            {}
+                          )
+                        )
+
+                      )
+                    ),
+                    linkStyle: "STANDALONE"
+                  )
+                }
+              )
+            )
+            ,
+            #"SYSTEM_SYSRULES_fileUploadField_v1"(
+              label: "Upload Template",
+              target: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_17394",
+              maxSelections: 1,
+              value: ri!document,
+              saveInto: ri!document,
+              required: if(
+                or(
+                  ri!isReadOnly = true(),
+                  
+                    index(
+                    ri!outputFileType,
+                    "include_base_template",
+                    {}
+                  ) = 0
+              
+                  
+                ),
+                false(),
+                true()
+               
+               
+              ),
+              disabled: if( 
+                index(
+                  ri!outputFileType,
+                  "include_base_template",
+                  {}
+                ) = 1,
+                false(),
+                true()
+               
+              ),
+              validations: if(
+                fv!files.size &lt; 1024,
+                "File size should not be less than 1kb",
+                {}
+              )
+            )
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: {     
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!outputFileType.out_file_type_config_id),
+            {},
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288522"(
+              label: "Is Active",
+              choiceLabels: {"YES","NO"},
+              choiceValues:{1,0},
+              value: index(
+                ri!outputFileType,
+                "is_active",
+                {}
+              ),
+              saveInto: {ri!outputFileType.is_active,
+                             if(
+                               #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_767759"=true(),
+                               if(ri!outputFileType.is_active=1,
+                               a!save(
+                                ri!dwfProcessControllerConfig,
+                                difference(
+                                  ri!dwfProcessControllerConfig,
+                                  #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_756090"(
+                                    outputGenerationId:ri!outputFileType.out_file_type_config_id
+                                  )
+                                )
+                               ),a!save(
+                                 ri!dwfProcessControllerConfig,
+                                 append(
+                                   ri!dwfProcessControllerConfig,
+                                   #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_756090"(
+                                     outputGenerationId:ri!outputFileType.out_file_type_config_id
+                                   )
+                                 )
+                               )),{})
+                                           },
+              choiceLayout : "COMPACT"
+            )
+          )
+          
+        }
+      )
+      
+    }
+  )
+}</definition>
+        <namedTypedValue>
+            <name>outputFileType</name>
+            <type>
+                <name>EAP_T_RefProcessOutFileType</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>configChoiceLabel</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>configChoiceValue</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>document</name>
+            <type>
+                <name>CollaborationDocument</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dwfProcessControllerConfig</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_329598"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_382795"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_395217"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_423050"/>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_596957"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_772398"/>
+    </history>
+</contentHaul>

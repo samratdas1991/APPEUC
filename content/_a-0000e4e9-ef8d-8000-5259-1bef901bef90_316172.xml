@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_316482</versionUuid>
+    <rule>
+        <name>EAP_SetValueForUiOutEntityMapping</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_316172</uuid>
+        <description>Rule to set data to Ui Out Entity Mapping.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+    ri!uiOutEntityMappingList
+  ),
+  null,
+  #"SYSTEM_SYSRULES_forEach"(
+    items: ri!uiOutEntityMappingList,
+    expression: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_315676"(
+      uiEntityMappingId:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!uiEntityMappingId
+        ),
+        ri!uiOutEntityMappingList[fv!index].uiEntityMappingId ,
+        ri!uiEntityMappingId
+      ),
+      processId: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!processId
+        ),
+        ri!uiOutEntityMappingList[fv!index].processId ,
+        ri!processId
+      ),
+      displayName : if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!displayName 
+        ),
+        ri!uiOutEntityMappingList[fv!index].displayName ,
+        ri!displayName 
+      ),
+      entityName : if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!entityName 
+        ),
+        ri!uiOutEntityMappingList[fv!index].entityName,
+        ri!entityName 
+      ),
+      gridDisplayType: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!gridDisplayType  
+        ),
+        ri!uiOutEntityMappingList[fv!index].gridDisplayType ,
+        ri!gridDisplayType 
+      ),
+      displayOrder: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!displayOrder  
+        ),
+        ri!uiOutEntityMappingList[fv!index].displayOrder ,
+        ri!displayOrder 
+      ),
+      isActive: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!isActive
+        ),
+        ri!uiOutEntityMappingList[fv!index].isActive,
+        ri!isActive
+      ),
+      createdBy: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!uiOutEntityMappingList[fv!index].createdBy
+        ),
+        ri!createdBy,
+        ri!uiOutEntityMappingList[fv!index].createdBy,
+        
+      ),
+      createdOn: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!uiOutEntityMappingList[fv!index].createdOn
+        ),
+        ri!createdOn,
+        ri!uiOutEntityMappingList[fv!index].createdOn,
+        
+      ),
+      modifiedBy: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!modifiedBy
+        ),
+        ri!uiOutEntityMappingList[fv!index].modifiedBy,
+        ri!modifiedBy
+      ),
+      modifiedOn: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!modifiedOn
+        ),
+        ri!uiOutEntityMappingList[fv!index].modifiedOn,
+        ri!modifiedOn
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>uiEntityMappingId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>displayName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>gridDisplayType</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>displayOrder</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>uiOutEntityMappingList</name>
+            <type>
+                <name>EAP_T_UiOutEntityMapping?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_316482"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_374316</versionUuid>
+    <rule>
+        <name>EAP_ManageRelatedActionSecurityGridRowLayout</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_340616</uuid>
+        <description>Hold sub rule for grid row layout for manage related action security</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!user,
+  local!processUsers: union(index(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9887"(
+    isActive: 1,
+    isPrimaryMaker: 1,
+    isSecondaryMaker: 1,
+    isPrimaryChecker: 1,
+    isSecondaryChecker: 1,
+   
+    isPowerUser: 1
+    ),"userSoeId",{}),index(
+      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9887"(
+        isActive: 1,
+        isPrimaryMaker: 1,
+        isSecondaryMaker: 1,
+        isPrimaryChecker: 1,
+        isSecondaryChecker: 1,
+
+        isPowerUser: 1
+      ),"userSoeId",{})),
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    contents: {
+      if(
+        ri!isReadOnly = true(),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: index(
+                ri!relatedActionSecurity[ri!index],
+                "related_action_name",
+                {}
+              ),
+              link: if(
+                tostring(
+                  index(
+                    ri!relatedActionSecurity[ri!index],
+                    "related_action_name",
+                    {}
+                  )
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_340035"[2],
+                #"SYSTEM_SYSRULES_startProcessLink"(
+                  processModel: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_51978"[1],
+                  processParameters: {
+                    processId: ri!processId
+                  }
+                ),
+                if(
+                  tostring(
+                    index(
+                      ri!relatedActionSecurity[ri!index],
+                      "related_action_name",
+                      {}
+                    )
+                  ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_340035"[1],
+                  #"SYSTEM_SYSRULES_startProcessLink"(
+                    processModel: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_51978"[4],
+                    processParameters: {
+                      processId: ri!processId
+                    }
+                  ),
+                  if(
+                    tostring(
+                      index(
+                        ri!relatedActionSecurity[ri!index],
+                        "related_action_name",
+                        {}
+                      )
+                    ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_340035"[3],
+                    #"SYSTEM_SYSRULES_startProcessLink"(
+                      processModel: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_51978"[5],
+                      processParameters: {
+                        processId: ri!processId
+                      }
+                    ),
+                    if(
+                      tostring(
+                        index(
+                          ri!relatedActionSecurity[ri!index],
+                          "related_action_name",
+                          {}
+                        )
+                      ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_340035"[4],
+                      #"SYSTEM_SYSRULES_startProcessLink"(
+                        processModel: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_51978"[6],
+                        processParameters: {
+                          processId: ri!processId
+                        }
+                      ),
+                      if(
+                        tostring(
+                          index(
+                            ri!relatedActionSecurity[ri!index],
+                            "related_action_name",
+                            {}
+                          )
+                        ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_340035"[5],
+                        #"SYSTEM_SYSRULES_startProcessLink"(
+                          processModel: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_51978"[7],
+                          processParameters: {
+                            processId: ri!processId
+                          }
+                        ),
+                        {}
+                      )
+                    )
+                  )
+                )
+              ),
+              linkStyle: "STANDALONE"
+            )
+          }
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+          label: "Related Action Name",
+          placeholderLabel: "--Select Related Action Name--",
+          required: if(
+            or(
+              ri!isReadOnly
+            ),
+            false(),
+            true()
+          ),
+          choiceLabels: touniformstring(
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_340035"
+          ),
+          choiceValues: touniformstring(
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_340035"
+          ),
+          value: if(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+              value: index(
+                ri!relatedActionSecurity[ri!index],
+                "related_action_name",
+                {}
+              ),
+              choiceValue: touniformstring(
+                #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_340035"
+              )
+            ),
+            index(
+              ri!relatedActionSecurity[ri!index],
+              "related_action_name",
+              {}
+            ),
+            null
+          ),
+          saveInto: {
+            ri!relatedActionSecurity[ri!index].related_action_name,
+            a!save(
+              ri!relatedActionSecurity[ri!index].modified_by,
+              loggedInUser()
+            ),
+            a!save(
+              ri!relatedActionSecurity[ri!index].modified_on,
+              now()
+            )
+          },
+          readOnly: ri!isReadOnly,
+          validations: if(
+            count(
+              wherecontains(
+                index(
+                  ri!relatedActionSecurity[ri!index],
+                  "related_action_name",
+                  {}
+                ),
+                index(
+                  ri!relatedActionSecurity,
+                  "related_action_name",
+                  {}
+                )
+              )
+            ) &gt; 1,
+            "No duplicate related action names are allowed",
+            {}
+          )
+        ),
+        
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_369216"(
+        pickerLabel : "Users",
+
+        isRequired: true(),
+        placeholder: "--Select User--",
+
+        identifiers: touniformstring(local!processUsers),
+        choiceLabels:#"SYSTEM_SYSRULES_forEach"(
+          items: local!processUsers,
+          expression:fv!item
+        ) , 
+        selectedValue:tostring(index(
+          ri!relatedActionSecurity[ri!index],
+          "users",
+          {}
+        )),
+        saveInto:  ri!relatedActionSecurity[ri!index].users
+        
+      ),
+      /* Is Active */
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: {
+          if(
+            or(
+              tointeger(
+                index(
+                  ri!relatedActionSecurity[ri!index],
+                  "is_active",
+                  {}
+                )
+              ) = 1
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-on",
+              caption: "Yes",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                showWhen: not(
+                  or(
+                    ri!isReadOnly
+                  )
+                ),
+                value: 1,
+                saveInto: {
+                  a!save(
+                    ri!relatedActionSecurity[ri!index].is_active,
+                    0
+                  ),
+                  a!save(
+                    ri!relatedActionSecurity[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!relatedActionSecurity[ri!index].modified_on,
+                    now()
+                  )
+                }
+              ),
+              size: "MEDIUM_PLUS",
+              color: "ACCENT"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-off",
+              caption: "No",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                showWhen: not(
+                  or(
+                    ri!isReadOnly
+                  )
+                ),
+                value: 0,
+                saveInto: {
+                  a!save(
+                    ri!relatedActionSecurity[ri!index].is_active,
+                    1
+                  ),
+                  a!save(
+                    ri!relatedActionSecurity[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!relatedActionSecurity[ri!index].modified_on,
+                    now()
+                  )
+                }
+              ),
+              size: "MEDIUM_PLUS",
+              color: "ACCENT"
+            )
+          )
+        },
+        align: "CENTER"
+      ),
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+          ri!relatedActionSecurity[ri!index],
+          "security_id",
+          {}
+        )),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "",
+          showWhen: if(
+            or(
+              ri!isReadOnly = true()
+            ),
+            false(),
+            true()
+          ),
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!relatedActionSecurity,
+                  remove(
+                    ri!relatedActionSecurity,
+                    ri!index
+                  )
+                )
+              }
+            )
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          showWhen: ri!isReadOnly&lt;&gt;true()
+        )
+      
+      )
+      
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>relatedActionSecurity</name>
+            <type>
+                <name>EAP_T_ManageRelatedActionSecurity?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_360391"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_374316"/>
+    </history>
+</contentHaul>

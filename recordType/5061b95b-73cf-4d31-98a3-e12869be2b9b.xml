@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>05f47ca1-88a1-4f7e-8834-243670c58910</versionUuid>
+  <recordType a:uuid="5061b95b-73cf-4d31-98a3-e12869be2b9b" name="EAP Prod Process">
+    <a:pluralName>EAP Prod Processes</a:pluralName>
+    <a:description>Hold prod record of process</a:description>
+    <a:urlStub>v9nUKg</a:urlStub>
+    <a:source
+      a:uuid="975dc06f-39f7-4741-b6e6-d2f60ec267ea@_a-0000e4c3-ab68-8000-5250-1bef901bef90_7363" xsi:type="a:DataStoreEntity"/>
+    <a:listViewTemplateExpr>#"SYSTEM_SYSRULES_recordGridLayoutColumns"(
+  columns: {
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Euc Reference Number",
+      field: "euc_reference_number",
+      align: "RIGHT",
+      component: #"SYSTEM_SYSRULES_recordGrid_linkField"(
+        links: #"SYSTEM_SYSRULES_recordLink"(
+          label: rf!euc_reference_number,
+          recordType: rp!type,
+          identifier: rp!id
+        ),
+        align: "RIGHT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Process Id",
+      field: "process_id",
+      align: "RIGHT",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayValue: rf!process_id,
+        align: "RIGHT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Process Name",
+      field: "process_name",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayValue: rf!process_name,
+        align: null
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Sub Cluster Name",
+      field: "sub_cluster_name",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!sub_cluster_name
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Cluster Name",
+      field: "cluster_name",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!cluster_name
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Calendar",
+      field: "calendar_name",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!calendar_name
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Is Active",
+      width: "DISTRIBUTE",
+      field: "is_active",
+      align: "CENTER",
+      component: #"SYSTEM_SYSRULES_recordGrid_imageField_v1"(
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            icon: if(
+              contains(
+                toboolean(
+                  rf!is_active
+                ),
+                true()
+              ),
+              "STATUS_OK",
+              "STATUS_NOTDONE"
+            )
+          ),
+          caption: if(
+            contains(
+              toboolean(
+                rf!is_active
+              ),
+              true()
+            ),
+            "Active",
+            "In-Active"
+          )
+        ),
+        size: "ICON",
+        isThumbnail: false,
+        style: "STANDARD"
+      )
+    )
+  },
+  pageSize: 50,
+  defaultSort: #"SYSTEM_SYSRULES_sortInfo"(
+    ascending: false
+  ),
+  shadeAlternateRows: true
+)</a:listViewTemplateExpr>
+    <a:fieldCfg name="Sub Cluster">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>a!localVariables(
+  local!subClusterData1:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_27579"(
+
+    pagingInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex:1,
+      batchSize:-1,
+      sort:#"SYSTEM_SYSRULES_sortInfo"(
+        field:"sub_cluster_name",
+        ascending:true()
+      )
+    ) 
+  ),
+  local!subClusterData:union(
+    local!subClusterData1.sub_cluster_name,
+    local!subClusterData1.sub_cluster_name
+  ),
+
+  #"SYSTEM_SYSRULES_recordFilterList"(
+    name:"Sub Cluster",
+    options:#"SYSTEM_SYSRULES_forEach"(
+      items:local!subClusterData  ,
+      expression:#"SYSTEM_SYSRULES_recordFilterListOption"(
+        id:fv!index,
+        name:fv!item,
+        filter:#"SYSTEM_SYSRULES_queryFilter"(
+          field:"sub_cluster_name",
+          operator:"=",
+          value:fv!item
+        )
+      )
+    )
+  )
+)</a:facetExpr>
+      <a:sortOrderIndex>0</a:sortOrderIndex>
+      <a:facetOrderIndex>0</a:facetOrderIndex>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:fieldCfg name="Cluster">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>a!localVariables(
+  local!clusterData1:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_27579"(
+
+    pagingInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex:1,
+      batchSize:-1,
+      sort:#"SYSTEM_SYSRULES_sortInfo"(
+        field:"cluster_name",
+        ascending:true()
+      )
+    )
+  ),
+  local!clusterData:union(
+    local!clusterData1.cluster_name,
+    local!clusterData1.cluster_name
+  ),
+  #"SYSTEM_SYSRULES_recordFilterList"(
+    name:"Cluster",
+    options:#"SYSTEM_SYSRULES_forEach"(
+      items:local!clusterData,
+      expression:#"SYSTEM_SYSRULES_recordFilterListOption"(
+        id:fv!index,
+        name:fv!item,
+        filter:#"SYSTEM_SYSRULES_queryFilter"(
+          field:"cluster_name",
+          operator:"=",
+          value:fv!item
+        )
+      )
+    )
+  )
+)</a:facetExpr>
+      <a:sortOrderIndex>1</a:sortOrderIndex>
+      <a:facetOrderIndex>1</a:facetOrderIndex>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:fieldCfg name="Calender">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>a!localVariables(
+  local!calendarData1:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_27579"(
+
+    pagingInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex:1,
+      batchSize:-1,
+      sort:#"SYSTEM_SYSRULES_sortInfo"(
+        field:"calendar_name",
+        ascending:true()
+      )
+    )
+  ),
+  local!calendarrData:union(
+    local!calendarData1.calendar_name,
+    local!calendarData1.calendar_name
+  ),
+  #"SYSTEM_SYSRULES_recordFilterList"(
+    name:"Calendar",
+    options:#"SYSTEM_SYSRULES_forEach"(
+      items:local!calendarrData,
+      expression:#"SYSTEM_SYSRULES_recordFilterListOption"(
+        id:fv!index,
+        name:fv!item,
+        filter:#"SYSTEM_SYSRULES_queryFilter"(
+          field:"calendar_name",
+          operator:"=",
+          value:fv!item
+        )
+      )
+    )
+  )
+)</a:facetExpr>
+      <a:sortOrderIndex>2</a:sortOrderIndex>
+      <a:facetOrderIndex>2</a:facetOrderIndex>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:fieldCfg name="Status">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>a!localVariables(
+  local!isActive1:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_27579"(
+
+    pagingInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex:1,
+      batchSize:-1,
+      sort:#"SYSTEM_SYSRULES_sortInfo"(
+        field:"is_active",
+        ascending:false()
+      )
+    )
+  ),
+  local!isActive:union(
+    local!isActive1.is_active,
+    local!isActive1.is_active
+  ),
+
+  #"SYSTEM_SYSRULES_recordFilterList"(
+    name:"Status",
+    options:#"SYSTEM_SYSRULES_forEach"(
+      items:local!isActive,
+      expression:#"SYSTEM_SYSRULES_recordFilterListOption"(
+        id:fv!index,
+        name:if(
+          fv!item=0,
+          "Inactive",
+          "Active"
+        ),
+        filter:#"SYSTEM_SYSRULES_queryFilter"(
+          field:"is_active",
+          operator:"=",
+          value:fv!item
+        )
+      )
+    )
+  )
+)
+
+
+
+</a:facetExpr>
+      <a:sortOrderIndex>3</a:sortOrderIndex>
+      <a:facetOrderIndex>3</a:facetOrderIndex>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>#"SYSTEM_SYSRULES_rtd_getDefaultSummaryViewName"()</a:nameExpr>
+      <a:uiExpr>#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233736"(
+  processId: rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>summary</a:urlStub>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Run Configuration"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e4c6-e892-8000-5254-1bef901bef90_23523"(
+  processId: rf!process_id
+ 
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_IuVN_g</a:urlStub>
+      <a:relatedActionCfg>4d3dba38-96a7-430e-8ba6-4b99989d543c</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"IO Configuration"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_192914"(
+  processId: rf!process_id,
+  isProductionSite: true()
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_x9OvXQ</a:urlStub>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Email WhiteList"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_164968"(
+  processId: rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_72gRJQ</a:urlStub>
+      <a:relatedActionCfg>b9b61c6f-8251-445f-be10-a4aa32e4a6a1</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Manage Escalations"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e518-940a-8000-525e-1bef901bef90_473086"(
+  processId :rf!process_id,
+  isReadOnly :true()
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_3iQitw</a:urlStub>
+      <a:relatedActionCfg>d21f547d-69f0-4812-b8a3-d79004f89cec</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Dynamic Workflow"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e505-ae05-8000-525c-1bef901bef90_389704"(
+  isReadOnly: true(),
+  processId: rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_uqBIDg</a:urlStub>
+      <a:relatedActionCfg>321e457f-240c-4ade-9ca9-cd75157186a8</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e565-b6c8-8000-6d2d-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  buttonAction: null, /* Text */
+  isProductionSupport:true() ,/* Boolean */
+  isReadOnly: null, /* Boolean */
+  processId: rf!process_id, /* Number (Integer) */
+  refProcessGroup: null, /* EAP_T_RefProcessGroup */
+  refProcessUser: null /* EAP_T_RefProcessUsers?list */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>1fe0de18-1f9d-4b25-b92e-d66a18d5e985</a:refId>
+      <a:staticTitleString>Manage Process Users</a:staticTitleString>
+      <a:staticDescriptionString>Click to manage process users</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4cd-1015-8000-5869-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  isProductionSupport: true(), /* Boolean */
+  processId: rf!process_id, /* Number (Integer) */
+  relatedAction: 1/* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>b1fd47a1-bec1-4474-b5dc-ae67f8bfc0e7</a:refId>
+      <a:staticTitleString>Manage Process Status</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage process status</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4c9-0ecd-8000-5624-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  isProductionSite: true, /* Boolean */
+  processId: rf!process_id, /* Number (Integer) */
+  runConfigId: null /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>4d3dba38-96a7-430e-8ba6-4b99989d543c</a:refId>
+      <a:staticTitleString>Manage Run Config</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage Run Configuration..</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4db-b8a7-8000-5ee2-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  isAdminConsole: false(), /* Boolean */
+  isProductionSupport: true(), /* Boolean */
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>9aff7762-67d5-4bba-8e47-f9d3822853db</a:refId>
+      <a:staticTitleString>Manage Schedular Details</a:staticTitleString>
+      <a:staticDescriptionString>Click here to recalculate trigger time</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4d7-99ef-8000-5d7b-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>b9b61c6f-8251-445f-be10-a4aa32e4a6a1</a:refId>
+      <a:staticTitleString>Manage Email WhiteList</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage email whitelist..</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0007e51e-e03e-8000-69d6-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>d21f547d-69f0-4812-b8a3-d79004f89cec</a:refId>
+      <a:staticTitleString>Manage Escalations</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage escalations..</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="000ae502-f60d-8000-6468-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  isProductionSupport: true(), /* Boolean */
+  EUCName: null, /* Text */
+  isInitiatedFromLinkedEUC: null, /* Boolean */
+  processId: rf!process_id, /* Number (Integer) */
+  isReadOnly: false(), /* Number (Integer) */
+  selectedProcessControllerMasterId: null /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>321e457f-240c-4ade-9ca9-cd75157186a8</a:refId>
+      <a:staticTitleString>Manage Dynamic Workflow Config</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage dynamic workflow configuration.</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:isSystem>false</a:isSystem>
+    <a:titleExpr>"EUC|"&amp;rf!euc_reference_number</a:titleExpr>
+    <a:layoutType>GRID</a:layoutType>
+    <a:security>16383</a:security>
+    <a:hideLatestNews>false</a:hideLatestNews>
+    <a:hideNewsView>false</a:hideNewsView>
+    <a:hideRelatedActionsView>false</a:hideRelatedActionsView>
+    <a:isExportable>false</a:isExportable>
+    <a:listAutoRefreshInterval>0.0</a:listAutoRefreshInterval>
+    <a:enabledFeatures>32</a:enabledFeatures>
+    <a:isVisibleInRecordTypeList>true</a:isVisibleInRecordTypeList>
+    <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+    <a:showSearchBox>true</a:showSearchBox>
+    <a:isVisibleInDataFabric>true</a:isVisibleInDataFabric>
+    <a:usesRollingSyncLimit>false</a:usesRollingSyncLimit>
+    <a:usesRecoverySync>false</a:usesRecoverySync>
+    <a:isScheduledIndexingEnabled>false</a:isScheduledIndexingEnabled>
+    <a:smartSearchAcceptableFailureRate>0.0</a:smartSearchAcceptableFailureRate>
+    <a:skipFailedSmartServicesSync>false</a:skipFailedSmartServicesSync>
+  </recordType>
+  <roleMap>
+    <role name="record_type_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+      </groups>
+    </role>
+    <role name="record_type_viewer">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="411a525c-9cf5-4c41-a361-3d3bd43dc66b"/>
+    <historyInfo versionUuid="05f47ca1-88a1-4f7e-8834-243670c58910"/>
+  </history>
+  <migrationVersion>1</migrationVersion>
+</recordTypeHaul>

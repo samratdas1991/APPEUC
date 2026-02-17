@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eda1-5e46-8000-9c0e-011c48011c48_740945</versionUuid>
+    <interface>
+        <name>EAP_RunAdhocConfiguration</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_186516</uuid>
+        <description>Contains grid for run adhoc configuration</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!refRunConfig: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+    isActive: true,
+    processId:ri!processId
+  ),
+  local!masterLookup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    type: {
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[3],
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[1],
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[2]
+    }
+  ),
+  local!recurrenceType: index(
+    local!masterLookup,
+    wherecontains(
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[3],
+      touniformstring(index(
+        local!masterLookup,
+        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[4],{}
+      ))
+    ),
+    {}
+  ),
+  local!processingMonth: index(
+    local!masterLookup,
+    wherecontains(
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[1],
+      touniformstring(index(
+        local!masterLookup,
+        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[4],{}
+      ))
+    ),
+    {}
+  ),
+  local!processingWeekday: index(
+    local!masterLookup,
+    wherecontains(
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[2],
+      touniformstring(index(
+        local!masterLookup,
+        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[4],{}
+      ))
+    ),
+    {}
+  ),
+  local!activeStep: 0,
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    label: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        index(
+          local!refRunConfig,
+          "process_display_name",
+          {}
+        )
+      ),
+      "N/A",
+      index(
+        local!refRunConfig,
+        "process_display_name",
+        {}
+      )
+    ),
+    contents: 
+  {
+  #"SYSTEM_SYSRULES_gridField_v1"(
+    label: "",
+    data:local!refRunConfig,
+    columns: {
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Process Display Name",
+        value: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"process_display_name",{})),
+        "N/A", index(fv!row,"process_display_name",{})),
+        sortField: "process_display_name"
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Recurrence Type",
+        value: "Non Recurring",
+        /*if(rule!EAP_Utils_CheckIsNull(index(fv!row,"recurrence_type",{})),*/
+        /*"N/A",*/
+        /*index(*/
+          /*index(*/
+            /*local!recurrenceType,*/
+            /*wherecontains(*/
+              /*touniformstring(index(fv!row,"recurrence_type",{})),*/
+              /*touniformstring(index(local!recurrenceType,"label",{}))*/
+            /*),*/
+            /*{}*/
+          /*),*/
+          /*"label",*/
+          /*{}*/
+        /*)),*/
+        sortField: "recurrence_type"
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Recurrence Frequency",
+        value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"recurrence_frequency",{})),
+        "N/A", index(fv!row,"recurrence_frequency",{})),
+        align: "END",
+        sortField: "recurrence_frequency"
+      ),
+      /*a!gridColumn(*/
+        /*label: "Processing Month/Weekday",*/
+        /*value:  if(and(rule!EAP_Utils_CheckIsNull(index(fv!row,"processing_weekdays",{})),rule!EAP_Utils_CheckIsNull(*/
+          /*index(fv!row,"processing_month",{}))),*/
+          /*"N/A",*/
+          /*if(rule!EAP_Utils_CheckIsNull(index(fv!row,"processing_weekdays",{})),*/
+          /*index(*/
+            /*index(*/
+              /*local!processingMonth,*/
+              /*wherecontains(*/
+                /*tointeger(index(fv!row,"processing_month",{})),*/
+                /*tointeger(index(local!processingMonth,"code",{}))*/
+              /*),*/
+              /*{}*/
+            /*),*/
+            /*"label",*/
+            /*{}*/
+          /*),*/
+          /*index(*/
+            /*index(*/
+              /*local!processingWeekday,*/
+              /*wherecontains(*/
+                /*touniformstring(index(fv!row,"processing_weekdays",{})),*/
+                /*touniformstring(index(local!processingWeekday,"label",{}))*/
+              /*),*/
+              /*{}*/
+            /*),*/
+            /*"label",*/
+            /*{}*/
+          /*)*/
+          /*)*/
+        /*),*/
+        /*sortField: "processing_weekdays"*/
+      /*),*/
+      /*a!gridColumn(*/
+        /*label: "Start Business Day",*/
+        /*value: if(rule!EAP_Utils_CheckIsNull(index(fv!row,"start_businesss_days",{})),*/
+        /*"N/A",index(fv!row,"start_businesss_days",{})),*/
+        /*sortField: "start_businesss_days",*/
+        /*align: "END"*/
+      /*),*/
+      /*a!gridColumn(*/
+        /*label: "End Business Day",*/
+        /*value: if(rule!EAP_Utils_CheckIsNull(index(fv!row,"end_business_days",{})),*/
+        /*"N/A",index(fv!row,"end_business_days",{})),*/
+        /*sortField: "end_business_days",*/
+        /*align: "END"*/
+      /*),*/
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Trigger Time",
+        value:
+        if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"trigger_time",{})),
+        "N/A", 
+        index(fv!row,"trigger_time",{})),
+        sortField: "trigger_time",
+        align: "END"
+      ),
+      /*a!gridColumn(*/
+        /*label: "Next Trigger Date/Time",*/
+        /*value:  if(rule!EAP_Utils_CheckIsNull(index(fv!row,"next_trigger_datetime",{})),*/
+        /*"N/A",*/
+        /*concat(todate(index(fv!row,"next_trigger_datetime",{}))," ",*/
+        /*totime(index(fv!row,"next_trigger_datetime",{})))),*/
+        /*sortField: "next_trigger_datetime",*/
+        /*align: "END"*/
+      /*),*/
+      /*a!gridColumn(*/
+        /*label: "Process Model UUID",*/
+        /*value:if(rule!EAP_Utils_CheckIsNull(index(fv!row,"process_model_uuid",{})),*/
+        /*"N/A", */
+        /*index(fv!row,"process_model_uuid",{})),*/
+        /*sortField: "process_model_uuid",*/
+/**/
+      /*),*/
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Is Adhoc Trigger",
+        value: 
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          images: {
+            #"SYSTEM_SYSRULES_documentImage"(
+              document: #"SYSTEM_SYSRULES_iconIndicator"(
+                icon: if(
+                  contains(
+                    tointeger(
+                      index(fv!row, "is_adhoc_trigger", {})
+                    ),
+                    1
+                  ),
+                  "STATUS_OK",
+                  "STATUS_NOTDONE"
+                )
+              ),
+              caption: if(
+                contains(
+                  tointeger(
+                    index(fv!row,"is_adhoc_trigger", {})
+                  ),
+                  1
+                ),
+                "Yes",
+                "No"
+              )
+            )
+          }
+        ),
+        align: "CENTER"
+
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Is Active",
+        value: 
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          images: {
+            #"SYSTEM_SYSRULES_documentImage"(
+              document: #"SYSTEM_SYSRULES_iconIndicator"(
+                icon: if(
+                  contains(
+                    toboolean(
+                      index(fv!row, "is_active", {})
+                    ),
+                    true()
+                  ),
+                  "STATUS_OK",
+                  "STATUS_NOTDONE"
+                )
+              ),
+              caption: if(
+                contains(
+                  toboolean(
+                    index(fv!row, "is_active", {})
+                  ),
+                  true()
+                ),
+                "Active",
+                "In-Active"
+              )
+            )
+          }
+        ),
+        align: "CENTER"
+      )
+
+     
+    },
+    showWhen: or(tointeger(local!activeStep)=0),
+    selectable: true(),
+    selectionStyle: "CHECKBOX",
+    selectionValue: wherecontains(tointeger(index(ri!refRunConfig,"run_config_id",null)),tointeger(index(local!refRunConfig,"run_config_id",null))),
+    selectionSaveInto:a!save(ri!refRunConfig,
+    if(length(fv!selectedRows)&gt;0,
+    fv!selectedRows[length(fv!selectedRows)],null)),
+    disableRowSelectionWhen: or(not(tointeger(index(fv!row, "is_adhoc_trigger", {}))=1),tointeger(index(fv!row, "is_active", {}))=0)
+  ),
+  #"SYSTEM_SYSRULES_ButtonLayout"(
+    primaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+      label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[11],
+      value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[11],
+      saveInto: ri!buttonAction,
+      submit: true(),
+      style: "PRIMARY",
+      showWhen: not(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!refRunConfig)),
+      validate: true()
+    ),
+    secondaryButtons:  #"SYSTEM_SYSRULES_ButtonWidget"(
+      label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+      value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+      saveInto: ri!buttonAction,
+      submit: true(),
+      style: "DESTRUCTIVE",
+      validate: false()
+    )
+  )
+  })
+)</definition>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refRunConfig</name>
+            <type>
+                <name>EAP_T_RefRunConfig</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonAction</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>refRunConfig</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:int">393</a:value>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_192349"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_204629"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_312256"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_438264"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_772856"/>
+        <historyInfo versionUuid="_a-0000ec66-6981-8000-9bf9-011c48011c48_340031"/>
+        <historyInfo versionUuid="_a-0000eda1-5e46-8000-9c0e-011c48011c48_740945"/>
+    </history>
+</contentHaul>

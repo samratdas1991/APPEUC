@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_408454</versionUuid>
+    <interface>
+        <name>EAP_DataValidation_ActionTypeFixedCellsEditableGrid</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377116</uuid>
+        <description>Hold action type input copy fixed cells grid.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition> #"SYSTEM_SYSRULES_gridLayout"(
+   label: " ",
+   labelPosition: "ABOVE",
+   headerCells: {
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       label: "Sheet Name",
+       align: "LEFT"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+         helpToolTip : "Coming from the Manage Entity Name related action where EntityType: Output"
+       ),
+
+       label: "Table Name",
+       align: "LEFT"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+         helpToolTip: "List of Column Names from Selected Entity Name"
+       ),
+       label: "Entity Column Name",
+       align: "LEFT"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       label: "Cell Position",
+       align: "LEFT"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       label: "Start Row Value",
+       align: "LEFT"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       label: "End Row Value",
+       align: "LEFT"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+         categoryGroup : #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] ,
+         uniqueKey :  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[3]
+       ),
+       label: "Filter Operator",
+       align: "LEFT"
+     ),
+     
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+         categoryGroup : #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] ,
+         uniqueKey :  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[15]
+       ),
+       label: "Filter Generation",
+       align: "LEFT"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+         helpToolTip: "If Filter Generation is "&amp;#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_99991"[2]&amp;" 
+then contains values from Related Action: Manage Runtime Filter Key"
+       ),
+       label: "Filter Value",
+       align: "LEFT"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       label: "Is Active",
+       align: "CENTER"
+
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       label: "",
+       align: "LEFT",
+       showWhen: if(
+         ri!isReadOnly = true(),
+         false(),
+         true()
+       )
+     )
+   },
+   columnConfigs: {
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       width: "DISTRIBUTE"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       width: "DISTRIBUTE"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       width: "DISTRIBUTE"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       width: "DISTRIBUTE"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       width: "DISTRIBUTE"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       width: "DISTRIBUTE"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       width: "DISTRIBUTE"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       width: "DISTRIBUTE"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       width: "DISTRIBUTE"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       width: "ICON"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       width: "ICON",
+       showWhen: if(
+         ri!isReadOnly = true(),
+         false(),
+         true()
+       )
+     )
+   },
+   rows: {
+     #"SYSTEM_SYSRULES_applyComponents"(
+       function: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377110"(
+         index: _,
+         actionTypeFixedCells: ri!actionTypeFixedCells,
+         masterLookUpData: ri!masterLookUpData,
+         isReadOnly: ri!isReadOnly,
+         allEntityNames: ri!allEntityNames,
+         allTableColumns : ri!allTableColumns,
+         runtimeConfigs:ri!runtimeConfigs
+       ),
+       array: if(
+         or(
+           #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+             ri!actionTypeFixedCells
+           ),
+           count(
+             ri!actionTypeFixedCells
+           ) = 0
+         ),
+         null,
+         wherecontains(
+           tointeger(
+             ri!actionId
+           ),
+           tointeger(
+             index(
+               ri!actionTypeFixedCells,
+               "wf_action_id",
+               null
+             )
+           )
+         )
+       )
+     )
+   },
+   selectionSaveInto: {},
+   addRowLink: if(
+     ri!isReadOnly,
+     {},
+     #"SYSTEM_SYSRULES_dynamicLink"(
+       label: "Add line items",
+       value: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377417"(
+         isActive: 1,
+         wfActionId: ri!actionId,
+         createdBy: loggedInUser(),
+         createdOn: now()
+       ),
+       saveInto: a!save(
+         ri!actionTypeFixedCells,
+         append(
+           ri!actionTypeFixedCells,
+           save!value
+         )
+       )
+     )
+   )
+ )
+</definition>
+        <namedTypedValue>
+            <name>actionTypeFixedCells</name>
+            <type>
+                <name>EAP_T_DVFixedCells?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>allEntityNames</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>allTableColumns</name>
+            <type>
+                <name>EAP_V_AllTablesColumns?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runtimeConfigs</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377969"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_395243"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_408454"/>
+    </history>
+</contentHaul>

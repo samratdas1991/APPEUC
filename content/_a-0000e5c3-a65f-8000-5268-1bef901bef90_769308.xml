@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_769472</versionUuid>
+    <rule>
+        <name>EAP_DwfShowDataValidationSuccess</name>
+        <uuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_769308</uuid>
+        <description>Rule to show if data validation is success or not</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+ 
+  local!controllerEntries:if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processControllerMasterId),{},
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_361812"(
+      processControllerMasterId: ri!processControllerMasterId
+    )
+  ),
+  local!makerStepIds: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!controllerEntries),{},
+    #"SYSTEM_SYSRULES_forEach"(
+      items:local!controllerEntries,
+      expression: {
+        if(
+          tointeger(fv!item.milestone_id) = tointeger(#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[5]),
+          fv!index,
+          {}
+        )
+      }
+    )
+  ),  
+  
+ local!previousMakerStepId: if(
+    contains(
+      tointeger(local!makerStepIds),
+      tointeger(ri!stepId)
+    ),
+    index(
+      local!makerStepIds,
+      wherecontains(
+        ri!stepId,
+        local!makerStepIds
+      )-1,
+      {}
+    ),
+    {}
+  ),
+  /*local!previousMakerStepId,*/     
+ {
+   if(
+     or(
+       #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!previousMakerStepId),
+       #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!stepId)
+     ),
+     {},
+     contains(
+       tointeger(
+         index(
+           if(
+             or(local!previousMakerStepId = ri!stepId),
+             #"SYSTEM_SYSRULES_forEach"(
+               items: local!controllerEntries,
+               expression: 
+               if(
+                 and(
+                   fv!index&gt;=1,
+                   fv!index&lt;=ri!stepId
+                 ),
+                 fv!item,
+                 {}
+               )
+
+             ),      
+             #"SYSTEM_SYSRULES_forEach"(
+               items: local!controllerEntries,
+               expression: 
+               if(
+                 and(
+                   fv!index&gt;=local!previousMakerStepId,
+                   fv!index&lt;=ri!stepId
+                 ),
+                 fv!item,
+                 {}
+               )
+
+             )
+
+           ),
+           "milestone_id",
+           {}
+         )
+       ),
+       tointeger(#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[11])
+
+     )     
+    
+   ),  
+  
+
+ }
+)</definition>
+        <namedTypedValue>
+            <name>processControllerMasterId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>stepId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_769472"/>
+    </history>
+</contentHaul>

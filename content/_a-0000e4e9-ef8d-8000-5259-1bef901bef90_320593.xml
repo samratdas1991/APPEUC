@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_406232</versionUuid>
+    <constant>
+        <name>EAP_DE_UI_IN_ENTITY_FIELD_MAPPING</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_320593</uuid>
+        <description>Holds DE for Ui Input Entity Field Mapping.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>DataStoreEntity</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value a:id="f625938c-548e-43a8-bd41-4811805a0a43@_a-0000e4cd-1af4-8000-5255-1bef901bef90_85252"/>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_320597"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_406232"/>
+    </history>
+</contentHaul>

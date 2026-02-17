@@ -1,0 +1,942 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_424160</versionUuid>
+    <rule>
+        <name>EAP_OutFileFieldMappingGridRowLayout</name>
+        <uuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_213671</uuid>
+        <description>Hold grid row layout rule</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  contents: {
+    /*mapping_Type*/
+    if(
+      ri!isReadOnly=true(),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value:index(
+          ri!outFileFieldMapping[ri!index],
+          "mapping_type",
+          {}
+        ),
+        readOnly: true()
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        label: "Mapping Type"  ,
+        placeholderLabel:"--Select Mapping Type--",
+        choiceLabels: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!masterLookUpData
+          ),
+          null,
+          touniformstring(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: ri!masterLookUpData,
+              UniqueKey: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_224185"[4],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+            )
+          )
+        ),
+        choiceValues: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!masterLookUpData
+          ),
+          null,
+          touniformstring(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: ri!masterLookUpData,
+              UniqueKey: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_224185"[4],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            )
+          )
+        ),
+        value:if(
+          #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+            value:  index(
+              ri!outFileFieldMapping[ri!index],
+              "mapping_type",
+              {}
+            ) ,
+            choiceValue: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!masterLookUpData
+              ),
+              null,
+              touniformstring(
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                  MasterLookup: ri!masterLookUpData,
+                  UniqueKey: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_224185"[4],
+                  Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                )
+              )
+            )
+          ),
+          index(
+            ri!outFileFieldMapping[ri!index],
+            "mapping_type",
+            {}
+          ),
+          null
+        ),
+        saveInto: {
+          a!save(
+            ri!outFileFieldMapping[ri!index].mapping_type,
+            save!value
+          ),
+          a!save(
+            ri!outFileFieldMapping[ri!index].mapping_value,
+            null
+          ),
+          a!save(
+            ri!outFileFieldMapping[ri!index].entity_column_name,
+            null
+          ),
+          a!save(
+            ri!outFileFieldMapping[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!outFileFieldMapping[ri!index].modified_on,
+            now()
+          )
+
+        },
+        required: if(
+          ri!isReadOnly=true(),
+          false(),true()
+        ),
+      )
+    ),
+    /*mapping_value*/
+    
+    
+    if(
+      or(
+        
+
+        index(
+          ri!outFileFieldMapping[ri!index],
+          "mapping_type",
+          {}
+        ) = "RUNTIME",
+
+
+      ),
+      if(
+        ri!isReadOnly=true(),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          value:index(
+            ri!outFileFieldMapping[ri!index],
+            "mapping_value",
+            {}
+          ),
+          readOnly: true()
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+label:"Mapping value",
+          placeholderLabel:"--Select Mapping Value--",
+          choiceLabels: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!runTime),
+            null,
+            touniformstring(ri!runTime)),
+            choiceValues:if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!runTime),
+              null,
+              touniformstring(ri!runTime)),
+              value:if(
+                #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                  value:  index(
+                    ri!outFileFieldMapping[ri!index],
+                    "mapping_value",
+                    {}
+                  ) ,
+                  choiceValue:touniformstring(ri!runTime)
+                ),
+                index(
+                  ri!outFileFieldMapping[ri!index],
+                  "mapping_value",
+                  {}
+                ),
+                null
+              ),
+
+              saveInto: {
+                a!save(
+                  ri!outFileFieldMapping[ri!index].mapping_value,
+                  save!value
+                ),
+                a!save(
+                  ri!outFileFieldMapping[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!outFileFieldMapping[ri!index].modified_on,
+                  now()
+                )
+
+              },
+              required: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                  ri!outFileFieldMapping[ri!index],
+                  "mapping_type",
+                  {}
+                )),
+                {},
+                if(
+                  contains(
+                    touniformstring({"RUNTIME","STATIC"}),
+                    tostring(index(
+                      ri!outFileFieldMapping[ri!index],
+                      "mapping_type",
+                      {}
+                    ))
+                  ),
+                  true(),
+                  false()
+                )
+              ),
+              requiredMessage: {
+                if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                    ri!outFileFieldMapping[ri!index],
+                    "mapping_type",
+                    {}
+                  )),
+                  {},
+                  if(
+                    contains(
+                      touniformstring({"RUNTIME","STATIC"}),
+                      tostring(index(
+                        ri!outFileFieldMapping[ri!index],
+                        "mapping_type",
+                        {}
+                      ))
+                    ),
+                    "Mapping Value is required for mapping type Runtime/Static",
+                    {}
+                  )
+                )
+              }
+        )
+      )
+      ,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value: index(
+          ri!outFileFieldMapping[ri!index],
+          "mapping_value",
+          {}
+        ),
+        disabled: if(
+          index(
+            ri!outFileFieldMapping[ri!index],
+            "mapping_type",
+            {}
+          ) = "ENTITY_COLUMN",            
+          true(),
+          false()
+        ),
+        placeholder:"--Enter mapping value--",
+        saveInto: {
+
+          a!save(
+            ri!outFileFieldMapping[ri!index].mapping_value,
+            save!value
+          ),
+          a!save(
+            ri!outFileFieldMapping[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!outFileFieldMapping[ri!index].modified_on,
+            now()
+          )
+        },
+        readOnly: if(
+          ri!isReadOnly=true(),
+          true(),
+          false()
+        ),
+        required: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+            ri!outFileFieldMapping[ri!index],
+            "mapping_type",
+            {}
+          )),
+          {},
+          if(
+            contains(
+              touniformstring({"RUNTIME","STATIC"}),
+              tostring(index(
+                ri!outFileFieldMapping[ri!index],
+                "mapping_type",
+                {}
+              ))
+            ),
+            true(),
+            false()
+          )
+        )
+      )
+
+    ),
+    /*entity_column_name*/
+    if(
+      or(
+        ri!isReadOnly = true()
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value: index(
+          ri!outFileFieldMapping[ri!index],
+          "entity_column_name",
+          {}
+        ),
+
+        readOnly: or(
+          ri!isReadOnly,
+          if(
+            index(
+              ri!outFileFieldMapping[ri!index],
+              "mapping_type",
+              {}
+            ) = "ENTITY_COLUMN",            
+            false(),
+            true()
+          )
+        )
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select Entity Column-- ",
+        choiceLabels: touniformstring(ri!tablesColumns),
+
+        choiceValues: touniformstring(ri!tablesColumns),
+
+        value:if(
+          #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+            value:  index(
+              ri!outFileFieldMapping[ri!index],
+              "entity_column_name",
+              {}
+            ),
+            choiceValue:touniformstring(ri!tablesColumns)
+          ),
+          index(
+            ri!outFileFieldMapping[ri!index],
+            "entity_column_name",
+            {}
+          ),
+          null
+        ),
+        disabled: if(
+          index(
+            ri!outFileFieldMapping[ri!index],
+            "mapping_type",
+            {}
+          ) = "ENTITY_COLUMN",            
+          false(),
+          true()
+        ),
+        required:if(
+          or(ri!isReadOnly,
+          or(
+            index(
+              ri!outFileFieldMapping[ri!index],
+              "mapping_type",
+              {}
+            ) = "STATIC",
+            index(
+              ri!outFileFieldMapping[ri!index],
+              "mapping_type",
+              {}
+            ) = "RUNTIME")),
+
+            false(),
+            true()),
+
+
+            saveInto: {a!save(
+              ri!outFileFieldMapping[ri!index].entity_column_name,
+              save!value
+            ),
+            a!save(
+              ri!outFileFieldMapping[ri!index].modified_by,
+              loggedInUser()
+            ),
+            a!save(
+              ri!outFileFieldMapping[ri!index].modified_on,
+              now()
+            )
+            },
+            validations: {
+              if(
+                ri!isReadOnly,
+                {},
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                  value: index(
+                    ri!outFileFieldMapping[ri!index],
+                    "entity_column_name",
+                    {}
+                  ),
+                  ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+                )
+              )
+            }
+
+      )
+    ),
+    /*excel_column_index*/
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      value: index(
+        ri!outFileFieldMapping[ri!index],
+        "excel_column_index",
+        {}
+      ),
+      placeholder:"--Enter Excel Column index--",
+      saveInto: {
+
+        a!save(
+          ri!outFileFieldMapping[ri!index].excel_column_index,
+          stripwith(
+            trim(save!value),
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_313931"
+          )
+        ),
+        a!save(
+          ri!outFileFieldMapping[ri!index].modified_by,
+          loggedInUser()
+        ),
+        a!save(
+          ri!outFileFieldMapping[ri!index].modified_on,
+          now()
+        )
+      },
+      readOnly: if(
+        ri!isReadOnly=true(),
+        true(),
+        false()
+      ),
+      required: if(
+        or(
+          ri!isReadOnly
+        ),
+        false(),
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            touniformstring( index(ri!outputFileType,"file_type",{})) 
+          ),
+          false(),
+          if(
+            contains(
+              touniformstring( {"XLS","XLSB","XLSM","XLSX","CSV"}),
+              tostring( index(ri!outputFileType,"file_type",{}))        
+            ),
+              true(),
+              false()
+          )
+        )
+      ),
+      requiredMessage: {
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            touniformstring( index(ri!outputFileType,"file_type",{})) 
+          ),
+          false(),
+          if(
+            contains(
+              touniformstring( {"XLS","XLSB","XLSM","XLSX","CSV"}),
+              tostring( index(ri!outputFileType,"file_type",{}))        
+            ),
+            "Excel column index is required for file type (XLX, XLSB, XLSM, XLSX, CSV) ",
+            {}
+          )
+        )
+      }
+    ),
+    /*generation type*/
+    if(
+      ri!isReadOnly=true(),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value:index(
+          ri!outFileFieldMapping[ri!index],
+          "generation_type",
+          {}
+        ),
+        readOnly: true()
+      ),
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+      placeholderLabel:"--Select Generation Type--",
+      choiceLabels: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!masterLookUpData
+        ),
+        null,
+        difference(touniformstring(
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: ri!masterLookUpData,
+            UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[13],
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          )
+        ),"CURRENCY_FORMAT")
+      ),
+      choiceValues: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!masterLookUpData
+        ),
+        null,
+        difference(touniformstring(
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: ri!masterLookUpData,
+            UniqueKey:  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[13],
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+          )
+        ),"CURRENCY_FORMAT")
+      ),
+      required: if(
+        ri!isReadOnly=true(),
+        false(),true()
+      ),
+      value:if(
+        #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+          value:  index(
+            ri!outFileFieldMapping[ri!index],
+            "generation_type",
+            {}
+          ),
+          choiceValue:if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!masterLookUpData
+            ),
+            null,
+            difference(touniformstring(
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: ri!masterLookUpData,
+                UniqueKey:  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[13],
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+              )
+            ),"CURRENCY_FORMAT")
+          )
+        ),
+        index(
+          ri!outFileFieldMapping[ri!index],
+          "generation_type",
+          {}
+        ),
+        null
+      ),
+      helpTooltip: "List of Generation Types in the Output Config.",
+     
+      saveInto: {
+        a!save(ri!outFileFieldMapping[ri!index].generation_type,
+        save!value),
+        a!save(ri!outFileFieldMapping[ri!index].generation_format,null),
+      a!save(
+        ri!outFileFieldMapping[ri!index].modified_by,
+        loggedInUser()
+      ),
+      a!save(
+        ri!outFileFieldMapping[ri!index].modified_on,
+        now()
+      ),
+      a!save(ri!outFileFieldMapping[ri!index].generation_format,null)
+      }
+      
+    )),
+    /*generation_format*/
+    if(
+      ri!isReadOnly=true(),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value:index(
+          ri!outFileFieldMapping[ri!index],
+          "generation_format",
+          {}
+        ),
+        readOnly: true()
+      ),
+      if(
+        or(index(
+          ri!outFileFieldMapping[ri!index],
+          "generation_type",
+          {}
+        )="STANDARD",index(
+          ri!outFileFieldMapping[ri!index],
+          "generation_type",
+          {}
+        )="NUMBER",
+
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value: index(
+          ri!outFileFieldMapping[ri!index],
+          "generation_format",
+          {}
+        ),
+        saveInto:  a!save(ri!outFileFieldMapping[ri!index].generation_format,save!value),
+        readOnly: ri!isReadOnly,
+        required:false()
+      ),
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+      placeholderLabel:"--Select Generation format--",
+      
+      helpTooltip: "List of existing formats in Master Lookup.",
+      choiceLabels:
+     
+     if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!masterLookUpData
+          )
+        ),
+        null,
+        touniformstring(
+          index(
+            index(
+              ri!masterLookUpData,
+              wherecontains(
+                tostring(
+                  index(
+                    ri!outFileFieldMapping[ri!index],
+                    "generation_type",
+                    {}
+                  )
+                ),
+                touniformstring(
+                  index(
+                    ri!masterLookUpData,
+                    "type",
+                    {}
+                  )
+                )
+              ),
+              {}
+            ),
+            "label",
+            {}
+          )
+        )
+      ),
+      
+      choiceValues: 
+      
+      if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!masterLookUpData
+          )
+        ),
+        null,
+        touniformstring(
+          index(
+            index(
+              ri!masterLookUpData,
+              wherecontains(
+                tostring(
+                  index(
+                    ri!outFileFieldMapping[ri!index],
+                    "generation_type",
+                    {}
+                  )
+                ),
+                touniformstring(
+                  index(
+                    ri!masterLookUpData,
+                    "type",
+                    {}
+                  )
+                )
+              ),
+              {}
+            ),
+            "code",
+            {}
+          )
+        )
+      ),
+      
+      value:
+      
+    
+    if(
+        #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+          value: index(
+            ri!outFileFieldMapping[ri!index],
+            "generation_format",
+            {}
+          ),
+          choiceValue:if(
+            or(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!masterLookUpData
+              )
+            ),
+            null,
+            touniformstring(
+              index(
+                index(
+                  ri!masterLookUpData,
+                  wherecontains(
+                    tostring(
+                      index(
+                        ri!outFileFieldMapping[ri!index],
+                        "generation_type",
+                        {}
+                      )
+                    ),
+                    touniformstring(
+                      index(
+                        ri!masterLookUpData,
+                        "type",
+                        {}
+                      )
+                    )
+                  ),
+                  {}
+                ),
+                "code",
+                {}
+              )
+            )
+          )
+        ),
+        index(
+          ri!outFileFieldMapping[ri!index],
+          "generation_format",
+          {}
+        ),
+        null
+      )      
+     ,
+     
+      saveInto: {
+        a!save(ri!outFileFieldMapping[ri!index].generation_format,save!value),
+      a!save(
+        ri!outFileFieldMapping[ri!index].modified_by,
+        loggedInUser()
+      ),
+      a!save(
+        ri!outFileFieldMapping[ri!index].modified_on,
+        now()
+      ),
+     
+      },
+      required: if(
+        ri!isReadOnly=true(),
+        false(),
+        true()
+      )
+
+    ))),
+    
+    /*isactive*/
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      align: "CENTER",
+      value: {
+        if(
+          or(
+            tointeger(
+              index(
+                ri!outFileFieldMapping[ri!index],
+                "is_active",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              value: 1,
+              showWhen: if(
+                or(
+                  ri!isReadOnly
+                ),
+                false(),
+                true()
+              ),
+              saveInto: {a!save(
+                ri!outFileFieldMapping[ri!index].is_active,
+                0
+              ),
+              a!save(
+                ri!outFileFieldMapping[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!outFileFieldMapping[ri!index].modified_on,
+                now()
+              )
+              },
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-off",
+            caption: "No",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              value: 0,
+              showWhen: if(
+                or(
+                  ri!isReadOnly
+                ),
+                false(),
+                true()
+              ),
+              saveInto: {a!save(
+                ri!outFileFieldMapping[ri!index].is_active,
+                1
+              ),
+
+              a!save(
+                ri!outFileFieldMapping[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!outFileFieldMapping[ri!index].modified_on,
+                now()
+              )}
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          )
+        )
+      }
+    ),
+    /*remove*/
+    if(
+      not(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!outFileFieldMapping[ri!index],
+            "gt_out_file_field_mapping_id",
+            {}
+          )
+        )
+      ),
+      if(
+        ri!isReadOnly = true(),
+        {},
+        #"SYSTEM_SYSRULES_richTextDisplayField"()
+      ),
+      if(
+        ri!isReadonly = true(),
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "delete ",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            altText: "Remove",
+            caption: "Remove",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              value: ri!index,
+              saveInto: {
+                a!save(
+                  ri!outFileFieldMapping,
+                  remove(
+                    ri!outFileFieldMapping,
+                    ri!index
+                  )
+                ),
+              }
+            )
+          ),
+          size: "ICON"
+        )
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outFileFieldMapping</name>
+            <type>
+                <name>EAP_T_GtOutFileFieldMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>tablesColumns</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runTime</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outputFileType</name>
+            <type>
+                <name>EAP_T_RefProcessOutFileType</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_230668"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_314569"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_380607"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_424160"/>
+    </history>
+</contentHaul>

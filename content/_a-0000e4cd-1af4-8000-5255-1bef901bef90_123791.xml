@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_321835</versionUuid>
+    <interface>
+        <name>EAP_RunConfiguration_ClusterPagingGrid</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_123791</uuid>
+        <description>Contains paging grid for cluster</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!activeStep: 0,
+  local!clusterName,
+  local!refCluster: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_16958"(
+    clusterName: local!clusterName,
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: -1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "name",
+        ascending: true()
+      )
+    )
+  ),
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    label: "Manage Cluster Configuration",
+    divider: "ABOVE",
+    contents: {
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+              placeHolder: "Select Cluster",
+              refreshAfter: "KEYPRESS",
+              value: local!clusterName,
+              saveInto: local!clusterName
+            )
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_ButtonLayout"(
+                primaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+                  label:"ADD CLUSTER",
+                  value:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[5],
+                  saveInto: {ri!buttonAction,
+                  a!save(
+                    local!activeStep,
+                    1
+                  )
+                  },
+                  /*submit:true(),*/
+                  style:"PRIMARY",
+                  disabled: or(tointeger(local!activeStep)=1),
+                  validate: true()
+                ),        
+                showWhen: or(tointeger(local!activeStep)=0)),
+            }
+          )
+        },
+        showWhen: or(local!activeStep=0)
+      ),
+      
+      #"SYSTEM_SYSRULES_gridField_v1"(
+        data: local!refCluster,
+        columns: {
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Name",
+            sortField :"name",
+            value: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(fv!row,"name",{})),
+            "N/A",
+            index(fv!row,"name",{}))
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Description",
+            sortField :"description",
+            value: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(fv!row,"description",{})),
+              "N/A",
+              index(fv!row,"description",{}))
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Is Active",
+            sortField :"is_active",
+            value:  #"SYSTEM_SYSRULES_imageField_v1"(
+              images: {
+                #"SYSTEM_SYSRULES_documentImage"(
+                  document: #"SYSTEM_SYSRULES_iconIndicator"(
+                    icon: if(
+                      contains(
+                        toboolean(
+                          index(fv!row, "is_active", {})
+                        ),
+                        true()
+                      ),
+                      "STATUS_OK",
+                      "STATUS_NOTDONE"
+                    )
+                  ),
+                  caption: if(
+                    contains(
+                      toboolean(
+                        index(fv!row, "is_active", {})
+                      ),
+                      true()
+                    ),
+                    "Active",
+                    "In-Active"
+                  )
+                )
+              }
+            ),
+            align: "CENTER"
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Edit",
+            value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+              value: {
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "edit",
+                  caption: "Edit",
+                  link:if(tointeger(local!activeStep)=0,
+                  #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 1,
+                    saveInto: 
+                    {
+                      local!activeStep,
+                      a!save(
+                        ri!clusterId,
+                        fv!row.cluster_id
+
+                      ),
+                      a!save(
+                        ri!refCluster,
+                        #"_a-0000e4c6-4628-8000-5253-1bef901bef90_16958"(
+                          clusterId:  ri!clusterId
+                        ),
+
+                      ),
+                    }
+                  ),{}),
+                  linkStyle: "STANDALONE",
+                  color:  if(tointeger(local!activeStep)=0,"ACCENT","SECONDARY"),
+                  size: "MEDIUM_PLUS"
+                )
+              },
+              align: "CENTER"
+            ),
+            align: "CENTER"
+          )
+        },
+        showWhen: or(local!activeStep=0)
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text: "+ Add Cluster",
+          link: if(tointeger(local!activeStep)=0,
+          #"SYSTEM_SYSRULES_dynamicLink"(
+            value: 1,
+            saveInto: local!activeStep
+          ),
+          {}),
+          color: if(tointeger(local!activeStep)=0,"ACCENT","SECONDARY"),
+          style: "STRONG"
+        ),
+        showWhen: or(tointeger(local!activeStep)=0)
+      ),
+      #"SYSTEM_SYSRULES_ButtonLayout"(
+        /*primaryButtons: a!buttonWidget(*/
+          /*label:cons!EAP_BUTTON_ACTION[1],*/
+          /*value:cons!EAP_BUTTON_ACTION[1],*/
+          /*saveInto: {ri!buttonAction,*/
+          /*},*/
+          /*submit:true(),*/
+          /*style:"PRIMARY",*/
+          /*disabled: or(tointeger(local!activeStep)=1),*/
+          /*validate: true()*/
+        /*),*/
+        secondaryButtons:  #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+          value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+          saveInto: {ri!buttonAction,
+         },
+          submit: true(),
+          /*style: "DESTRUCTIVE",*/
+          disabled: or(tointeger(local!activeStep)=1)
+        ),
+        showWhen: or(tointeger(local!activeStep)=0)),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(),
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_123580"(
+                refCluster:  ri!refCluster,
+                isInactive: ri!isInactive,
+                isActive: ri!isActive,
+                buttonAction:  ri!buttonAction,
+                activeStep:  local!activeStep,
+                clusterId: ri!clusterId
+              )
+            )
+          },
+          showWhen: or(tointeger(local!activeStep)=1)
+        )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>refCluster</name>
+            <type>
+                <name>EAP_T_RefCluster</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>clusterId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isInactive</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_138887"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_182089"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_225421"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_321835"/>
+    </history>
+</contentHaul>

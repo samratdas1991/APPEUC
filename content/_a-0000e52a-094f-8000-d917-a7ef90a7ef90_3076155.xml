@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e568-5f7e-8000-d94b-a7ef90a7ef90_6043428</versionUuid>
+    <constant>
+        <name>EAP_SOURCE_SUCCESS_STATUS</name>
+        <uuid>_a-0000e52a-094f-8000-d917-a7ef90a7ef90_3076155</uuid>
+        <description>Contains all source success status</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>MANUAL_UPLOAD</el>
+                <el>IFW_SRC_RES_NAS_SUCCESS</el>
+                <el>SMART_SRC_SMART_SUCCESS</el>
+                <el>EMAIL_SRC_RECEIVED</el>
+                <el>EMAIL_RECEIVED</el>
+                <el>IN_EMAIL</el>
+                <el>EMAIL_SRC_UNAVIL_MANUAL_UPLOAD</el>
+                <el>IFW_SRC_UNAVAIL_MANUAL_UPLOAD</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e52a-b359-8000-d918-a7ef90a7ef90_3269590"/>
+        <historyInfo versionUuid="_a-0000e539-32f0-8000-d91d-a7ef90a7ef90_3655246"/>
+        <historyInfo versionUuid="_a-0000e54e-4c4f-8000-d935-a7ef90a7ef90_4723378"/>
+        <historyInfo versionUuid="_a-0000e560-c151-8000-d946-a7ef90a7ef90_5697036"/>
+        <historyInfo versionUuid="_a-0000e568-5f7e-8000-d94b-a7ef90a7ef90_6043428"/>
+    </history>
+</contentHaul>

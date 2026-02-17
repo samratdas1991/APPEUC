@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_90168</versionUuid>
+    <interface>
+        <name>EAP_ActionTypeSheetCopyMappingEditableGrid</name>
+        <uuid>_a-0000e4c6-4628-8000-5253-1bef901bef90_16488</uuid>
+        <description>Contains editable grid for Sheet Copy Mapping.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridLayout"(
+  label: "",
+  shadeAlternateRows: false(),
+  headerCells: {
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "From Sheet Column Index",
+      
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "To Sheet Column Index",
+      
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "From Cell Position"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "To Cell Position"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Terminating Value"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Terminating Position"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Active",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "",
+      showWhen: if(
+        contains(
+          ri!isReadOnly,
+          true
+        ),
+        false,
+        true()
+      )
+    )
+  },
+  columnConfigs: {
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 3
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 3
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 3
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 3
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 3
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 3
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    ),
+    
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    )
+  },
+  rows: {
+    #"SYSTEM_SYSRULES_applyComponents"(
+      function: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16008"(
+        index: _,
+        sheetCopyMapping: ri!sheetCopyMapping,
+        isReadOnly: ri!isReadOnly
+      ),
+      array: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!sheetCopyMapping
+          ),
+          count(
+            ri!sheetCopyMapping
+          ) = 0
+        ),
+        null,
+        wherecontains(
+          tointeger(ri!sheetCopyid),
+          tointeger(index(
+            ri!sheetCopyMapping,
+            "sheet_copy_id",
+            null
+          ))
+        )
+      )
+    )
+  },
+  selectionSaveInto: {},
+  addRowLink: if(
+    or(
+      ri!isReadOnly
+      /*,*/
+      /*length(*/
+        /*wherecontains(*/
+          /*tointeger(ri!sheetCopyid),*/
+          /*tointeger(index(*/
+            /*ri!sheetCopyMapping,*/
+            /*"sheet_copy_id",*/
+            /*null*/
+          /*))*/
+        /*)*/
+      /*) &gt;= 1*/
+    ),
+    {},
+    #"SYSTEM_SYSRULES_dynamicLink"(
+      label: "Add Row",
+      value: {
+        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10850"(
+          sheetCopyId: ri!sheetCopyid,
+          isActive: 1,
+          createdBy: loggedInUser(),
+          createdOn: now(),
+          modifiedBy: loggedInUser(),
+          modifiedOn: now()
+        )
+      },
+      saveInto: a!save(
+        ri!sheetCopyMapping,
+        append(
+          ri!sheetCopyMapping,
+          save!value
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>sheetCopyMapping</name>
+            <type>
+                <name>EAP_T_RefProcessWfSheetCopyMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetCopyid</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_84506"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_90168"/>
+    </history>
+</contentHaul>

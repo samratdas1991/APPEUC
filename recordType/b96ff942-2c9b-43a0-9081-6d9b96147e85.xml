@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>94b059b7-1ff3-4118-bfd2-b4a092ceb118</versionUuid>
+  <recordType a:uuid="b96ff942-2c9b-43a0-9081-6d9b96147e85" name="EAP Request V2">
+    <a:pluralName>EAP Request V2s</a:pluralName>
+    <a:description>Hold all the request of eap</a:description>
+    <a:urlStub>6x7G6w</a:urlStub>
+    <a:source
+      a:uuid="13c840c2-7749-42c8-8119-ec6e9e3cd3e7@_a-0000e4c3-ab68-8000-5250-1bef901bef90_7357" xsi:type="a:DataStoreEntity"/>
+    <a:listViewTemplateExpr>#"SYSTEM_SYSRULES_recordGridField"(
+  columns: {
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Request Id",
+      value: fv!row[#"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/requestId"],
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Process Id",
+      sortField: #"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/processId",
+      value: #"SYSTEM_SYSRULES_linkField"(
+        links: {
+          #"SYSTEM_SYSRULES_recordLink"(
+            label: fv!row[#"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/processId"],
+            recordType: #"urn:appian:record-type:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85",
+            identifier: fv!identifier
+          )
+        }
+      ),
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Status",
+      value: null
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Maker Id",
+      sortField: #"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/makerId",
+      value: fv!row[#"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/makerId"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Checker Id",
+      sortField: #"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/checkerId",
+      value: fv!row[#"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/checkerId"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Is Adhoc Trigger",
+      sortField: #"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/isAdhocTrigger",
+      value: fv!row[#"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/isAdhocTrigger"],
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Updated On",
+      sortField: #"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/updatedOn",
+      value: if(
+      isnull(fv!row[#"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/updatedOn"]),
+      fv!row[#"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/updatedOn"],
+      datetext(fv!row[#"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/updatedOn"], "default")
+      ),
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Grid Column",
+      value: null
+    )
+  },
+  pageSize: 50,
+  initialSorts: {
+    #"SYSTEM_SYSRULES_sortInfo"(
+      field: #"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/requestId",
+      ascending: false
+    )
+  },
+  shadeAlternateRows: true
+)</a:listViewTemplateExpr>
+    <a:fieldCfg a:uuid="e78a5323-cd03-4fe4-8154-2bdb07d14510" name="Workflow">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>a!localVariables(
+  local!status:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    categoryGroup: "Global",
+    type: "WORKFLOW_STATUS",
+    pagingInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex:1,
+      batchSize:-1,
+      sort:#"SYSTEM_SYSRULES_sortInfo"(
+        field:"label",
+        ascending:true()
+      )
+    )
+  ),
+
+
+  #"SYSTEM_SYSRULES_recordFilterList"(
+    name:"Status",
+    options:#"SYSTEM_SYSRULES_forEach"(
+      items:local!status,
+      expression:#"SYSTEM_SYSRULES_recordFilterListOption"(
+        id:fv!index,
+        name:fv!item.label,
+        filter:#"SYSTEM_SYSRULES_queryFilter"(
+          field:"requestCurrStatus",
+          operator:"=",
+          value:fv!item.code
+        )
+      )
+    )
+  )
+)
+
+
+
+</a:facetExpr>
+      <a:sortOrderIndex>0</a:sortOrderIndex>
+      <a:facetOrderIndex>0</a:facetOrderIndex>
+      <a:visibilityExpr/>
+      <a:defaultOptionExpr/>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:fieldCfg a:uuid="27e6eed0-663f-4c04-ae6d-a8ef09fb40e6" name="Process Name">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>a!localVariables(
+  local!selectedProcessId: tointeger(
+    index(
+      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9887"(
+        userSoeId: loggedInUser(),
+        isActive: true()
+      ),
+      "processId",
+      {}
+    )
+  ),
+  local!processList: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+    processId: local!selectedProcessId,
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: - 1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "name",
+        ascending: true()
+      )
+    )
+  ),
+  #"SYSTEM_SYSRULES_recordFilterList"(
+    name: "Process Name",
+    options: #"SYSTEM_SYSRULES_forEach"(
+      items: local!processList,
+      expression: #"SYSTEM_SYSRULES_recordFilterListOption"(
+        id: fv!index,
+        name: fv!item.name,
+        filter: #"SYSTEM_SYSRULES_queryFilter"(
+          field: "processId",
+          operator: "=",
+          value: fv!item.process_id
+        )
+      )
+    )
+  )
+)</a:facetExpr>
+      <a:sortOrderIndex>1</a:sortOrderIndex>
+      <a:facetOrderIndex>1</a:facetOrderIndex>
+      <a:visibilityExpr/>
+      <a:defaultOptionExpr/>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:fieldCfg a:uuid="6b3bbb53-c9e0-4c63-bd29-306668fd0c0f" name="Updated on">
+      <a:sourceRef>updatedOn</a:sourceRef>
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>DATE_RANGE</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetLabelExpr>="Updated on"</a:facetLabelExpr>
+      <a:sortOrderIndex>2</a:sortOrderIndex>
+      <a:facetOrderIndex>2</a:facetOrderIndex>
+      <a:visibilityExpr/>
+      <a:defaultOptionExpr/>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>#"SYSTEM_SYSRULES_rtd_getDefaultSummaryViewName"()</a:nameExpr>
+      <a:uiExpr>#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_308367"(
+  requestId: rf!requestId
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>summary</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:defaultFilter>
+      <a:field>processId</a:field>
+      <a:operator>in</a:operator>
+      <a:valueExpression>tointeger(
+  index(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9887"(
+      userSoeId: loggedInUser(),
+      isActive: true()
+    ),
+    "processId",
+    {}
+  )
+)</a:valueExpression>
+    </a:defaultFilter>
+    <a:defaultFilter>
+      <a:field>requestId</a:field>
+      <a:operator>not in</a:operator>
+      <a:valueExpression>tointeger(
+  index(#"_a-0000e54c-ce50-8000-5260-1bef901bef90_617663"(requestId:null),"request_id",{}))</a:valueExpression>
+    </a:defaultFilter>
+    <a:isSystem>false</a:isSystem>
+    <a:dataSrcExpr/>
+    <a:facetsListExpr/>
+    <a:titleExpr>rv!record[#"urn:appian:record-field:v1:b96ff942-2c9b-43a0-9081-6d9b96147e85/requestCurrStatus"]</a:titleExpr>
+    <a:defaultFiltersExpr/>
+    <a:layoutType>GRID</a:layoutType>
+    <a:security>16383</a:security>
+    <a:hideLatestNews>false</a:hideLatestNews>
+    <a:hideNewsView>false</a:hideNewsView>
+    <a:hideRelatedActionsView>false</a:hideRelatedActionsView>
+    <a:isExportable>true</a:isExportable>
+    <a:listViewSrcExpr/>
+    <a:recordViewSrcExpr/>
+    <a:recordTypeSearchCfg>
+      <searchFieldsSrc>DEFAULT</searchFieldsSrc>
+      <placeholderSrc>DEFAULT</placeholderSrc>
+      <placeholder/>
+    </a:recordTypeSearchCfg>
+    <a:iconId/>
+    <a:listAutoRefreshInterval>0.0</a:listAutoRefreshInterval>
+    <a:enabledFeatures>127</a:enabledFeatures>
+    <a:isVisibleInRecordTypeList>false</a:isVisibleInRecordTypeList>
+    <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+    <a:showSearchBox>true</a:showSearchBox>
+    <a:isVisibleInDataFabric>false</a:isVisibleInDataFabric>
+    <a:usesRollingSyncLimit>false</a:usesRollingSyncLimit>
+    <a:usesRecoverySync>false</a:usesRecoverySync>
+    <a:isScheduledIndexingEnabled>false</a:isScheduledIndexingEnabled>
+    <a:smartSearchAcceptableFailureRate>0.0</a:smartSearchAcceptableFailureRate>
+    <a:skipFailedSmartServicesSync>false</a:skipFailedSmartServicesSync>
+  </recordType>
+  <roleMap>
+    <role name="record_type_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+      </groups>
+    </role>
+    <role name="record_type_viewer">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="94b059b7-1ff3-4118-bfd2-b4a092ceb118"/>
+  </history>
+  <migrationVersion>1</migrationVersion>
+</recordTypeHaul>

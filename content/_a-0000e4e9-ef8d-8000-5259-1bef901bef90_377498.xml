@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_394764</versionUuid>
+    <rule>
+        <name>EAP_DataValidation_ActionTypePivotFilterGridRowLayout</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377498</uuid>
+        <description>Holds gridRowLayout for pivot filter</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!data,
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    id: ri!index,
+    contents: {
+      /* Sheet Name*/
+     #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        label: "Sheet Name" &amp; ri!index,
+        placeholder: " Enter Sheet Name ",
+        value: index(
+          ri!pivotFilter[ri!index],
+          "sheet_name"
+        ),
+        saveInto: {
+          ri!pivotFilter[ri!index].sheet_name ,
+          a!save(
+            ri!pivotFilter[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!pivotFilter[ri!index].modified_on,
+            now()
+          )
+          },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!pivotFilter[ri!index],
+                "sheet_name"
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          )
+        },
+        readOnly: ri!isReadOnly,
+        required: not(or(ri!isReadOnly))
+      ),
+      
+     #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        label: "Pivot Name" &amp; ri!index,
+        placeholder: " Enter Pivot Name ",
+        value: index(
+          ri!pivotFilter[ri!index],
+          "pivot_name"
+        ),
+        saveInto: {
+          ri!pivotFilter[ri!index].pivot_name ,
+          a!save(
+            ri!pivotFilter[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!pivotFilter[ri!index].modified_on,
+            now()
+          )
+        },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!pivotFilter[ri!index],
+                "pivot_name"
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          )
+        },
+        readOnly: ri!isReadOnly,
+        required: not(or(ri!isReadOnly))
+      ),
+      if(
+        ri!isReadOnly,
+       #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          label: "Filter Type" &amp; ri!index,
+          value:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_144577"(
+            masterLookup: ri!masterLookup,
+            uniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[21],
+            value:  index(
+              ri!pivotFilter[ri!index],
+              "filter_type"
+            )
+          ),
+          readOnly: true()
+        ),
+       #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+          label: "Filter Type" &amp; ri!index,
+          placeholderLabel:"Enter Filter Type",
+          choiceLabels: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!masterLookup
+            ),
+            null,
+            touniformstring(
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: ri!masterLookup,
+                UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[21],
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+              )
+            )
+          ),
+          choiceValues: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!masterLookup
+            ),
+            null,
+            touniformstring(
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: ri!masterLookup,
+                UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[21],
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+              )
+            )
+          ),
+          value: if(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+              value: index(
+                ri!pivotFilter[ri!index],
+                "filter_type"
+              ),
+              choiceValue: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!masterLookup
+                ),
+                null,
+                touniformstring(
+                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                    MasterLookup: ri!masterLookup,
+                    UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[21],
+                    Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                  )
+                )
+              ),
+            ),
+            index(
+              ri!pivotFilter[ri!index],
+              "filter_type"
+            ),
+            null
+          ),
+          saveInto: {
+            ri!pivotFilter[ri!index].filter_type ,
+            a!save(
+              ri!pivotFilter[ri!index].modified_by,
+              loggedInUser()
+            ),
+            a!save(
+              ri!pivotFilter[ri!index].modified_on,
+              now()
+            )
+            },
+          validations: {
+            if(
+              ri!isReadOnly,
+              {},
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                value: index(
+                  ri!pivotFilter[ri!index],
+                  "filter_type"
+                ),
+                ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+              )
+            )
+          },
+          required: not(or(ri!isReadOnly))
+        ),
+        
+      ),
+    
+      /* Is Active */
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        align: "CENTER",
+        value: {
+          if(
+            or(
+              tointeger(
+                index(
+                  ri!pivotFilter[ri!index],
+                  "is_active",
+                  {}
+                )
+              ) = 1
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-on",
+              caption: "Yes",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: 1,
+
+                saveInto: {
+                  a!save(
+                    ri!pivotFilter[ri!index].is_active,
+                  0
+                  ),
+                  a!save(
+                    ri!pivotFilter[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!pivotFilter[ri!index].modified_on,
+                    now()
+                  )
+                },
+                showWhen:  not(or(ri!isReadOnly))
+              ),
+              size: "MEDIUM_PLUS",
+              color: "ACCENT"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-off",
+              caption: "No",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: 0,
+                saveInto: {
+                  a!save(
+                    ri!pivotFilter[ri!index].is_active,
+                  1
+                  ),
+                  a!save(
+                    ri!pivotFilter[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!pivotFilter[ri!index].modified_on,
+                    now()
+                  )
+                },
+                showWhen:  not(or(ri!isReadOnly))
+              ),
+              size: "MEDIUM_PLUS",
+              color: "ACCENT"
+            )
+          )
+        }
+      ),
+      /* Move Up*/
+      if(
+        or(
+          ri!isReadonly = true(),
+          length(
+            wherecontains(
+              tointeger(ri!actionId),
+              tointeger(index(ri!pivotFilter,"wf_action_id",null))
+            ))
+            
+            &lt; 2
+        ),
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: " ",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(
+                ri!index = 1,
+                "MOVE_UP_DISABLED",
+                "MOVE_UP"
+              )
+            ),
+            link: if(
+              ri!index = 1,
+              {},
+              #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    local!data,
+                    ri!pivotFilter[ri!index - 1]
+                  ),
+                  a!save(
+                    ri!pivotFilter[ri!index - 1],
+                    ri!pivotFilter[ri!index]
+                  ),
+                  a!save(
+                    ri!pivotFilter[ri!index],
+                    local!data
+                  ),
+                  a!save(
+                    ri!pivotFilter[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!pivotFilter[ri!index].modified_on,
+                    now()
+                  )
+                }
+              )
+            )
+          )
+        )
+      ),
+      /* Move Down*/
+      if(
+        or(
+          ri!isReadonly = true(),
+          length(
+            wherecontains(
+              tointeger(ri!actionId),
+              tointeger(index(ri!pivotFilter,"wf_action_id",null))
+            )) &lt; 2
+        ),
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              if(
+                or(
+                  length(
+                    ri!pivotFilter
+                  ) = 1,
+                  ri!index = count(
+                    ri!pivotFilter
+                  )
+                ),
+                "MOVE_DOWN_DISABLED",
+                "MOVE_DOWN"
+              )
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(or(
+                length(
+                  ri!pivotFilter
+                ) = 1,
+                ri!index = count(
+                  ri!pivotFilter
+                )
+              )),
+              saveInto: {
+                a!save(
+                  local!data,
+                  ri!pivotFilter[ri!index]
+                ),
+                a!save(
+                  ri!pivotFilter[ri!index],
+                  ri!pivotFilter[ri!index + 1],
+                  
+                ),
+                a!save(
+                  ri!pivotFilter[ri!index + 1],
+                  local!data
+                ),
+                a!save(
+                  ri!pivotFilter[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!pivotFilter[ri!index].modified_on,
+                  now()
+                )
+                
+              }
+            )
+          )
+        )
+      ),
+      /* Remove/Delete */
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!pivotFilter[ri!index],
+            "pivot_filter_id"
+          )
+        ),
+        if(
+          ri!isReadOnly,
+          {},
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            label: "delete" &amp; ri!index,
+            images: #"SYSTEM_SYSRULES_documentImage"(
+              document: #"SYSTEM_SYSRULES_iconIndicator"(
+                "REMOVE"
+              ),
+              altText: "Remove",
+              caption: "Remove",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: ri!index,
+                saveInto: {
+                  if(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      index(
+                        ri!pivotFilter[ri!index],
+                        "pivot_filter_id"
+                      )
+                    ),
+                    a!save(
+                      ri!pivotFilter,
+                      remove(
+                        ri!pivotFilter,
+                        save!value
+                      )
+                    ),
+                    a!save(
+                      ri!pivotFilter[ri!index].is_active,
+                      false
+                    )
+                  )
+                }
+              )
+            ),
+            size: "ICON"
+          )
+        ),
+        if(
+          ri!isReadOnly = true(),
+          {},
+          #"SYSTEM_SYSRULES_richTextDisplayField"()
+        )
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pivotFilter</name>
+            <type>
+                <name>EAP_T_DVPivotFilter?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookup</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_382523"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_394764"/>
+    </history>
+</contentHaul>

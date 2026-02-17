@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e58b-f438-8000-5262-1bef901bef90_724086</versionUuid>
+    <interface>
+        <name>EAP_CheckUserPartOfGroups</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_711916</uuid>
+        <description>Hold Interface to show invalid exception</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  #"SYSTEM_SYSRULES_gridField_v1"(
+    label: "",
+    labelPosition: "ABOVE",
+    data: ri!tempUsers,
+    columns: {
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "User Soe Id",
+        value: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251824"(
+          index(
+            fv!row,
+            "userSoeId",
+            {}
+          )
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Primary Maker",
+        helpTooltip: "Is primary Maker (Contains the expected value of Is Primary Maker)",
+        value: #"_a-0000e58b-f438-8000-5262-1bef901bef90_723567"(
+          value: index(
+            fv!row,
+            "isPrimaryMaker",
+            {}
+          ),
+          expectedValue: index(
+            fv!row,
+            "isExpectedMaker",
+            {}
+          )
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Secondary Maker",
+        helpTooltip: "Is Secondary Maker (Contains the expected value of Is Secondary Maker)",
+        value: #"_a-0000e58b-f438-8000-5262-1bef901bef90_723567"(
+          value: index(
+            fv!row,
+            "isSecondaryMaker",
+            {}
+          ),
+          expectedValue: index(
+            fv!row,
+            "isExpectedMaker",
+            {}
+          )
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Primary Checker",
+        helpTooltip: "Is Primary Checker (Contains the expected value of Is Primary Checker)",
+        value: #"_a-0000e58b-f438-8000-5262-1bef901bef90_723567"(
+          value: index(
+            fv!row,
+            "isPrimaryChecker",
+            {}
+          ),
+          expectedValue: index(
+            fv!row,
+            "isExpectedChecker",
+            {}
+          )
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Secondary Checker",
+        helpTooltip: "Is Secondary Checker (Contains the expected value of Is Secondary Checker)",
+        value: #"_a-0000e58b-f438-8000-5262-1bef901bef90_723567"(
+          value: index(
+            fv!row,
+            "isSecondaryChecker",
+            {}
+          ),
+          expectedValue: index(
+            fv!row,
+            "isExpectedChecker",
+            {}
+          )
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "DOA",
+        helpTooltip: "Is DOA (Contains the expected value of Is DOA)",
+        value: #"_a-0000e58b-f438-8000-5262-1bef901bef90_723567"(
+          value: index(
+            fv!row,
+            "isDoa",
+            null
+          ),
+          expectedValue: index(
+            fv!row,
+            "isExpectedDoa",
+            null
+          )
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Power User",
+        helpTooltip: "Is Power User (Contains the expected value of Is Power User)",
+        value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    fv!row,
+                    "isPowerUser",
+                    {}
+                  )
+                ),
+                "N/A",
+                if(
+                  index(
+                    fv!row,
+                    "isPowerUser",
+                    {}
+                  ) = 1,
+                  "Yes",
+                  "No"
+                )
+              )
+            )
+          }
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Auditor",
+        value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    fv!row,
+                    "isAuditor",
+                    {}
+                  )
+                ),
+                "N/A",
+                if(
+                  index(
+                    fv!row,
+                    "isAuditor",
+                    {}
+                  ) = 1,
+                  "Yes",
+                  "No"
+                )
+              )
+            )
+          }
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Viewer",
+        value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    fv!row,
+                    "isViewer",
+                    {}
+                  )
+                ),
+                "N/A",
+                if(
+                  index(
+                    fv!row,
+                    "isViewer",
+                    {}
+                  ) = 1,
+                  "Yes",
+                  "No"
+                )
+              )
+            )
+          }
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Status",
+        value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    fv!row,
+                    "isActive",
+                    {}
+                  )
+                ),
+                "N/A",
+                if(
+                  index(
+                    fv!row,
+                    "isActive",
+                    {}
+                  ) = 1,
+                  "Yes",
+                  "No"
+                )
+              )
+            )
+          }
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Remarks",
+        value: concat(
+          "User is not a part of ",
+          if(
+            or(
+              index(
+                fv!row,
+                "isExpectedMaker",
+                {}
+              ) = 0
+            ),
+            "Maker Group,",
+            {}
+          ),
+          if(
+            or(
+              index(
+                fv!row,
+                "isExpectedChecker",
+                {}
+              ) = 0
+            ),
+            " Checker Group",
+            {}
+          ),
+          if(
+            and(
+              index(
+                fv!row,
+                "isExpectedMaker",
+                {}
+              ) = 0,
+              index(
+                fv!row,
+                "isExpectedChecker",
+                {}
+              ) = 0
+            ),
+            ", DOA Group",
+            {}
+          ),
+          if(
+            and(
+              index(
+                fv!row,
+                "isExpectedMaker",
+                {}
+              ) = 0,
+              index(
+                fv!row,
+                "isExpectedChecker",
+                {}
+              ) = 0
+            ),
+            ", Power User",
+            {}
+          )
+        )
+      )
+    },
+    validations: {}
+  )
+}</definition>
+        <namedTypedValue>
+            <name>tempUsers</name>
+            <type>
+                <name>EAP_Temp_ProcessUsers?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_719037"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_720596"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_720829"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_720910"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_724086"/>
+    </history>
+</contentHaul>

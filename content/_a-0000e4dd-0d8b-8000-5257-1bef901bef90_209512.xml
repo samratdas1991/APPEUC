@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_223459</versionUuid>
+    <interface>
+        <name>EAP_ChecklistReadOnlyGrid</name>
+        <uuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_209512</uuid>
+        <description>Display Checklist in Read only grid based on Checklist Type</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridField_v1"(
+  data: ri!refChecklist,
+  columns: {
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Checklist Type",
+      sortField: "checklistType",
+      value: fv!row.checklistType,
+      align: "START",
+      showWhen: false
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Checklist Desc",
+      sortField: "checklistDesc",
+      value: fv!row.checklistDesc,
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Sort Order",
+      sortField: "sortOrder",
+      value: fv!row.sortOrder,
+      align: "END",
+      width: "NARROW_PLUS"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Is Active",
+      sortField: "isActive",
+      value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: {
+          if(
+            fv!row.isActive = true(),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "check-circle",
+              caption: "Active",
+              color: "POSITIVE",
+              size: "MEDIUM"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "times-circle",
+              caption: "In-Active",
+              color: "NEGATIVE",
+              size: "MEDIUM"
+            )
+          )
+        },
+        align: "CENTER"
+      ),
+      align: "CENTER",
+      width: "NARROW_PLUS"
+    )
+  },
+  pageSize: 10
+)</definition>
+        <namedTypedValue>
+            <name>refChecklist</name>
+            <type>
+                <name>EAP_T_RefChecklist?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_223459"/>
+    </history>
+</contentHaul>

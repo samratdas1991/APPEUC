@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_118100</versionUuid>
+    <rule>
+        <name>EAP_ProcessNameFacetOption</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_23083</uuid>
+        <description>outputs a facet  with all active process names as its options.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!allProcessNames:index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(isActive: 1), "name",{}),
+  with(
+    local!processNames:union(local!allProcessNames, local!allProcessNames),
+    #"SYSTEM_SYSRULES_facet_v1"(
+      name:"Process Name",
+      options: #"SYSTEM_SYSRULES_forEach"(
+        items: local!processNames,
+        expression: #"SYSTEM_SYSRULES_facetOption"(
+          id:fv!index,
+          name: local!processNames[fv!index],
+          filter: #"SYSTEM_SYSRULES_queryFilter"(
+            field:"process_name" ,
+            operator: "includes",
+            value: fv!item
+          )
+        )
+
+      )
+    )
+  )
+  
+  
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_56963"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_118100"/>
+    </history>
+</contentHaul>

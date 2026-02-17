@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_611231</versionUuid>
+    <interface>
+        <name>EAP_DynamicParsingConfig_WarningCard</name>
+        <uuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_591645</uuid>
+        <description>Holds an interface of warning card for Dynamic Parsing Configuration</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!message: reject(
+    fn!isnull,
+    a!flatten(
+      #"SYSTEM_SYSRULES_forEach"(
+        items: ri!dynamicConfig,
+        expression: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              #"_a-0000e54c-ce50-8000-5260-1bef901bef90_567653"(
+                eapPrDynamicConfId: index(
+                  fv!item,
+                  "eap_pr_dynamic_conf_id",
+                  {}
+                )
+              ),
+              "eap_pr_dynamic_conf_detail_id",
+              {}
+            )
+          ),
+          concat(
+            "Configuration details for: ",
+            index(
+              fv!item,
+              "config_name",
+              {}
+            ),
+            " are not saved"
+          ),
+          ""
+        )
+      )
+    )
+  ),
+  {
+    #"SYSTEM_SYSRULES_cardLayout"(
+      style: "WARN",
+      showBorder: false,
+      contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns:{
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                /*Notes*/
+                #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: {
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: "NOTE: Please save the configuration details each time you make any changes!",
+                      size: "SMALL",
+                      style: "EMPHASIS",
+                      color: "ACCENT"
+                    )
+                  }
+                )
+              },
+              width: "WIDE"
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                /*Help document for user*/
+                #"SYSTEM_SYSRULES_imageField_v1"(
+                  images: {
+                    #"SYSTEM_SYSRULES_documentImage"(
+                      document: 18413,
+                      altText: "Help Document",
+                      caption: "Click here to view the User Help Document"
+                    )
+                  },
+                  size: "GALLERY",
+                  isThumbnail: true,
+                  style: "STANDARD"
+                )
+              },
+              width: "NARROW_PLUS"
+            )
+          }
+        )
+        ,
+        
+        
+      },
+      marginBelow: "STANDARD"
+    ),
+    #"SYSTEM_SYSRULES_cardLayout"(
+      style: "WARN",
+      showWhen: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          local!message
+        ),
+        false(),
+        true()
+      ),
+      showBorder: false,
+      contents: {
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "WARNING!",
+              size: "SMALL",
+              style: {
+                "STRONG"
+              },
+              color: "ACCENT"
+            ),
+            /*char(*/
+              /*10*/
+            /*),*/
+            #"SYSTEM_SYSRULES_forEach"(
+              items: local!message,
+              expression: {
+                char(
+                  10
+                ),
+                #"SYSTEM_SYSRULES_richTextItem_v1"(
+                  text: concat(
+                    "&gt; ",
+                    fv!item
+                  ),
+                  size: "SMALL",
+                  style: "",
+                  color: "ACCENT"
+                )
+              }
+            )
+          }
+        )
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>dynamicConfig</name>
+            <type>
+                <name>EAP_T_PR_DYNAMIC_CONF?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dynamicConfigDetails</name>
+            <type>
+                <name>EAP_T_PR_DYNAMIC_CONF_DETAIL?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_601326"/>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_611231"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_30114</versionUuid>
+    <interface>
+        <name>EAP_RefProcessGroupEditableGrid</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_29932</uuid>
+        <description>Contains editable grid for ref process group</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridLayout"(
+  label: "",
+  shadeAlternateRows: false(),
+  headerCells: {
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Maker Group",
+      align: "LEFT",
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Checker Group",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Sheet Name",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Operations Team Group",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Technical Support Group",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Escalation Group",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Admin Maintenance Group",
+      align: "LEFT"
+    ),
+    
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Status",
+      align: if(
+        contains(
+          ri!isReadOnly,
+          true()
+        ),
+        "CENTER",
+        "LEFT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      align: if(
+        contains(
+          ri!isReadOnly,
+          true()
+        ),
+        "CENTER",
+        "LEFT"
+      ),
+      showWhen: if(
+        contains(
+          ri!isReadOnly,
+          true()
+        ),
+        false(),
+        true()
+      )
+    )
+  },
+  columnConfigs: {
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),
+   
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON",
+      showWhen: if(
+        contains(
+          ri!isReadOnly,
+          true()
+        ),
+        false(),
+        true()
+       )
+    )
+  },
+  rows: {
+    #"SYSTEM_SYSRULES_applyComponents"(
+      function: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10494"(
+        index: _,
+        fileEntityMapping:  ri!refProcessGroup,
+        masterLookUpData: ri!masterLookUpData,
+        isReadOnly: ri!isReadOnly,
+        entityNames:ri!entityNames
+      ),
+      array: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!refProcessGroup
+          ),
+          count(
+            ri!refProcessGroup
+          ) = 0
+        ),
+        null,
+        tointeger(
+          enumerate(
+            count(
+              ri!refProcessGroup
+            )
+          ) + 1
+        )
+      )
+    )
+  },
+  selectionSaveInto: {},
+  addRowLink: if(
+    ri!isReadOnly,
+    {},
+    #"SYSTEM_SYSRULES_dynamicLink"(
+      label: "Add line items",
+      value: 'type!{urn:com:appian:types:eap}EAP_T_RefProcessGroup'(
+        is_active: 1,
+        created_by: loggedInUser(),
+        created_on: now(),
+        modified_by: loggedInUser(),
+        modified_on: now()
+      ),
+      saveInto: a!save(
+        ri!refProcessGroup,
+        append(
+          ri!refProcessGroup,
+          save!value
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>refProcessGroup</name>
+            <type>
+                <name>EAP_T_RefProcessGroup?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedFileType</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>uniqueIdentifiers</name>
+            <type>
+                <name>EAP_Temp_ParsingUniqueIdentifiers</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityNames</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_30114"/>
+    </history>
+</contentHaul>

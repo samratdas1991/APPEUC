@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_214907</versionUuid>
+    <rule>
+        <name>EAP_SetValueForGtOutFileFieldMapping</name>
+        <uuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_214777</uuid>
+        <description>rule to set value to EAP_T_GtOutFileFieldMapping</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+    ri!gtOutFileFieldMapping
+  ),
+  null,
+  #"SYSTEM_SYSRULES_forEach"(
+    items: ri!gtOutFileFieldMapping,
+    expression: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_214771"(
+      outFileEntityMappingId : if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!gtOutFileFieldMappingId
+        ),
+        ri!gtOutFileFieldMapping[fv!index].gt_out_file_field_mapping_id,
+        ri!gtOutFileFieldMappingId
+      ),      
+      processId: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!processId
+        ),
+        ri!gtOutFileFieldMapping[fv!index].process_id,
+        ri!processId
+      ),
+      outFileTypeConfigId: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!outFileEntityMappingId
+        ),
+        ri!gtOutFileFieldMapping[fv!index].out_file_entity_mapping_id,
+        ri!outFileEntityMappingId
+      ),      
+      entityName: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!mappingType
+        ),
+        ri!gtOutFileFieldMapping[fv!index].mapping_type,
+        ri!mappingType
+      ),      
+      sheetName : if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!mappingValue
+        ),
+        ri!gtOutFileFieldMapping[fv!index].mapping_value,
+        ri!mappingValue
+      ),
+      sheetIndex: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!entityColumnName
+        ),
+        ri!gtOutFileFieldMapping[fv!index].entity_column_name,
+        ri!entityColumnName
+      ),      
+      startRow: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!excelColumnIndex
+        ),
+        ri!gtOutFileFieldMapping[fv!index].excel_column_index,
+        ri!excelColumnIndex
+      ),      
+      endRow: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!generationType
+        ),
+        ri!gtOutFileFieldMapping[fv!index].generation_type,
+        ri!generationType
+      ),      
+      includeCustomCells: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!generationFormat
+        ),
+        ri!gtOutFileFieldMapping[fv!index].generation_format,
+        ri!generationFormat
+      ),      
+      isActive: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!isActive
+        ),
+        ri!gtOutFileFieldMapping[fv!index].is_active,
+        ri!isActive
+      ),
+      createdBy: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!createdBy
+        ),
+      
+        ri!gtOutFileFieldMapping[fv!index].created_by,
+        ri!createdBy
+      ),
+      createdOn: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!createdOn
+        ),
+       
+        ri!gtOutFileFieldMapping[fv!index].created_on,
+        ri!createdOn
+      ),
+      modifiedBy: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!modifiedBy
+        ),
+        ri!gtOutFileFieldMapping[fv!index].modified_by,
+        ri!modifiedBy
+      ),
+      modifiedOn: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!modifiedon
+        ),
+        ri!gtOutFileFieldMapping[fv!index].modified_on,
+        ri!modifiedOn
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>gtOutFileFieldMappingId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outFileEntityMappingId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>mappingType</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>mappingValue</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityColumnName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>excelColumnIndex</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>generationType</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>gtOutFileFieldMapping</name>
+            <type>
+                <name>EAP_T_GtOutFileFieldMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>generationFormat</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_214907"/>
+    </history>
+</contentHaul>

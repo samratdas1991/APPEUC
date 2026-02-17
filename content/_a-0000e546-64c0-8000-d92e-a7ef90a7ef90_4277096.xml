@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e54a-56dc-8000-d92f-a7ef90a7ef90_4443561</versionUuid>
+    <rule>
+        <name>EAP_erLastNMonthsRange</name>
+        <uuid>_a-0000e546-64c0-8000-d92e-a7ef90a7ef90_4277096</uuid>
+        <description>Last N months range for historical data</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!noOfMonths:enumerate(ri!noOfMonths)+1,  
+  local!months:
+  #"SYSTEM_SYSRULES_forEach"(
+    items: local!noOfMonths,
+    expression: 
+
+    month(eomonth(now(),-fv!item))
+
+  ),
+  local!months
+  )</definition>
+        <namedTypedValue>
+            <name>noOfMonths</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e54a-56dc-8000-d92f-a7ef90a7ef90_4443561"/>
+    </history>
+</contentHaul>

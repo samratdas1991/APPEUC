@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tempoReportHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>10d08e83-b2e9-4af8-907e-ff7226c78da3</versionUuid>
+    <tempoReport a:uuid="14e28c7b-7a7f-4af0-bdce-0ef8de0a6875" name="EAP_OpsDashboardStatusMilestoneReport">
+        <a:description>Holds the interface for status milestone details of OPS dashboard</a:description>
+        <a:uiExpr>=#"_a-0000e56b-0831-8000-5261-1bef901bef90_676911"()</a:uiExpr>
+        <a:urlStub>YCpnVg</a:urlStub>
+    </tempoReport>
+    <roleMap>
+        <role name="report_administrator">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+                <groupUuid>_e-0000e56b-0831-8000-5261-1b1e941b1e94_351</groupUuid>
+            </groups>
+        </role>
+        <role name="report_viewer">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="1e08d368-3d37-4078-a8f1-79340e657d53"/>
+        <historyInfo versionUuid="10d08e83-b2e9-4af8-907e-ff7226c78da3"/>
+    </history>
+</tempoReportHaul>

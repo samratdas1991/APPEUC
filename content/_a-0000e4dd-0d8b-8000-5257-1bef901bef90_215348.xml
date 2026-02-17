@@ -1,0 +1,907 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_424073</versionUuid>
+    <rule>
+        <name>EAP_GtSheetFixedCellsConfigGridRowLayout</name>
+        <uuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_215348</uuid>
+        <description>Hold grid row layout for gt sheet fixed cells config editable grid.  </description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  contents: {
+    /* mapping_type */
+    if(
+      ri!isReadOnly=true(),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value:index(
+          ri!gtSheetFixedCellsConfigList[ri!index],
+          "mapping_type",
+          {}
+        ),
+        readOnly: true()
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        label: "Mapping Type"  ,
+        placeholderLabel:"--Select Mapping Type--",
+        choiceLabels: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!masterLookUpData
+          ),
+          null,
+          touniformstring(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: ri!masterLookUpData,
+              UniqueKey: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_224185"[4],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+            )
+          )
+        ),
+        choiceValues: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!masterLookUpData
+          ),
+          null,
+          touniformstring(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: ri!masterLookUpData,
+              UniqueKey: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_224185"[4],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            )
+          )
+        ),
+        value:if(
+          #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+            value:  index(
+              ri!gtSheetFixedCellsConfigList[ri!index],
+              "mapping_type",
+              {}
+            ) ,
+            choiceValue: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!masterLookUpData
+              ),
+              null,
+              touniformstring(
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                  MasterLookup: ri!masterLookUpData,
+                  UniqueKey: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_224185"[4],
+                  Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                )
+              )
+            )
+          ),
+          index(
+            ri!gtSheetFixedCellsConfigList[ri!index],
+            "mapping_type",
+            {}
+          ),
+          null
+        ),
+        saveInto: {
+          a!save(
+            ri!gtSheetFixedCellsConfigList[ri!index].mapping_type,
+            save!value
+          ),
+          a!save(
+            ri!gtSheetFixedCellsConfigList[ri!index].mapping_value,
+            null
+          ),
+          a!save(
+            ri!gtSheetFixedCellsConfigList[ri!index].entity_column_name,
+            null
+          ),
+          a!save(
+            ri!gtSheetFixedCellsConfigList[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!gtSheetFixedCellsConfigList[ri!index].modified_on,
+            now()
+          )
+
+        },
+        required: if(
+        ri!isReadOnly=true(),
+        false(),true()
+        ),
+      )
+    ),
+    /* mapping_value */
+    if(
+      or(
+        /*ri!isReadOnly=true(),*/
+
+        index(
+          ri!gtSheetFixedCellsConfigList[ri!index],
+          "mapping_type",
+          {}
+        ) = "RUNTIME",
+
+
+      ),
+      if(
+        ri!isReadOnly=true(),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          value:index(
+            ri!gtSheetFixedCellsConfigList[ri!index],
+            "mapping_value",
+            {}
+          ),
+          readOnly: true()
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+
+          placeholderLabel:"--Select Mapping Value--",
+          choiceLabels: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!runTime),
+            null,
+            touniformstring(ri!runTime)),
+            choiceValues:if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!runTime),
+              null,
+              touniformstring(ri!runTime)),
+              value:if(
+                #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                  value:  index(
+                    ri!gtSheetFixedCellsConfigList[ri!index],
+                    "mapping_value",
+                    {}
+                  ) ,
+                  choiceValue:touniformstring(ri!runTime)
+                ),
+                index(
+                  ri!gtSheetFixedCellsConfigList[ri!index],
+                  "mapping_value",
+                  {}
+                ),
+                null
+              ),
+
+              saveInto: {
+                a!save(
+                  ri!gtSheetFixedCellsConfigList[ri!index].mapping_value,
+                  save!value
+                ),
+                a!save(
+                  ri!gtSheetFixedCellsConfigList[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!gtSheetFixedCellsConfigList[ri!index].modified_on,
+                  now()
+                )
+
+              },
+              required: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                  ri!gtSheetFixedCellsConfigList[ri!index],
+                  "mapping_type",
+                  {}
+                )),
+                {},
+                if(
+                  contains(
+                    touniformstring({"RUNTIME","STATIC"}),
+                    tostring(index(
+                      ri!gtSheetFixedCellsConfigList[ri!index],
+                      "mapping_type",
+                      {}
+                    ))
+                  ),
+                  true(),
+                  false()
+                )
+              ),
+              requiredMessage: {
+                if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                    ri!gtSheetFixedCellsConfigList[ri!index],
+                    "mapping_type",
+                    {}
+                  )),
+                  {},
+                  if(
+                    contains(
+                      touniformstring({"RUNTIME","STATIC"}),
+                      tostring(index(
+                        ri!gtSheetFixedCellsConfigList[ri!index],
+                        "mapping_type",
+                        {}
+                      ))
+                    ),
+                    "Mapping Value is requied for mapping type Runtime/Static",
+                    {}
+                  )
+                )
+              }
+        )
+      )
+      ,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value: index(
+          ri!gtSheetFixedCellsConfigList[ri!index],
+          "mapping_value",
+          {}
+        ),
+        disabled: if(
+          index(
+            ri!gtSheetFixedCellsConfigList[ri!index],
+            "mapping_type",
+            {}
+          ) = "ENTITY_COLUMN",            
+          true(),
+          false()
+        ),
+        placeholder:"--Enter mapping value--",
+        saveInto: {
+
+          a!save(
+            ri!gtSheetFixedCellsConfigList[ri!index].mapping_value,
+            trim(
+              save!value
+            )
+          ),
+          a!save(
+            ri!gtSheetFixedCellsConfigList[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!gtSheetFixedCellsConfigList[ri!index].modified_on,
+            now()
+          )
+        },
+        readOnly: if(
+          ri!isReadOnly=true(),
+          true(),
+          false()
+        ),
+        required: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+            ri!gtSheetFixedCellsConfigList[ri!index],
+            "mapping_type",
+            {}
+          )),
+          {},
+          if(
+            contains(
+              touniformstring({"RUNTIME","STATIC"}),
+              tostring(index(
+                ri!gtSheetFixedCellsConfigList[ri!index],
+                "mapping_type",
+                {}
+              ))
+            ),
+            true(),
+            false()
+          )
+        )
+      )
+
+    ),
+    /* entity_column_name */
+    if(
+      or(
+        ri!isReadOnly = true()
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value: index(
+          ri!gtSheetFixedCellsConfigList[ri!index],
+          "entity_column_name",
+          {}
+        ),
+
+        readOnly: or(
+          ri!isReadOnly,
+          if(
+            index(
+              ri!gtSheetFixedCellsConfigList[ri!index],
+              "mapping_type",
+              {}
+            ) = "ENTITY_COLUMN",            
+            false(),
+            true()
+          )
+        )
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select Entity Column-- ",
+        choiceLabels: touniformstring(ri!tablesColumns),
+
+        choiceValues: touniformstring(ri!tablesColumns),
+
+        value:if(
+          #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+            value:  index(
+              ri!gtSheetFixedCellsConfigList[ri!index],
+              "entity_column_name",
+              {}
+            ),
+            choiceValue:touniformstring(ri!tablesColumns)
+          ),
+          index(
+            ri!gtSheetFixedCellsConfigList[ri!index],
+            "entity_column_name",
+            {}
+          ),
+          null
+        ),
+        disabled: if(
+          index(
+            ri!gtSheetFixedCellsConfigList[ri!index],
+            "mapping_type",
+            {}
+          ) = "ENTITY_COLUMN",            
+          false(),
+          true()
+        ),
+        required:if(
+          or(ri!isReadOnly,
+          or(
+            index(
+              ri!gtSheetFixedCellsConfigList[ri!index],
+              "mapping_type",
+              {}
+            ) = "STATIC",
+            index(
+              ri!gtSheetFixedCellsConfigList[ri!index],
+              "mapping_type",
+              {}
+            ) = "RUNTIME")),
+
+            false(),
+            true()),
+
+
+            saveInto: {a!save(
+              ri!gtSheetFixedCellsConfigList[ri!index].entity_column_name,
+              save!value
+            ),
+            a!save(
+              ri!gtSheetFixedCellsConfigList[ri!index].modified_by,
+              loggedInUser()
+            ),
+            a!save(
+              ri!gtSheetFixedCellsConfigList[ri!index].modified_on,
+              now()
+            )
+            },
+            validations: {
+              if(
+                ri!isReadOnly,
+                {},
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                  value: index(
+                    ri!gtSheetFixedCellsConfigList[ri!index],
+                    "entity_column_name",
+                    {}
+                  ),
+                  ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+                )
+              )
+            }
+
+      )
+    ),
+    /* cell_position */
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      value: index(
+        ri!gtSheetFixedCellsConfigList[ri!index],
+        "cell_position",
+        {}
+      ),
+      placeholder: "--Enter Cell Position--",
+      saveInto: {
+        a!save(
+          ri!gtSheetFixedCellsConfigList[ri!index].cell_position,
+          stripwith(
+            trim(save!value),
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_313931"
+          )
+        ),
+        a!save(
+          ri!gtSheetFixedCellsConfigList[ri!index].modified_by,
+          loggedInUser()
+        ),
+        a!save(
+          ri!gtSheetFixedCellsConfigList[ri!index].modified_on,
+          now()
+        )
+      },
+      readOnly: if(
+        ri!isReadOnly = true(),
+        true(),
+        false()
+      ),
+      required: if(
+        ri!isReadOnly = true(),
+        false(),
+        true()
+      )
+    ),
+    /*generation type*/
+    if(
+      ri!isReadOnly=true(),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value:index(
+          ri!gtSheetFixedCellsConfigList[ri!index],
+          "generation_type",
+          {}
+        ),
+        readOnly: true()
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel:"--Select Generation Type--",
+        choiceLabels: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!masterLookUpData
+          ),
+          null,
+          difference(touniformstring(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: ri!masterLookUpData,
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[13],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+            )
+          ),"CURRENCY_FORMAT")
+        ),
+        choiceValues: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!masterLookUpData
+          ),
+          null,
+          difference(touniformstring(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: ri!masterLookUpData,
+              UniqueKey:  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[13],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            )
+          ),"CURRENCY_FORMAT")
+        ),
+        required: if(
+          ri!isReadOnly=true(),
+          false(),true()
+        ),
+        value:if(
+          #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+            value:  index(
+              ri!gtSheetFixedCellsConfigList[ri!index],
+              "generation_type",
+              {}
+            ),
+            choiceValue:if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!masterLookUpData
+              ),
+              null,
+              difference(touniformstring(
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                  MasterLookup: ri!masterLookUpData,
+                  UniqueKey:  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[13],
+                  Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                )
+              ),"CURRENCY_FORMAT")
+            )
+          ),
+          index(
+            ri!gtSheetFixedCellsConfigList[ri!index],
+            "generation_type",
+            {}
+          ),
+          null
+        ),
+
+
+        saveInto: {
+          a!save(ri!gtSheetFixedCellsConfigList[ri!index].generation_type,
+          save!value),
+          a!save(ri!gtSheetFixedCellsConfigList[ri!index].generation_format,null),
+          a!save(
+            ri!gtSheetFixedCellsConfigList[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!gtSheetFixedCellsConfigList[ri!index].modified_on,
+            now()
+          ),
+          a!save(ri!gtSheetFixedCellsConfigList[ri!index].generation_format,null)
+        }
+
+      )),
+      /*generation_format*/
+      if(
+        ri!isReadOnly=true(),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          value:index(
+            ri!gtSheetFixedCellsConfigList[ri!index],
+            "generation_format",
+            {}
+          ),
+          readOnly: true()
+        ),
+        if(
+          or(index(
+            ri!gtSheetFixedCellsConfigList[ri!index],
+            "generation_type",
+            {}
+          )="STANDARD",index(
+            ri!gtSheetFixedCellsConfigList[ri!index],
+            "generation_type",
+            {}
+          )="NUMBER",
+
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value: index(
+              ri!gtSheetFixedCellsConfigList[ri!index],
+              "generation_format",
+              {}
+            ),
+            saveInto:  a!save(ri!gtSheetFixedCellsConfigList[ri!index].generation_format,save!value),
+            readOnly: ri!isReadOnly
+            
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+            placeholderLabel:"--Select Generation format--",
+            required: if(
+              ri!isReadOnly=true(),
+              false(),true()
+            ),
+            choiceLabels:
+
+            if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!masterLookUpData
+                )
+              ),
+              null,
+              touniformstring(
+                index(
+                  index(
+                    ri!masterLookUpData,
+                    wherecontains(
+                      tostring(
+                        index(
+                          ri!gtSheetFixedCellsConfigList[ri!index],
+                          "generation_type",
+                          {}
+                        )
+                      ),
+                      touniformstring(
+                        index(
+                          ri!masterLookUpData,
+                          "type",
+                          {}
+                        )
+                      )
+                    ),
+                    {}
+                  ),
+                  "label",
+                  {}
+                )
+              )
+            ),
+
+            choiceValues: 
+
+            if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!masterLookUpData
+                )
+              ),
+              null,
+              touniformstring(
+                index(
+                  index(
+                    ri!masterLookUpData,
+                    wherecontains(
+                      tostring(
+                        index(
+                          ri!gtSheetFixedCellsConfigList[ri!index],
+                          "generation_type",
+                          {}
+                        )
+                      ),
+                      touniformstring(
+                        index(
+                          ri!masterLookUpData,
+                          "type",
+                          {}
+                        )
+                      )
+                    ),
+                    {}
+                  ),
+                  "code",
+                  {}
+                )
+              )
+            ),
+
+            value:
+
+
+            if(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                value: index(
+                  ri!gtSheetFixedCellsConfigList[ri!index],
+                  "generation_format",
+                  {}
+                ),
+                choiceValue:if(
+                  or(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      ri!masterLookUpData
+                    )
+                  ),
+                  null,
+                  touniformstring(
+                    index(
+                      index(
+                        ri!masterLookUpData,
+                        wherecontains(
+                          tostring(
+                            index(
+                              ri!gtSheetFixedCellsConfigList[ri!index],
+                              "generation_type",
+                              {}
+                            )
+                          ),
+                          touniformstring(
+                            index(
+                              ri!masterLookUpData,
+                              "type",
+                              {}
+                            )
+                          )
+                        ),
+                        {}
+                      ),
+                      "code",
+                      {}
+                    )
+                  )
+                )
+              ),
+              index(
+                ri!gtSheetFixedCellsConfigList[ri!index],
+                "generation_format",
+                {}
+              ),
+              null
+            )      
+            ,
+
+            saveInto: {
+              a!save(ri!gtSheetFixedCellsConfigList[ri!index].generation_format,save!value),
+              a!save(
+                ri!gtSheetFixedCellsConfigList[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!gtSheetFixedCellsConfigList[ri!index].modified_on,
+                now()
+              ),
+
+            }
+
+          ))),
+    /* is_active */
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      align: "CENTER",
+      value: {
+        if(
+          or(
+            tointeger(
+              index(
+                ri!gtSheetFixedCellsConfigList[ri!index],
+                "is_active",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              value: 1,
+              showWhen: if(
+                or(
+                  ri!isReadOnly
+                ),
+                false(),
+                true()
+              ),
+              saveInto: {
+                a!save(
+                  ri!gtSheetFixedCellsConfigList[ri!index].is_active,
+                  0
+                ),
+                a!save(
+                  ri!gtSheetFixedCellsConfigList[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!gtSheetFixedCellsConfigList[ri!index].modified_on,
+                  now()
+                )
+              },
+              
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-off",
+            caption: "No",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              value: 0,
+              showWhen: if(
+                or(
+                  ri!isReadOnly
+                ),
+                false(),
+                true()
+              ),
+              saveInto: {
+                a!save(
+                  ri!gtSheetFixedCellsConfigList[ri!index].is_active,
+                  1
+                ),
+                a!save(
+                  ri!gtSheetFixedCellsConfigList[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!gtSheetFixedCellsConfigList[ri!index].modified_on,
+                  now()
+                )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          )
+        )
+      }
+    ),
+    /*remove*/
+    if(
+      not(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        index(
+          ri!gtSheetFixedCellsConfigList[ri!index],
+          "gt_out_fixed_cell_config_id",
+          {}
+        )
+      )),
+      if(
+        ri!isReadOnly = true(),
+        {},
+        #"SYSTEM_SYSRULES_richTextDisplayField"()
+      ),
+      if(
+        ri!isReadonly = true(),
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "delete ",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            altText: "Remove",
+            caption: "Remove",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              value: ri!index,
+              saveInto: {
+                a!save(
+                  ri!gtSheetFixedCellsConfigList,
+                  remove(
+                    ri!gtSheetFixedCellsConfigList,
+                    save!value
+                  )
+                ),
+              }
+            )
+          ),
+          size: "ICON"
+        )
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>gtSheetFixedCellsConfigList</name>
+            <type>
+                <name>EAP_T_GtSheetFixedCellsConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>columnNames</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runTime</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>tablesColumns</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_230842"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_299245"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_380785"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_424073"/>
+    </history>
+</contentHaul>

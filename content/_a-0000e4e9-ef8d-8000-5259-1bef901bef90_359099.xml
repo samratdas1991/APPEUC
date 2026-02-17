@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_359692</versionUuid>
+    <rule>
+        <name>EAP_RunTimeCalculateSchedulerTriggerTime</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_359099</uuid>
+        <description>Rule to calculate scheduler trigger time at run time</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!startBusinessDate:(date(year(today()),month(today()),1)) + enumerate(#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282812"[1]),
+  local!endBusinessDate:(eomonth(concat("01/01/",year(now())),month(today())-1)) - enumerate(#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282812"[2]),
+  local!currentDateTime:now(),
+  if(
+    contains(
+      local!startBusinessDate,
+      today()
+      ),
+      {
+        if(
+          and(
+            local!currentDateTime &gt; todatetime(concat(today()," ",#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282843"[1])),
+            local!currentDateTime &lt; todatetime(concat(today()," ",#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282849"[1]))
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282819"[1],
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282831"[1]
+          )
+      },
+     {
+       if(
+        contains(
+          local!endBusinessDate,
+          today()
+        ),
+        {
+          if(
+            and(
+              local!currentDateTime &gt; todatetime(concat(today()," ",#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282843"[2])),
+              local!currentDateTime &lt; todatetime(concat(today()," ",#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282849"[2]))
+            ),
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282819"[2],
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282831"[2]
+          )
+        },
+        {
+          if(
+            and(
+              local!currentDateTime &gt; todatetime(concat(today()," ",#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282843"[3])),
+              local!currentDateTime &lt; todatetime(concat(today()," ",#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282849"[3]))
+            ),
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282819"[3],
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282831"[3]
+          )
+        }
+      )
+      }
+  )
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_359692"/>
+    </history>
+</contentHaul>

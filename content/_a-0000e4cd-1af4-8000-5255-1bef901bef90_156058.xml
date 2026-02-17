@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_195690</versionUuid>
+    <constant>
+        <name>EAP_PARSING_PENDING_VALIDATIONS</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_156058</uuid>
+        <description>Holds all the pending validation messages for parsing:
+1. doesn't contains any associated entities |
+2. doesn't contains any associated Cell Mapping |
+3. Please save File entities associated with |
+4. Please save Cell Mapping associated with |
+5. doesn't contains any associated column mapping |
+6. Please save Sheet Mapping associated with |
+7.  doesn't contain any associated transpose mapping |
+8. Please save transpose Mapping associated with  |</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el> doesn't contain any associated entities</el>
+                <el> doesn't contain any associated Cell Mapping</el>
+                <el>Please save File entities associated with </el>
+                <el>Please save Cell Mapping associated with </el>
+                <el> doesn't contain any associated column mapping</el>
+                <el>Please save Sheet Mapping associated with </el>
+                <el> doesn't contain any associated transpose mapping</el>
+                <el>Please save transpose Mapping associated with </el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_156217"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_180089"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_195690"/>
+    </history>
+</contentHaul>

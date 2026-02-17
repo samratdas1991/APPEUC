@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_98956</versionUuid>
+    <rule>
+        <name>EAP_SetValueForRefProcessWfCustomActionMapping</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_10367</uuid>
+        <description>Rule to set value to ref process wf customer action mapping</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processSheetWfCustomActionMapping),
+  null,
+  #"SYSTEM_SYSRULES_forEach"(
+    items:ri!processSheetWfCustomActionMapping ,
+    expression:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9584"(
+      customActionMappingId: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!customActionMappingId
+        ),
+        ri!processSheetWfCustomActionMapping[fv!index].custom_action_mapping_id,
+        ri!customActionMappingId
+      ),
+      processId:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!processId
+        ),
+        ri!processSheetWfCustomActionMapping[fv!index].process_id,
+        ri!processId
+      ),
+      customMethodName: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!customMethodName
+        ),
+        ri!processSheetWfCustomActionMapping[fv!index].custom_method_name,
+        ri!customMethodName
+      ), 
+      customMethodDesc:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!customMethodDesc
+        ),
+        ri!processSheetWfCustomActionMapping[fv!index].custom_action_mapping_id,
+        ri!customMethodDesc
+      ),
+      isActive:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!isActive
+        ),
+        ri!processSheetWfCustomActionMapping[fv!index].is_active,
+        ri!isActive
+      ),
+      createdBy: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!createdBy
+        ),
+        
+        ri!processSheetWfCustomActionMapping[fv!index].created_by,
+        ri!createdBy
+      ),
+      createdOn:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!createdOn,
+        ),
+       
+        ri!processSheetWfCustomActionMapping[fv!index].created_on,
+        ri!createdOn
+      ),
+      modifiedBy: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!modifiedBy
+        ),
+        ri!processSheetWfCustomActionMapping[fv!index].modified_by,
+        ri!modifiedBy
+      ),
+      modifiedOn: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!modifiedOn
+        ),
+        ri!processSheetWfCustomActionMapping[fv!index].modified_on,
+        ri!modifiedOn
+      )
+    )
+  )
+
+)
+
+
+
+
+
+</definition>
+        <namedTypedValue>
+            <name>customActionMappingId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>customMethodName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>customMethodDesc</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processSheetWfCustomActionMapping</name>
+            <type>
+                <name>EAP_T_RefProcessWfCustomActionMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c3-ab68-8000-5250-1bef901bef90_10634"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_98956"/>
+    </history>
+</contentHaul>

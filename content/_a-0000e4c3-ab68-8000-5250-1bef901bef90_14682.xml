@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_53180</versionUuid>
+    <interface>
+        <name>EAP_ActionTypeRefreshPivotFiltersEditableGrid</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_14682</uuid>
+        <description>Contains Editable Grid for Sheet Filters (Refresh Pivot)</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridLayout"(
+  label: " ",
+  labelPosition: "ABOVE",
+  headerCells: {
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Filter Category",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Excel Column Name",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Filter Operator",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Filter Generation",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Filter Value",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Active",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "",
+      align: "CENTER",
+      showWhen: if(
+        or(
+          ri!isReadonly=true(),
+          count(ri!refProcessWfSheetFilters)&lt;2
+        ),
+        false(),
+        true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "",
+      align: "CENTER",
+      showWhen: if(
+        or(
+          ri!isReadonly=true(),
+          count(ri!refProcessWfSheetFilters)&lt;2
+        ),
+        false(),
+        true()
+      )
+    ),
+    if(
+      ri!isReadonly = true(),
+      {},
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "",
+        align: "RIGHT"
+      )
+    )
+    
+  },
+  columnConfigs: {
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 7
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON",
+      showWhen: if(
+        or(
+          ri!isReadonly=true(),
+          count(ri!refProcessWfSheetFilters)&lt;2
+        ),
+        false(),
+        true()
+      )
+
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON",
+      showWhen: if(
+        or(
+          ri!isReadonly=true(),
+          count(ri!refProcessWfSheetFilters)&lt;2
+        ),
+        false(),
+        true()
+      )
+
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    )
+
+  },
+  rows: {
+    #"SYSTEM_SYSRULES_applyComponents"(
+      function: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_14713"(
+        index: _,
+        refProcessWfSheetFilters: ri!refProcessWfSheetFilters,
+        masterLookUpData: ri!masterLookUpData,
+        isReadOnly :ri!isReadOnly
+      ),
+      array: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!refProcessWfSheetFilters
+          ),
+          count(
+            ri!refProcessWfSheetFilters
+          ) = 0
+        ),
+        null,
+        tointeger(
+          enumerate(
+            count(
+              ri!refProcessWfSheetFilters
+            )
+          ) + 1
+        )
+      )
+    )
+  },
+  addRowLink: #"SYSTEM_SYSRULES_dynamicLink"(
+    label: if(
+      ri!isReadonly,
+      {},
+      "Add Filters"
+    ),
+    value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11534"(
+      isActive: 1,
+      createdBy: loggedInUser(),
+      createdOn: now(),
+      modifiedBy: loggedInUser(),
+      modifiedOn: now()
+    ),
+    saveInto: a!save(
+      ri!refProcessWfSheetFilters,
+      append(
+        ri!refProcessWfSheetFilters,
+        save!value
+      )
+    )
+  ),
+  validations: {},
+  shadeAlternateRows: false(),
+  
+)</definition>
+        <namedTypedValue>
+            <name>refProcessWfSheetFilters</name>
+            <type>
+                <name>EAP_T_RefProcessWfSheetFilters?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookupData</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>refProcessWfSheetFilters</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+  isActive: 1
+)</a:value>
+                    <a:nameRef>masterLookupData</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_53180"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_406448</versionUuid>
+    <constant>
+        <name>EAP_UTILS_SPECIAL_CHARS</name>
+        <uuid>_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251885</uuid>
+        <description>1) `
+2) ~
+3) !
+4) #
+5) $
+6) ^
+7) &amp;
+8) *
+9) (
+10) )
+11) ;
+12) |</description>
+        <parentUuid>_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251879</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>`</el>
+                <el>~</el>
+                <el>!</el>
+                <el>#</el>
+                <el>$</el>
+                <el>^</el>
+                <el>&amp;</el>
+                <el>*</el>
+                <el>(</el>
+                <el>)</el>
+                <el>;</el>
+                <el>|</el>
+                <el>@</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3253026"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_406448"/>
+    </history>
+</contentHaul>

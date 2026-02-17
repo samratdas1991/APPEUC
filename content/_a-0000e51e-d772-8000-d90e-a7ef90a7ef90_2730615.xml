@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e54a-56dc-8000-d92f-a7ef90a7ef90_4461688</versionUuid>
+    <rule>
+        <name>EAP_getProcessControllerSteps</name>
+        <uuid>_a-0000e51e-d772-8000-d90e-a7ef90a7ef90_2730615</uuid>
+        <description>Expression to get Process Controller Steps for Given Process n Run Config Id</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!process_controller_master_id: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processControllerMasterId),
+    index(
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_359325"(
+        processId:ri!processId,
+        runConfigId:ri!runConfigId,
+        isActive: 1
+      ),
+      "process_controller_master_id",
+      {}
+    ),
+    ri!processControllerMasterId
+  ),
+  local!step: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!process_controller_master_id),
+    null,
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_361812"(
+      processControllerMasterId:local!process_controller_master_id,
+      isActive:1
+    )
+  ),
+  cast(
+    typeof(
+      'type!{urn:com:appian:types:eap}EAP_T_DwfProcessController'(),
+    ),
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!stepId),
+      null,
+      local!step[ri!stepId]  
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>stepId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerMasterId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e520-265e-8000-d90f-a7ef90a7ef90_2762744"/>
+        <historyInfo versionUuid="_a-0000e54b-dca6-8000-525f-1bef901bef90_560558"/>
+        <historyInfo versionUuid="_a-0000e54a-56dc-8000-d92f-a7ef90a7ef90_4461688"/>
+    </history>
+</contentHaul>

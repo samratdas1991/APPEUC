@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e595-3324-8000-5263-1bef901bef90_729492</versionUuid>
+    <rule>
+        <name>EAP_SetValueForRefProcess</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_11833</uuid>
+        <description>Hold set value rule for Ref Process</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  and(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!clusterId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!subClusterId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!eucReferenceNumber
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!name
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!description
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!region
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!countryCd
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!calendar
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!locale
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isActive
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!createdBy
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!createdOn
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!modifiedBy
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!modifiedOn
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!calendarId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!mgdL7Id
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!mgdL8Id
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!centerId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isHybridEUC
+    )
+  ),
+  ri!refProcess,
+  'type!{urn:com:appian:types:eap}EAP_T_RefProcess'(
+    process_id :
+    if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),index(ri!refProcess,"process_id",{}),ri!processId),
+    cluster_id : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!clusterId),index(ri!refProcess,"cluster_id",{}),ri!clusterId),
+    sub_cluster_id:  if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!subClusterId),index(ri!refProcess,"sub_cluster_id",{}),ri!subClusterId),
+    euc_reference_number: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!eucReferenceNumber),index(ri!refProcess,"euc_reference_number",{}),ri!eucReferenceNumber),
+    name  : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!name),index(ri!refProcess,"name",{}),ri!name),
+    description : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!description),index(ri!refProcess,"description",{}),ri!description),
+    region : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!region),index(ri!refProcess,"region",{}),ri!region),
+    country_cd : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!countryCd),index(ri!refProcess,"country_cd",{}),ri!countryCd),
+    calendar : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!calendar),index(ri!refProcess,"calendar",{}),ri!calendar),
+    locale : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!locale),index(ri!refProcess,"locale",{}),ri!locale),
+    is_active : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isActive),index(ri!refProcess,"is_active",{}),ri!isActive),
+    created_by : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdBy),index(ri!refProcess,"created_by",{}),ri!createdBy),
+    created_on : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdOn),index(ri!refProcess,"created_on",{}),ri!createdOn),
+    modified_by : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedBy),index(ri!refProcess,"modified_by",{}),ri!modifiedBy),
+    modified_on : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedOn),index(ri!refProcess,"modified_on",{}),ri!modifiedOn),
+    calendar_id : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!calendarId),index(ri!refProcess,"calendar_id",{}),ri!calendarId),
+    is_hybrid_euc:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isHybridEUC),index(ri!refProcess,"is_hybrid_euc",{}),ri!isHybridEUC)
+  )
+)
+
+
+</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>clusterId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>subClusterId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>eucReferenceNumber</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>name</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>description</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>region</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>countryCd</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>locale</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcess</name>
+            <type>
+                <name>EAP_T_RefProcess?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>calendar</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>calendarId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>mgdL7Id</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>mgdL8Id</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>centerId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isHybridEUC</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c3-ab68-8000-5250-1bef901bef90_12168"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_144823"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_193418"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_419147"/>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_729492"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_494416</versionUuid>
+    <rule>
+        <name>EAP_DataValidation_ReturnUniqueKeyByActionType</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_378031</uuid>
+        <description>Rule to return Unique Key for MasterLookup, based on Action Type.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  or(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!categories
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!selectedActionTypeId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!refProcessWfActionType
+    )
+  ),
+  {},
+  with(
+    local!actionType: index(
+      touniformstring(
+        index(
+          ri!refProcessWfActionType,
+          "action_type",
+          null
+        )
+      ),
+      wherecontains(
+        tointeger(
+          ri!selectedActionTypeId
+        ),
+        tointeger(
+          index(
+            ri!refProcessWfActionType,
+            "wf_action_id",
+            null
+          )
+        )
+      ),
+      null
+    ),
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        local!actionType
+      ),
+      null,
+      choose(
+        wherecontains(
+          tostring(
+            local!actionType
+          ),
+          touniformstring(
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377632"
+          )
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[12],
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[16],
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[23],
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[18],
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[14],
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[4],
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[17],
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[6],
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[20],
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[22],
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[24]
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>selectedActionTypeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessWfActionType</name>
+            <type>
+                <name>EAP_T_DVActions?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>categories</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_378042"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_397640"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_494416"/>
+    </history>
+</contentHaul>

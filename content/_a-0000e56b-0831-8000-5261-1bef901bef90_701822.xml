@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_701859</versionUuid>
+    <constant>
+        <name>EAP_INSERT_MILESTONE_REQUEST_STATUS</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_701822</uuid>
+        <description>Holds the Request Status where Milestone Insertion needed</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>REQ_ARRV</el>
+                <el>SRC_INT_PROG</el>
+                <el>TGT_PROG</el>
+                <el>ASSGN_MAKE</el>
+                <el>ASSGN_CHCK</el>
+                <el>ASSGN_DOA</el>
+                <el>VLDN_PROG</el>
+                <el>OUT_GEN_PROG</el>
+                <el>POST_PROG</el>
+                <el>POS_COMP</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_701859"/>
+    </history>
+</contentHaul>

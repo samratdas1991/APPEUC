@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_647810</versionUuid>
+    <interface>
+        <name>EAP_Create_NewL7Segment</name>
+        <uuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_618318</uuid>
+        <description>Contains form to create new Segment</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!data:#"_a-0000e54c-ce50-8000-5260-1bef901bef90_618027"(
+   
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: -1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "name",
+        ascending: true()
+      )
+    )
+  ),
+ 
+ 
+
+  {
+   
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          
+          contents:{
+            #"SYSTEM_SYSRULES_textField"(
+              label: "Name",
+              placeholder: "--Enter Name--",
+              value: index(
+                ri!MgdSegmentL7,"name",{}
+              ),
+              saveInto: {
+                a!save(
+                  ri!MgdSegmentL7.name,
+                  save!value
+                ),
+                
+                a!save(ri!MgdSegmentL7.modified_by,loggedInUser()),
+                a!save(ri!MgdSegmentL7.modified_on,now())
+
+              },
+              disabled: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!MgdSegmentL7,"mgd_seg_l7_id",null)),
+                false(),
+                true()
+              ),
+              required: true(),
+              validations: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(ri!MgdSegmentL7,"mgd_seg_l7_id",null)
+                ),
+                if(
+                  contains(
+                    touniformstring(proper(index(local!data,"name",{}))),
+                    tostring(proper(index(ri!MgdSegmentL7,"name",{})))
+                  ),
+                  "Duplicate Name Found",
+                  {}
+                ),
+                {}
+              )
+            )
+           
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            label: "Display Name",
+            placeHolder: "--Enter Display Name--",
+            required: true(),
+            value: index(ri!MgdSegmentL7,"display_name",{}),
+            saveInto: {a!save(ri!MgdSegmentL7.display_name,
+            trim(save!value)),
+            a!save(ri!MgdSegmentL7.modified_by,loggedInUser()),
+            a!save(ri!MgdSegmentL7.modified_on,now())
+            }
+          
+          )
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents:{
+           
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+              label: "Description",
+              required: true(),
+              placeHolder: "--Enter Description--",
+              value: index(ri!MgdSegmentL7,"description",{}),
+              saveInto: {a!save(ri!MgdSegmentL7.description,
+              trim(save!value)),
+              a!save(ri!MgdSegmentL7.modified_by,loggedInUser()),
+              a!save(ri!MgdSegmentL7.modified_on,now())
+              }
+            )
+           
+          }
+        
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"SYSTEM_SYSRULES_radioButtonField"(
+            label: "Status",
+            choiceLabels: {
+              "Active",
+              "Inactive"
+            },
+            choiceValues: {
+              1,
+              0
+            },
+            value: index(
+              ri!MgdSegmentL7,
+              "is_active",
+              {}
+            ),
+            saveInto: {ri!MgdSegmentL7.is_active,
+            a!save(ri!MgdSegmentL7.modified_by,loggedInUser()),
+            a!save(ri!MgdSegmentL7.modified_on,now())
+            },
+            required: true(),
+            choiceLayout: "COMPACT"
+
+
+          )
+        )
+      }
+    )
+     
+  }
+)</definition>
+        <namedTypedValue>
+            <name>activeStep</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>MgdSegmentL7</name>
+            <type>
+                <name>EAP_T_MgdSegmentL7</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>groupId</name>
+            <type>
+                <name>Group</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_647810"/>
+    </history>
+</contentHaul>

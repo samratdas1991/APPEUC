@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupTypeHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_f-0000e42a-af2f-8000-d7f7-3b1e943b1e94_26</versionUuid>
+    <groupType>
+        <name>FRSS Business Group Type</name>
+        <uuid>_f-0000e42a-af2f-8000-d7f7-3b1e943b1e94_25</uuid>
+        <description>Business Group Type</description>
+        <attributes/>
+    </groupType>
+    <history>
+        <historyInfo versionUuid="_f-0000e42a-af2f-8000-d7f7-3b1e943b1e94_26"/>
+    </history>
+</groupTypeHaul>

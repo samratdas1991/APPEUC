@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_221424</versionUuid>
+    <rule>
+        <name>EAP_WriteDatastoresEntitesForOutputConfig</name>
+        <uuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_219180</uuid>
+        <description>Hold rule to store all the entites of output config</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  /*1. EAP out file type*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_207188",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!outFileType
+      ),
+      {},
+      pv!outFileType
+    )
+  },
+  /*2. EAP gt out file entity mapping*/
+  {
+    entity: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_219265",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!gtOutFileEntityMapping
+      ),
+      {},
+      pv!gtOutFileEntityMapping
+    )
+  },
+  /*3. EAP gt out file field mapping*/
+  {
+    entity: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_219237",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!gtOutFileFieldMapping
+      ),
+      {},
+      pv!gtOutFileFieldMapping
+    )
+  },
+  /*4. EAP out entity filters*/
+  {
+    entity: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_213609",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!gtOutEntityFilters
+      ),
+      {},
+      pv!gtOutEntityFilters
+    )
+  },
+  /*5. EAP gt out entity sort*/
+  {
+    entity: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_214856",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!gtOutEntitySort
+      ),
+      {},
+      pv!gtOutEntitySort
+    )
+  },
+  /*6. EAP gt sheet fixed cells config*/
+  {
+    entity: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_214656",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!gtSheetFixedCellsConfig
+      ),
+      {},
+      pv!gtSheetFixedCellsConfig
+    )
+  },
+  /*7. EAP gt fixed cell filters*/
+  {
+    entity: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_213665",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!gtFixedCellsFilters
+      ),
+      {},
+      pv!gtFixedCellsFilters
+    )
+  },
+  /*8. EAP gt custom generation*/
+  {
+    entity: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_213692",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!gtCustomGeneration
+      ),
+      {},
+      pv!gtCustomGeneration
+    )
+  }
+  
+}</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_221424"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,2204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_761408</versionUuid>
+    <interface>
+        <name>EAP_OpsDashboardStatusMilestoneDetails</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_676911</uuid>
+        <description>Master interface for Ops dashboard status milestone details</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!showDetailView: false(),
+  local!selectedL7,
+  local!selectedL8,
+  local!selectedManager,
+  local!selectedRequestId,
+  local!summaryRow,
+  local!selectedEUCNumber,
+  local!periodFrom,
+  local!periodTo,
+  local!selectedRunConfigId,
+  /*check if logged in user part of given group*/
+  local!admingroupUUID:if(
+    #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+      loggedInUser(),
+      #"_a-0000e595-3324-8000-5263-1bef901bef90_732325"
+    ),
+    true(),
+    false()
+  ),
+  local!processUsersData: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9887"(
+    userSoeId: loggedInUser(),
+    isActive: 1
+  ),
+  local!centerIds: {
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        index(
+          local!processUsersData,
+          "processId",
+          {}
+        )
+      ),
+      {},
+      index(
+        #"_a-0000e56b-0831-8000-5261-1bef901bef90_637528"(
+          processId: {
+            index(
+              local!processUsersData,
+              "processId",
+              {}
+            )
+          }
+        ),
+        "center_id",
+        {}
+      )
+    )
+  },
+  local!centerData: if(
+    toboolean(local!admingroupUUID),
+    #"_a-0000e54c-ce50-8000-5260-1bef901bef90_617954"(
+      isActive: 1
+    ),
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        local!centerIds
+      ),
+      {},
+      #"_a-0000e54c-ce50-8000-5260-1bef901bef90_617954"(
+        isActive: 1,
+        centerId: local!centerIds
+      )
+    )
+  ),
+  local!selectedCenter,
+  local!segmentL8Ids: {
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        local!selectedCenter
+      ),
+      {},
+      index(
+        #"_a-0000e54c-ce50-8000-5260-1bef901bef90_618665"(
+          centerId: local!selectedCenter
+        ),
+        "mgd_seg_l8_id",
+        {}
+      )
+    )
+  },
+  local!segmentL8Data: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      local!segmentL8Ids
+    ),
+    {},
+    #"_a-0000e54c-ce50-8000-5260-1bef901bef90_619050"(
+      isActive: 1,
+      mgdsegl8Id: local!segmentL8Ids
+    )
+  ),
+  local!segmentL7Ids: {
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        local!selectedL8
+      ),
+      {},
+      index(
+        #"_a-0000e54c-ce50-8000-5260-1bef901bef90_619050"(
+          mgdsegl8Id: local!selectedL8
+        ),
+        "mgd_seg_l7_id",
+        {}
+      )
+    )
+  },
+  local!segmentL7Data: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      local!segmentL7Ids
+    ),
+    {},
+    #"_a-0000e54c-ce50-8000-5260-1bef901bef90_618027"(
+      isActive: 1,
+      mgdsegl7Id: local!segmentL7Ids
+    )
+  ),
+  local!selectedGridColumn,
+  local!detailedViewData,
+  local!filteredData,
+  local!userGroupUUIDs: {
+    #"SYSTEM_SYSRULES_forEach"(
+      items: getgroupsformemberuser(
+        loggedInUser()
+      ),
+      expression: getgroupuuid(
+        fv!item
+      )
+    )
+  },
+  local!centerSegmentData:if(
+    toboolean(local!admingroupUUID) =true(),
+    #"_a-0000e54c-ce50-8000-5260-1bef901bef90_618665"(
+      isActive: 1
+    ),
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        local!userGroupUUIDs
+      ),
+      {},
+      #"_a-0000e54c-ce50-8000-5260-1bef901bef90_618665"(
+        managerGroup: local!userGroupUUIDs
+      )
+    )
+  ) ,
+  /*For SP Inputs Start*/
+  local!centerSegmentMappingIds: index(
+    local!centerSegmentData,
+    "center_seg_mapping_id",
+    {}
+  ),
+  /*For SP Inputs end*/
+  /*Fetching Makers and Checkers SOEIDs*/
+  local!MakerSOEIDs: {
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        local!centerSegmentMappingIds
+      ),
+      {},
+      index(
+        index(
+          #"_a-0000e56b-0831-8000-5261-1bef901bef90_701794"(
+            centerSegMappingIds: joinarray(
+              local!centerSegmentMappingIds,
+              ","
+            ),
+            isMaker: 1,
+            isChecker: 0
+          ),
+          "P_OUTPUT",
+          {}
+        ),
+        "USER_SOE_ID",
+        {}
+      )
+    )
+  },
+  local!CheckerSOEIDs: {
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        local!centerSegmentMappingIds
+      ),
+      {},
+      index(
+        index(
+          #"_a-0000e56b-0831-8000-5261-1bef901bef90_701794"(
+            centerSegMappingIds: joinarray(
+              local!centerSegmentMappingIds,
+              ","
+            ),
+            isMaker: 0,
+            isChecker: 1
+          ),
+          "P_OUTPUT",
+          {}
+        ),
+        "USER_SOE_ID",
+        {}
+      )
+    )
+  },
+  /*local!processIdsForCenterAndL8: if(*/
+  /*rule!EAP_Utils_CheckIsNull(*/
+  /*local!centerSegmentData*/
+  /*),*/
+  /*{},*/
+  /*a!forEach(*/
+  /*items: local!centerSegmentData,*/
+  /*expression: index(*/
+  /*rule!EAP_QE_ProcessExtension(*/
+  /*centerId: index(*/
+  /*fv!item,*/
+  /*"center_id",*/
+  /*{}*/
+  /*),*/
+  /*mgdSegL8Id: index(*/
+  /*fv!item,*/
+  /*"mgd_seg_l8_id",*/
+  /*{}*/
+  /*)*/
+  /*),*/
+  /*"process_id",*/
+  /*{}*/
+  /*)*/
+  /*)*/
+  /*),*/
+  /*local!processUsers: {*/
+  /*if(*/
+  /*rule!EAP_Utils_CheckIsNull(*/
+  /*local!processIdsForCenterAndL8*/
+  /*),*/
+  /*{},*/
+  /*rule!EAP_QE_RefProcessUsers(*/
+  /*processId: local!processIdsForCenterAndL8*/
+  /*)*/
+  /*)*/
+  /**/
+  /*},*/
+  /*local!makersSOEIDs: {*/
+  /*reject(*/
+  /*isnull(*/
+  /*_*/
+  /*),*/
+  /*a!forEach(*/
+  /*items: local!processUsers,*/
+  /*expression: if(*/
+  /*or(*/
+  /*if(*/
+  /*tointeger(*/
+  /*fv!item.isSecondaryMaker*/
+  /*) = 1,*/
+  /*true(),*/
+  /*false()*/
+  /*),*/
+  /*if(*/
+  /*tointeger(*/
+  /*fv!item.isPrimaryMaker*/
+  /*) = 1,*/
+  /*true(),*/
+  /*false()*/
+  /*)*/
+  /*),*/
+  /*index(*/
+  /*fv!item,*/
+  /*"userSoeId",*/
+  /*{}*/
+  /*),*/
+  /*null*/
+  /*)*/
+  /*)*/
+  /*)*/
+  /*},*/
+  local!selectedEUCID,
+  local!makersDistinctSOEIDs: reject(
+    isnull(
+      _
+    ),
+    #"SYSTEM_SYSRULES_forEach"(
+      items: union(
+        local!MakerSOEIDs,
+        local!MakerSOEIDs
+      ),
+      expression: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251793"(
+            fv!item
+          )
+        ),
+        null,
+        fv!item
+      )
+    )
+  ),
+  local!makerNames: {
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!makersDistinctSOEIDs,
+      expression: concat(
+        user(
+          fv!item,
+          "firstName"
+        ),
+        " ",
+        user(
+          fv!item,
+          "lastName"
+        )
+      )
+    )
+  },
+  local!selectedMakers,
+  /*local!checkersSOEIDs: {*/
+  /*reject(*/
+  /*isnull(*/
+  /*_*/
+  /*),*/
+  /*a!forEach(*/
+  /*items: local!processUsers,*/
+  /*expression: if(*/
+  /*or(*/
+  /*if(*/
+  /*tointeger(*/
+  /*fv!item.isSecondaryChecker*/
+  /*) = 1,*/
+  /*true(),*/
+  /*false()*/
+  /*),*/
+  /*if(*/
+  /*tointeger(*/
+  /*fv!item.isPrimaryChecker*/
+  /*) = 1,*/
+  /*true(),*/
+  /*false()*/
+  /*)*/
+  /*),*/
+  /*index(*/
+  /*fv!item,*/
+  /*"userSoeId",*/
+  /*{}*/
+  /*),*/
+  /*null*/
+  /*)*/
+  /*)*/
+  /*)*/
+  /*},*/
+  local!checkersDistinctSOEIDs: reject(
+    isnull(
+      _
+    ),
+    #"SYSTEM_SYSRULES_forEach"(
+      items: union(
+        local!CheckerSOEIDs,
+        local!CheckerSOEIDs
+      ),
+      expression: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251793"(
+            fv!item
+          )
+        ),
+        null,
+        fv!item
+      )
+    )
+  ),
+  local!checkerNames: {
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!checkersDistinctSOEIDs,
+      expression: concat(
+        user(
+          fv!item,
+          "firstName"
+        ),
+        " ",
+        user(
+          fv!item,
+          "lastName"
+        )
+      )
+    )
+  },
+  local!selectedCheckers,
+  local!showDailyView: true,
+  local!summaryData: index(
+    #"_a-0000e56b-0831-8000-5261-1bef901bef90_641745"(
+      isSummaryView: 1,
+      centerSegMappingId: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          local!centerSegmentMappingIds
+        ),
+        null,
+        joinarray(
+          local!centerSegmentMappingIds,
+          ","
+        )
+      ),
+      periodFrom: now(),
+      periodTo: now(),
+      rowLimit: #"_a-0000e56b-0831-8000-5261-1bef901bef90_694158"
+    ),
+    "P_OUTPUT1",
+    {}
+  ),
+  local!milestoneDetailData,
+  local!selectedStatus,
+  {
+    /*user info*/
+    #"SYSTEM_SYSRULES_cardLayout"(
+      contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              width: "EXTRA_NARROW",
+              contents: {
+                #"SYSTEM_SYSRULES_imageField_v1"(
+                  images: {
+                    #"SYSTEM_SYSRULES_userImage"(
+                      user: loggedInUser(),
+                      link: #"SYSTEM_SYSRULES_dynamicLink"(
+                        saveInto: {
+                          a!save(
+                            local!selectedCenter,
+                            null
+                          ),
+                          a!save(
+                            local!selectedL7,
+                            null
+                          ),
+                          a!save(
+                            local!selectedL8,
+                            null
+                          )
+                        }
+                      )
+                    )
+                  },
+                  size: "FIT"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: {
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: concat(
+                        "Hello! ",
+                        user(
+                          loggedInUser(),
+                          "firstName"
+                        ),
+                        " ",
+                        user(
+                          loggedInUser(),
+                          "lastName"
+                        )
+                      ),
+                      size: "MEDIUM_PLUS",
+                      color: "ACCENT"
+                    ),
+                    char(
+                      10
+                    ),
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: user(
+                        loggedInUser(),
+                        "email"
+                      ),
+                      size: "SMALL"
+                    )
+                  }
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_columnsLayout"(
+                  columns: {
+                    #"SYSTEM_SYSRULES_columnLayout"(
+                      contents: {}
+                    ),
+                    #"SYSTEM_SYSRULES_columnLayout"(
+                      contents: {}
+                    ),
+                    #"SYSTEM_SYSRULES_columnLayout"(
+                      contents: {}
+                    )
+                  }
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  align: "RIGHT",
+                  value: {
+                    /*a!richTextItem(*/
+                    /*text:concat(today()," | ", time(now())) ,*/
+                    /*datetime(year(now()),month(now()),day(now())),*/
+                    /*style: {*/
+                    /*"STRONG"*/
+                    /*},*/
+                    /*color: "ACCENT"*/
+                    /*)*/
+                    
+                  }
+                )
+              }
+            )
+          }
+        )
+      },
+      showBorder: false(),
+      marginBelow: "STANDARD",
+      style: "INFO"
+    ),
+    {
+      /*Filters*/
+      #"SYSTEM_SYSRULES_boxLayout"(
+        label: "FILTERS",
+        contents: {
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              /*EUC number*/
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_textField"(
+                    label: "EUC#",
+                    value: local!selectedEUCNumber,
+                    saveInto: {
+                      a!save(
+                        local!selectedEUCNumber,
+                        save!value
+                      )
+                    }
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  /*Makers Dropdown*/
+                  #"SYSTEM_SYSRULES_multipleDropdownField"(
+                    label: "Makers",
+                    placeholder: "-- Select Makers --",
+                    choiceLabels: {
+                      local!makerNames
+                    },
+                    choiceValues: {
+                      local!makersDistinctSOEIDs
+                    },
+                    value: local!selectedMakers,
+                    saveInto: {
+                      a!save(
+                        local!selectedMakers,
+                        save!value
+                      )
+                    }
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  /*Checkers Dropdown*/
+                  #"SYSTEM_SYSRULES_multipleDropdownField"(
+                    label: "Checkers",
+                    placeholder: "-- Select Checkers --",
+                    choiceLabels: {
+                      local!checkerNames
+                    },
+                    choiceValues: {
+                      local!checkersDistinctSOEIDs
+                    },
+                    value: local!selectedCheckers,
+                    saveInto: {
+                      a!save(
+                        local!selectedCheckers,
+                        save!value
+                      )
+                    }
+                  )
+                }
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              /*service center*/
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_dropdownField"(
+                    label: "Service Center",
+                    placeholderLabel: "-- Select Center --",
+                    choiceLabels: {
+                      touniformstring(
+                        index(
+                          local!centerData,
+                          "display_name",
+                          {}
+                        )
+                      )
+                    },
+                    choiceValues: {
+                      tointeger(
+                        index(
+                          local!centerData,
+                          "center_id",
+                          {}
+                        )
+                      )
+                    },
+                    value: if(
+                      contains(
+                        tointeger(
+                          index(
+                            local!centerData,
+                            "center_id",
+                            {}
+                          )
+                        ),
+                        tointeger(
+                          local!selectedCenter
+                        )
+                      ),
+                      local!selectedCenter,
+                      null
+                    ),
+                    saveInto: {
+                      a!save(
+                        local!selectedCenter,
+                        save!value
+                      ),
+                      a!save(
+                        local!selectedL8,
+                        null
+                      ),
+                      a!save(
+                        local!selectedL7,
+                        null
+                      )
+                    }
+                  )/*a!buttonArrayLayout(*/
+                  /*buttons: {*/
+                  /*a!buttonWidget(*/
+                  /*label:"Today's Report",*/
+                  /*style: if(*/
+                  /*local!showDailyView,*/
+                  /*"PRIMARY",*/
+                  /*"SECONDARY"*/
+                  /*),*/
+                  /*saveInto: {*/
+                  /*a!save(*/
+                  /*local!showDailyView,*/
+                  /*true*/
+                  /*),*/
+                  /*if(*/
+                  /*toboolean(*/
+                  /*local!showDailyView*/
+                  /*),*/
+                  /*{*/
+                  /*a!save(*/
+                  /*local!periodFrom,*/
+                  /*null*/
+                  /*),*/
+                  /*a!save(*/
+                  /*local!periodTo,*/
+                  /*null*/
+                  /*)*/
+                  /*},*/
+                  /*{}*/
+                  /*)*/
+                  /*}*/
+                  /*),*/
+                  /*a!buttonWidget(*/
+                  /*label:"Date Range",*/
+                  /*style: if(*/
+                  /*local!showDailyView,*/
+                  /*"SECONDARY",*/
+                  /*"PRIMARY"                          */
+                  /*),*/
+                  /*saveInto: {*/
+                  /*a!save(*/
+                  /*local!showDailyView,*/
+                  /*false*/
+                  /*)*/
+                  /*}*/
+                  /*)*/
+                  /*}*/
+                  /*)*/
+                  
+                }
+              ),
+              /*L8*/
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_dropdownField"(
+                    label: "Managed Segment L8",
+                    placeholderLabel: "-- Select L8 --",
+                    choiceLabels: {
+                      touniformstring(
+                        index(
+                          local!segmentL8Data,
+                          "display_name",
+                          {}
+                        )
+                      )
+                    },
+                    choiceValues: {
+                      tointeger(
+                        index(
+                          local!segmentL8Data,
+                          "mgd_seg_l8_id",
+                          {}
+                        )
+                      )
+                    },
+                    value: if(
+                      contains(
+                        tointeger(
+                          index(
+                            local!segmentL8Data,
+                            "mgd_seg_l8_id",
+                            {}
+                          )
+                        ),
+                        tointeger(
+                          local!selectedL8
+                        )
+                      ),
+                      local!selectedL8,
+                      null
+                    ),
+                    saveInto: {
+                      a!save(
+                        local!selectedL8,
+                        save!value
+                      ),
+                      a!save(
+                        local!selectedL7,
+                        null
+                      )
+                    }
+                  )
+                }
+              ),
+              /*L7*/
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_textField"(
+                    label: "Managed Segment L7",
+                    readOnly: true(),
+                    value: index(
+                      local!segmentL7Data,
+                      "display_name",
+                      {}
+                    ),
+                    showWhen: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        index(
+                          local!segmentL7Data,
+                          "display_name",
+                          {}
+                        )
+                      ),
+                      false(),
+                      true()
+                    )
+                  )
+                }
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_radioButtonField"(
+                    label: "Show Today's Report",
+                    choiceLabels: {
+                      "Yes",
+                      "No"
+                    },
+                    choiceValues: {
+                      true,
+                      false
+                    },
+                    choiceLayout: "COMPACT",
+                    value: local!showDailyView,
+                    saveInto: {
+                      a!save(
+                        local!showDailyView,
+                        save!value
+                      ),
+                      if(
+                        toboolean(
+                          local!showDailyView
+                        ),
+                        {
+                          a!save(
+                            local!periodFrom,
+                            null
+                          ),
+                          a!save(
+                            local!periodTo,
+                            null
+                          )
+                        },
+                        {}
+                      )
+                    }
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  /*Period from and to*/
+                  #"SYSTEM_SYSRULES_sideBySideLayout"(
+                    items: {
+                      #"SYSTEM_SYSRULES_sideBySideItem"(
+                        item: #"SYSTEM_SYSRULES_dateField"(
+                          label: "Period From",
+                          value: local!periodFrom,
+                          instructions: "*Date range will work on GMT",
+                          saveInto: {
+                            a!save(
+                              local!showDailyView,
+                              false
+                            ),
+                            a!save(
+                              local!periodFrom,
+                              save!value
+                            )
+                          },
+                          validations: {
+                            if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                local!periodFrom
+                              ),
+                              {},
+                              if(
+                                local!periodFrom &gt; date(
+                                  year(
+                                    today()
+                                  ),
+                                  month(
+                                    today()
+                                  ),
+                                  day(
+                                    today()
+                                  )
+                                ),
+                                "Please select the past date!",
+                                {}
+                              )
+                            ),
+                            if(
+                              and(
+                                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                  local!periodFrom
+                                ),
+                                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                  local!periodTo
+                                )
+                              ),
+                              {},
+                              if(
+                                tointeger(
+                                  tointervalds(
+                                    local!periodTo
+                                  ) - tointervalds(
+                                    local!periodFrom
+                                  )
+                                ) &gt; 90,
+                                "The selected range should not exceed 90 days",
+                                {}
+                              )
+                            )
+                          }
+                        ),
+                        width: "MINIMIZE"
+                      ),
+                      #"SYSTEM_SYSRULES_sideBySideItem"(
+                        item: #"SYSTEM_SYSRULES_dateField"(
+                          label: "Period To",
+                          value: local!periodTo,
+                          saveInto: {
+                            a!save(
+                              local!showDailyView,
+                              false
+                            ),
+                            a!save(
+                              local!periodTo,
+                              save!value
+                            )
+                          },
+                          validations: {
+                            if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                local!periodTo
+                              ),
+                              {},
+                              if(
+                                or(
+                                  local!periodTo &gt; date(
+                                    year(
+                                      today()
+                                    ),
+                                    month(
+                                      today()
+                                    ),
+                                    day(
+                                      today()
+                                    )
+                                  ),
+                                  if(
+                                    or(
+                                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                        local!periodTo
+                                      ),
+                                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                        local!periodFrom
+                                      )
+                                    ),
+                                    {},
+                                    local!periodTo &lt; local!periodFrom
+                                  )
+                                ),
+                                "Please select a valid date! It must be between Period From and Today",
+                                {}
+                              )
+                            ),
+                            if(
+                              and(
+                                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                  local!periodFrom
+                                ),
+                                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                  local!periodTo
+                                )
+                              ),
+                              {},
+                              if(
+                                tointeger(
+                                  tointervalds(
+                                    local!periodTo
+                                  ) - tointervalds(
+                                    local!periodFrom
+                                  )
+                                ) &gt; 90,
+                                "The selected range should not exceed 90 days",
+                                {}
+                              )
+                            )
+                          }
+                        ),
+                        width: "MINIMIZE"
+                      )
+                    },
+                    showWhen: not(
+                      local!showDailyView
+                    ),
+                    spacing: "DENSE"
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_dropdownField"(
+                    label: "Status",
+                    placeholderLabel: "-- Select Status--",
+                    choiceLabels: {
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_695477"[1],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_695477"[2],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_695477"[3],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_695477"[4],
+                      /*cons!EAP_OPSDASHBOARD_EUC_STATUS[5],*/
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_695477"[6]
+                    },
+                    choiceValues: {
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_695477"[1],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_695477"[2],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_695477"[3],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_695477"[4],
+                      /*cons!EAP_OPSDASHBOARD_EUC_STATUS[5],*/
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_695477"[6]
+                    },
+                    value: local!selectedStatus,
+                    saveInto: {
+                      a!save(
+                        local!selectedStatus,
+                        save!value
+                      )
+                    }
+                  )
+                }
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_ButtonArrayLayout"(
+                    buttons: {
+                      /*Search Button*/
+                      #"SYSTEM_SYSRULES_ButtonWidget"(
+                        label: "SEARCH",
+                        size: "SMALL",
+                        icon: "search",
+                        saveInto: {
+                          a!save(
+                            local!summaryData,
+                            index(
+                              #"_a-0000e56b-0831-8000-5261-1bef901bef90_641745"(
+                                isSummaryView: 1,
+                                centerSegMappingId: if(
+                                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                    local!centerSegmentMappingIds
+                                  ),
+                                  null,
+                                  joinarray(
+                                    local!centerSegmentMappingIds,
+                                    ","
+                                  )
+                                ),
+                                makers: if(
+                                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                    local!selectedMakers
+                                  ),
+                                  null,
+                                  joinarray(
+                                    local!selectedMakers,
+                                    ","
+                                  )
+                                ),
+                                checkers: if(
+                                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                    local!selectedCheckers
+                                  ),
+                                  null,
+                                  joinarray(
+                                    local!selectedCheckers,
+                                    ","
+                                  )
+                                ),
+                                eucNumber: local!selectedEUCNumber,
+                                centerId: local!selectedCenter,
+                                mgdSegL7Id: local!selectedL7,
+                                mgdSegL8Id: local!selectedL8,
+                                periodFrom: if(
+                                  toboolean(
+                                    local!showDailyView
+                                  ),
+                                  now(),
+                                  local!periodFrom
+                                ),
+                                periodTo: if(
+                                  toboolean(
+                                    local!showDailyView
+                                  ),
+                                  now(),
+                                  local!periodTo
+                                ),
+                                rowLimit: #"_a-0000e56b-0831-8000-5261-1bef901bef90_694158",
+                                status: local!selectedStatus
+                              ),
+                              "P_OUTPUT1",
+                              {}
+                            )
+                          ),
+                          a!save(
+                            local!showDetailView,
+                            false()
+                          ),
+                          a!save(
+                            local!summaryRow,
+                            null
+                          )
+                        },
+                        disabled: {
+                          if(
+                            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                              local!periodTo
+                            ),
+                            false(),
+                            if(
+                              or(
+                                local!periodTo &gt; date(
+                                  year(
+                                    today()
+                                  ),
+                                  month(
+                                    today()
+                                  ),
+                                  day(
+                                    today()
+                                  )
+                                ),
+                                if(
+                                  or(
+                                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                      local!periodTo
+                                    ),
+                                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                      local!periodFrom
+                                    )
+                                  ),
+                                  {},
+                                  local!periodTo &lt; local!periodFrom
+                                )
+                              ),
+                              true(),
+                              false()
+                            )
+                          ),
+                          if(
+                            and(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                local!periodFrom
+                              ),
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                local!periodTo
+                              )
+                            ),
+                            false(),
+                            if(
+                              tointeger(
+                                tointervalds(
+                                  local!periodTo
+                                ) - tointervalds(
+                                  local!periodFrom
+                                )
+                              ) &gt; 90,
+                              true(),
+                              false()
+                            )
+                          ),
+                          if(
+                            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                              local!periodFrom
+                            ),
+                            false(),
+                            if(
+                              local!periodFrom &gt; date(
+                                year(
+                                  today()
+                                ),
+                                month(
+                                  today()
+                                ),
+                                day(
+                                  today()
+                                )
+                              ),
+                              true(),
+                              false()
+                            )
+                          ),
+                          if(
+                            and(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                local!periodFrom
+                              ),
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                local!periodTo
+                              )
+                            ),
+                            false(),
+                            if(
+                              tointeger(
+                                tointervalds(
+                                  local!periodTo
+                                ) - tointervalds(
+                                  local!periodFrom
+                                )
+                              ) &gt; 90,
+                              true(),
+                              false()
+                            )
+                          )
+                        },
+                        style: "LINK"
+                      ),
+                      /*Clear Filters*/
+                      #"SYSTEM_SYSRULES_ButtonWidget"(
+                        label: "Clear Filters",
+                        size: "SMALL",
+                        icon: "remove",
+                        saveInto: {
+                          a!save(
+                            local!showDailyView,
+                            true
+                          ),
+                          a!save(
+                            local!selectedGridColumn,
+                            null
+                          ),
+                          a!save(
+                            local!periodFrom,
+                            null
+                          ),
+                          a!save(
+                            local!showDetailView,
+                            false()
+                          ),
+                          a!save(
+                            local!periodTo,
+                            null
+                          ),
+                          a!save(
+                            local!selectedEUCNumber,
+                            null
+                          ),
+                          a!save(
+                            local!selectedMakers,
+                            null
+                          ),
+                          a!save(
+                            local!selectedStatus,
+                            null
+                          ),
+                          a!save(
+                            local!selectedCheckers,
+                            null
+                          ),
+                          a!save(
+                            local!selectedCenter,
+                            null
+                          ),
+                          a!save(
+                            local!selectedL8,
+                            null
+                          ),
+                          a!save(
+                            local!selectedL7,
+                            null
+                          ),
+                          a!save(
+                            local!summaryData,
+                            index(
+                              #"_a-0000e56b-0831-8000-5261-1bef901bef90_641745"(
+                                isSummaryView: 1,
+                                centerSegMappingId: if(
+                                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                    local!centerSegmentMappingIds
+                                  ),
+                                  null,
+                                  joinarray(
+                                    local!centerSegmentMappingIds,
+                                    ","
+                                  )
+                                ),
+                                periodFrom: now(),
+                                periodTo: now(),
+                                rowLimit: #"_a-0000e56b-0831-8000-5261-1bef901bef90_694158"
+                              ),
+                              "P_OUTPUT1",
+                              {}
+                            )
+                          ),
+                          a!save(
+                            local!summaryRow,
+                            null
+                          )
+                        },
+                        style: "LINK"
+                      )
+                    },
+                    align: "END"
+                  )
+                }
+              )
+            }
+          )
+        },
+        style: "STANDARD",
+        isCollapsible: true(),
+        isInitiallyCollapsed: true(),
+        marginBelow: "STANDARD"
+      )
+    },
+    #"SYSTEM_SYSRULES_cardLayout"(
+      contents: {
+        /*Summary view*/
+        {
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: {
+              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                text: "SUMMARY VIEW",
+                style: "STRONG",
+                color: "ACCENT",
+                size: "MEDIUM"
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_multipleDropdownField"(
+                    label: "Grid Columns",
+                    placeholder: "-- Select Grid Columns --",
+                    choiceLabels: {
+                      /*cons!EAP_OPSDASHBOARD_STATUS_SUMMARY_GRID_COLUMNS[1],*/
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[2],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[3],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[4],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[17],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[18]
+                    },
+                    choiceValues: {
+                      /*cons!EAP_OPSDASHBOARD_STATUS_SUMMARY_GRID_COLUMNS[1],*/
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[2],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[3],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[4],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[17],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[18]
+                    },
+                    value: local!selectedGridColumn,
+                    /*if(*/
+                    /*contains(*/
+                    /*cons!EAP_OPSDASHBOARD_STATUS_SUMMARY_GRID_COLUMNS,*/
+                    /*local!selectedGridColumn*/
+                    /*),*/
+                    /*local!selectedGridColumn,*/
+                    /*null*/
+                    /*),*/
+                    saveInto: local!selectedGridColumn
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(),
+              #"SYSTEM_SYSRULES_columnLayout"(),
+              #"SYSTEM_SYSRULES_columnLayout"(),
+              #"SYSTEM_SYSRULES_columnLayout"(
+
+                contents: {#"SYSTEM_SYSRULES_richTextDisplayField"(),
+                #"SYSTEM_SYSRULES_richTextDisplayField"(),
+                #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  showWhen: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9906"(local!summaryData),
+                  value: {
+
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: "Export Excel",
+                      color: "STANDARD",
+                      size: "STANDARD",
+                      style: "STRONG",
+                      link:#"SYSTEM_SYSRULES_safeLink"(
+                        label: " ",
+                        uri:Getdatasubsetdownloadlinkfromprocess(
+                          processModelUuid: #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_759388",
+                          input:#"SYSTEM_SYSRULES_toJson_v1"({
+                            CENTER_SEG_MAPPING_ID:if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                local!centerSegmentMappingIds
+                              ),
+                              null,
+                              joinarray(
+                                local!centerSegmentMappingIds,
+                                ","
+                              )
+                            ),
+                            MAKERS: if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                local!selectedMakers
+                              ),
+                              null,
+                              joinarray(
+                                local!selectedMakers,
+                                ","
+                              )
+                            ),
+
+                            CHECKERS: if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                local!selectedCheckers
+                              ),
+                              null,
+                              joinarray(
+                                local!selectedCheckers,
+                                ","
+                              )
+                            ),
+
+                            EUC_NUMBER: local!selectedEUCNumber,
+                            CENTER_ID: local!selectedCenter,
+                            MGDSEGL7_ID: local!selectedL7,
+                            MGDSEGL8_ID: local!selectedL8,
+                            PERIOD_FROM:if(
+                              toboolean(
+                                local!showDailyView
+                              ),
+                              text(
+                                now(),
+                                "mm/dd/yyyy"
+                              ),
+                              if(
+                                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!periodFrom) ,
+                                null,
+                                text(local!periodFrom,"mm/dd/yyyy")
+                              )
+                             ),
+                              PERIOD_TO:if(
+                                toboolean(
+                                  local!showDailyView
+                                ),
+                                text(
+                                  now(),
+                                  "mm/dd/yyyy"
+                                ),
+                                if(
+                                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!periodTo) ,
+                                  null,text(local!periodTo,"mm/dd/yyyy"))
+                                ),
+                            COLUMNS:local!selectedGridColumn,
+                            STATUS: local!selectedStatus
+                          })
+                        )
+                      )
+                    )
+
+                  },
+                  align: "RIGHT"
+                )
+                }
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_gridField_v1"(
+                    label: "",
+                    data: local!summaryData,
+                    columns: {
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        align: "END",
+                        sortField: "EUC_ID",
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[5],
+                        value: {
+                          index(
+                            fv!row,
+                            "EUC_ID",
+                            {}
+                          )
+                        }
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[6],
+                        sortField: "EUC_NAME",
+                        value: {
+                          index(
+                            fv!row,
+                            "EUC_NAME",
+                            {}
+                          )
+                        }
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[7],
+                        sortField: "START_BD",
+                        align: "END",
+                        value: {
+                          index(
+                            fv!row,
+                            "START_BD"
+                          )
+                        }
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[8],
+                        sortField: "END_BD",
+                        align: "END",
+                        value: {
+                          index(
+                            fv!row,
+                            "END_BD"
+                          )
+                        }
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[9],
+                        sortField: "MAKERS",
+                        value: {
+                          if(
+                            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                              index(
+                                fv!row,
+                                "MAKERS"
+                              )
+                            ),
+                            {},
+                            reject(
+                              isnull(
+                                _
+                              ),
+                              #"SYSTEM_SYSRULES_forEach"(
+                                items: split(
+                                  index(
+                                    fv!row,
+                                    "MAKERS"
+                                  ),
+                                  ";"
+                                ),
+                                expression: if(
+                                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251793"(
+                                      fv!item
+                                    )
+                                  ),
+                                  "",
+                                  concat(
+                                    user(
+                                      fv!item,
+                                      "firstName"
+                                    ),
+                                    " ",
+                                    user(
+                                      fv!item,
+                                      "lastName"
+                                    )
+                                  )
+                                )
+                              )
+                            )
+                          )
+                        }
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[10],
+                        sortField: "CHECKERS",
+                        value: {
+                          if(
+                            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                              index(
+                                fv!row,
+                                "CHECKERS"
+                              )
+                            ),
+                            {},
+                            reject(
+                              isnull(
+                                _
+                              ),
+                              #"SYSTEM_SYSRULES_forEach"(
+                                items: split(
+                                  index(
+                                    fv!row,
+                                    "CHECKERS"
+                                  ),
+                                  ";"
+                                ),
+                                expression: if(
+                                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251793"(
+                                      fv!item
+                                    )
+                                  ),
+                                  "",
+                                  concat(
+                                    user(
+                                      fv!item,
+                                      "firstName"
+                                    ),
+                                    " ",
+                                    user(
+                                      fv!item,
+                                      "lastName"
+                                    )
+                                  )
+                                )
+                              )
+                            )
+                          )
+                        }
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[11],
+                        sortField: "STATUS",
+                        align: "START",
+                        value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                          value: {
+                            #"SYSTEM_SYSRULES_richTextIcon"(
+                              icon: if(
+                                index(
+                                  fv!row,
+                                  "STATUS",
+                                  {}
+                                ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_671200"[1],
+                                "warning",
+                                if(
+                                  index(
+                                    fv!row,
+                                    "STATUS",
+                                    {}
+                                  ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_671200"[4],
+                                  "calendar-check-o",
+                                  if(
+                                    index(
+                                      fv!row,
+                                      "STATUS",
+                                      {}
+                                    ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_671200"[3],
+                                    "check-square-o",
+                                    if(
+                                      index(
+                                        fv!row,
+                                        "STATUS",
+                                        {}
+                                      ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_671200"[2],
+                                      "clock-o",
+                                      ""
+                                    )
+                                  )
+                                )
+                              ),
+                              color: if(
+                                index(
+                                  fv!row,
+                                  "STATUS",
+                                  {}
+                                ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_671200"[1],
+                                "NEGATIVE",
+                                if(
+                                  index(
+                                    fv!row,
+                                    "STATUS",
+                                    {}
+                                  ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_671200"[4],
+                                  "ACCENT",
+                                  if(
+                                    index(
+                                      fv!row,
+                                      "STATUS",
+                                      {}
+                                    ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_671200"[3],
+                                    "POSITIVE",
+                                    if(
+                                      index(
+                                        fv!row,
+                                        "STATUS",
+                                        {}
+                                      ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_671200"[2],
+                                      "SECONDARY",
+                                      ""
+                                    )
+                                  )
+                                )
+                              ),
+                              altText: index(
+                                fv!row,
+                                "STATUS",
+                                {}
+                              ),
+                              caption: index(
+                                fv!row,
+                                "STATUS",
+                                {}
+                              ),
+                              size: "MEDIUM"
+                            ),
+                            #"SYSTEM_SYSRULES_richTextItem_v1"(
+                              text: concat(
+                                " ",
+                                index(
+                                  fv!row,
+                                  "STATUS",
+                                  {}
+                                )
+                              ),
+                              size: "SMALL"
+                            )
+                          }
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[13],
+                        sortField: "PROCESS_ACTTUAL_START_TIME",
+                        value: {
+                          if(
+                            or(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                index(
+                                  fv!row,
+                                  "PROCESS_ACTTUAL_START_TIME",
+                                  {}
+                                )
+                              ),
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                index(
+                                  fv!row,
+                                  "TIMEZONE_ID",
+                                  {}
+                                )
+                              )
+                            ),
+                            "",
+                            #"_a-0000e56b-0831-8000-5261-1bef901bef90_701127"(
+                              dateTime: index(
+                                fv!row,
+                                "PROCESS_ACTTUAL_START_TIME",
+                                {}
+                              ),
+                              timeZone: index(
+                                fv!row,
+                                "TIMEZONE_ID",
+                                {}
+                              )
+                            )
+                          )/*concat(*/
+                          /*todate(index(*/
+                          /*fv!row,*/
+                          /*"PROCESS_ACTTUAL_START_TIME",*/
+                          /*{}*/
+                          /*)),*/
+                          /*"  ",*/
+                          /*totime(index(*/
+                          /*fv!row,*/
+                          /*"PROCESS_ACTTUAL_START_TIME",*/
+                          /*{}*/
+                          /*))*/
+                          /*)*/
+                          
+                        },
+                        align: "END"
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[14],
+                        sortField: "PROCESS_AGEING",
+                        align: "END",
+                        value: {
+                          index(
+                            fv!row,
+                            "PROCESS_AGEING"
+                          )
+                        }
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[15],
+                        sortField: "PROCESS_END_TIME",
+                        align: "END",
+                        value: {
+                          if(
+                            or(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                index(
+                                  fv!row,
+                                  "PROCESS_END_TIME",
+                                  {}
+                                )
+                              ),
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                index(
+                                  fv!row,
+                                  "TIMEZONE_ID",
+                                  {}
+                                )
+                              )
+                            ),
+                            "",
+                            #"_a-0000e56b-0831-8000-5261-1bef901bef90_701127"(
+                              dateTime: index(
+                                fv!row,
+                                "PROCESS_END_TIME",
+                                {}
+                              ),
+                              timeZone: index(
+                                fv!row,
+                                "TIMEZONE_ID",
+                                {}
+                              )
+                            )
+                          )/*concat(*/
+                          /*todate(index(*/
+                          /*fv!row,*/
+                          /*"PROCESS_END_TIME",*/
+                          /*{}*/
+                          /*)),*/
+                          /*"  ",*/
+                          /*totime(index(*/
+                          /*fv!row,*/
+                          /*"PROCESS_END_TIME",*/
+                          /*{}*/
+                          /*))*/
+                          /*)*/
+                          
+                        }
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[16],
+                        sortField: "TOTAL_PROCESSING_TIME",
+                        align: "END",
+                        value: index(
+                          fv!row,
+                          "TOTAL_PROCESSING_TIME"
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: "Center",
+                        sortField: "CENTER_NAME",
+                        value: {
+                          index(
+                            fv!row,
+                            "CENTER_NAME"
+                          )
+                        },
+                        showWhen: if(
+                          contains(
+                            local!selectedGridColumn,
+                            #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[2]
+                          ),
+                          true(),
+                          false()
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        align: "END",
+                        sortField: "L8_DISPLAY_NAME",
+                        label: "Managed Segment L8",
+                        value: {
+                          index(
+                            fv!row,
+                            "L8_DISPLAY_NAME"
+                          )
+                        },
+                        showWhen: if(
+                          contains(
+                            local!selectedGridColumn,
+                            #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[4]
+                          ),
+                          true(),
+                          false()
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        align: "END",
+                        sortField: "L7_DISPLAY_NAME",
+                        label: "Managed Segment L7",
+                        value: {
+                          index(
+                            fv!row,
+                            "L7_DISPLAY_NAME"
+                          )
+                        },
+                        showWhen: if(
+                          contains(
+                            local!selectedGridColumn,
+                            #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[3]
+                          ),
+                          true(),
+                          false()
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[17],
+                        align: "END",
+                        value: concat(
+                          todate(
+                            index(
+                              fv!row,
+                              "START_TRIGGER_DATETIME",
+                              {}
+                            )
+                          ),
+                          "  ",
+                          totime(
+                            index(
+                              fv!row,
+                              "START_TRIGGER_DATETIME",
+                              {}
+                            )
+                          )
+                        ),
+                        sortField: "START_TRIGGER_DATETIME",
+                        showWhen: if(
+                          contains(
+                            local!selectedGridColumn,
+                            #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[17]
+                          ),
+                          true(),
+                          false()
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[18],
+                        align: "END",
+                        value: concat(
+                          todate(
+                            index(
+                              fv!row,
+                              "END_TRIGGER_DATETIME",
+                              {}
+                            )
+                          ),
+                          "  ",
+                          totime(
+                            index(
+                              fv!row,
+                              "END_TRIGGER_DATETIME",
+                              {}
+                            )
+                          )
+                        ),
+                        sortField: "END_TRIGGER_DATETIME",
+                        showWhen: if(
+                          contains(
+                            local!selectedGridColumn,
+                            #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[18]
+                          ),
+                          true(),
+                          false()
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[19],
+                        align: "END",
+                        value: concat(
+                          todate(
+                            index(
+                              fv!row,
+                              "START_TRIGGER_DATETIME_GMT",
+                              {}
+                            )
+                          ),
+                          "  ",
+                          totime(
+                            index(
+                              fv!row,
+                              "START_TRIGGER_DATETIME_GMT",
+                              {}
+                            )
+                          )
+                        ),
+                        sortField: "START_TRIGGER_DATETIME_GMT",
+                        showWhen: if(
+                          contains(
+                            local!selectedGridColumn,
+                            #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[19]
+                          ),
+                          true(),
+                          false()
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[20],
+                        align: "END",
+                        value: concat(
+                          todate(
+                            index(
+                              fv!row,
+                              "END_TRIGGER_DATETIME_GMT",
+                              {}
+                            )
+                          ),
+                          "  ",
+                          totime(
+                            index(
+                              fv!row,
+                              "END_TRIGGER_DATETIME_GMT",
+                              {}
+                            )
+                          )
+                        ),
+                        sortField: "END_TRIGGER_DATETIME_GMT",
+                        showWhen: if(
+                          contains(
+                            local!selectedGridColumn,
+                            #"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[20]
+                          ),
+                          true(),
+                          false()
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: "View Milestone Details",
+                        align: "CENTER",
+                        value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                          value: #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: if(
+                              tointeger(
+                                local!summaryRow
+                              ) = tointeger(
+                                fv!identifier
+                              ),
+                              "eye-slash",
+                              "eye"
+                            ),
+                            link: #"SYSTEM_SYSRULES_dynamicLink"(
+                              saveInto: {
+                                a!save(
+                                  local!showDetailView,
+                                  true()
+                                ),
+                                a!save(
+                                  local!summaryRow,
+                                  tointeger(
+                                    fv!identifier
+                                  )
+                                ),
+                                /*Parameters for Detailed View*/
+                                a!save(
+                                  local!selectedRequestId,
+                                  index(
+                                    fv!row,
+                                    "REQUEST_ID",
+                                    {}
+                                  )
+                                ),
+                                a!save(
+                                  local!selectedEUCID,
+                                  index(
+                                    fv!row,
+                                    "EUC_ID",
+                                    {}
+                                  )
+                                ),
+                                a!save(
+                                  local!showDetailView,
+                                  tointeger(
+                                    1
+                                  )
+                                ),
+                                /*Fetching Milestone Details*/
+                                a!save(
+                                  local!milestoneDetailData,
+                                  index(
+                                    #"_a-0000e56b-0831-8000-5261-1bef901bef90_677067"(
+                                      requestId: local!selectedRequestId
+                                    ),
+                                    "P_OUTPUT",
+                                    {}
+                                  )
+                                )
+                              }
+                            ),
+                            size: "MEDIUM"
+                          )
+                        )
+                      )
+                    }
+                  )
+                }
+              )
+            }
+          )
+        },
+        #"SYSTEM_SYSRULES_sectionLayout_v1"(
+          divider: "BELOW"
+        ),
+        /*Detailed view*/
+        if(
+          toboolean(
+            local!showDetailView
+          ),
+          {
+            #"SYSTEM_SYSRULES_columnsLayout"(
+              columns: {
+                /*Detailed View*/
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: {
+                    #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      value: {
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          text: concat(
+                            "MILESTONE DETAILED VIEW ",
+                            " | ",
+                            local!selectedEUCID
+                          ),
+                          style: "STRONG",
+                          color: "ACCENT",
+                          size: "MEDIUM"
+                        )
+                      }
+                    ),
+                    #"SYSTEM_SYSRULES_gridField_v1"(
+                      label: "",
+                      data: local!milestoneDetailData,
+                      columns: {
+                        #"SYSTEM_SYSRULES_gridColumn"(
+                          label: "Step Id",
+                          value: index(
+                            fv!row,
+                            "STEP_ID",
+                            {}
+                          ),
+                          align: "END",
+                          
+                        ),
+                        #"SYSTEM_SYSRULES_gridColumn"(
+                          label: "Step Name",
+                          value: index(
+                            fv!row,
+                            "STEP_NAME",
+                            {}
+                          )
+                        ),
+                        #"SYSTEM_SYSRULES_gridColumn"(
+                          label: "Milestone Name",
+                          value: index(
+                            fv!row,
+                            "MILESTONE_NAME",
+                            {}
+                          )
+                        ),
+                        #"SYSTEM_SYSRULES_gridColumn"(
+                          label: "Start Time",
+                          align: "END",
+                          value: index(
+                            fv!row,
+                            "START_TIME",
+                            {}
+                          )
+                        ),
+                        #"SYSTEM_SYSRULES_gridColumn"(
+                          label: "End Time",
+                          align: "END",
+                          value: index(
+                            fv!row,
+                            "COMPETION_TIME",
+                            {}
+                          )
+                        ),
+                        #"SYSTEM_SYSRULES_gridColumn"(
+                          label: "Status",
+                          value: index(
+                            fv!row,
+                            "STATUS",
+                            {}
+                          )
+                        )
+                      }
+                    )
+                  }
+                )
+              }
+            )
+          },
+          {}
+        )
+      },
+      showBorder: false,
+      marginBelow: "STANDARD"/*style: "INFO"*/
+      
+    )
+  }
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_685967"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_686287"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_686337"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_690250"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_696439"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_703280"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_706361"/>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_733138"/>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_735539"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_761408"/>
+    </history>
+</contentHaul>

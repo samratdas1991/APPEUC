@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288922</versionUuid>
+    <interface>
+        <name>EAP_IOIntegrationConfigMasterForm</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_127053</uuid>
+        <description>Holds master form for IO Integration Config</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!masterLookUpData: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    categoryGroup: {
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[5],
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+    },
+    isActive: true(),
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      1,
+      - 1,
+      #"SYSTEM_SYSRULES_sortInfo"(
+        "reference_data_id",
+        true()
+      )
+    )
+  ),
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    label: "Manage IO Integration Configuration",
+    divider: "ABOVE",
+    contents: {
+      if(
+        or(
+          ri!isIntegratedSystemAdded
+        ),
+        {},
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_61164"(
+          integratedSystemConfig: ri!integratedSystemConfig,
+          masterLookUpData: local!masterLookUpData,
+          isReadOnly: false()
+        )
+      ),
+      #"SYSTEM_SYSRULES_ButtonLayout"(
+        primaryButtons: {
+          if(
+            or(
+              ri!isIntegratedSystemAdded
+            ),
+            #"SYSTEM_SYSRULES_ButtonWidget"(
+              label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[1],
+              value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[1],
+              saveInto: {
+                ri!ButtonAction
+
+              },
+              submit: true,
+              validate:true(),
+              style: "PRIMARY",
+
+            ),
+            #"SYSTEM_SYSRULES_ButtonWidget"(
+              label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3],
+              value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3],
+              saveInto: {ri!ButtonAction
+              },
+              submit: true,
+              style: "PRIMARY"
+            )
+          )
+        },
+        secondaryButtons: {
+          #"SYSTEM_SYSRULES_ButtonWidget"(
+            label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+            value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+            saveInto: ri!ButtonAction,
+            submit: true,
+            style: "NORMAL",
+            validate: false
+          )
+        }
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>integratedSystemConfig</name>
+            <type>
+                <name>EAP_T_IntSys?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isIntegratedSystemAdded</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ButtonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_130382"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288922"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_684162</versionUuid>
+    <interface>
+        <name>EAP_AllRequestSummaryDashboardForHistoricData</name>
+        <uuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_617051</uuid>
+        <description>Summary dashboard for all requests Historic Data</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!requestDetails: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+    requestId: ri!requestId
+  ),
+  local!processDetails:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+    processId:index(local!requestDetails,"processId",{})
+  ),
+  local!refMasterLookupDetails:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    type:"WORKFLOW_STATUS",
+    isActive: 1
+  ),
+  local!histTransId,
+  {
+    #"SYSTEM_SYSRULES_cardLayout"(
+      contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "hashtag",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Process #",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(
+                            10
+                          ),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: index(
+                              local!requestDetails,
+                              "processId",
+                              {}
+                            ),
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[12]
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "info-circle",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Status",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(
+                            10
+                          ),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                index(
+                                  local!requestDetails,
+                                  "requestCurrStatus",
+                                  {}
+                                )
+                              ),
+                              "N/A",
+                              index(
+                                index(local!refMasterLookupDetails,"label",null),
+                                wherecontains(
+                                  index(
+                                    local!requestDetails,
+                                    "requestCurrStatus",
+                                    null
+                                  ),
+                                  touniformstring(
+                                    index(local!refMasterLookupDetails,"code",null)
+                                  )
+                                ),
+                                null
+                              )
+                            )
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "user-circle",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Updated By",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(
+                            10
+                          ),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                index(
+                                  local!requestDetails,
+                                  "updatedBy",
+                                  {}
+                                )
+                              ),
+                              "N/A",  
+                               #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251824"(
+                                 tostring(
+                                   index(
+                                     local!requestDetails,
+                                     "updatedBy",
+                                     {}
+                                   )
+                                 )
+                               )
+                              
+                             
+                            )
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+          
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "clock-o",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Updated On",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(
+                            10
+                          ),
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          text:
+                     if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                       index(local!requestDetails,"UpdatedOn",{})),"N/A",
+                       
+                       concat(
+                         datevalue(
+                           index(local!requestDetails,"UpdatedOn",{})
+                         )," ",
+                         timevalue(
+                           index(local!requestDetails,"UpdatedOn",{})
+                         )
+                       )
+                     
+                     )
+                       
+                        )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "calendar",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Year",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(
+                            10
+                          ),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text:
+                            if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                              index(local!requestDetails,"requestYear",{})),"N/A",index(local!requestDetails,"requestYear",{}))
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "calendar",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Month",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(
+                            10
+                          ),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text:if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(local!requestDetails,"requestMonth",{})),"N/A", index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+                                code: index(local!requestDetails,"requestMonth",{}),
+                                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[3],
+                                type: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[1]
+                              ),"label",{}))
+                             
+                            
+                           
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+          },
+          marginBelow: "STANDARD"
+        )
+      },
+      height: "AUTO",
+      style: "#D6DBDF",
+      showBorder: false()
+    ),
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      value: {
+        #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text: char(10)            )
+      }
+    ),
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124402"(
+      refProcess:local!processDetails,
+      relatedAction:4,
+      isReadOnly:true()
+    ),
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      value: {
+        #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text: char(10)            )
+      }
+    ),
+    #"_a-0000e54c-ce50-8000-5260-1bef901bef90_619202"(
+      requestId: ri!requestId,
+      histTransId:local!histTransId
+    )
+    
+    
+  }
+)</definition>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">9</a:value>
+                    <a:nameRef>requestId</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_623286"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_625665"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_684162"/>
+    </history>
+</contentHaul>

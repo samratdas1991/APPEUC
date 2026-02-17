@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ea-27a1-8000-5269-1bef901bef90_774680</versionUuid>
+    <rule>
+        <name>EAP_getExportableDataForReportScheduleView</name>
+        <uuid>_a-0000e58b-f438-8000-5262-1bef901bef90_726872</uuid>
+        <description>Hold rule to get export to excel</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!json: #"SYSTEM_SYSRULES_fromJson"(
+    ri!input
+  ),
+ local!paginfInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+   startIndex:1,
+   batchSize:#"_a-0000e56b-0831-8000-5261-1bef901bef90_694158"
+ ),
+ 
+ local!FilteredData: a!flatten(index(#"_a-0000e5c3-a65f-8000-5268-1bef901bef90_758984"(
+   isSummaryView: 1,
+   
+   rowLimit: #"_a-0000e56b-0831-8000-5261-1bef901bef90_694158",
+   centerSegMappingId:local!json.CENTER_SEG_MAPPING_ID,
+   makers: local!json.MAKERS,
+   checkers:local!json.CHECKERS,
+   eucNumber: local!json.EUC_NUMBER,
+   centerId: local!json.CENTER_ID,
+   mgdSegL7Id:local!json.MGDSEGL7_ID,
+   mgdSegL8Id: local!json.MGDSEGL8_ID,
+   periodFrom:local!json.PERIOD_FROM,
+   periodTo:local!json.PERIOD_TO
+ ),"P_OUTPUT",{})),
+
+local!newData:apply(
+  #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_759256"(
+    eucName:_, 
+    startTriggerDatetime:_,
+    fileNames:_, 
+    targetFileNames:_, 
+    recurrenceType:_, 
+    centerName:_, 
+    targetIntegrationMode:_, 
+    integrationMode:_, 
+    eucId:_, 
+    runConfigId:_, 
+    endBD:_, 
+    sourceSystem:_,
+    targetSystem:_,
+    l7DisplayName:_,
+    l8DisplayName:_, 
+    startTriggerDatetimeGMT:_, 
+    startBD:_, 
+    processId:_, 
+    makers:_, 
+    checkers:_,
+
+    senderEmailId:_,
+    receiverEmailId:_,
+    endTriggerDatetime:_,
+    endTriggerDatetimeGMT:_
+  ),
+  merge(
+    {
+      index(local!FilteredData,"EUC_NAME",{})
+    },
+    {
+      index(local!FilteredData,"START_TRIGGER_DATETIME",{})
+    },
+    {
+      index(local!FilteredData,"FILE_NAMES",{})
+    },
+    {
+      index(local!FilteredData,"TARGET_FILE_NAMES",{})
+    },
+    {
+      index(local!FilteredData,"RECURRENCE_TYPE",{})
+    },
+    {
+      index(local!FilteredData,"CENTER_NAME",{})
+    },
+    {
+      index(local!FilteredData,"TARGET_INTEGRATION_MODE",{})
+    },
+    {
+      index(local!FilteredData,"INTEGRATION_MODE",{})
+    },
+    {
+      index(local!FilteredData,"EUC_ID",{})
+    },
+    {
+      index(local!FilteredData,"RUN_CONFIG_ID",{})
+    },
+    {
+      index(local!FilteredData,"END_BD",{})
+    },
+    {
+      index(local!FilteredData,"SOURCE_SYSTEM",{})
+    }, 
+    {
+      index(local!FilteredData,"TARGET_SYSTEM",{})
+    },
+    {
+      index(local!FilteredData,"L7_DISPLAY_NAME",{})
+    },
+    {
+      index(local!FilteredData,"L8_DISPLAY_NAME",{})
+    },
+    {
+      index(local!FilteredData,"START_TRIGGER_DATETIME_GMT",{})
+    },
+    {
+      index(local!FilteredData,"START_BD",{}),
+    
+    },
+    {
+      index(local!FilteredData,"PROCESS_ID",{})
+    },
+    {
+      index(local!FilteredData,"MAKERS",{})
+    }, 
+    {
+      index(local!FilteredData,"CHECKERS",{})
+    },
+    {
+      index(local!FilteredData,"SENDERS_EMAIL_IDS",{})
+    },
+    {
+      index(local!FilteredData,"RECIVERS_EMAIL_IDS",{})
+    },
+    {
+      index(local!FilteredData,"END_TRIGGER_DATETIME",{})
+    },
+    {
+      index(local!FilteredData,"END_TRIGGER_DATETIME_GMT",{})
+      
+    }
+  )
+),
+
+  local!DataSubset: todatasubset(
+    local!newData,
+    local!paginfInfo
+  ),
+  local!output:'type!{urn:com:appian:ps:excel:types}ExportableDataSubset'(
+    filename: concat(
+      "Schedule View Report - ",
+      loggedInUser()," - ",
+      text(
+        now(),
+        "_ddmmyyyy_hhmmss"
+      )
+    ),
+    fieldNames: {
+      "euc_id",
+     
+      "euc_name",
+      "recurrence_type",
+      "start_bd",
+      "end_bd",
+      "start_trigger_datetime",
+      "end_trigger_datetime",
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_641461"[5]),
+        "start_trigger_datetime_gmt",{}
+      ),
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_641461"[6]),
+        "end_trigger_datetime_gmt",{}
+      ), 
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_641461"[2]),
+        "center_name",{}
+      ),
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_641461"[4]),
+        "l8_display_name",{}
+      ),
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_641461"[3]),
+        "l7_display_name",{}
+      ),
+      "makers",
+      "checkers",
+      "source_system",
+      "sender_email_id",
+      "file_names",
+      "integration_mode",
+      "target_system",
+      "receiver_email_id",
+      "target_file_names",
+      "target_integration_mode"
+      
+
+    },
+    fieldLabels: {
+      "EUC#",
+     
+      "EUC Name",
+      "Recurrence Type",
+      "Start BD(Timezone)",
+      "End BD",
+      "Start Datetime",
+      "End Datetime",
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_641461"[5]),
+        "Start Datatime(GMT)",{}
+      ),
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_641461"[6]),
+        "End Datetime(GMT)",{}
+      ),
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_641461"[2]),
+        "Center",{}),
+        if(
+          contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_641461"[4]),
+          "Managed Segment L8",{}),
+        if(
+          contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_641461"[3]),
+          "Managed Segment L7",{}),
+          "Makers",
+          "Checkers",
+          "Source System",
+          "Sender's Email Id",
+          "File Names",
+          "Integration Mode",
+          "Target System",
+          "Receiver's Email Id",
+          "Target File Names",
+          "Target Integration Mode"
+          
+      
+      
+    },
+    datasubset: local!DataSubset
+  ),
+  local!output
+)
+</definition>
+        <namedTypedValue>
+            <name>input</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name>Test case 1</a:name>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string">{"CENTER_SEG_MAPPING_ID":"5,1","MAKERS":null,"CHECKERS":null,"EUC_NUMBER":null,"CENTER_ID":null,"MGDSEGL7_ID":null,"MGDSEGL8_ID":null,"PERIOD_FROM":"12/15/2020","PERIOD_TO":"01/14/2021"}</a:value>
+                    <a:nameRef>input</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_733269"/>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_735994"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_768143"/>
+        <historyInfo versionUuid="_a-0000e5ea-27a1-8000-5269-1bef901bef90_774680"/>
+    </history>
+</contentHaul>

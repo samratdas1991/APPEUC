@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_255518</versionUuid>
+    <interface>
+        <name>EAP_UIVConfig_OutputSummaryDashboard</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_358373</uuid>
+        <description>Summary dashboard for Ui View config output</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!steps: {
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_323053"[1],
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_323053"[2]
+  },
+  local!masterLookUp: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    categoryGroup: {
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[7],
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+    },
+    isActive: 1,
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: - 1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "reference_data_id",
+        ascending: true()
+      )
+    )
+  ),
+  local!entityNames: index(
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_97641"(
+      process_id: ri!processId,
+      isActive: true(),
+      entityType: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_98056"[2]
+    ),
+    "entity_name",
+    {}
+  ),
+  local!entityColumnNames: if(
+    and(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+        local!entityNames
+      )
+    ),
+    null,
+    #"_a-0000e4c6-e892-8000-5254-1bef901bef90_25128"(
+      id: null,
+      tableName: local!entityNames
+    )
+  ),
+  local!selectedEntityMappingId: {},
+  local!mappingSteps: {
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_323053"[3],
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_323053"[4]
+  },
+  local!OutEntityMapping: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_316526"(
+    processId: ri!processId
+  ),
+  local!selectedCard: index(
+    reject(
+      isnull(
+        _
+      ),
+      #"SYSTEM_SYSRULES_forEach"(
+        items: local!OutEntityMapping,
+        expression: if(
+          tointeger(
+            index(
+              fv!item,
+              "isActive",
+              {}
+            )
+          ) = 1,
+          fv!item.uiEntityMappingId,
+          null
+        )
+      )
+    ),
+    1,
+    null
+  ),
+  local!OutEntityFieldMapping: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_318842"(
+    processId: ri!processId,
+    uiEntityMappingId: local!selectedCard
+  ),
+  local!OutViewFilters: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_319450"(
+    processId: ri!processId,
+    uiEntityMappingId: local!selectedCard
+  ),
+  local!entityActiveStep: 1,
+  {
+    #"SYSTEM_SYSRULES_cardLayout"(
+      contents: {
+        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10573"(
+          steps: local!steps,
+          activeStep: ri!activeStep,
+          isHideNextStepsLink: if(
+            or(
+              ri!isReadOnly
+            ),
+            false(),
+            true()
+          ),
+          saveInto: {
+            a!save(
+              local!entityActiveStep,
+              1
+            ),
+            if(
+              and(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+                  index(
+                    local!OutEntityMapping,
+                    "uiEntityMappingId",
+                    null
+                  ),
+                  
+                )
+              ),
+              null,
+              a!save(
+                local!selectedCard,
+                index(
+                  index(
+                    index(
+                      local!OutEntityMapping,
+                      wherecontains(
+                        toboolean(
+                          true()
+                        ),
+                        toboolean(
+                          index(
+                            local!OutEntityMapping,
+                            "isActive",
+                            {}
+                          )
+                        )
+                      ),
+                      {}
+                    ),
+                    1,
+                    {}
+                  ),
+                  "uiEntityMappingId",
+                  null
+                )
+              )
+            ),
+            
+          }
+        ),
+        #"SYSTEM_SYSRULES_sectionLayout_v1"(),
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!activeStep
+          ),
+          {},
+          choose(
+            ri!activeStep,
+            {
+              /*In Entity Mapping*/
+              #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_326678"(
+                isReadOnly: ri!isReadOnly,
+                outEntityMappingDetails: local!OutEntityMapping,
+                processId: ri!processId,
+                entityNames: local!entityNames,
+                masterLookUpData: local!masterLookUp
+              )
+            },
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                local!OutEntityMapping
+              ),
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                align: "CENTER",
+                value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                  text: "No Data Available",
+                  size: "STANDARD",
+                  
+                )
+              ),
+              {
+                #"SYSTEM_SYSRULES_columnsLayout"(
+                  columns: {
+                    #"SYSTEM_SYSRULES_columnLayout"(
+                      contents: {
+                        #"SYSTEM_SYSRULES_forEach"(
+                          items: index(
+                            local!OutEntityMapping,
+                            wherecontains(
+                              true(),
+                              toboolean(
+                                index(
+                                  local!OutEntityMapping,
+                                  "isActive",
+                                  {}
+                                )
+                              )
+                            ),
+                            {}
+                          ),
+                          expression: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10595"(
+                            input: fv!item,
+                            description: "displayName",
+                            isShowDescription: true(),
+                            linkSaveInto: {
+                              a!save(
+                                local!selectedCard,
+                                index(
+                                  fv!item,
+                                  "uiEntityMappingId",
+                                  {}
+                                )
+                              ),
+                              a!save(
+                                local!entityActiveStep,
+                                1
+                              )
+                            },
+                            selectedCard: local!selectedCard,
+                            fieldToShow: "displayName",
+                            /*masterLookup: local!masterLookUp,*/
+                            isShowLabelValue: true(),
+                            fieldToSave: "uiEntityMappingId",
+                            selectedCardStyle: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[1],
+                            unselectedCardStyle: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[2],
+                            isValidate: true(),
+                            
+                          )
+                        )
+                      },
+                      width: "NARROW"
+                    ),
+                    #"SYSTEM_SYSRULES_columnLayout"(
+                      contents: {
+                        #"SYSTEM_SYSRULES_cardLayout"(
+                          contents: {
+                            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10573"(
+                              steps: local!mappingSteps,
+                              activeStep: local!entityActiveStep,
+                              isHideNextStepsLink: if(
+                                or(
+                                  ri!isReadOnly
+                                ),
+                                false(),
+                                true()
+                              ),
+                              
+                            ),
+                            choose(
+                              local!entityActiveStep,
+                              /*Out Entity Field Mapping*/
+                              #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_326763"(
+                                isReadOnly: true(),
+                                outEntityFieldMapping: local!OutEntityFieldMapping,
+                                columns: local!entityColumnNames,
+                                processId: ri!processId,
+                                entityNames: tostring(
+                                  index(
+                                    index(
+                                      local!OutEntityMapping,
+                                      wherecontains(
+                                        tointeger(
+                                          local!selectedCard
+                                        ),
+                                        tointeger(
+                                          index(
+                                            local!OutEntityMapping,
+                                            "uiEntityMappingId",
+                                            null
+                                          )
+                                        )
+                                      ),
+                                      {}
+                                    ),
+                                    "entityName",
+                                    {}
+                                  )
+                                ),
+                                selectedMappingId: local!selectedEntityMappingId,
+                                masterLookUpData: local!masterLookUp
+                              ),
+                              /*Out View Filters*/
+                              #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_327245"(
+                                isReadOnly: true(),
+                                outViewFilters: local!OutViewFilters,
+                                processId: ri!processId,
+                                entityNames: tostring(
+                                  index(
+                                    index(
+                                      local!OutEntityMapping,
+                                      wherecontains(
+                                        tointeger(
+                                          local!selectedCard
+                                        ),
+                                        tointeger(
+                                          index(
+                                            local!OutEntityMapping,
+                                            "uiEntityMappingId",
+                                            null
+                                          )
+                                        )
+                                      ),
+                                      {}
+                                    ),
+                                    "entityName",
+                                    {}
+                                  )
+                                ),
+                                selectedMappingId: local!selectedEntityMappingId,
+                                entityColumnNames: local!entityColumnNames,
+                                masterLookUpData: local!masterLookUp
+                              )
+                            )
+                          },
+                          style: "NONE",
+                          showBorder: false()
+                        ),
+                        #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                          marginBelow: "STANDARD",
+                          divider: "NONE"
+                        ),
+                        /*In View Filters*/
+                        #"SYSTEM_SYSRULES_columnsLayout"(
+                          columns: {
+                            #"SYSTEM_SYSRULES_columnLayout"(
+                              contents: {
+                                #"SYSTEM_SYSRULES_cardLayout"(
+                                  contents: {
+                                    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_313711"(
+                                      isReadOnly: ri!isReadOnly,
+                                      inViewFilters: local!OutViewFilters,
+                                      processId: ri!processId,
+                                      selectedMappingId: local!selectedEntityMappingId,
+                                      entityColumnNames: local!entityColumnNames,
+                                      masterLookUpData: local!masterLookUp
+                                    )
+                                  },
+                                  style: "NONE",
+                                  showBorder: false()
+                                )
+                              },
+                              width: "WIDE"
+                            ),
+                            #"SYSTEM_SYSRULES_columnLayout"()
+                          },
+                          showWhen: false()
+                        )
+                      }
+                    )
+                  }
+                )
+              }
+            )
+          )
+        )
+      },
+      style: "TRANSPARENT",
+      marginBelow: "STANDARD",
+      showBorder: true()
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>activeStep</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:int">60</a:value>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">true</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>activeStep</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_358817"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_411523"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_550986"/>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_255518"/>
+    </history>
+</contentHaul>

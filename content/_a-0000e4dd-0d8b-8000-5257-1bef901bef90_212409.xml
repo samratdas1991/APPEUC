@@ -1,0 +1,799 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c2-2b10-8000-5267-1bef901bef90_755745</versionUuid>
+    <rule>
+        <name>EAP_OutFileEntityMappingGridRowLayout</name>
+        <uuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_212409</uuid>
+        <description>Hold out file entity mapping grid row layout rule</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition> a!localVariables(
+   local!data,
+   #"SYSTEM_SYSRULES_gridRowLayout"(
+   contents: {
+     if(
+   ri!isReadOnly = true(),
+   #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+     label: "Entity Name",
+     value: index(
+       ri!outFileEntityMapping[ri!index],
+       "entity_name",
+       {}
+     ),
+     readOnly: true()
+   ),
+   #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+     label: "Entity Name",
+     placeholderLabel: "--Select Entity Name--",
+     required: if(
+       or(
+         ri!isReadOnly
+       ),
+       false(),
+       true()
+     ),
+     choiceLabels: ri!entityNames,
+     choiceValues: ri!entityNames,
+     value: if(
+       #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+         value: index(
+           ri!outFileEntityMapping[ri!index],
+           "entity_name",
+           {}
+         ),
+         choiceValue: ri!entityNames
+       ),
+       index(
+         ri!outFileEntityMapping[ri!index],
+         "entity_name",
+         {}
+       ),
+       null
+     ),
+     validations: {
+       if(
+         ri!isReadOnly,
+         {},
+         #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+           Value: index(
+             ri!outFileEntityMapping[ri!index],
+             "entity_name",
+             {}
+           ),
+           ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[4]
+         )
+       )
+     },
+     saveInto: {
+       ri!outFileEntityMapping[ri!index].entity_name,
+       a!save(
+         ri!outFileEntityMapping[ri!index].modified_by,
+         loggedInUser()
+       ),
+       a!save(
+         ri!outFileEntityMapping[ri!index].modified_on,
+         now()
+       )
+     },
+     readOnly: ri!isReadOnly
+   ),
+
+ ),
+    /* Sheet Name */
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      label: "Sheet Name",
+      placeholder: "--Enter Sheet Name--",
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            Value: index(
+              ri!outFileEntityMapping[ri!index],
+              "sheet_name",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[1]
+          )
+        )
+      },
+      value: index(
+        ri!outFileEntityMapping[ri!index],
+        "sheet_name",
+        {}
+      ),
+      saveInto: {
+        ri!outFileEntityMapping[ri!index].sheet_name,
+        a!save(
+          ri!outFileEntityMapping[ri!index].modified_by,
+          loggedInUser()
+        ),
+        a!save(
+          ri!outFileEntityMapping[ri!index].modified_on,
+          now()
+        )
+      },
+      readOnly: ri!isReadOnly,
+      required: if(
+        or(
+          ri!isReadOnly
+        ),
+        false(),
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            touniformstring( index(ri!outputFileType,"file_type",{})) 
+          ),
+          false(),
+          if(
+            and(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!outFileEntityMapping[ri!index],
+                "sheet_index",
+                {}
+              )
+            ),
+            contains(
+              touniformstring( {"XLS","XLSB","XLSM","XLSX"}),
+              touniformstring( index(ri!outputFileType,"file_type",{}))        
+            )),
+            true(),
+            false()
+          )
+        )
+      ),
+     requiredMessage: {
+       if(
+         #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+           touniformstring( index(ri!outputFileType,"file_type",{})) 
+         ),
+         {},
+         if(
+           and(
+             #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+               index(
+                 ri!outFileEntityMapping[ri!index],
+                 "sheet_index",
+                 {}
+               )
+             ),
+             contains(
+               touniformstring( {"XLS","XLSB","XLSM","XLSX"}),
+               touniformstring( index(ri!outputFileType,"file_type",{}))        
+             )),
+             "Sheet Name/Sheet Index is madatory for file types (XLS, XLSB, XLSM, XLSX)",
+             {}
+         )
+       )
+     }
+    ),
+    /*sheet index*/
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      label: "Sheet Index",
+      placeholder: "--Enter Sheet Index--",
+    
+      value: index(
+        ri!outFileEntityMapping[ri!index],
+        "sheet_index",
+        {}
+      ),
+      saveInto: {
+        ri!outFileEntityMapping[ri!index].sheet_index,
+        a!save(
+          ri!outFileEntityMapping[ri!index].modified_by,
+          loggedInUser()
+        ),
+        a!save(
+          ri!outFileEntityMapping[ri!index].modified_on,
+          now()
+        )
+      },
+      readOnly: ri!isReadOnly,
+      required: if(
+        or(
+          ri!isReadOnly
+        ),
+        false(),
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            touniformstring( index(ri!outputFileType,"file_type",{})) 
+          ),
+          false(),
+          if(
+            and(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!outFileEntityMapping[ri!index],
+                  "sheet_name",
+                  {}
+                )
+              ),
+              contains(
+                touniformstring( {"XLS","XLSB","XLSM","XLSX"}),
+                touniformstring( index(ri!outputFileType,"file_type",{}))        
+              )),
+              true(),
+              false()
+          )
+        )
+      ),
+      requiredMessage: {
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            touniformstring( index(ri!outputFileType,"file_type",{})) 
+          ),
+         {},
+          if(
+            and(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!outFileEntityMapping[ri!index],
+                  "sheet_name",
+                  {}
+                )
+              ),
+              contains(
+                touniformstring( {"XLS","XLSB","XLSM","XLSX"}),
+                touniformstring( index(ri!outputFileType,"file_type",{}))        
+              )),
+              "Sheet Name/Sheet Index is madatory for file types (XLS, XLSB, XLSM, XLSX)",
+              {}
+          )
+        )
+      },
+      align :"RIGHT"
+
+    ),
+    /* Start Row */
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      label: "Start Row",
+      placeholder: "--Enter Start Row--",
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            Value: index(
+              ri!outFileEntityMapping[ri!index],
+              "start_row",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+          )
+        ),
+        if(
+          index(
+            ri!outFileEntityMapping[ri!index],
+            "start_row"
+          )&lt;=0,
+          "Start Row should not be smaller than or equals to 0",
+          {}
+        )
+      },
+      value: index(
+        ri!outFileEntityMapping[ri!index],
+        "start_row",
+        {}
+      ),
+      required: if(
+        or(
+          ri!isReadOnly
+        ),
+        false(),
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            touniformstring( index(ri!outputFileType,"file_type",{})) 
+          ),
+          false(),
+          if(
+            and(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!outFileEntityMapping[ri!index],
+                  "end_row",
+                  {}
+                )
+              ),
+              contains(
+                touniformstring( {"XLS","XLSB","XLSM","XLSX"}),
+                touniformstring( index(ri!outputFileType,"file_type",{}))        
+              )),
+              true(),
+              false()
+          )
+        )
+      ),
+      saveInto: {ri!outFileEntityMapping[ri!index].start_row,a!save(
+        ri!outFileEntityMapping[ri!index].modified_by,
+        loggedInUser()
+      ),
+      a!save(
+        ri!outFileEntityMapping[ri!index].modified_on,
+        now()
+      )},
+      requiredMessage: {
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            touniformstring( index(ri!outputFileType,"file_type",{})) 
+          ),
+          {},
+          if(
+            and(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!outFileEntityMapping[ri!index],
+                  "end_row",
+                  {}
+                )
+              ),
+              contains(
+                touniformstring( {"XLS","XLSB","XLSM","XLSX"}),
+                touniformstring( index(ri!outputFileType,"file_type",{}))        
+              )),
+              "Start Row / End Row is mandatory for file types (XLS, XLSB, XLSM, XLSX)",
+              {}
+          )
+        )
+      },
+      readOnly: ri!isReadOnly,
+      align: "RIGHT"
+    ),
+    /* End Row */
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      label: "End Row",
+      placeholder: "--Enter End Row--",
+      value: index(
+        ri!outFileEntityMapping[ri!index],
+        "end_row",
+        {}
+      ),
+      required: if(
+        or(
+          ri!isReadOnly
+        ),
+        false(),
+       true()
+      ),
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            Value: index(
+              ri!outFileEntityMapping[ri!index],
+              "end_row",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+          )
+        ),
+        if(
+          ri!isReadOnly,
+          {},
+          if(
+            or(tointeger(index(
+              ri!outFileEntityMapping[ri!index],
+              "end_row",
+              null
+
+            ))
+            &lt;tointeger(index(
+              ri!outFileEntityMapping[ri!index],
+              "start_row",
+              null))),
+              if(
+                or(tointeger(index(
+                  ri!outFileEntityMapping[ri!index],
+                  "end_row",
+                  null
+
+                ))
+                = 0),
+                {},
+                "End Row should be greater than Start Row"
+              ),
+              {}
+          )
+        )
+       
+      },
+      
+      
+      saveInto: {ri!outFileEntityMapping[ri!index].end_row,a!save(
+        ri!outFileEntityMapping[ri!index].modified_by,
+        loggedInUser()
+      ),
+      a!save(
+        ri!outFileEntityMapping[ri!index].modified_on,
+        now()
+      )},
+      readOnly: ri!isReadOnly,
+      align: "RIGHT"
+    ),
+    /*Custome cells*/
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      value: {
+        if(
+          or(
+            tointeger(
+              index(
+                ri!outFileEntityMapping[ri!index],
+                "include_custom_cells",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen:not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 1,
+              saveInto: {a!save(
+                ri!outFileEntityMapping[ri!index].include_custom_cells,
+                0
+              ),
+              a!save(
+                ri!outFileEntityMapping[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!outFileEntityMapping[ri!index].modified_on,
+                now()
+              )
+              
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-off",
+            caption: "No",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: 
+              not(
+                or(
+                  ri!isReadOnly
+                )
+              )
+              ,
+              value: 0,
+              saveInto: {a!save(
+                ri!outFileEntityMapping[ri!index].include_custom_cells,
+                1
+              ),
+              a!save(
+                ri!outFileEntityMapping[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!outFileEntityMapping[ri!index].modified_on,
+                now()
+              )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          )
+        )
+      },
+      align: "CENTER"
+    )
+    ,
+    
+    
+    /* Is Active */
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      value: {
+        if(
+          or(
+            tointeger(
+              index(
+                ri!outFileEntityMapping[ri!index],
+                "is_active",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 1,
+              saveInto: {a!save(
+                ri!outFileEntityMapping[ri!index].is_active,
+                0
+              ),
+              a!save(
+                ri!outFileEntityMapping[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!outFileEntityMapping[ri!index].modified_on,
+                now()
+              ),
+            
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-off",
+            caption: "No",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 0,
+              saveInto: {a!save(
+                ri!outFileEntityMapping[ri!index].is_active,
+                1
+              ),
+              a!save(
+                ri!outFileEntityMapping[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!outFileEntityMapping[ri!index].modified_on,
+                now()
+              )
+             
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          )
+        )
+      },
+      align: "CENTER"
+    ),
+    /* Move Up */
+    if(
+      or(
+        ri!isReadOnly = true(),
+        count(
+          ri!outFileEntityMapping
+        ) &lt; 2
+      ),
+      {},
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        label: " ",
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            icon: if(
+              ri!index = 1,
+              "MOVE_UP_DISABLED",
+              "MOVE_UP"
+            )
+          ),
+          link: if(
+            ri!index = 1,
+            {},
+            #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  local!data,
+                  ri!outFileEntityMapping[ri!index - 1]
+                ),
+                a!save(
+                  ri!outFileEntityMapping[ri!index - 1],
+                  ri!outFileEntityMapping[ri!index]
+                ),
+                a!save(
+                  ri!outFileEntityMapping[ri!index],
+                  local!data
+                ),
+                #"SYSTEM_SYSRULES_forEach"(
+                  items: ri!outFileEntityMapping,
+                  expression: a!save(
+                    ri!outFileEntityMapping[fv!index].sequence_order,
+                    fv!index
+                  )
+                )
+              }
+            )
+          )
+        )
+      )
+    ),
+    /* Move Down */
+    if(
+      or(
+        ri!isReadOnly = true(),
+        count(
+          ri!outFileEntityMapping
+        ) &lt; 2
+      ),
+      {},
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            if(
+              or(
+                length(
+                  ri!outFileEntityMapping
+                ) = 1,
+                ri!index = count(
+                  ri!outFileEntityMapping
+                )
+              ),
+              "MOVE_DOWN_DISABLED",
+              "MOVE_DOWN"
+            )
+          ),
+          link: #"SYSTEM_SYSRULES_dynamicLink"(
+            saveInto: {
+              a!save(
+                local!data,
+                ri!outFileEntityMapping[ri!index]
+              ),
+              a!save(
+                ri!outFileEntityMapping[ri!index],
+                ri!outFileEntityMapping[ri!index + 1],
+
+              ),
+              a!save(
+                ri!outFileEntityMapping[ri!index + 1],
+                local!data
+              ),
+              #"SYSTEM_SYSRULES_forEach"(
+                items: ri!outFileEntityMapping,
+                expression: a!save(
+                  ri!outFileEntityMapping[fv!index].sequence_order,
+                  fv!index
+                )
+              )
+            },
+            showWhen: not(
+              or(
+                length(
+                  ri!outFileEntityMapping
+                ) = 1,
+                ri!index = count(
+                  ri!outFileEntityMapping
+                )
+              )
+            )
+          )
+        )
+      )
+    ),
+   /*Remove*/
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+        ri!outFileEntityMapping[ri!index],
+        "out_file_entity_mapping_id",
+        {}
+      )),
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        showWhen :  if(
+          or(ri!isReadOnly=true()),
+          false(),
+          true()
+        ),
+        label: "delete ",
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            "REMOVE"
+          ),
+          altText: "Remove Document",
+          caption: "Remove",
+          link: #"SYSTEM_SYSRULES_dynamicLink"(
+            value: ri!index,
+            saveInto: {
+              a!save(
+                ri!outFileEntityMapping,
+                remove(
+                  ri!outFileEntityMapping,
+                  save!value
+                )
+              )
+            }
+          )
+        ),
+        size: "ICON"
+      ),
+      if(
+        ri!isReadOnly=true(),
+        {},
+        #"SYSTEM_SYSRULES_richTextDisplayField"()
+      )
+
+    )
+   }))</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outFileEntityMapping</name>
+            <type>
+                <name>EAP_T_GtOutFileEntityMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityNames</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outputFileType</name>
+            <type>
+                <name>EAP_T_RefProcessOutFileType</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_229970"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_296729"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_426083"/>
+        <historyInfo versionUuid="_a-0000e5c2-2b10-8000-5267-1bef901bef90_755745"/>
+    </history>
+</contentHaul>

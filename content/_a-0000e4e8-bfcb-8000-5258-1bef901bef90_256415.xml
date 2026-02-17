@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e51d-8328-8000-d90d-a7ef90a7ef90_2663612</versionUuid>
+    <rule>
+        <name>EAP_Utils_GetGroupNameByUUID</name>
+        <uuid>_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415</uuid>
+        <description>Get group name by UUID</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>/*index(*/
+  /*tointeger(*/
+    /*index(*/
+      /*getallgroups(*/
+        /*- 1,*/
+        /*1*/
+      /*),*/
+      /*wherecontains(*/
+        /*ri!inputUUID,*/
+        /*a!forEach(*/
+          /*items: getallgroups(*/
+            /*- 1,*/
+            /*1*/
+          /*),*/
+          /*expression: getgroupuuid(*/
+            /*fv!item*/
+          /*)*/
+        /*)*/
+      /*),*/
+      /*{}*/
+    /*)*/
+  /*),*/
+  /*1,*/
+  /*{}*/
+/*)*/
+a!localVariables(
+  local!businessGroups: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!businessGroups),
+    a!groupsByType(
+      groupType: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_191063"
+    ),
+    ri!businessGroups
+  ),
+  local!businessGroupUUIDS: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!businessGroupUUIDS),
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!businessGroups,
+      expression: getgroupuuid(
+        fv!item
+      )
+    ),
+    ri!businessGroupUUIDS
+  ),
+  local!filteredGroup: index(
+    index(local!businessGroups,"data",null),
+    wherecontains(
+      ri!inputUUID,
+      local!businessGroupUUIDS
+    ),
+    null
+  ),
+  if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!filteredGroup),
+    null,
+    tointeger(local!filteredGroup[1])
+  )
+)</definition>
+        <namedTypedValue>
+            <name>inputUUID</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>businessGroupUUIDS</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>businessGroups</name>
+            <type>
+                <name>DataSubset</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_268617"/>
+        <historyInfo versionUuid="_a-0000e51c-7319-8000-d90c-a7ef90a7ef90_2645365"/>
+        <historyInfo versionUuid="_a-0000e51d-8328-8000-d90d-a7ef90a7ef90_2663612"/>
+    </history>
+</contentHaul>

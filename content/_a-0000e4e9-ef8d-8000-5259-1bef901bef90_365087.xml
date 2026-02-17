@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_256780</versionUuid>
+    <interface>
+        <name>EAP_DwfProcessControllerMasterEditableGrid</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365087</uuid>
+        <description>Contains editable grid for process controller master</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  #"SYSTEM_SYSRULES_gridLayout"(
+    headerCells: {
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Workflow Name",
+        align: "CENTER"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Process Display Name",
+        align: "CENTER"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Manage Workflow",
+        align: "CENTER"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Is Configured",
+        align: "CENTER"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Is Active",
+        align: "CENTER"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        showWhen: if(
+          contains(
+            ri!isReadOnly,
+            true()
+          ),
+          false(),
+          true()
+        ),
+        align: if(
+          contains(
+            ri!isReadOnly,
+            true()
+          ),
+          "CENTER",
+          "CENTER"
+        )
+      )
+    },
+    columnConfigs: {
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "NARROW"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "NARROW"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "NARROW"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "ICON",
+        showWhen: if(
+          contains(
+            ri!isReadOnly,
+            true()
+          ),
+          false(),
+          true()
+        )
+      )
+    },
+    rows: {
+      #"SYSTEM_SYSRULES_applyComponents"(
+        function: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365093"(
+          index: _,
+          dwfProcessControllerMaster: ri!dwfProcessControllerMaster,
+          isReadOnly: ri!isReadOnly,
+          runConfigDetails: ri!runConfigDetails,
+          manageWorkflowId: ri!manageWorkflowId,
+          showWorkFlowGrid: ri!showWorkFlowGrid,
+          sgb: ri!sgb,
+          processControllerStepsView: ri!processControllerStepsView,
+          processController: ri!processController,
+          isProductionSupport:ri!isProductionSupport
+        ),
+        array: if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!dwfProcessControllerMaster
+            ),
+            count(
+              ri!dwfProcessControllerMaster
+            ) = 0
+          ),
+          null,
+          tointeger(
+            enumerate(
+              count(
+                ri!dwfProcessControllerMaster
+              )
+            ) + 1
+          )
+        )
+      )
+    },
+    selectionSaveInto: {},
+    
+    addRowLink: if(
+      or(ri!isReadOnly,ri!isProductionSupport),
+      {},
+      #"SYSTEM_SYSRULES_dynamicLink"(
+        label: "Add Workflow",
+        value: 'type!{urn:com:appian:types:eap}EAP_T_DwfProcessControllerMaster'(
+          process_id: ri!processId,
+          is_active: 1,
+          created_by: loggedInUser(),
+          created_on: now(),
+          modified_by: loggedInUser(),
+          modified_on: now()
+        ),
+        saveInto: a!save(
+          ri!dwfProcessControllerMaster,
+          append(
+            ri!dwfProcessControllerMaster,
+            save!value
+          )
+        ),
+        showWhen: if(
+          (
+            count(
+              reject(
+                isnull(
+                  _
+                ),
+                index(
+                  ri!dwfProcessControllerMaster,
+                  "process_controller_master_id",
+                  {}
+                )
+              )
+            ) - count(
+              index(
+                ri!dwfProcessControllerMaster,
+                "is_active",
+                {}
+              )
+            )
+          ) = 0,
+          true(),
+          false()
+        )
+      )
+    ),
+    validations:{
+      if(
+        contains(toboolean(#"SYSTEM_SYSRULES_forEach"(
+          items: ri!dwfProcessControllerMaster,
+          expression: a!localVariables(
+            local!data:fv!item,
+            contains(
+              toboolean(
+                #"SYSTEM_SYSRULES_forEach"(
+                  items: remove(ri!dwfProcessControllerMaster,
+                  fv!index),
+                  expression:   and(
+                  
+                    tointeger(index(fv!item,"run_config_id",null))=tointeger(index(local!data,"run_config_id",null)),
+                    tointeger(index(fv!item,"is_active",null))=1,
+                    tointeger(index(local!data,"is_active",null))=1
+                  )
+                )),
+                true())
+          )
+        )),true()),
+        "Dynamic Worklfow with only unique Process Display Name can be activated at a time ",
+        {}
+      )
+    },
+    shadeAlternateRows: false,
+    borderStyle: "STANDARD"
+  )
+}</definition>
+        <namedTypedValue>
+            <name>dwfProcessControllerMaster</name>
+            <type>
+                <name>EAP_T_DwfProcessControllerMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigDetails</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>manageWorkflowId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showWorkFlowGrid</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sgb</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processController</name>
+            <type>
+                <name>EAP_T_DwfProcessController?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isRequestRunning</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerStepsView</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isProductionSupport</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_359325"(
+  isActive: 1,
+  processId: 120
+)</a:value>
+                    <a:nameRef>dwfProcessControllerMaster</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">true</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>runConfigDetails</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>manageWorkflowId</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>showWorkFlowGrid</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>sgb</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>processController</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isRequestRunning</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>processControllerStepsView</a:nameRef>
+                    <a:id>10</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isProductionSupport</a:nameRef>
+                    <a:id>11</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365808"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_382432"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_405805"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_439652"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_487585"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_489541"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_519614"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_526193"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_652657"/>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_741641"/>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_256780"/>
+    </history>
+</contentHaul>

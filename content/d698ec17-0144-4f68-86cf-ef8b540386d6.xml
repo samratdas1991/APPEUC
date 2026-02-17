@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_773800</versionUuid>
+    <outboundIntegration>
+        <name>EAP_TransformationFileDownload</name>
+        <uuid>d698ec17-0144-4f68-86cf-ef8b540386d6</uuid>
+        <description>Integration to download the Processed Transformation Working File</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6592</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition></definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>templateConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>onSuccess</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>onError</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <metadataExpr>{
+deferredRuleInputs: {
+    onSuccess: {
+      "fv!result": 'type!{http://www.appian.com/ae/types/2009}Dictionary'
+    },
+    onError: {
+      "fv!result": 'type!{http://www.appian.com/ae/types/2009}Dictionary',
+      "fv!error": 'type!{http://www.appian.com/ae/types/2009}Dictionary',
+      "fv!connectedSystem": 'type!{http://www.appian.com/ae/types/2009}ConnectedSystem'
+    }
+  }
+}</metadataExpr>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <sharedConfigParameters>
+            <a:Dictionary xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <url xsi:type="a:Expression">#"_a-0000e4e2-51bd-8000-d8ec-a7ef90a7ef90_1506326"</url>
+                <isInheritedUrlOptionSelected xsi:type="xsd:boolean">false</isInheritedUrlOptionSelected>
+                <relativePath xsi:type="xsd:string"/>
+                <authType xsi:type="xsd:string">None</authType>
+                <authDetails xsi:type="xsd:string"/>
+            </a:Dictionary>
+        </sharedConfigParameters>
+        <configParameters>
+            <a:Dictionary xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <contentType xsi:type="xsd:string"/>
+                <automaticallyConvert xsi:type="xsd:boolean">true</automaticallyConvert>
+                <shouldReceiveDocuments xsi:type="xsd:boolean">true</shouldReceiveDocuments>
+                <jsonSchema xsi:nil="true" xsi:type="a:NestedChoice?list"/>
+                <receiveFolderConfig xsi:type="a:Dictionary">
+                    <asExpr xsi:type="xsd:boolean">false</asExpr>
+                    <value a:id="_a-0000e4e2-51bd-8000-d8ec-a7ef90a7ef90_1506300" xsi:type="a:CollaborationFolder"/>
+                </receiveFolderConfig>
+                <bodyParseType xsi:type="xsd:string">application/octet-stream</bodyParseType>
+                <parameters xsi:type="a:NameValue?list">
+                    <item>
+                        <a:name>processId</a:name>
+                        <a:value xsi:type="a:Expression">ri!processId</a:value>
+                    </item>
+                    <item>
+                        <a:name>requestId</a:name>
+                        <a:value xsi:type="a:Expression">ri!requestId</a:value>
+                    </item>
+                    <item>
+                        <a:name>runconfigId</a:name>
+                        <a:value xsi:type="a:Expression">ri!runConfigId</a:value>
+                    </item>
+                    <item>
+                        <a:name>templateConfigId</a:name>
+                        <a:value xsi:type="a:Expression">ri!templateConfigId</a:value>
+                    </item>
+                </parameters>
+                <method xsi:type="xsd:string">GET</method>
+                <headers xsi:type="a:NameValue?list"/>
+                <documentConfig xsi:type="a:Variant?list"/>
+                <featureVersion xsi:type="xsd:int">1</featureVersion>
+                <timeout xsi:type="xsd:int">120</timeout>
+                <body xsi:type="xsd:string"/>
+                <flattenedJsonSchema xsi:nil="true" xsi:type="a:Text?list"/>
+            </a:Dictionary>
+        </configParameters>
+        <isWrite>true</isWrite>
+        <integrationType>system.http</integrationType>
+        <connectedSystemUuid></connectedSystemUuid>
+        <isConnectedSystemConnectionOptionSelected>false</isConnectedSystemConnectionOptionSelected>
+        <integrationOutputs>
+            <a:Dictionary xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <outputs xsi:type="a:IntegrationOutput?list"/>
+            </a:Dictionary>
+        </integrationOutputs>
+        <isRequestResponseLoggingEnabled>false</isRequestResponseLoggingEnabled>
+    </outboundIntegration>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>requestId</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>runConfigId</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>templateConfigId</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e2-51bd-8000-d8ec-a7ef90a7ef90_1506593"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_420272"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_763272"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_773800"/>
+    </history>
+</contentHaul>

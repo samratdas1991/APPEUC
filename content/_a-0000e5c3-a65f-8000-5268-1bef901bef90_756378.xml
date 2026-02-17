@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ea-27a1-8000-5269-1bef901bef90_774559</versionUuid>
+    <interface>
+        <name>EAP_gridToShowControllerConfigActiveEnteries</name>
+        <uuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_756378</uuid>
+        <description>Holds grid to show active entries of controller view config.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_boxLayout"(
+  style: "INFO",
+  label: "Dynamic Workflow Configurations",
+  contents: {
+    #"SYSTEM_SYSRULES_gridField_v1"(
+      data: ri!processControllerConfigData,
+      borderStyle: "LIGHT",
+      columns: {
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Workflow Name",
+          value: fv!row.process_controller_master_name,
+          align: "START"
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Step",
+          value: fv!row.milestone_name,
+          align: "START"
+        ),
+        if(
+          ri!ioConfigId = 1,
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Config Name",
+            value: index(
+              #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65407"(
+                configId: fv!row.io_config_id
+              ),
+              "config_data_name",
+              {}
+            ),
+            align: "START"
+          ),
+          {}
+        ),
+        if(
+          ri!parsingId = 1,
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "File Config Name",
+            value: index(
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7456"(
+                inFileTypeConfigId: fv!row.parsing_id
+              ),
+              "file_config_name",
+              {}
+            ),
+            align: "START"
+          ),
+          {}
+        ),
+        if(
+          ri!runConfigId = 1,
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Description",
+            value: index(
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+                runConfigId: index(
+                  ri!processControllerConfigData,
+                  "run_config_id",
+                  {}
+                )
+              ),
+              "process_display_name",
+              {}
+            ),
+            align: "START"
+          ),
+          {}
+        ),
+        if(
+          ri!outputGenerationId = 1,
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Output File",
+            value: index(
+              #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_207034"(
+                outFileTypeConfigId: fv!row.output_generation_id
+              ),
+              "file_config_name",
+              {}
+            ),
+            align: "START"
+          ),
+          {}
+        ),
+        if(ri!transformationId=1,
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Transformation Template",
+          value: index(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_24591"(templateConfigId:fv!row.transformation_id),"version_description",{}
+          ),
+          align: "START"
+        ),{}),
+        if(ri!dataValidation=1,
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Data Validation Template",
+          value: index(
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377303"(templateConfigId:fv!row.data_validation_id),"version_description",{}
+          ),
+          align: "START"
+        ),{})
+      },
+      validations: {
+        if(
+          isnull(
+            ri!processControllerConfigData
+          ),
+          "",
+          "Please In-Activate these from dynamic workflow first."
+        )
+      }
+    )
+  }
+)
+</definition>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ioConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>parsingId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>transformationId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outputGenerationId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerConfigData</name>
+            <type>
+                <name>EAP_V_ProcessControllerConfig?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dataValidation</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_757495"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_757859"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_771778"/>
+        <historyInfo versionUuid="_a-0000e5ea-27a1-8000-5269-1bef901bef90_774559"/>
+    </history>
+</contentHaul>

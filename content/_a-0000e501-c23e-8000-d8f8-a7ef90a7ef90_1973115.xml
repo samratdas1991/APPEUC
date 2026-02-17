@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e9e9-0626-8000-9bb3-011c48011c48_34510</versionUuid>
+    <rule>
+        <name>EAP_updateFileParsIntIntegrationTransCall</name>
+        <uuid>_a-0000e501-c23e-8000-d8f8-a7ef90a7ef90_1973115</uuid>
+        <description>Expression rule to update file Pars Int Trans data based on the give input parsing request.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!intFileParseData: if(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9906"(
+      ri!response
+    ),
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_8985"(
+      requestId: ri!response.requestId,
+      inFileTypeConfigId: ri!response.inFileTypeConfigId
+    ),
+    null
+  ),
+  local!statusCode: index(
+    ri!integrationResponse,
+    "statusCode",
+    null
+  ),
+  local!body: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!integrationResponse),
+    index(
+      ri!integrationError,
+      "message",
+      null
+    ),
+    index(
+      ri!integrationResponse,
+      "body",
+      null
+    )
+  ),
+  if(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9906"(
+      local!intFileParseData
+    ),
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!intFileParseData,
+      expression: cast(
+        typeof(
+          'type!{urn:com:appian:types:eap}EAP_T_ProcessInFileParsingTrans'()
+        ),
+        updatedictionary(
+          fv!item,
+          {
+            parsing_status: if(
+              200 = tointeger(
+                local!statusCode
+              ),
+              #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_86234"[1],
+              #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_86234"[3]
+            ),
+            exception_type: if(
+              200 = tointeger(
+                local!statusCode
+              ),
+              "N/A",
+              "Input Parsing integration Error"
+            ),
+            exception_message: if(
+              200 = tointeger(
+                local!statusCode
+              ),
+              "N/A",
+              local!body
+            ),
+            status_time:now()
+          }
+        )
+      )
+    ),
+    {}
+  )
+)</definition>
+        <namedTypedValue>
+            <name>response</name>
+            <type>
+                <name>EAP_U_InputParsingRequest</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>integrationResponse</name>
+            <type>
+                <name>HttpResponse</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>integrationError</name>
+            <type>
+                <name>IntegrationError</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e501-c23e-8000-d8f8-a7ef90a7ef90_1974793"/>
+        <historyInfo versionUuid="_a-0000e543-c08f-8000-d92c-a7ef90a7ef90_4066435"/>
+        <historyInfo versionUuid="_a-0000e9e9-0626-8000-9bb3-011c48011c48_34510"/>
+    </history>
+</contentHaul>

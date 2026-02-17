@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e9e9-0626-8000-9bb3-011c48011c48_33587</versionUuid>
+    <dataStore>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_85234</uuid>
+        <name>EAP Input Parsing Config DS</name>
+        <description>Primary Data Store for EAP Input Parsing Configuration Tables</description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>f1792d75-0570-4ef4-9acc-9be7d945390f</uuid>
+                <name>EAP_T_RefProcessInFileType</name>
+                <type>{urn:com:appian:types:eap}EAP_T_RefProcessInFileType</type>
+            </entity>
+            <entity>
+                <uuid>17f661e6-b2ba-4c1d-9867-72d0546e2d39</uuid>
+                <name>EAP_T_RefProcessInFileEntityMapping</name>
+                <type>{urn:com:appian:types:eap}EAP_T_RefProcessInFileEntityMapping</type>
+            </entity>
+            <entity>
+                <uuid>5a73c49d-4128-40e1-9d16-4646e5e052d0</uuid>
+                <name>EAP_T_RefProcessSheetFieldMapping</name>
+                <type>{urn:com:appian:types:eap}EAP_T_RefProcessSheetFieldMapping</type>
+            </entity>
+            <entity>
+                <uuid>54d630ad-d5ce-4db3-b0b5-886259478526</uuid>
+                <name>EAP_T_RefProcessSheetTransposeConfig</name>
+                <type>{urn:com:appian:types:eap}EAP_T_RefProcessSheetTransposeConfig</type>
+            </entity>
+            <entity>
+                <uuid>f1e2e1c2-8827-45d4-a671-e5a3ba0398e1</uuid>
+                <name>EAP_T_RefProcessSheetFixedCellsConfig</name>
+                <type>{urn:com:appian:types:eap}EAP_T_RefProcessSheetFixedCellsConfig</type>
+            </entity>
+            <entity>
+                <uuid>ba06015b-e211-4710-b197-24efb1426692</uuid>
+                <name>EAP_T_ProcessInFileParsingTrans</name>
+                <type>{urn:com:appian:types:eap}EAP_T_ProcessInFileParsingTrans</type>
+            </entity>
+            <entity>
+                <uuid>58d6ca7e-a27b-4e1b-9fe2-49c552215df3</uuid>
+                <name>EAP_T_EntityMapping</name>
+                <type>{urn:com:appian:types:eap}EAP_T_EntityMapping</type>
+            </entity>
+            <entity>
+                <uuid>baa1eff5-f069-4ef8-9585-83e27437c9ff</uuid>
+                <name>EAP_T_ParserType</name>
+                <type>{urn:com:appian:types:eap}EAP_T_ParserType</type>
+            </entity>
+            <entity>
+                <uuid>b0672743-8597-44b4-a8fe-3d416f0ce9ac</uuid>
+                <name>EAP_T_PR_DYNAMIC_CONF</name>
+                <type>{urn:com:appian:types:eap}EAP_T_PR_DYNAMIC_CONF</type>
+            </entity>
+            <entity>
+                <uuid>56d7aa35-31a5-4802-83e1-6e31df3ee160</uuid>
+                <name>EAP_T_PR_DYNAMIC_CONF_DETAIL</name>
+                <type>{urn:com:appian:types:eap}EAP_T_PR_DYNAMIC_CONF_DETAIL</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_85238"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_86177"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_93973"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_94125"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_97508"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_120590"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_411393"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_527778"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_551085"/>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_575769"/>
+        <historyInfo versionUuid="_a-0000e9e9-0626-8000-9bb3-011c48011c48_33587"/>
+    </history>
+</dataStoreHaul>

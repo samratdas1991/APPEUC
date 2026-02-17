@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_557533</versionUuid>
+    <interface>
+        <name>EAP_IntEscalationEditableGrid</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_79729</uuid>
+        <description>Interface to display editable grid for EAP_T_IntEscalation</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+    #"SYSTEM_SYSRULES_gridLayout"(
+      label: "",
+      shadeAlternateRows: false(),
+      headerCells: {
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "SLA Period",
+          align: "RIGHT"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "SLA Timer Type",
+          align: "LEFT",
+          helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+            uniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[39],
+            categoryGroup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10373"[5]
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "Escalation Type",
+          align: "LEFT",
+          helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+            uniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[28],
+            categoryGroup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10373"[5]
+          )
+        ),
+        /*a!gridLayoutHeaderCell(*/
+          /*label: "Escalation Recipient",*/
+          /*align: "LEFT"*/
+        /*),*/
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "Is Active",
+          align: "LEFT"
+        ),
+        
+        if(
+          ri!isReadOnly,
+          {},
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "",
+            align: "LEFT",
+            showWhen: contains(
+              tointeger(
+                index(ri!refIntEscalation, "escalation_config_id",{})
+              ),
+              tointeger(
+                null
+              )
+            )
+          )
+        )
+
+      },
+      columnConfigs: {
+
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "DISTRIBUTE",
+          weight: "1"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "DISTRIBUTE",
+          weight: "1"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "DISTRIBUTE"
+        ),
+        /*a!gridLayoutColumnConfig(*/
+          /*width: "DISTRIBUTE",*/
+          /*weight: "3"*/
+        /*),*/
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "ICON"
+        ),
+        if(
+          ri!isReadOnly,
+          {},
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "ICON",
+            showWhen: contains(
+            tointeger(
+              index(ri!refIntEscalation, "escalation_config_id",{})
+            ),
+            tointeger(
+            null
+            )
+            )
+          )
+        )
+
+      },
+      rows: {
+        #"SYSTEM_SYSRULES_applyComponents"(
+          function: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_129290"(
+            index: _,
+            refIntEscalation: ri!refIntEscalation,
+            masterLookUpData: ri!masterLookUpData,
+            isReadOnly:ri!isReadOnly
+          ),
+          array: if(
+            or(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!refIntEscalation
+              ),
+              count(
+                ri!refIntEscalation
+              ) = 0
+            ),
+            null,
+            tointeger(
+              enumerate(
+                count(
+                  ri!refIntEscalation
+                )
+              ) + 1
+            )
+          )
+        )
+      },
+      selectionSaveInto: {},
+      addRowLink: if(
+        ri!isReadOnly,
+        {},
+        #"SYSTEM_SYSRULES_dynamicLink"(
+          label: "Add line items",
+          value: 'type!{urn:com:appian:types:eap}EAP_T_IntEscalation'(
+            
+            is_active: 1,
+            created_by: loggedInUser(),
+            created_on: now(),
+            modified_by: loggedInUser(),
+            modified_on: now()
+          ),
+          saveInto: a!save(
+            ri!refIntEscalation,
+            append(
+              ri!refIntEscalation,
+              save!value
+            )
+          )
+        )
+      ),
+      spacing:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_40702"
+    )
+  }</definition>
+        <namedTypedValue>
+            <name>refIntEscalation</name>
+            <type>
+                <name>EAP_T_IntEscalation?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>refIntEscalation</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+  categoryGroup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10373"[5],
+  type: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[28]
+),</a:value>
+                    <a:nameRef>masterLookUpData</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_79834"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_129895"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_213608"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_275034"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_557533"/>
+    </history>
+</contentHaul>

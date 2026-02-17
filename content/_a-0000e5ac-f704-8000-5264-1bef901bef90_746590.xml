@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ea-27a1-8000-5269-1bef901bef90_774200</versionUuid>
+    <rule>
+        <name>EAP_gridRowLayoutProcessParamConfig</name>
+        <uuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_746590</uuid>
+        <description>Holds grid row layout for process param config.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!runconfigData: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+    processId: ri!processId,
+    isActive: 1
+  ),
+  
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    id: ri!index,
+    contents: {
+      /*run Config dropdown*/
+      if(
+        ri!isReadOnly = true,
+        #"SYSTEM_SYSRULES_textField"(
+          value: index(index(local!runconfigData,
+          wherecontains(
+            tointeger(
+              index(
+            ri!processParamConfig[ri!index],
+            "run_config_id",
+            {}
+          )),
+          tointeger(index(local!runconfigData,"run_config_id",{}))),{}),"process_display_name",
+          {}),
+          
+          readOnly: true()
+        ),
+        #"SYSTEM_SYSRULES_dropdownField"(
+          label: "Process Name",
+          placeholderLabel: "--Select Process--",
+          required: true,
+          choiceLabels: index(
+            local!runconfigData,
+            "process_display_name",
+            {}
+          ),
+        
+          choiceValues:
+            index(
+              local!runconfigData,
+              "run_config_id",
+              {}
+            ),
+           
+          value: if(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+              value: index(
+                ri!processParamConfig[ri!index],
+                "run_config_id",
+                {}
+              ),
+              choiceValue: union(
+                index(
+                  local!runconfigData,
+                  "run_config_id",
+                  {}
+                ),
+                index(
+                  local!runconfigData,
+                  "run_config_id",
+                  {}
+                )
+              )
+            ),
+            index(
+              ri!processParamConfig[ri!index],
+              "run_config_id",
+              {}
+            ),
+            null
+          ),
+          saveInto: {
+            a!save(
+              ri!processParamConfig[ri!index].run_config_id,
+              save!value
+            ),
+            a!save(
+              ri!processParamConfig[ri!index].process_id,
+              ri!processId
+            )
+          }
+        )
+      ),
+      /*param value*/
+      #"SYSTEM_SYSRULES_textField"(
+        label: "Param Value",
+        instructions: "Spacing not allowed",
+        required: true,
+        value: index(
+          ri!processParamConfig[ri!index],
+          "param_name",
+          {}
+        ),
+        saveInto: a!save(
+          ri!processParamConfig[ri!index].param_name,
+          save!value
+        ),
+        validations: {
+          if(
+            find(
+              " ",
+              index(
+                ri!processParamConfig[ri!index],
+                "param_name",
+                {}
+              ),
+              1
+            ) &gt; 1,
+            "Spacing not allowed",
+            {}
+          ),
+          if(
+            count(
+              wherecontains(
+                tostring(
+                  index(
+                    ri!processParamConfig[ri!index],
+                    "param_name",
+                    {}
+                  )
+                ),
+                touniformstring(
+                  index(
+                    index(
+                      ri!processParamConfig,
+                      wherecontains(
+                        tointeger(
+                          index(
+                            ri!processParamConfig[ri!index],
+                            "run_config_id",
+                            {}
+                          )
+                        ),
+                        tointeger(
+                          index(
+                            ri!processParamConfig,
+                            "run_config_id",
+                            {}
+                          )
+                        )
+                      ),
+                      {}
+                    ),
+                    "param_name",
+                    {}
+                  )
+                )
+              )
+            ) &gt; 1,
+            "Parameter value already exists with this process display name",
+            {}
+          )
+        },
+        readOnly: ri!isReadOnly
+      ),
+      /*Param Display Name*/
+      #"SYSTEM_SYSRULES_textField"(
+        label: "Param Display Name",
+        required: true,
+        value: index(
+          ri!processParamConfig[ri!index],
+          "param_display_name",
+          {}
+        ),
+        saveInto: ri!processParamConfig[ri!index].param_display_name,
+        readOnly: ri!isReadOnly
+      ),
+      /*Param Type*/
+      if(
+        ri!isReadOnly = true(),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          value: index(
+            ri!processParamConfig[ri!index],
+            "param_type",
+            {}
+          ),
+          readOnly: true()
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+          placeholderLabel: "--Select Parameter Type--",
+          choiceLabels: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!masterLookUpData
+            ),
+            null,
+            touniformstring(
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                  masterLookUpData: ri!masterLookUpData,
+                  categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                ),
+                UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[38],
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+              )
+            )
+          ),
+          choiceValues: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!masterLookUpData
+            ),
+            null,
+            touniformstring(
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                  masterLookUpData: ri!masterLookUpData,
+                  categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                ),
+                UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[38],
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+              )
+            )
+          ),
+          value: if(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+              value: index(
+                ri!processParamConfig[ri!index],
+                "param_type",
+                {}
+              ),
+              choiceValue: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!masterLookUpData
+                ),
+                null,
+                touniformstring(
+                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                    MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                      masterLookUpData: ri!masterLookUpData,
+                      categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                    ),
+                    UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[38],
+                    Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                  )
+                )
+              )
+            ),
+            index(
+              ri!processParamConfig[ri!index],
+              "param_type",
+              {}
+            ),
+            null
+          ),
+          saveInto: {a!save(
+            ri!processParamConfig[ri!index].param_type,
+            save!value
+          ),
+          
+          },
+        
+          required: if(
+            or(
+              ri!isReadOnly
+            ),
+            false(),
+            true()
+          )
+        )
+      ),
+      /*param Desc*/
+      #"SYSTEM_SYSRULES_textField"(
+        label:"Param Description",
+        required: true,
+        value: index(ri!processParamConfig[ri!index],"param_desc",{}),
+        saveInto: ri!processParamConfig[ri!index].param_desc,
+        readOnly: ri!isReadOnly
+      ),
+      
+      /*Is_Active*/
+      if(
+        ri!isReadOnly = true,
+        
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: if(
+            or(
+              tointeger(
+                index(
+                  ri!processParamConfig[ri!index],
+                  "active",
+                  {}
+                )
+              ) = 1
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "check-circle",
+              size: "MEDIUM",
+              color: "POSITIVE",
+            
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "times-circle-o",
+              size: "MEDIUM",
+              color: "NEGATIVE",
+           
+            ),
+
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            if(
+              or(
+                tointeger(
+                  index(
+                    ri!processParamConfig[ri!index],
+                    "active",
+                    {}
+                  )
+                ) = 1
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                linkStyle: "STANDALONE",
+                icon: "toggle-on",
+                caption: "Yes",
+                color: "ACCENT",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  value: 1,
+                  saveInto: {
+                    a!save(
+                      ri!processParamConfig[ri!index].active,
+                      0
+                    ),
+                    a!save(
+                      ri!processParamPgDetail,#"_a-0000e5c3-a65f-8000-5268-1bef901bef90_761028"(
+                        processParamId:index(
+                          ri!processParamConfig[ri!index],"process_param_id",{}),
+                          active: 1
+                        
+                      )
+                    ),
+                    a!save(
+                      ri!processParamConfig[ri!index].modified_by,
+                      loggedInUser()
+                    ),
+                    a!save(
+                      ri!processParamConfig[ri!index].modified_on,
+                      now()
+                    )
+                  },
+                  showWhen: ri!isReadOnly &lt;&gt; true()
+                ),
+                size: "MEDIUM_PLUS"
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                linkStyle: "STANDALONE",
+                icon: "toggle-off",
+                color: "ACCENT",
+                caption: "No",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  value: 0,
+                  saveInto: {
+                    a!save(
+                      ri!processParamConfig[ri!index].active,
+                      1
+                    ),
+                    a!save(
+                      ri!processParamPgDetail,
+                      difference(ri!processParamPgDetail,
+                      #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_761028"(
+                        processParamId:index(
+                          ri!processParamConfig[ri!index],"process_param_id",{}),
+                          active: 1
+
+                      ))
+                    ),
+                    a!save(
+                      ri!processParamConfig[ri!index].modified_by,
+                      loggedInUser()
+                    ),
+                    a!save(
+                      ri!processParamConfig[ri!index].modified_on,
+                      now()
+                    )
+                  },
+                  showWhen: ri!isReadOnly &lt;&gt; true()
+                ),
+                size: "MEDIUM_PLUS"
+              )
+            )
+
+
+          }
+        )
+      ),
+      /*Delete*/
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+          ri!processParamConfig[ri!index],
+          "process_param_id",
+          {}
+        )),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "",
+          showWhen :  if(
+            or(ri!isReadOnly=true()),
+            false(),
+            true()
+          ),
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!processParamConfig,
+                  remove(
+                    ri!processParamConfig,
+                    ri!index
+                  )
+                )
+              }
+            )
+          )
+        ),
+        if(ri!IsReadOnly=true(),
+        {},
+        #"SYSTEM_SYSRULES_richTextDisplayField"()
+        )
+      )
+      
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processParamConfig</name>
+            <type>
+                <name>EAP_T_ProcessParamConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processParamPgDetail</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_767710"/>
+        <historyInfo versionUuid="_a-0000e5ea-27a1-8000-5269-1bef901bef90_774200"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_250724</versionUuid>
+    <rule>
+        <name>EAP_SetValueForRefProcessWfTemplateVersions</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_8389</uuid>
+        <description>rule to set value for ref process wf template versions</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processWfTemplateVersion),
+  null,
+
+#"SYSTEM_SYSRULES_forEach"(
+  items: ri!processWfTemplateVersion,
+  expression: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_8119"(
+    documentVersionId:  if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!documentVersionId
+      ),
+      ri!processWfTemplateVersion[fv!index].document_version_id,
+      ri!documentVersionId
+    ), 
+    processId: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!processId
+      ),
+      ri!processWfTemplateVersion[fv!index].process_id,
+      ri!processId
+    ), 
+    versionDescription:if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!versionDescription
+      ),
+      ri!processWfTemplateVersion[fv!index].version_description,
+      ri!versionDescription
+    ),
+    appianDocumentId: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!appianDocumentId
+      ),
+      ri!processWfTemplateVersion[fv!index].appian_document_id,
+      ri!appianDocumentId
+    ),
+    isActive: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!isActive
+      ),
+      ri!processWfTemplateVersion[fv!index].isactive,
+      ri!isActive
+    ),
+    createdBy: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!createdBy
+      ),
+     
+      ri!processWfTemplateVersion[fv!index].created_by,
+      ri!createdBy
+    ),
+    createdOn:  if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!createdOn
+      ),
+      
+      ri!processWfTemplateVersion[fv!index].created_on,
+      ri!createdOn
+
+    ),
+    modifiedBy: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!modifiedBy
+      ),
+      ri!processWfTemplateVersion[fv!index].modified_by,
+      ri!modifiedBy
+    ),
+    modifiedOn: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!modifiedOn
+      ),
+      ri!processWfTemplateVersion[fv!index].modified_on,
+      ri!modifiedOn
+    )
+  )
+)
+)
+
+
+
+
+</definition>
+        <namedTypedValue>
+            <name>documentVersionId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>versionDescription</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>appianDocumentId</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processWfTemplateVersion</name>
+            <type>
+                <name>EAP_T_RefProcessWfTemplateVersions?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c3-ab68-8000-5250-1bef901bef90_9314"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_98753"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_250724"/>
+    </history>
+</contentHaul>

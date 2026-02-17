@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ed60-da24-8000-9c0c-011c48011c48_694011</versionUuid>
+    <interface>
+        <name>EAP_FileTypeEditableGrid_V2</name>
+        <uuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_254907</uuid>
+        <description>Contains editable grid for creating file types.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridLayout"(
+  label: "",
+  headerCells: {
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Config Name",
+      helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+        helpToolTip: "List of Config Names Coming from IO Config of source type"
+      ),
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "File Config Name",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "File Type",
+      helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+        categoryGroup : #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] ,
+        uniqueKey :#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[10]
+      ),
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Delimiter",
+      helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+        categoryGroup : #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] ,
+        uniqueKey :#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1]
+      ),
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Password Protected?",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Password",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Avg. File Size (MB)",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Optional",
+      helpTooltip: if(ri!isReadOnly=true,"",#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+        helpToolTip: "Value is comming on the basis of IO Configuration"
+      )),
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Parsing Required",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Active",
+      align: "CENTER"
+    ),
+    if(
+      ri!isReadOnly,
+      {},
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "",
+        align: "LEFT"
+      )
+    )
+    
+  },
+  columnConfigs: {
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    ),
+    if(
+      ri!isReadOnly,
+      {},
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "ICON"
+      )
+    )
+    
+  },
+  rows: {
+    #"SYSTEM_SYSRULES_applyComponents"(
+      function: #"_a-0000eab6-dc46-8000-9be9-011c48011c48_254914"(
+        index: _,
+        fileTypeConfig: ri!fileTypeConfig,
+        masterLookUpData: ri!masterLookUpData,
+        isReadOnly:ri!isReadOnly,
+        configInfo: ri!configInfo,
+        processControllerData:ri!processControllerConfigData
+      ),
+      array: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!fileTypeConfig
+          ),
+          count(
+            ri!fileTypeConfig
+          ) = 0
+        ),
+        null,
+        tointeger(
+          enumerate(
+            count(
+              ri!fileTypeConfig
+            )
+          ) + 1
+        )
+      )
+    )
+  },
+  selectionSaveInto: {},
+  addRowLink: if(
+    ri!isReadOnly,
+    {},
+    #"SYSTEM_SYSRULES_dynamicLink"(
+      label: "Add line items",
+      value: 'type!{urn:com:appian:types:eap}EAP_T_RefProcessInFileType'(
+       
+        process_id: tointeger(index(ri!uniqueIdentifiers,"process_id",{})),
+        /*config_id: 1,*/
+        is_active: 1,
+        is_optional:0,
+        is_password_protected: tostring(
+          "N"
+        ),
+        created_by: loggedInUser(),
+        created_on: now(),
+        modified_by: loggedInUser(),
+        modified_on: now(),
+        is_parsing_reqd:0
+      ),
+      saveInto: a!save(
+        ri!fileTypeConfig,
+        append(
+          ri!fileTypeConfig,
+          save!value
+        )
+      )
+    )
+  ),
+  shadeAlternateRows: false(),
+  spacing:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_40702"
+)</definition>
+        <namedTypedValue>
+            <name>fileTypeConfig</name>
+            <type>
+                <name>EAP_T_RefProcessInFileType?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>uniqueIdentifiers</name>
+            <type>
+                <name>EAP_Temp_ParsingUniqueIdentifiers?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>configInfo</name>
+            <type>
+                <name>EAP_T_Int?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerConfigData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_254932"/>
+        <historyInfo versionUuid="_a-0000ed60-da24-8000-9c0c-011c48011c48_694011"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_256923</versionUuid>
+    <rule>
+        <name>EAP_DwfProcessControllerMasterEditableGridRowLayout</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365093</uuid>
+        <description>Holds gridRowLayout for process controller Master editable grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!processDisplayName: touniformstring(
+    index(
+      ri!runConfigDetails,
+      "process_display_name",
+      {}
+    )
+  ),
+  local!runConfigId: index(
+    ri!runConfigDetails,
+    "run_config_id",
+    {}
+  ),
+  local!stepsViewData,
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    contents: {
+      /*Workflow Name*/
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        label: "",
+        value: index(
+          ri!dwfProcessControllerMaster[ri!index],
+          "name",
+          {}
+        ),
+        validations: {
+          if(
+            or(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!dwfProcessControllerMaster,"name",{}
+                )
+              ),
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!dwfProcessControllerMaster[ri!index],
+                  "name",
+                  {}
+                )
+              )
+            ),
+            {},
+            if(
+              count(
+                wherecontains(
+                  tostring(index(
+                    ri!dwfProcessControllerMaster[ri!index],
+                    "name",
+                    {}
+                  )),
+                 touniformstring(
+                   index(
+                     ri!dwfProcessControllerMaster,"name",{}
+                   )
+                 )
+                )
+              )&gt;1,
+              "Duplicate Workflow Name Found",
+              {
+                if(
+                  ri!isReadOnly,
+                  {},
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                    value: index(
+                      ri!dwfProcessControllerMaster[ri!index],
+                      "name",
+                      {}
+                    ),
+                    ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+                  )
+                )
+              }
+            )
+            
+          )
+        },
+        required: true(),
+        placeHolder: "Enter Workflow Name",
+        saveInto: {
+          a!save(
+            ri!dwfProcessControllerMaster[ri!index].name,
+            save!value
+          )
+        },
+        readOnly: if(
+          ri!isReadOnly,
+          true(),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!dwfProcessControllerMaster[ri!index].process_controller_master_id
+            ),
+            false(),
+            true()
+          )
+        )    ,
+        align: "CENTER"
+      ),
+      /*Run Configuration*/
+      if(
+        contains(
+          ri!isReadOnly,
+          false()
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+          placeholderLabel:"-- Select Run Configuration --",
+          required: true(),
+          isReadOnly: if(
+            ri!isReadOnly,
+            true(),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!dwfProcessControllerMaster[ri!index].process_controller_master_id
+              ),
+              false(),
+              true()
+            )
+          ),
+          value: index(
+            ri!dwfProcessControllerMaster[ri!index],
+            "run_config_id",
+            {}
+          ),
+          choiceLabels: local!processDisplayName,
+          choiceValues: local!runConfigId,
+          saveInto: ri!dwfProcessControllerMaster[ri!index].run_config_id,
+          validations: if(
+            count(
+              wherecontains(
+                tointeger(
+                  index(
+                    ri!dwfProcessControllerMaster[ri!index],
+                    "run_config_id",
+                    {}
+                  )
+                ),
+                tointeger(
+
+
+                  index(
+                    index(ri!dwfProcessControllerMaster,wherecontains(
+                      true(),
+                      toboolean(index(ri!dwfProcessControllerMaster,"is_active",{}))
+                    ),{}),
+                    "run_config_id",
+                    {}
+                  )
+                )
+              )
+            ) &gt; 1,
+            "Please Select Unique Configuration Name!",
+            {}
+          )
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          value:index(
+            index(
+              ri!runConfigDetails,
+              wherecontains(tointeger(index(ri!dwfProcessControllerMaster[ri!index],"run_config_id", {})),
+              tointeger(index(ri!runConfigDetails,"run_config_id",{}))
+              ),{}            
+            ),"process_display_name",{}
+
+          ),
+          align: "CENTER",
+         /* index(
+            ri!dwfProcessControllerMaster[ri!index],
+            "run_config_id",
+            {}
+          ),
+          */
+          
+          
+          readOnly: if(
+            ri!isReadOnly,
+            true(),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!dwfProcessControllerMaster[ri!index].process_controller_master_id
+              ),
+              false(),
+              true()
+            )
+          ),
+          
+        ),
+        
+      ),
+      /*Manage Workflow*/
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!dwfProcessControllerMaster[ri!index].process_controller_master_id
+        ),
+        {
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            readOnly: true()
+          )
+        },
+        if(
+          ri!isReadOnly = true(),       
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "eye",
+              size: "MEDIUM",
+              caption: "Manage Workflow",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    ri!manageWorkflowId,
+                    ri!dwfProcessControllerMaster[ri!index].process_controller_master_id
+                  ),
+                  a!save(
+                    ri!processController,
+                    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_361812"(
+                      processControllerMasterId:ri!manageWorkflowId
+                    )
+                  ),
+                  a!save(
+                    ri!showWorkFlowGrid,
+                    false()
+                  ),
+                  a!save(
+                    ri!sgb,
+                    1
+                  ),
+
+                }
+              ),
+              linkStyle: "STANDALONE"
+            ),
+            align: "CENTER"
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "cogs",
+              size: "MEDIUM",
+              caption: "Manage Workflow",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    ri!manageWorkflowId,
+                    ri!dwfProcessControllerMaster[ri!index].process_controller_master_id
+                  ),
+                  a!save(
+                    ri!processController,
+                    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_361812"(
+                      processControllerMasterId:ri!manageWorkflowId
+                    )
+                  ),
+                  a!save(
+                    ri!showWorkFlowGrid,
+                    false()
+                  ),
+                  a!save(
+                    ri!sgb,
+                    1
+                  ),
+
+                }
+              ),
+              linkStyle: "STANDALONE"
+            ),
+            align: "CENTER"
+          )
+        )
+        
+      ),
+      /*Is Configured*/
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        images: {
+          #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(   
+                or(
+                  contains(
+                    tointeger(index(
+                      index(
+                        ri!processControllerStepsView,
+                        wherecontains(
+                          tointeger(index(
+                            ri!dwfProcessControllerMaster[ri!index],
+                            "process_controller_master_id",
+                            {}
+                          )),
+                          tointeger(index(
+                            ri!processControllerStepsView,"process_controller_master_id",{}
+                          ))
+                        ),{}
+                      )
+                      ,"is_configured",{})),
+                    0
+                  )                  
+                ),
+                "STATUS_NOTDONE",
+
+                if(
+                  or(contains(
+                    touniformstring(index(
+                      index(
+                        ri!processControllerStepsView,
+                        wherecontains(
+                          tointeger(index(
+                            ri!dwfProcessControllerMaster[ri!index],
+                            "process_controller_master_id",
+                            {}
+                          )),
+                          tointeger(index(
+                            ri!processControllerStepsView,"process_controller_master_id",{}
+                          ))
+                        ),{}
+                      ),
+                      "milestone_name",{})),
+                    tostring("End")
+
+                  )),
+                  "STATUS_OK",
+                  "STATUS_NOTDONE"
+                )
+
+
+              )
+            )
+          )
+        },
+        align: "CENTER"
+      ),
+      /*Is Active*/
+      if(
+        or(ri!isReadOnly,ri!isProductionSupport),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          images: {
+            #"SYSTEM_SYSRULES_documentImage"(
+              document: #"SYSTEM_SYSRULES_iconIndicator"(
+                icon: if(
+                  contains(
+                    toboolean(
+                      index(
+                        ri!dwfProcessControllerMaster[ri!index],
+                        "is_active",
+                        {}
+                      )
+                    ),
+                    true()
+                  ),
+                  "STATUS_OK",
+                  "STATUS_NOTDONE"
+                )
+              )
+            )
+          },
+          align: "CENTER"
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          value: if(
+            or(
+              tointeger(
+                index(
+                  ri!dwfProcessControllerMaster[ri!index],
+                  "is_active",
+                  {}
+                )
+              ) = 1
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "toggle-on",
+              caption: "Yes",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    ri!dwfProcessControllerMaster[ri!index].is_active,
+                    0
+                  )
+                },
+                showWhen: not(
+                  ri!isReadOnly
+                )
+              ),
+              linkStyle: "STANDALONE",
+              color: "POSITIVE",
+              size: "MEDIUM_PLUS"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "toggle-off",
+              caption: "No",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    ri!dwfProcessControllerMaster[ri!index].is_active,
+                    1
+                  )
+                },
+                showWhen: not(
+                  ri!isReadOnly
+                )
+              ),
+              linkStyle: "STANDALONE",
+              color: "NEGATIVE",
+              size: "MEDIUM_PLUS"
+            )
+          ),
+          align: "CENTER"
+        )
+      ),
+      
+      /*Delete*/
+      if(
+        ri!isReadOnly,
+        {},
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!dwfProcessControllerMaster[ri!index].process_controller_master_id
+          ),
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            label: "",
+            images: #"SYSTEM_SYSRULES_documentImage"(
+              document: #"SYSTEM_SYSRULES_iconIndicator"(
+                "REMOVE"
+              ),
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    ri!dwfProcessControllerMaster,
+                    remove(
+                      ri!dwfProcessControllerMaster,
+                      ri!index
+                    )
+                  )
+                }
+              )
+            )
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            readOnly: true()
+          )
+        )
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dwfProcessControllerMaster</name>
+            <type>
+                <name>EAP_T_DwfProcessControllerMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigDetails</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>manageWorkflowId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showWorkFlowGrid</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sgb</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processController</name>
+            <type>
+                <name>EAP_T_DwfProcessController?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isRequestRunning</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerStepsView</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isProductionSupport</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365834"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_382401"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_401915"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_472522"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_487484"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_489946"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_519471"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_526264"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_652731"/>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_256923"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e58b-f438-8000-5262-1bef901bef90_713848</versionUuid>
+    <interface>
+        <name>EAP_BulkUploadLegendCard</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_712753</uuid>
+        <description>Descriptive legends for the Bulk Upload request statuses</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_cardLayout"(
+  showBorder: false(),
+  marginBelow: "STANDARD",
+  style:"#EBF5FB",
+  contents: {
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      value:{
+        /*initiated*/
+        #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text: concat( "  ",#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[1],"  "),
+          style: if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[1],
+            "STRONG",
+            "PLAIN"
+          ),
+          size:if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[1],
+            "MEDIUM",
+            "STANDARD"
+          ),
+          color:if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[1],
+            "POSITIVE",
+            ""
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextIcon"(
+          icon: "chevron-right"
+        ),
+        /*Import Document*/
+        #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text: concat( "  ",#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[2],"  "),
+          style: if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[2],
+            "STRONG",
+            "PLAIN"
+          ),
+          size:if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[2],
+            "MEDIUM",
+            "STANDARD"
+          ),
+          color:if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[2],
+            "POSITIVE",
+            ""
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextIcon"(
+          icon: "chevron-right"
+        ),
+        /*Data Validation*/
+        #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text: concat( "  ",#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[3],"  "),
+          style: if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[3],
+            "STRONG",
+            "PLAIN"
+          ),
+          size:if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[3],
+            "MEDIUM",
+            "STANDARD"
+          ),
+          color:if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[3],
+            "POSITIVE",
+            ""
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextIcon"(
+          icon: "chevron-right"
+        ),
+        /*User/Role Validation*/
+        #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text: concat( "  ",#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[4],"  "),
+          style: if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[4],
+            "STRONG",
+            "PLAIN"
+          ),
+          size:if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[4],
+            "MEDIUM",
+            "STANDARD"
+          ),
+          color:if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[4],
+            "POSITIVE",
+            ""
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextIcon"(
+          icon: "chevron-right"
+        ),
+        /*Pending User Verification*/
+        #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text: concat( "  ",#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[5],"  "),
+          style: if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[5],
+            "STRONG",
+            "PLAIN"
+          ),
+          size:if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[5],
+            "MEDIUM",
+            "STANDARD"
+          ),
+          color:if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[5],
+            "POSITIVE",
+            ""
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextIcon"(
+          icon: "chevron-right"
+        ),
+        /*Bulk Load Users*/
+        #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text: concat( "  ",#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[6],"  "),
+          style: if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[6],
+            "STRONG",
+            "PLAIN"
+          ),
+          size:if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[6],
+            "MEDIUM",
+            "STANDARD"
+          ),
+          color:if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[6],
+            "POSITIVE",
+            ""
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextIcon"(
+          icon: "chevron-right"
+        ),
+        /*Success / Aborted / Failed*/
+        if(
+          ri!currentStatus = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[7],
+        #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text: concat( "  ",#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[7],"  "),
+          style: if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[7],
+            "STRONG",
+            "PLAIN"
+          ),
+          size:if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[7],
+            "MEDIUM",
+            "STANDARD"
+          ),
+          color:if(
+            tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[7],
+            "POSITIVE",
+            ""
+          )
+        ),
+        if(
+          ri!currentStatus = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[8],
+          #"SYSTEM_SYSRULES_richTextItem_v1"(
+            text: concat( "  ",#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[8],"  "),
+            style: if(
+              tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[8],
+              "STRONG",
+              "PLAIN"
+            ),
+            size:if(
+              tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[8],
+              "MEDIUM",
+              "STANDARD"
+            ),
+            color:if(
+              tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[8],
+              "POSITIVE",
+              ""
+            )
+          ),
+          if(
+            ri!currentStatus = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[9],
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: concat( "  ",#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[9],"  "),
+              style: if(
+                tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[9],
+                "STRONG",
+                "PLAIN"
+              ),
+              size:if(
+                tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[9],
+                "MEDIUM",
+                "STANDARD"
+              ),
+              color:if(
+                tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[9],
+                "POSITIVE",
+                ""
+              )
+            ),
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "  Success/ Aborted/ Failed",
+              style: if(
+                tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[9],
+                "STRONG",
+                "PLAIN"
+              ),
+              size:if(
+                tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[9],
+                "MEDIUM",
+                "STANDARD"
+              ),
+              color:if(
+                tostring(ri!currentStatus) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[9],
+                "POSITIVE",
+                ""
+              )
+            )
+          )
+        )
+        )
+        
+        
+      },
+      align: "CENTER" 
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>currentStatus</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_713848"/>
+    </history>
+</contentHaul>

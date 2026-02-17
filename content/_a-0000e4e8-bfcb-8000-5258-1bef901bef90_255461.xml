@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_358108</versionUuid>
+    <interface>
+        <name>EAP_ManageSimulatorConfig</name>
+        <uuid>_a-0000e4e8-bfcb-8000-5258-1bef901bef90_255461</uuid>
+        <description>Interface to manage scheduler config</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>
+#"SYSTEM_SYSRULES_formLayout_v1"(
+  contents:{
+#"SYSTEM_SYSRULES_sectionLayout_v1"(
+  label:"Manage Simulator",
+  divider: "ABOVE",
+  contents:{
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns:{
+        #"SYSTEM_SYSRULES_columnLayout"(
+       contents:{   
+         #"SYSTEM_SYSRULES_dateField"(
+            label:"Simulator Date",
+            required:true(),
+            value:if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!simulatorAuditNew,"trigger_date",{})),
+              index(ri!simulatorAuditOld,"trigger_date",{}),
+              index(ri!simulatorAuditNew,"trigger_date",{})
+              ),
+            
+            saveInto: ri!simulatorAuditNew.trigger_date
+          )
+          }
+         
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents:{   
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288522"(
+              label:"Scheduler Enable/Disable",
+              required:true(),
+              choiceLabels: {"True","False"},
+              choiceValues: {1,0},
+              value:if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!simulatorAuditNew,"is_enable",{})),
+                index(ri!simulatorAuditOld,"is_enable",{}),
+                index(ri!simulatorAuditNew,"is_enable",{})
+              ),
+              saveInto: ri!simulatorAuditNew.is_enable,
+                choiceLayout: "COMPACT"
+              
+            )
+          }
+
+        )
+      
+      }
+    )
+   
+  }
+),
+#"SYSTEM_SYSRULES_sectionLayout_v1"(
+  label:"Manage Scheduler",
+  contents: #"SYSTEM_SYSRULES_gridLayout"(
+    headerCells: {
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label:"Days",
+        align:"LEFT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label:"Business Days",
+        align:"RIGHT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label:"Start Business Hour",
+        align:"LEFT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label:"End Business Hour",
+        align:"LEFT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label:"Peak Frequency (in minutes)",
+        align:"RIGHT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label:"Peak Frequency Type",
+        align:"LEFT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label:"Off Peak Frequency (in minutes)",
+        align:"RIGHT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label:"Off Peak Frequency Type",
+        align:"LEFT"
+      )
+    },
+    columnConfigs:{   
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 4
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 4
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 4
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 4
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 4
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 4
+      ),
+      
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 4
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 4
+      )
+    } ,
+    rows:{
+      #"SYSTEM_SYSRULES_gridRowLayout"(
+        contents:{
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            readOnly: true(),
+            value:"Start Business Day"
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282812"[1]
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282843"[1]
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282849"[1]
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282819"[1]
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:"Minutes",
+            readOnly:true() 
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282831"[1]
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:"Minutes",
+            readOnly:true() 
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_gridRowLayout"(
+        contents:{
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            readOnly: true(),
+            value:"End Business Day"
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282812"[2]
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282843"[2]
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282849"[2]
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282819"[2]
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:"Minutes",
+            readOnly:true() 
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282831"[2]
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:"Minutes",
+            readOnly:true() 
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_gridRowLayout"(
+        contents:{
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            readOnly: true(),
+            value:"Other Business Day"
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:"N/A",
+            readOnly: true()
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282843"[3]
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282849"[3]
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282819"[3]
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:"Minutes",
+            readOnly:true() 
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282831"[3]
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value:"Minutes",
+            readOnly:true() 
+          )
+        }
+      ),
+    }
+  )
+)
+
+},
+buttons:#"SYSTEM_SYSRULES_ButtonLayout"(
+  primaryButtons:#"SYSTEM_SYSRULES_ButtonWidget"(
+    label:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[1],
+    validate:true(),
+    value:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[1],
+    saveInto: {
+      ri!buttonAction,
+      a!save(
+        ri!simulatorAuditNew,
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_295914"(
+          isActive:1,
+          createdBy:loggedInUser(),
+          createdOn:now(),
+          simulatorAuditList:ri!simulatorAuditNew,
+          triggerDate: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!simulatorAuditNew,"trigger_date",{})),
+            index(ri!simulatorAuditOld,"trigger_date",{}),
+            index(ri!simulatorAuditNew,"trigger_date",{})
+          ),
+          isEnable:if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!simulatorAuditNew,"is_enable",{})),
+            index(ri!simulatorAuditOld,"is_enable",{}),
+            index(ri!simulatorAuditNew,"is_enable",{})
+          )
+        )
+      ),
+      a!save(
+        ri!simulatorAuditOld,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_295914"(
+        isActive:0,
+        simulatorAuditList:ri!simulatorAuditOld
+      )
+      )
+      },
+    style:"PRIMARY",
+    submit:true()
+  ),
+  secondaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+    label:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+    value:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+    saveInto: ri!buttonAction,
+    submit:true(),
+    validate:false()
+  )
+)
+)
+
+</definition>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>simulatorAuditNew</name>
+            <type>
+                <name>EAP_T_SimulatorAudit</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>simulatorAuditOld</name>
+            <type>
+                <name>EAP_T_SimulatorAudit</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_358108"/>
+    </history>
+</contentHaul>

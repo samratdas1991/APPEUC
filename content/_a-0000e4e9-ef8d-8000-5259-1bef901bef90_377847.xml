@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_771109</versionUuid>
+    <interface>
+        <name>EAP_DataValidation_RefProcessWfTemplateVersionsGrid</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377847</uuid>
+        <description>Contains editable grid for Ref process Wf Template Versions Grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!getrunConfigData:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(isActive: 1,
+  processId: ri!processId
+  ),
+  local!runConfigId:index(local!getrunConfigData,"run_config_id",{}),
+{
+ #"SYSTEM_SYSRULES_columnsLayout"(
+   columns: {
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: {
+          if(
+            not(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!refProcessWFTemplateVersions,"document_version_id",null))),
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+              label:"Process Display Name",
+              readOnly: true(),
+              value:index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(isActive: 1,
+              processId: ri!processId,
+              runConfigId:ri!runConfigId
+              ),"process_display_name",{})
+            )
+          ,
+            #"SYSTEM_SYSRULES_dropdownField"(
+              helpTooltip : "Process display name of run configuration", 
+            label: "Process Display Name",
+            placeholderLabel:"--Select Process Name--",
+            choiceLabels:if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(local!getrunConfigData,"process_display_name",{})),
+              null,
+              index(local!getrunConfigData,"process_display_name",{})
+            ), 
+            choiceValues:     if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!runConfigId),
+              null,
+              local!runConfigId
+            ),
+            required: if(
+              not(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!refProcessWFTemplateVersions,"document_version_id",null))),
+              false(),
+              true()
+              
+            ),
+            value:                       
+            if(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                value: ri!runConfigId,
+                choiceValue:local!runConfigId
+              ),
+              ri!runConfigId,
+              null
+            ),
+          
+            saveInto: {
+              ri!runConfigId,      
+            }
+
+          )),
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnLayout"()
+      
+    }
+  ),
+  #"SYSTEM_SYSRULES_gridLayout"(
+    label: "",
+    shadeAlternateRows: false(),
+    headerCells: {
+      /*a!gridLayoutHeaderCell(*/
+        /*label: "Run Config Id",*/
+        /*align: "LEFT"*/
+      /*),*/
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Template Name",
+        align: "LEFT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: if(
+          or(
+            ri!isReadOnly = true()
+          ),
+          "Uploaded Document",
+          "Upload Document"
+        ),
+        align: "LEFT"
+      ),
+      
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Is Active",
+        
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "",
+        align: "CENTER",
+        showWhen: if(
+          or(
+            ri!isReadonly = true(),
+            count(
+              ri!refProcessWFTemplateVersions
+            ) &lt; 2
+          ),
+          false(),
+          true()
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "",
+        align: "CENTER",
+        showWhen: if(
+          or(
+            ri!isReadonly = true(),
+            count(
+              ri!refProcessWFTemplateVersions
+            ) &lt; 2
+          ),
+          false(),
+          true()
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        align: "CENTER",
+        showWhen: if(
+          or(
+            ri!isReadOnly = true(),
+            count(ri!refProcessWFTemplateVersions)=1
+          ),
+          false(),
+          true()
+        )
+      )
+    },
+    columnConfigs: {
+      /*a!gridLayoutColumnConfig(*/
+        /*width: "DISTRIBUTE",*/
+        /*weight: 2*/
+      /*),*/
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 2
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 2
+      ),
+     
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "ICON",
+        
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "ICON",
+        showWhen: if(
+          or(
+            ri!isReadonly = true(),
+            count(
+              ri!refProcessWFTemplateVersions
+            ) &lt; 2
+          ),
+          false(),
+          true()
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "ICON",
+        showWhen: if(
+          or(
+            ri!isReadonly = true(),
+            count(
+              ri!refProcessWFTemplateVersions
+            ) &lt; 2
+          ),
+          false(),
+          true()
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "ICON",
+        showWhen: if(
+          or(
+            ri!isReadOnly = true(),
+            count(ri!refProcessWFTemplateVersions)=1
+          ),
+          false(),
+          true()
+        )
+      )
+    },
+    rows: {
+      #"SYSTEM_SYSRULES_forEach"(
+        expression: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377861"(
+          isDocumentIdExist: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!refProcessWFTemplateVersions
+            ),
+            false(),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!refProcessWFTemplateVersions[fv!item],
+                  "document_version_id",
+                  {}
+                )
+              ),
+              false(),
+              true()
+            )
+          ),
+          isReadOnly: ri!isReadOnly,
+          index: fv!item,
+          refProcessWFTemplateVersions: ri!refProcessWFTemplateVersions,
+          refProcessTempConfig: ri!refProcessTempConfig,
+          documentId : ri!documentId,
+          dwfProcessControllerData:ri!dwfProcessControllerConfig,
+          templateConfigId: ri!templateConfigId
+          
+        ),
+        items: if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!refProcessWFTemplateVersions
+            ),
+            count(
+              ri!refProcessWFTemplateVersions
+            ) = 0
+          ),
+          null,
+          tointeger(
+            enumerate(
+              count(
+                ri!refProcessWFTemplateVersions
+              )
+            ) + 1
+          )
+        )
+      )
+    },
+    selectionSaveInto: {},
+    addRowLink: if(
+      ri!isReadOnly,
+      {},
+      #"SYSTEM_SYSRULES_dynamicLink"(
+        showWhen: or(
+          count(
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!refProcessWFTemplateVersions
+              ),
+              {},
+              ri!refProcessWFTemplateVersions
+            )
+          ) &lt;= 0
+        ),
+        label: "Add line items",
+        value: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377328"(
+          processId: ri!processId,
+          isActive: 1,
+          createdBy: loggedInUser(),
+          createdOn: now(),
+          modifiedBy: loggedInUser(),
+          modifiedOn: now()
+        ),
+        saveInto: {
+          a!save(
+            ri!refProcessWFTemplateVersions,
+            append(
+              ri!refProcessWFTemplateVersions,
+              save!value
+            )
+          ),
+          a!save(
+            ri!refProcessTempConfig,
+            append(
+              ri!refProcessTempConfig,
+              #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377564"(
+                processId: ri!processId,
+                isActive: 1,
+                createdBy: loggedInUser(),
+                createdOn: now(),
+                modifiedBy: loggedInUser(),
+                modifiedOn: now(),
+                sequenceOrder: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!refProcessTempConfig
+                  ),
+                  1,
+                  tointeger(
+                    count(
+                      ri!refProcessTempConfig
+                    ) + 1
+                  )
+                )
+              )
+            )
+          )
+        }
+      )
+    )
+  )
+}
+
+)</definition>
+        <namedTypedValue>
+            <name>refProcessWFTemplateVersions</name>
+            <type>
+                <name>EAP_T_DVTemplateVersions?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessTempConfig</name>
+            <type>
+                <name>EAP_T_DVTemplateConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>documentId</name>
+            <type>
+                <name>CollaborationDocument</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>templateConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dwfProcessControllerConfig</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_383567"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_397526"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_771109"/>
+    </history>
+</contentHaul>

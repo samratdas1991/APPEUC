@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_408379</versionUuid>
+    <rule>
+        <name>EAP_DataValidation_RefProcessWFActionGridRowLayout</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377998</uuid>
+        <description>Hold sub rule for ref process wf action grid row layout</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!data,
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    contents: {
+      /* Action Name */
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        label: "Action Name",
+        placeholder: "--enter action name--",
+        value: index(
+          ri!refProcessWfActionType[ri!index],
+          "action_name",
+          {}
+        ),
+        saveInto: {
+          ri!refProcessWfActionType[ri!index].action_name,
+          a!save(
+            ri!refProcessWfActionType[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!refProcessWfActionType[ri!index].modified_on,
+            now()
+          )
+        },
+        readOnly: ri!isReadOnly,
+        align: "LEFT",
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!refProcessWfActionType[ri!index],
+                "action_name",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          )
+        }
+      ),
+      /* Action Description */
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        label: "Action Description",
+        placeholder: "--enter action description--",
+        value: index(
+          ri!refProcessWfActionType[ri!index],
+          "action_description",
+          {}
+        ),
+        saveInto: {ri!refProcessWfActionType[ri!index].action_description,
+        a!save(
+          ri!refProcessWfActionType[ri!index].modified_by,
+          loggedInUser()
+        ),
+        a!save(
+          ri!refProcessWfActionType[ri!index].modified_on,
+          now()
+        )
+        },
+        readOnly: ri!isReadOnly,
+        align: "LEFT",
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!refProcessWfActionType[ri!index],
+                "action_description",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[1]
+            )
+          )
+        }
+      ),
+      /* Action Type */
+      if(
+        or(
+          ri!isReadOnly = true(),
+          not(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!refProcessWfActionType[ri!index],
+                "wf_action_id",
+                {}
+              )
+            )
+          )
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          label: "Action Type",
+          value: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_144577"(
+            masterLookup: ri!masterLookUpData,
+            uniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[1],
+            value: index(
+              ri!refProcessWfActionType[ri!index],
+              "action_type",
+              {}
+            )
+          ),
+          readOnly: true
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+          label: "",
+          placeholderLabel: "--Select Action Type--",
+          choiceLabels: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!masterLookUpData
+            ),
+            null,
+            touniformstring(
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: ri!masterLookUpData,
+                UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[1],
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+              )
+            )
+          ),
+          choiceValues: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!masterLookUpData
+            ),
+            null,
+            touniformstring(
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: ri!masterLookUpData,
+                UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[1],
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+              )
+            )
+          ),
+          value: if(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+              value: index(
+                ri!refProcessWfActionType[ri!index],
+                "action_type",
+                {}
+              ),
+              choiceValue: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!masterLookUpData
+                ),
+                null,
+                touniformstring(
+                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                    MasterLookup: ri!masterLookUpData,
+                    UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377779"[1],
+                    Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                  )
+                )
+              )
+            ),
+            index(
+              ri!refProcessWfActionType[ri!index],
+              "action_type",
+              {}
+            ),
+            null
+          ),
+          saveInto:{ ri!refProcessWfActionType[ri!index].action_type,
+          
+          a!save(
+            ri!refProcessWfActionType[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!refProcessWfActionType[ri!index].modified_on,
+            now()
+          )
+          },
+          validations: {
+            if(
+              ri!isReadOnly,
+              {},
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                value: index(
+                  ri!refProcessWfActionType[ri!index],
+                  "action_type",
+                  {}
+                ),
+                ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[3]
+              )
+            )
+          },
+          readOnly: ri!isReadOnly,
+          required: if(
+            or(
+              ri!isReadOnly
+            ),
+            false(),
+            true()
+          )
+        )
+      ),
+      /* Is Active */
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        align: "CENTER",
+        value: {
+          if(
+            or(
+              tointeger(
+                index(
+                  ri!refProcessWfActionType[ri!index],
+                  "isactive",
+                  {}
+                )
+              ) = 1
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-on",
+              caption: "Yes",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: 1,
+                showWhen: if(
+                  or(
+                    ri!isReadOnly
+                  ),
+                  false(),
+                  true()
+                ),
+                saveInto: {a!save(
+                  ri!refProcessWfActionType[ri!index].isactive,
+                  0
+                ),
+                a!save(
+                  ri!refProcessWfActionType[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!refProcessWfActionType[ri!index].modified_on,
+                  now()
+                )
+                },
+              ),
+              size: "MEDIUM_PLUS",
+              color: "ACCENT"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-off",
+              caption: "No",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: 0,
+                showWhen: if(
+                  or(
+                    ri!isReadOnly
+                  ),
+                  false(),
+                  true()
+                ),
+                saveInto: {a!save(
+                  ri!refProcessWfActionType[ri!index].isactive,
+                  1
+                ),
+                
+                a!save(
+                  ri!refProcessWfActionType[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!refProcessWfActionType[ri!index].modified_on,
+                  now()
+                )}
+              ),
+              size: "MEDIUM_PLUS",
+              color: "ACCENT"
+            )
+          )
+        }
+      ),
+      /* Move Up */
+      if(
+        or(
+          ri!isReadOnly = true(),
+          count(
+            ri!refProcessWfActionType
+          ) &lt; 2
+        ),
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: " ",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(
+                ri!index = 1,
+                "MOVE_UP_DISABLED",
+                "MOVE_UP"
+              )
+            ),
+            link: if(
+              ri!index = 1,
+              {},
+              #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    local!data,
+                    ri!refProcessWfActionType[ri!index - 1]
+                  ),
+                  a!save(
+                    ri!refProcessWfActionType[ri!index - 1],
+                    ri!refProcessWfActionType[ri!index]
+                  ),
+                  a!save(
+                    ri!refProcessWfActionType[ri!index],
+                    local!data
+                  ),
+                  #"SYSTEM_SYSRULES_forEach"(
+                    items: ri!refProcessWfActionType,
+                    expression: a!save(
+                      ri!refProcessWfActionType[fv!index].sequence_order,
+                      fv!index
+                    )
+                  ),
+                  a!save(
+                    ri!refProcessWfActionType[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!refProcessWfActionType[ri!index].modified_on,
+                    now()
+                  )
+                }
+              )
+            )
+          )
+        )
+      ),
+      /* Move Down */
+      if(
+        or(
+          ri!isReadOnly = true(),
+          count(
+            ri!refProcessWfActionType
+          ) &lt; 2
+        ),
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              if(
+                or(
+                  length(
+                    ri!refProcessWfActionType
+                  ) = 1,
+                  ri!index = count(
+                    ri!refProcessWfActionType
+                  )
+                ),
+                "MOVE_DOWN_DISABLED",
+                "MOVE_DOWN"
+              )
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  local!data,
+                  ri!refProcessWfActionType[ri!index]
+                ),
+                a!save(
+                  ri!refProcessWfActionType[ri!index],
+                  ri!refProcessWfActionType[ri!index + 1],
+                  
+                ),
+                a!save(
+                  ri!refProcessWfActionType[ri!index + 1],
+                  local!data
+                ),
+                #"SYSTEM_SYSRULES_forEach"(
+                  items: ri!refProcessWfActionType,
+                  expression: a!save(
+                    ri!refProcessWfActionType[fv!index].sequence_order,
+                    fv!index
+                  )
+                ),
+                a!save(
+                  ri!refProcessWfActionType[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!refProcessWfActionType[ri!index].modified_on,
+                  now()
+                )
+              },
+              showWhen: not(
+                or(
+                  length(
+                    ri!refProcessWfActionType
+                  ) = 1,
+                  ri!index = count(
+                    ri!refProcessWfActionType
+                  )
+                )
+              )
+            )
+          )
+        )
+      ),
+      /* Remove */
+      if(
+        or(
+          not(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!refProcessWfActionType[ri!index],
+                "wf_action_id",
+                {}
+              )
+            )
+          ),
+          count(
+            ri!refProcessWfActionType
+          ) = 1
+        ),
+        if(
+          ri!isReadOnly = true(),
+          {},
+          #"SYSTEM_SYSRULES_richTextDisplayField"()
+        ),
+        if(
+          ri!isReadonly = true(),
+          {},
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            label: "delete ",
+            images: #"SYSTEM_SYSRULES_documentImage"(
+              document: #"SYSTEM_SYSRULES_iconIndicator"(
+                "REMOVE"
+              ),
+              altText: "Remove",
+              caption: "Remove",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: ri!index,
+                saveInto: {
+                  if(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      index(
+                        ri!refProcessWfActionType[ri!index],
+                        "wf_action_id",
+                        {}
+                      )
+                    ),
+                    a!save(
+                      ri!refProcessWfActionType,
+                      remove(
+                        ri!refProcessWfActionType,
+                        save!value
+                      )
+                    ),
+                    a!save(
+                      index(
+                        ri!refProcessWfActionType[ri!index],
+                        "isactive",
+                        {}
+                      ),
+                      0
+                    )
+                  )
+                }
+              )
+            ),
+            size: "ICON"
+          )
+        )
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessWfActionType</name>
+            <type>
+                <name>EAP_T_DVActions?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_382517"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_395570"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_408379"/>
+    </history>
+</contentHaul>

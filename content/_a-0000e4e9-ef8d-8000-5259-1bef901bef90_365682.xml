@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_366792</versionUuid>
+    <interface>
+        <name>EAP_ActionTypeTransposeConfigEditableGrid</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365682</uuid>
+        <description>Contains editable grid for action type transpose config</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridLayout"(
+  label: "",
+  shadeAlternateRows: false(),
+  headerCells: {
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Sheet Name",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+        helpToolTip : "Coming from the Manage Entity Name related action where EntityType: Output"
+      ),
+      label: "Entity Name",
+      align: "LEFT"
+    ),
+  
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Acitve",
+      align: "CENTER"
+    ),
+
+  },
+  columnConfigs: {
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+
+    ),
+  
+   
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    )
+  },
+  rows: {
+    #"SYSTEM_SYSRULES_applyComponents"(
+      function: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365697"(
+        isReadOnly: ri!isReadOnly,
+        index: _,
+        allTables: ri!allTables,
+        actionTypeTransposeConfig: ri!actionTypeTransposeConfig,
+        entityNames:ri!allEntityNames
+      ),
+      array: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!actionTypeTransposeConfig
+          ),
+          count(
+            ri!actionTypeTransposeConfig
+          ) = 0
+        ),
+        null,
+        wherecontains(
+          tointeger(
+            ri!actionId
+          ),
+          tointeger(
+            index(
+              ri!actionTypeTransposeConfig,
+              "wf_action_id",
+              null
+            )
+          )
+        )
+      )
+    )
+  },
+  addRowLink: if(
+    length(
+      wherecontains(
+        tointeger(
+          ri!actionId
+        ),
+        tointeger(
+          index(
+            ri!actionTypeTransposeConfig,
+            "wf_action_id",
+            null
+          )
+        )
+      )
+    ) &gt;= 1,
+    {},
+    if(
+      ri!isReadOnly,
+      {},
+      #"SYSTEM_SYSRULES_dynamicLink"(
+        /*showWhen:false(),*/
+        label: "Add line items",
+        value: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_366614"(
+          wfActionId:ri!actionId,
+          isActive:1, 
+          createdBy:loggedInUser(), 
+          createdOn:now()
+        ),
+        saveInto: {
+          a!save(
+            ri!actionTypeTransposeConfig,
+            append(
+              ri!actionTypeTransposeConfig,
+              save!value
+            )
+          )
+        }
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>actionTypeTransposeConfig</name>
+            <type>
+                <name>EAP_T_WfTransposeConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>allTables</name>
+            <type>
+                <name>EAP_V_AllTables?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>allEntityNames</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>actionTypeTransposeConfig</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">1</a:value>
+                    <a:nameRef>actionId</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>allTables</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>allEntityNames</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365744"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_366792"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,1005 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_768824</versionUuid>
+    <interface>
+        <name>EAP_ChecklistGridForMakerChecker</name>
+        <uuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_565752</uuid>
+        <description>Checklist grid for Checker and Maker</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!headings: union(
+    index(
+      ri!checklistData,
+      "checklistType",
+      {}
+    ),
+    index(
+      ri!checklistData,
+      "checklistType",
+      {}
+    )
+  ),
+  local!checklistAllReviewed,
+  local!checklistAllNA,
+  {
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!checklistData
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text: "No Checklist Data Found For Your Request!",
+          style: {
+            "EMPHASIS",
+            "STRONG"
+          },
+          color: "ACCENT",
+          size: "MEDIUM"
+        )
+      ),
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "",
+        contents: {
+          #"SYSTEM_SYSRULES_forEach"(
+            items: local!headings,
+            expression: {
+              #"SYSTEM_SYSRULES_richTextDisplayField"(),
+              #"SYSTEM_SYSRULES_gridLayout"(
+                label: fv!item,
+                headerCells: {
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Number"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Reviewed",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Not Applicable",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Check Description"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Comment"
+                  )
+                },
+                columnConfigs: {
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    weight: 1
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    weight: 1
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    weight: 1
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    weight: 5
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    weight: 3
+                  )
+                },
+                rows: {
+                  #"SYSTEM_SYSRULES_gridRowLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_textField"(
+                        readOnly: true
+                      ),
+                      #"SYSTEM_SYSRULES_checkboxField"(
+                        choiceLabels: {
+                          "Select All"
+                        },
+                        choiceValues: {
+                          tointeger(
+                            true
+                          )
+                        },
+                        value: if(
+                          count(
+                            wherecontains(
+                              tointeger(
+                                index(
+                                  index(
+                                    ri!checklistData,
+                                    wherecontains(
+                                      tostring(
+                                        fv!item
+                                      ),
+                                      touniformstring(
+                                        index(
+                                          ri!checklistData,
+                                          "checklistType",
+                                          {}
+                                        )
+                                      )
+                                    ),
+                                    {}
+                                  ),
+                                  "checklistId",
+                                  {}
+                                )
+                              ),
+                              tointeger(
+                                index(
+                                  ri!checklistTrans,
+                                  "checklistId",
+                                  {}
+                                )
+                              )
+                            )
+                          ) = count(
+                            where(
+                              toboolean(
+                                ri!checklistTrans[wherecontains(
+                                  tointeger(
+                                    index(
+                                      index(
+                                        ri!checklistData, wherecontains(
+                                          tostring(
+                                            fv!item
+                                          ), touniformstring(
+                                            index(
+                                              ri!checklistData, "checklistType", {}
+                                            )
+                                          )
+                                        ), {}
+                                      ), "checklistId", {}
+                                    )
+                                  ), tointeger(
+                                    index(
+                                      ri!checklistTrans, "checklistId", {}
+                                    )
+                                  )
+                                )].isReviewed
+                              ),
+                              true()
+                            )
+                          ),
+                          1,
+                          null
+                        ),
+                        saveInto: {
+                          local!checklistAllReviewed,
+                          if(
+                            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                              local!checklistAllReviewed
+                            ),
+                            a!save(
+                              ri!checklistTrans[wherecontains(
+                                tointeger(
+                                  index(
+                                    index(
+                                      ri!checklistData, wherecontains(
+                                        tostring(
+                                          fv!item
+                                        ), touniformstring(
+                                          index(
+                                            ri!checklistData, "checklistType", {}
+                                          )
+                                        )
+                                      ), {}
+                                    ), "checklistId", {}
+                                  )
+                                ), tointeger(
+                                  index(
+                                    ri!checklistTrans, "checklistId", {}
+                                  )
+                                )
+                              )].isReviewed,
+                              {}
+                            ),
+                            a!save(
+                              ri!checklistTrans[wherecontains(
+                                tointeger(
+                                  index(
+                                    index(
+                                      ri!checklistData, wherecontains(
+                                        tostring(
+                                          fv!item
+                                        ), touniformstring(
+                                          index(
+                                            ri!checklistData, "checklistType", {}
+                                          )
+                                        )
+                                      ), {}
+                                    ), "checklistId", {}
+                                  )
+                                ), tointeger(
+                                  index(
+                                    ri!checklistTrans, "checklistId", {}
+                                  )
+                                )
+                              )].isReviewed,
+                              local!checklistAllReviewed
+                            )
+                          ),
+                          a!save(
+                            ri!checklistTrans[wherecontains(
+                              tointeger(
+                                index(
+                                  index(
+                                    ri!checklistData, wherecontains(
+                                      tostring(
+                                        fv!item
+                                      ), touniformstring(
+                                        index(
+                                          ri!checklistData, "checklistType", {}
+                                        )
+                                      )
+                                    ), {}
+                                  ), "checklistId", {}
+                                )
+                              ), tointeger(
+                                index(
+                                  ri!checklistTrans, "checklistId", {}
+                                )
+                              )
+                            )].isNotApplicable,
+                            null
+                          )
+                        },
+                        disabled: if(
+                          or(
+                            toboolean(
+                              ri!isReadOnly
+                            ),
+                            or(
+                              ri!checklistTrans[wherecontains(
+                                tointeger(
+                                  index(
+                                    index(
+                                      ri!checklistData, wherecontains(
+                                        tostring(
+                                          fv!item
+                                        ), touniformstring(
+                                          index(
+                                            ri!checklistData, "checklistType", {}
+                                          )
+                                        )
+                                      ), {}
+                                    ), "checklistId", {}
+                                  )
+                                ), tointeger(
+                                  index(
+                                    ri!checklistTrans, "checklistId", {}
+                                  )
+                                )
+                              )].isNotApplicable
+                            )
+                          ),
+                          true(),
+                          false()
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_checkboxField"(
+                        choiceLabels: {
+                          "Select All"
+                        },
+                        choiceValues: {
+                          tointeger(
+                            true
+                          )
+                        },
+                        value: if(
+                          count(
+                            wherecontains(
+                              tointeger(
+                                index(
+                                  index(
+                                    ri!checklistData,
+                                    wherecontains(
+                                      tostring(
+                                        fv!item
+                                      ),
+                                      touniformstring(
+                                        index(
+                                          ri!checklistData,
+                                          "checklistType",
+                                          {}
+                                        )
+                                      )
+                                    ),
+                                    {}
+                                  ),
+                                  "checklistId",
+                                  {}
+                                )
+                              ),
+                              tointeger(
+                                index(
+                                  ri!checklistTrans,
+                                  "checklistId",
+                                  {}
+                                )
+                              )
+                            )
+                          ) = count(
+                            where(
+                              toboolean(
+                                ri!checklistTrans[wherecontains(
+                                  tointeger(
+                                    index(
+                                      index(
+                                        ri!checklistData, wherecontains(
+                                          tostring(
+                                            fv!item
+                                          ), touniformstring(
+                                            index(
+                                              ri!checklistData, "checklistType", {}
+                                            )
+                                          )
+                                        ), {}
+                                      ), "checklistId", {}
+                                    )
+                                  ), tointeger(
+                                    index(
+                                      ri!checklistTrans, "checklistId", {}
+                                    )
+                                  )
+                                )].isNotApplicable
+                              ),
+                              true()
+                            )
+                          ),
+                          1,
+                          null
+                        ),
+                        saveInto: {
+                          local!checklistAllNA,
+                          if(
+                            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                              local!checklistAllNA
+                            ),
+                            a!save(
+                              ri!checklistTrans[wherecontains(
+                                tointeger(
+                                  index(
+                                    index(
+                                      ri!checklistData, wherecontains(
+                                        tostring(
+                                          fv!item
+                                        ), touniformstring(
+                                          index(
+                                            ri!checklistData, "checklistType", {}
+                                          )
+                                        )
+                                      ), {}
+                                    ), "checklistId", {}
+                                  )
+                                ), tointeger(
+                                  index(
+                                    ri!checklistTrans, "checklistId", {}
+                                  )
+                                )
+                              )].isNotApplicable,
+                              {}
+                            ),
+                            a!save(
+                              ri!checklistTrans[wherecontains(
+                                tointeger(
+                                  index(
+                                    index(
+                                      ri!checklistData, wherecontains(
+                                        tostring(
+                                          fv!item
+                                        ), touniformstring(
+                                          index(
+                                            ri!checklistData, "checklistType", {}
+                                          )
+                                        )
+                                      ), {}
+                                    ), "checklistId", {}
+                                  )
+                                ), tointeger(
+                                  index(
+                                    ri!checklistTrans, "checklistId", {}
+                                  )
+                                )
+                              )].isNotApplicable,
+                              local!checklistAllNA
+                            )
+                          ),
+                          a!save(
+                            ri!checklistTrans[wherecontains(
+                              tointeger(
+                                index(
+                                  index(
+                                    ri!checklistData, wherecontains(
+                                      tostring(
+                                        fv!item
+                                      ), touniformstring(
+                                        index(
+                                          ri!checklistData, "checklistType", {}
+                                        )
+                                      )
+                                    ), {}
+                                  ), "checklistId", {}
+                                )
+                              ), tointeger(
+                                index(
+                                  ri!checklistTrans, "checklistId", {}
+                                )
+                              )
+                            )].isReviewed,
+                            null
+                          )
+                        },
+                        disabled: if(
+                          or(
+                            toboolean(
+                              ri!isReadOnly
+                            ),
+                            or(
+                              ri!checklistTrans[wherecontains(
+                                tointeger(
+                                  index(
+                                    index(
+                                      ri!checklistData, wherecontains(
+                                        tostring(
+                                          fv!item
+                                        ), touniformstring(
+                                          index(
+                                            ri!checklistData, "checklistType", {}
+                                          )
+                                        )
+                                      ), {}
+                                    ), "checklistId", {}
+                                  )
+                                ), tointeger(
+                                  index(
+                                    ri!checklistTrans, "checklistId", {}
+                                  )
+                                )
+                              )].isReviewed
+                            )
+                          ),
+                          true(),
+                          false()
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_textField"(
+                        readOnly: true
+                      ),
+                      #"SYSTEM_SYSRULES_textField"(
+                        readOnly: true
+                      )
+                    }
+                  ),
+                  #"SYSTEM_SYSRULES_forEach"(
+                    items: index(
+                      ri!checklistData,
+                      wherecontains(
+                        tostring(
+                          fv!item
+                        ),
+                        touniformstring(
+                          index(
+                            ri!checklistData,
+                            "checklistType",
+                            {}
+                          )
+                        )
+                      ),
+                      {}
+                    ),
+                    expression: {
+                      #"SYSTEM_SYSRULES_gridRowLayout"(
+                        contents: {
+                          #"SYSTEM_SYSRULES_integerField"(
+                            value: fv!index,
+                            readOnly: true
+                          ),
+                          #"SYSTEM_SYSRULES_checkboxField"(
+                            align: "CENTER",
+                            choiceLabels: {
+                              ""
+                            },
+                            choiceValues: tointeger(
+                              {
+                                true
+                              }
+                            ),
+                            value: if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                index(
+                                  index(
+                                    ri!checklistTrans,
+                                    wherecontains(
+                                      tointeger(
+                                        index(
+                                          fv!item,
+                                          "checklistId",
+                                          {}
+                                        )
+                                      ),
+                                      tointeger(
+                                        index(
+                                          ri!checklistTrans,
+                                          "checklistId",
+                                          {}
+                                        )
+                                      )
+                                    ),
+                                    {}
+                                  ),
+                                  "isReviewed",
+                                  null
+                                )
+                              ),
+                              null,
+                              if(
+                                tointeger(
+                                  index(
+                                    index(
+                                      ri!checklistTrans,
+                                      wherecontains(
+                                        tointeger(
+                                          index(
+                                            fv!item,
+                                            "checklistId",
+                                            {}
+                                          )
+                                        ),
+                                        tointeger(
+                                          index(
+                                            ri!checklistTrans,
+                                            "checklistId",
+                                            {}
+                                          )
+                                        )
+                                      ),
+                                      {}
+                                    ),
+                                    "isReviewed",
+                                    null
+                                  )
+                                ) = 1,
+                                1,
+                                null
+                              )
+                            ),
+                            saveInto: {
+                              if(
+                                count(
+                                  wherecontains(
+                                    tointeger(
+                                      index(
+                                        fv!item,
+                                        "checklistId",
+                                        {}
+                                      )
+                                    ),
+                                    tointeger(
+                                      index(
+                                        ri!checklistTrans,
+                                        "checklistId",
+                                        {}
+                                      )
+                                    )
+                                  )
+                                ) &gt; 0,
+                                null,
+                                a!save(
+                                  ri!checklistTrans,
+                                  append(
+                                    ri!checklistTrans,
+                                    'type!{urn:com:appian:types:EAP}EAP_T_ChecklistTrans'(
+                                      requestId: ri!requestId,
+                                      checklistId: tointeger(
+                                        index(
+                                          fv!item,
+                                          "checklistId",
+                                          {}
+                                        )
+                                      ),
+                                      createdBy: loggedInUser(),
+                                      createdOn: now()
+                                    )
+                                  )
+                                )
+                              ),
+                              a!save(
+                                ri!checklistTrans[wherecontains(
+                                  tointeger(
+                                    index(
+                                      fv!item, "checklistId", {}
+                                    )
+                                  ), tointeger(
+                                    index(
+                                      ri!checklistTrans, "checklistId", {}
+                                    )
+                                  )
+                                )].isReviewed,
+                                save!value
+                              )
+                            },
+                            disabled: if(
+                              or(
+                                not(
+                                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                    ri!checklistTrans[wherecontains(
+                                      tointeger(
+                                        index(
+                                          fv!item, "checklistId", {}
+                                        )
+                                      ), tointeger(
+                                        index(
+                                          ri!checklistTrans, "checklistId", {}
+                                        )
+                                      )
+                                    )].isNotApplicable
+                                  )
+                                ),
+                                toboolean(
+                                  ri!isReadOnly
+                                )
+                              ),
+                              true(),
+                              false()
+                            )
+                          ),
+                          #"SYSTEM_SYSRULES_checkboxField"(
+                            align: "CENTER",
+                            choiceLabels: {
+                              ""
+                            },
+                            choiceValues: tointeger(
+                              {
+                                true
+                              }
+                            ),
+                            value: if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                index(
+                                  index(
+                                    ri!checklistTrans,
+                                    wherecontains(
+                                      tointeger(
+                                        index(
+                                          fv!item,
+                                          "checklistId",
+                                          {}
+                                        )
+                                      ),
+                                      tointeger(
+                                        index(
+                                          ri!checklistTrans,
+                                          "checklistId",
+                                          {}
+                                        )
+                                      )
+                                    ),
+                                    {}
+                                  ),
+                                  "isNotApplicable",
+                                  null
+                                )
+                              ),
+                              null,
+                              if(
+                                tointeger(
+                                  index(
+                                    index(
+                                      ri!checklistTrans,
+                                      wherecontains(
+                                        tointeger(
+                                          index(
+                                            fv!item,
+                                            "checklistId",
+                                            {}
+                                          )
+                                        ),
+                                        tointeger(
+                                          index(
+                                            ri!checklistTrans,
+                                            "checklistId",
+                                            {}
+                                          )
+                                        )
+                                      ),
+                                      {}
+                                    ),
+                                    "isNotApplicable",
+                                    null
+                                  )
+                                ) = 1,
+                                1,
+                                null
+                              )
+                            ),
+                            saveInto: {
+                              if(
+                                count(
+                                  wherecontains(
+                                    tointeger(
+                                      index(
+                                        fv!item,
+                                        "checklistId",
+                                        {}
+                                      )
+                                    ),
+                                    tointeger(
+                                      index(
+                                        ri!checklistTrans,
+                                        "checklistId",
+                                        {}
+                                      )
+                                    )
+                                  )
+                                ) &gt; 0,
+                                null,
+                                a!save(
+                                  ri!checklistTrans,
+                                  append(
+                                    ri!checklistTrans,
+                                    'type!{urn:com:appian:types:EAP}EAP_T_ChecklistTrans'(
+                                      requestId: ri!requestId,
+                                      checklistId: tointeger(
+                                        index(
+                                          fv!item,
+                                          "checklistId",
+                                          {}
+                                        )
+                                      ),
+                                      createdBy: loggedInUser(),
+                                      createdOn: now()
+                                    )
+                                  )
+                                )
+                              ),
+                              a!save(
+                                ri!checklistTrans[wherecontains(
+                                  tointeger(
+                                    index(
+                                      fv!item, "checklistId", {}
+                                    )
+                                  ), tointeger(
+                                    index(
+                                      ri!checklistTrans, "checklistId", {}
+                                    )
+                                  )
+                                )].isNotApplicable,
+                                save!value
+                              )
+                            },
+                            disabled: if(
+                              or(
+                                not(
+                                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                    ri!checklistTrans[wherecontains(
+                                      tointeger(
+                                        index(
+                                          fv!item, "checklistId", {}
+                                        )
+                                      ), tointeger(
+                                        index(
+                                          ri!checklistTrans, "checklistId", {}
+                                        )
+                                      )
+                                    )].isReviewed
+                                  )
+                                ),
+                                toboolean(
+                                  ri!isReadOnly
+                                )
+                              ),
+                              true(),
+                              false()
+                            )
+                          ),
+                          #"SYSTEM_SYSRULES_textField"(
+                            value: index(
+                              fv!item,
+                              "checklistDesc",
+                              {}
+                            ),
+                            /*index(*/
+                            /*index(*/
+                            /*ri!checklistData,*/
+                            /*"CHECKLIST_DESC",*/
+                            /*{}*/
+                            /*),*/
+                            /*wherecontains(*/
+                            /*tointeger(*/
+                            /*index(fv!item,"CHECKLIST_ID",{})*/
+                            /*),*/
+                            /*tointeger(*/
+                            /*index(*/
+                            /*ri!checklistTrans,*/
+                            /*"checklistId",*/
+                            /*{}*/
+                            /*)*/
+                            /*)*/
+                            /*),*/
+                            /*null*/
+                            /*),*/
+                            readOnly: true
+                          ),
+                          #"SYSTEM_SYSRULES_textField"(
+                            value: index(
+                              index(
+                                ri!checklistTrans,
+                                wherecontains(
+                                  tointeger(
+                                    index(
+                                      fv!item,
+                                      "checklistId",
+                                      {}
+                                    )
+                                  ),
+                                  tointeger(
+                                    index(
+                                      ri!checklistTrans,
+                                      "checklistId",
+                                      {}
+                                    )
+                                  )
+                                ),
+                                {}
+                              ),
+                              "rejectionComments",
+                              {}
+                            ),
+                            saveInto: {
+                              a!save(
+                                ri!checklistTrans[wherecontains(
+                                  tointeger(
+                                    index(
+                                      fv!item, "checklistId", {}
+                                    )
+                                  ), tointeger(
+                                    index(
+                                      ri!checklistTrans, "checklistId", {}
+                                    )
+                                  )
+                                )].rejectionComments,
+                                save!value
+                              )
+                            },
+                            readOnly: or(
+                              toboolean(
+                                ri!isReadOnly
+                              )
+                            )
+                          )
+                        }
+                      )
+                    }
+                  )
+                }
+              )
+            }
+          )
+        }
+      )
+    ),
+    if(
+      and(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!rejectionComments
+        ),
+        ri!isChecker &lt;&gt; true()
+      ),
+      {},
+      if(
+        and(
+          not(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!rejectionComments
+            )
+          ),
+          ri!isChecker &lt;&gt; true()
+        ),
+        #"SYSTEM_SYSRULES_paragraphField"(
+          label: "Rejection Comment",
+          /*labelPosition:"JUSTIFIED",*/
+          value: ri!rejectionComments,
+          readOnly: true(),
+          
+        ),
+        #"SYSTEM_SYSRULES_paragraphField"(
+          label: "Rejection Comment",
+          labelPosition: "JUSTIFIED",
+          value: ri!rejectionComments,
+          saveInto: ri!rejectionComments,
+          placeholder: "--Enter Rejection Comment here--",
+          /*required:true(),*/
+          /*validationGroup:"Reject"*/
+          
+        )
+      ),
+      
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>checklistData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>checklistTrans</name>
+            <type>
+                <name>EAP_T_ChecklistTrans?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>rejectionComments</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isChecker</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_566718"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_641460"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_768824"/>
+    </history>
+</contentHaul>

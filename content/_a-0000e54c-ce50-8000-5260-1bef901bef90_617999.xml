@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_674520</versionUuid>
+    <interface>
+        <name>EAP_uploadHistoricDataEditableGrid</name>
+        <uuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_617999</uuid>
+        <description>Editable Grid for upload historic data</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  {
+    /*a!paragraphField(value:ri!processId),*/
+    #"SYSTEM_SYSRULES_gridLayout"(
+      label: "Upload Historical Data",
+      headerCells: {
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "Entity Name",
+          align: "LEFT"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "Upload File",
+          align: "LEFT",
+          helpTooltip: "Upload file with  only xLsx format"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "Is ReRun",
+          align: "CENTER"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "",
+          align: "CENTER",
+          showWhen: if(ri!isreadOnly=true(),false,true)
+        )
+      },
+      columnConfigs: {
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "DISTRIBUTE"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "DISTRIBUTE"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "ICON"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "ICON",
+          showWhen: if(ri!isreadOnly=true(),false,true)
+        )
+      },
+      rows: {
+        #"SYSTEM_SYSRULES_applyComponents"(
+          function: #"_a-0000e54c-ce50-8000-5260-1bef901bef90_617899"(
+            index: _,
+            tempHistoricData: ri!tempHistoricData,
+            processId: ri!processId,
+            requestId: ri!requestId,
+            isReadOnly: ri!isreadOnly
+          ),
+          array:
+          if(
+            or(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!tempHistoricData
+              ),
+              count(
+                ri!tempHistoricData
+              ) = 0
+            ),
+            null,
+            enumerate(
+              count(
+                ri!tempHistoricData
+              )
+            )+1
+          )
+        )
+      },
+      selectionSaveInto: {},
+      addRowLink: if(
+        ri!isReadOnly,
+        {},
+        #"SYSTEM_SYSRULES_dynamicLink"(
+          label: "Add line items",
+
+          saveInto: a!save(
+            ri!tempHistoricData,
+            append(
+              ri!tempHistoricData,
+              'type!{urn:com:appian:types:eap}EAP_Temp_HistoricalDataUpload'()
+            )
+          )
+        )
+      ),
+      validations: {
+       if( 
+         or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!tempHistoricData
+          ),
+          count(
+            ri!tempHistoricData
+          ) = 0
+        ),"Please Enter Data",{})
+      }
+    )
+  }
+)
+</definition>
+        <namedTypedValue>
+            <name>tempHistoricData</name>
+            <type>
+                <name>EAP_Temp_HistoricalDataUpload?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isreadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_622554"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_625577"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_639206"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_674520"/>
+    </history>
+</contentHaul>

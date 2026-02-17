@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_755983</versionUuid>
+    <rule>
+        <name>EAP_EmailTemplateMappingGridRowLayout</name>
+        <uuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_753840</uuid>
+        <description>Holds gridRowLayout for email template mapping</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  id: ri!index,
+  contents: {
+    if(
+      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9906"( tointeger(
+        index(ri!outEmailTemplateMapping[ri!index],"out_email_process_template_mapping_id",{}))),
+        #"SYSTEM_SYSRULES_textField"(
+          value: index(#"_a-0000e5ac-f704-8000-5264-1bef901bef90_742637"(
+            outEmailTemplateConfigId:index(ri!outEmailTemplateMapping[ri!index],"out_email_template_config_id",{})
+          ),"template_name",{}),
+          readOnly: true()
+        ),
+        #"SYSTEM_SYSRULES_dropdownField"(
+          label: "Template Name",
+          labelPosition:"JUSTIFIED",
+          required: true(),
+          placeholderLabel:"--Select Template--",
+          choiceLabels:touniformstring(ri!templateName),
+          choiceValues: tointeger(ri!templateId),
+          value: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              tointeger(
+                index(ri!outEmailTemplateMapping[ri!index],"out_email_template_config_id",{}))),
+                null,
+                tointeger(index(ri!outEmailTemplateMapping[ri!index],"out_email_template_config_id",{}))
+
+          ),
+          saveInto: {
+            ri!outEmailTemplateMapping[ri!index].out_email_template_config_id
+          },
+          validations: {
+            if(
+              tointeger(count(wherecontains(index(ri!outEmailTemplateMapping[ri!index],"out_email_template_config_id",{}),
+              index(ri!outEmailTemplateMapping,"out_email_template_config_id",{})
+              )))&gt;1,
+              "Duplicate Template Found",
+              {}
+            )
+          }
+        )
+    )
+    ,
+    /*Is Active*/
+    if(
+      ri!isReadOnly,
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        images: {
+          #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(
+                contains(
+                  toboolean(
+                    index(
+                      ri!outEmailTemplateMapping[ri!index],
+                      "is_active",
+                      {}
+                    )
+                  ),
+                  true()
+                ),
+                "STATUS_OK",
+                "STATUS_NOTDONE"
+              )
+            )
+          )
+        },
+        align: "CENTER"
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: if(
+          or(
+            tointeger(
+              index(
+                ri!outEmailTemplateMapping[ri!index],
+                "is_active",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!outEmailTemplateMapping[ri!index].is_active,
+                  0
+                )
+              },
+              showWhen: not(
+                ri!isReadOnly
+              )
+            ),
+            size: "MEDIUM_PLUS"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-off",
+            caption: "No",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!outEmailTemplateMapping[ri!index].is_active,
+                  1
+                )
+              },
+              showWhen: not(
+                ri!isReadOnly
+              )
+            ),
+            size: "MEDIUM_PLUS"
+          )
+        ),
+        align: "CENTER"
+      )
+    ),
+    /*Delete*/
+    if(
+      ri!isReadOnly,
+      {},
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+          ri!outEmailTemplateMapping[ri!index].out_email_process_template_mapping_id
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!outEmailTemplateMapping,
+                  remove(
+                    ri!outEmailTemplateMapping,
+                    ri!index
+                  )
+                )
+              }
+            )
+          )
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          readOnly: true()
+        )
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outEmailTemplateMapping</name>
+            <type>
+                <name>EAP_T_OutEmailProcessTemplateMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>templateName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>templateId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_755983"/>
+    </history>
+</contentHaul>

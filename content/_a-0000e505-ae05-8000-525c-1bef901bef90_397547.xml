@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_562418</versionUuid>
+    <interface>
+        <name>EAP_DataValidation_ManageTemplateVersion</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_397547</uuid>
+        <description>Hold interface to manage template version</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: upper(
+        "Manage Template Version: " &amp; index(
+          ri!templateConfigView,
+          "version_description",
+          null
+        )
+      ),
+      marginBelow: "NONE"
+    ),
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377387"(
+      processId: ri!processId
+    ),
+    #"SYSTEM_SYSRULES_richTextDisplayField"(),
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_cardLayout"(
+              showBorder: true(),
+              style: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[5],
+              contents: {
+                #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  align: "CENTER",
+                  value: {
+                    #"SYSTEM_SYSRULES_richTextIcon"(
+                      icon: "upload",
+                      size: "LARGE",
+                      color: "ACCENT"
+                    ),
+                    char(
+                      10
+                    ),
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: " Upload New Version",
+                      style: "STRONG",
+                      size: "MEDIUM"
+                    ),
+                    
+                  }
+                )
+              },
+              link: #"SYSTEM_SYSRULES_submitLink"(
+                value: true(),
+                saveInto: ri!isUploadTemplate
+              )
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_cardLayout"(
+              showBorder: true(),
+              style: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[5],
+              contents: {
+                #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  align: "CENTER",
+                  value: {
+                    #"SYSTEM_SYSRULES_richTextIcon"(
+                      icon: "undo",
+                      size: "LARGE",
+                      color: "ACCENT"
+                    ),
+                    char(
+                      10
+                    ),
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: " Change Template Version",
+                      style: "STRONG",
+                      size: "MEDIUM"
+                    ),
+                    
+                  }
+                )
+              },
+              link: #"SYSTEM_SYSRULES_submitLink"(
+                value: false(),
+                saveInto: ri!isUploadTemplate
+              )
+            )
+          }
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_ButtonLayout"(
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Cancel",
+          value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+          submit: true(),
+          saveInto: {
+            ri!buttonAction
+          },
+          size: "SMALL",
+          style: "SECONDARY",
+          validate: false()
+        )
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>isUploadTemplate</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>templateConfigView</name>
+            <type>
+                <name>EAP_V_ProcessDataValidationTemplateConfig</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_397604"/>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_562418"/>
+    </history>
+</contentHaul>

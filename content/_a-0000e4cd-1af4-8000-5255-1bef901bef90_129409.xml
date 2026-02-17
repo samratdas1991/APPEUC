@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_772311</versionUuid>
+    <rule>
+        <name>EAP_IntGridRowLayout</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_129409</uuid>
+        <description>Grid row layout for EAP_IntEditableGrid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  a!localVariables(
+    local!lookupsystemData: #"_a-0000e518-940a-8000-525e-1bef901bef90_490667"(
+      isActive: 1,
+      systemType: {
+        "SOURCE",
+        "TARGET"
+      },
+      
+    ),
+    local!systemTypeCode: index(#"_a-0000e4c6-e892-8000-5254-1bef901bef90_57368"(
+      lookupSystemTypeCode:index(
+        local!lookupsystemData,
+        "lookup_system_type_code",
+        {}
+      ),
+      isActive:1
+    ),"system_type_code",null),
+    #"SYSTEM_SYSRULES_gridRowLayout"(
+      id: ri!index,
+      contents: {
+        /*Sequence Order*/
+        #"SYSTEM_SYSRULES_integerField"(
+          value: ri!refInt[ri!index].sequence_order,
+          readOnly: true,
+          align: "RIGHT"
+        ),
+        /* Run Config Id */
+        if(
+          ri!isReadOnly,
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value: ri!runConfig[wherecontains(
+              tointeger(
+                index(
+                  ri!refInt[ri!index],
+                  "run_config_id",
+                  {}
+                )
+              ),
+              tointeger(
+                index(
+                  ri!runConfig,
+                  "run_config_id",
+                  {}
+                )
+              )
+            )].process_display_name,
+            readOnly: ri!isReadOnly,
+            align: "LEFT"
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+            placeholderLabel: "-- Select Process Display Name --",
+            choiceLabels: touniformstring(
+              index(
+                ri!runConfig,
+                "process_display_name",
+                {}
+              )
+            ),
+            choiceValues: tointeger(
+              index(
+                ri!runConfig,
+                "run_config_id",
+                {}
+              )
+            ),
+            value: if(
+              or(
+                contains(
+                  tointeger(
+                    index(
+                      ri!runConfig,
+                      "run_config_id",
+                      {}
+                    )
+                  ),
+                  tointeger(
+                    index(
+                      ri!refInt[ri!index],
+                      "run_config_id",
+                      {}
+                    )
+                  )
+                )
+              ),
+              tointeger(
+                index(
+                  ri!refInt[ri!index],
+                  "run_config_id",
+                  {}
+                )
+              ),
+              null
+            ),
+            saveInto: a!save(
+              ri!refInt[ri!index].run_config_id,
+              save!value
+            ),
+            required: true(),
+            disabled: ri!isProductionSite
+           
+            
+          )
+        ),
+        /*system type code*/
+        if(
+          ri!isReadOnly,
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            value: index(
+              ri!refInt[ri!index],
+              "system_type_code",
+              {}
+            ),
+            readOnly: ri!isReadOnly,
+            align: "LEFT"
+          ),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+            placeholderLabel: "--Select System Type--",
+            choiceLabels:
+            union(
+              local!systemTypeCode,
+              local!systemTypeCode
+            ),
+            choiceValues: 
+            union(
+              local!systemTypeCode,
+              local!systemTypeCode
+            ),
+            value: if(
+              or(
+                contains(
+                  
+                  touniformstring(
+                    union(
+                      local!systemTypeCode,
+                      local!systemTypeCode
+                    ),
+                  ),
+                  touniformstring(
+                    index(
+                      ri!refInt[ri!index],
+                      "system_type_code",
+                      {}
+                    )
+                  )
+                )
+              ),
+              touniformstring(
+                index(
+                  ri!refInt[ri!index],
+                  "system_type_code",
+                  {}
+                )
+              ),
+              null
+            ),
+            saveInto: {
+              a!save(
+                ri!refInt[ri!index].system_type_code,
+                save!value
+              ),
+              a!save(
+                ri!refInt[ri!index].is_optional,
+                0
+              )
+            },
+            required: true(),
+            disabled: if(ri!isProductionSite,true,false())
+          )
+        ),
+        /*conig data name*/
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          value: index(
+            ri!refInt[ri!index],
+            "config_data_name",
+            {}
+          ),
+          saveInto: a!save(
+            ri!refInt[ri!index].config_data_name,
+            save!value
+          ),
+          readOnly: or(ri!isReadOnly,ri!isProductionSite),
+          align: "LEFT",
+          required: true(),
+          validations: {
+            if(
+              ri!isReadOnly,
+              {},
+              {
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                  value: index(
+                    ri!refInt[ri!index],
+                    "config_data_name",
+                    {}
+                  ),
+                  ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[1]
+                ),
+                if(
+                  or(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      index(
+                        ri!refInt[ri!index],
+                        "run_config_id",
+                        {}
+                      )
+                    ),
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      index(
+                        ri!refInt[ri!index],
+                        "system_type_code",
+                        {}
+                      )
+                    )
+                  ),
+                  {},
+                  if(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      index(
+                        ri!refInt[ri!index],
+                        "config_id",
+                        {}
+                      )
+                    ),
+                    if(
+                      count(
+                        wherecontains(
+                          touniformstring(
+                            ri!refInt[ri!index].config_data_name
+                          ),
+                          touniformstring(
+                            index(
+                              #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65407"(
+                                pagingInfo: null,
+                                systemTypeCode: index(
+                                  ri!refInt[ri!index],
+                                  "system_type_code",
+                                  {}
+                                ),
+                                runConfigId: index(
+                                  ri!refInt[ri!index],
+                                  "run_config_id",
+                                  {}
+                                )
+                              ),
+                              "config_data_name",
+                              {}
+                            )
+                          )
+                        )
+                      ) &gt;= 1,
+                      "Duplicate Config Data Name!",
+                      {}
+                    ),
+                    if(
+                      and(
+                        contains(
+                          touniformstring(
+                            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65407"(
+                              configId: index(
+                                ri!refInt[ri!index],
+                                "config_id",
+                                {}
+                              )
+                            ).run_config_id
+                          ),
+                          touniformstring(
+                            index(
+                              ri!refInt[ri!index],
+                              "run_config_id",
+                              {}
+                            )
+                          )
+                        ),
+                        contains(
+                          touniformstring(
+                            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65407"(
+                              configId: index(
+                                ri!refInt[ri!index],
+                                "config_id",
+                                {}
+                              )
+                            ).system_type_code
+                          ),
+                          touniformstring(
+                            index(
+                              ri!refInt[ri!index],
+                              "system_type_code",
+                              {}
+                            )
+                          )
+                        ),
+                        contains(
+                          touniformstring(
+                            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65407"(
+                              configId: index(
+                                ri!refInt[ri!index],
+                                "config_id",
+                                {}
+                              )
+                            ).config_data_name
+                          ),
+                          touniformstring(
+                            index(
+                              ri!refInt[ri!index],
+                              "config_data_name",
+                              {}
+                            )
+                          )
+                        )
+                      ),
+                      if(
+                        count(
+                          wherecontains(
+                            touniformstring(
+                              ri!refInt[ri!index].config_data_name
+                            ),
+                            touniformstring(
+                              index(
+                                #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65407"(
+                                  pagingInfo: null,
+                                  systemTypeCode: index(
+                                    ri!refInt[ri!index],
+                                    "system_type_code",
+                                    {}
+                                  ),
+                                  runConfigId: index(
+                                    ri!refInt[ri!index],
+                                    "run_config_id",
+                                    {}
+                                  )
+                                ),
+                                "config_data_name",
+                                {}
+                              )
+                            )
+                          )
+                        ) &gt; 1,
+                        "Duplicate Config Data Name!",
+                        {}
+                      ),
+                      if(
+                        count(
+                          wherecontains(
+                            touniformstring(
+                              ri!refInt[ri!index].config_data_name
+                            ),
+                            touniformstring(
+                              index(
+                                #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65407"(
+                                  pagingInfo: null,
+                                  systemTypeCode: index(
+                                    ri!refInt[ri!index],
+                                    "system_type_code",
+                                    {}
+                                  ),
+                                  runConfigId: index(
+                                    ri!refInt[ri!index],
+                                    "run_config_id",
+                                    {}
+                                  )
+                                ),
+                                "config_data_name",
+                                {}
+                              )
+                            )
+                          )
+                        ) &gt;= 1,
+                        "Duplicate Config Data Name!",
+                        {}
+                      )
+                    )
+                  )
+                )
+              }
+            )
+          }
+        ),
+        /*is Optional*/
+        if(
+          or(ri!isReadOnly,ri!isProductionSite),
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            images: {
+              #"SYSTEM_SYSRULES_documentImage"(
+                document: #"SYSTEM_SYSRULES_iconIndicator"(
+                  icon: if(
+                    contains(
+                      toboolean(
+                        index(
+                          ri!refInt[ri!index],
+                          "is_optional",
+                          {}
+                        )
+                      ),
+                      true()
+                    ),
+                    "STATUS_OK",
+                    "STATUS_NOTDONE"
+                  )
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: if(
+              or(
+                tointeger(
+                  index(
+                    ri!refInt[ri!index],
+                    "is_optional",
+                    {}
+                  )
+                ) = 1
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "toggle-on",
+                caption: "Active",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  saveInto: {
+                    a!save(
+                      ri!refInt[ri!index].is_optional,
+                      0
+                    )
+                  }
+                ),
+                linkStyle: "STANDALONE",
+                size: "MEDIUM_PLUS",
+                showWhen:
+                if(
+                  tointeger(
+                    index(
+                      index(
+                        local!lookupsystemData,
+                        wherecontains(
+                          tostring(
+                            index(
+                              ri!refInt[ri!index],
+                              "system_type_code",
+                              {}
+                            )
+                          ),
+                          touniformstring(
+                            index(local!lookupsystemData,"lookup_system_type_code",{})
+                          )
+                        ),
+                        {}
+                      ),
+                      "allow_optional",
+                      {}
+                    )
+                  ) = 1,
+                  true,
+                  false()
+                )
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "toggle-off",
+                caption: "In-Active",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  saveInto: {
+                    a!save(
+                      ri!refInt[ri!index].is_optional,
+                      1
+                    )
+                  }
+                ),
+                linkStyle: "STANDALONE",
+                size: "MEDIUM_PLUS",
+                showWhen: 
+                if(
+                  tointeger(
+                    index(
+                      index(
+                        local!lookupsystemData,
+                        wherecontains(
+                          tostring(
+                            index(
+                              ri!refInt[ri!index],
+                              "system_type_code",
+                              {}
+                            )
+                          ),
+                          touniformstring(
+                            index(local!lookupsystemData,"lookup_system_type_code",{})
+                          )
+                        ),
+                        {}
+                      ),
+                      "allow_optional",
+                      {}
+                    )
+                  ) = 1,
+                  true,
+                  false()
+                )
+              )
+            )
+          )
+        ),
+        /*is Active*/
+        if(
+          or(ri!isReadOnly,ri!isProductionSite),
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            images: {
+              #"SYSTEM_SYSRULES_documentImage"(
+                document: #"SYSTEM_SYSRULES_iconIndicator"(
+                  icon: if(
+                    contains(
+                      toboolean(
+                        index(
+                          ri!refInt[ri!index],
+                          "is_active",
+                          {}
+                        )
+                      ),
+                      true()
+                    ),
+                    "STATUS_OK",
+                    "STATUS_NOTDONE"
+                  )
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: if(
+              or(
+                tointeger(
+                  index(
+                    ri!refInt[ri!index],
+                    "is_active",
+                    {}
+                  )
+                ) = 1
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "toggle-on",
+                caption: "Active",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  saveInto: {
+                    a!save(
+                      ri!refInt[ri!index].is_active,
+                      0
+                    ),
+                    if(#"_a-0000e5c3-a65f-8000-5268-1bef901bef90_767759"=true(),
+                    if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!refInt[ri!index],"config_id",{})),
+                    {},
+                    a!save(
+                      ri!processControllerConfigData,#"_a-0000e5c3-a65f-8000-5268-1bef901bef90_756090"(
+                        IoConfigId:index(ri!refInt[ri!index],"config_id",{})
+                      )
+                    )),
+                    {})
+                  }
+                ),
+                linkStyle: "STANDALONE",
+                size: "MEDIUM_PLUS"
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "toggle-off",
+                caption: "In-Active",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  saveInto: {
+                    a!save(
+                      ri!refInt[ri!index].is_active,
+                      1
+                    ),
+                    if(#"_a-0000e5c3-a65f-8000-5268-1bef901bef90_767759"=true(),
+                    if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!refInt[ri!index],"config_id",{})),
+                    {},
+                    a!save(ri!processControllerConfigData,null)),{})
+                  }
+                ),
+                linkStyle: "STANDALONE",
+                size: "MEDIUM_PLUS"
+              )
+            )
+          )
+        ),
+        
+      }
+    )
+  )
+}</definition>
+        <namedTypedValue>
+            <name>refInt</name>
+            <type>
+                <name>EAP_T_Int?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfig</name>
+            <type>
+                <name>EAP_T_RefRunConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isProductionSite</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerConfigData</name>
+            <type>
+                <name>EAP_V_ProcessControllerConfig?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_129655"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_190778"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_220967"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_357327"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_509914"/>
+        <historyInfo versionUuid="_a-0000e539-32f0-8000-d91d-a7ef90a7ef90_3672831"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_670673"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_756890"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_772311"/>
+    </history>
+</contentHaul>

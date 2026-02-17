@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_79728</versionUuid>
+    <interface>
+        <name>EAP_IntSystemParamsEditableGrid</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_61805</uuid>
+        <description>Contains editable grid for creating integrated system parameters.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridLayout"(
+  label: "",
+  shadeAlternateRows: false(),
+  headerCells: {
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Lookup System Type Code",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Parameter Label",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Parameter Code",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Parameter Type",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Master Ref Data Type",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Default Value Expression",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Calculated Value Expression",
+      align: "LEFT"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Read Only",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Required",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Active",
+      align: "CENTER"
+    ),
+    if(
+      ri!isReadOnly,
+      {},
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "",
+        align: "LEFT",
+        showWhen: count(ri!refIntSysParam)&gt;1
+      )
+    )
+    
+  },
+  columnConfigs: {
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    ),
+    if(
+      ri!isReadOnly,
+      {},
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "ICON",
+        showWhen: count(ri!refIntSysParam)&gt;1
+      )
+    )
+    
+  },
+  rows: {
+    #"SYSTEM_SYSRULES_applyComponents"(
+      function: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_59297"(
+        index: _,
+        refIntSysParam: ri!refIntSysParam,
+        masterLookUpData: ri!masterLookUpData,
+        isReadOnly:ri!isReadOnly
+      ),
+      array: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!refIntSysParam
+          ),
+          count(
+            ri!refIntSysParam
+          ) = 0
+        ),
+        null,
+        tointeger(
+          enumerate(
+            count(
+              ri!refIntSysParam
+            )
+          ) + 1
+        )
+      )
+    )
+  },
+  selectionSaveInto: {},
+  addRowLink: if(
+    ri!isReadOnly,
+    {},
+    #"SYSTEM_SYSRULES_dynamicLink"(
+      label: "Add line items",
+      value: 'type!{urn:com:appian:types:eap}EAP_T_IntSysParam'(
+        is_active: 1,
+        created_by: loggedInUser(),
+        created_on: now(),
+        modified_by: loggedInUser(),
+        modified_on: now()
+      ),
+      saveInto: a!save(
+        ri!refIntSysParam,
+        append(
+          ri!refIntSysParam,
+          save!value
+        )
+      )
+    )
+  ),
+  spacing:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_40702"
+)</definition>
+        <namedTypedValue>
+            <name>refIntSysParam</name>
+            <type>
+                <name>EAP_T_IntSysParam?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>uniqueIdentifiers</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">{'type!{urn:com:appian:types:eap}EAP_T_IntSysParam'('lookup_system_type_code': "OUT_EMAIL", 'parameter_label': "param label", 'parameter_code': "param code", 'parameter_type': "Param type", 'master_refdata_type': "Master data", 'default_value_expression': "DVE", 'calculated_value_expression': "CVE", 'is_active': 1)}</a:value>
+                    <a:nameRef>refIntSysParam</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+  isActive: true()
+)</a:value>
+                    <a:nameRef>masterLookUpData</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>uniqueIdentifiers</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_79728"/>
+    </history>
+</contentHaul>

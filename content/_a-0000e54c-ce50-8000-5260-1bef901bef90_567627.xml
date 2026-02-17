@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_567638</versionUuid>
+    <rule>
+        <name>EAP_SetValueForPRDynamicConf</name>
+        <uuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_567627</uuid>
+        <description>Rule to Set Value for PR Dynamic Conf</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!prDynamicConf),
+  null,
+  #"SYSTEM_SYSRULES_forEach"(
+    items:ri!prDynamicConf,
+    expression: #"_a-0000e54c-ce50-8000-5260-1bef901bef90_567568"(
+      eapDynamicConfId:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!eapDynamicConfId
+        ),
+        ri!prDynamicConf[fv!index].eap_pr_dynamic_conf_id,
+        ri!eapDynamicConfId
+      ),
+      inFileEntityMappingId:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!inFileEntityMappingId
+        ),
+        ri!prDynamicConf[fv!index].in_file_entity_mapping_id,
+        ri!inFileEntityMappingId
+      ),
+      processId:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!processId
+        ),
+        ri!prDynamicConf[fv!index].process_id,
+        ri!processId
+      ),
+      configName:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!configName
+        ),
+        ri!prDynamicConf[fv!index].config_name,
+        ri!configName
+      ),
+      
+
+      createdBy: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!createdBy
+        ),
+
+        ri!processDVTemplateConfig[fv!index].created_by,
+        ri!createdBy
+      ),
+      createdOn:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!createdOn
+        ),
+
+        ri!processDVTemplateConfig[fv!index].created_on,
+        ri!createdOn
+      ),
+  
+    )
+  )
+
+)
+
+
+</definition>
+        <namedTypedValue>
+            <name>eapDynamicConfId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>inFileEntityMappingId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>configName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>prDynamicConf</name>
+            <type>
+                <name>EAP_T_PR_DYNAMIC_CONF?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_567638"/>
+    </history>
+</contentHaul>

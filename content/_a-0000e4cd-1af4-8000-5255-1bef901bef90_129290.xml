@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_662525</versionUuid>
+    <rule>
+        <name>EAP_IntEscalationGridRowLayout</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_129290</uuid>
+        <description>Grid row layout for EAP_IntEscalationEditableGrid </description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  contents: {
+    /*SLA Period*/
+    #"SYSTEM_SYSRULES_integerField"(
+      value: index(ri!refIntEscalation[ri!index], "sla_period", {}),
+      saveInto: {
+        a!save(
+          ri!refIntEscalation[ri!index].sla_period,
+          save!value
+        )
+      },
+      readOnly: ri!isReadOnly,
+      align: "RIGHT",
+      required: true()
+    ),
+    /*SLA Timer Type*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value: index(
+          ri!refIntEscalation[ri!index],
+          "sla_timer_type",
+          {}
+        ),
+        readOnly: ri!isReadOnly,
+        align: "LEFT"
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select SLA Timer Type--",
+        choiceLabels:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+          MasterLookup: ri!masterLookUpData,
+          UniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[39],
+          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+        ),
+        choiceValues: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+          MasterLookup: ri!masterLookUpData,
+          UniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[39],
+          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+        ),
+        value: if(
+          or(
+            contains(
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: ri!masterLookUpData,
+                UniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[39],
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+              ),
+              touniformstring(index(
+                ri!refIntEscalation[ri!index],
+                "sla_timer_type",
+                {}
+              ))
+            )
+          ),
+          touniformstring(index(
+            ri!refIntEscalation[ri!index],
+            "sla_timer_type",
+            {}
+          )),
+          null
+        ),
+        saveInto: a!save(
+          ri!refIntEscalation[ri!index].sla_timer_type,
+          save!value
+        ),
+        required: true(),
+        
+      )
+    ),
+    /*Escalation Type*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value: index(
+          ri!refIntEscalation[ri!index],
+          "escalation_type",
+          {}
+        ),
+        readOnly: ri!isReadOnly,
+        align: "LEFT"
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select System Type--",
+        choiceLabels:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+          MasterLookup: ri!masterLookUpData,
+          UniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[28],
+          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+        ),
+        choiceValues: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+          MasterLookup: ri!masterLookUpData,
+          UniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[28],
+          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+        ),
+        value: if(
+          or(
+            contains(
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: ri!masterLookUpData,
+                UniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[28],
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+              ),
+              touniformstring(index(
+                ri!refIntEscalation[ri!index],
+                "escalation_type",
+                {}
+              ))
+            )
+          ),
+          touniformstring(index(
+            ri!refIntEscalation[ri!index],
+            "escalation_type",
+            {}
+          )),
+          null
+        ),
+        saveInto: a!save(
+          ri!refIntEscalation[ri!index].escalation_type,
+          save!value
+        ),
+        required: true(),
+        validations: {
+          if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!refIntEscalation,"escalation_type",{})),{},
+        if(count(wherecontains(index(ri!refIntEscalation[ri!index],"escalation_type",{}),
+        index(ri!refIntEscalation,"escalation_type",{})))&gt;1,"Duplicate Levels Not Allowed",{}))
+        }
+      )
+    ),
+    /*Escalation Recipient*/
+    /*rule!EAP_SA_GenericTextField(*/
+      /*value: index(ri!refIntEscalation[ri!index], "escalation_recipients", {}),*/
+      /*saveInto: a!save(*/
+        /*ri!refIntEscalation[ri!index].escalation_recipients,*/
+        /*save!value*/
+      /*),*/
+      /*readOnly: ri!isReadOnly,*/
+      /*align: "LEFT",*/
+      /*required: true(),*/
+      /*validations: {*/
+        /*if(*/
+          /*ri!isReadOnly,*/
+          /*{},*/
+          /*{*/
+            /*if(*/
+              /*rule!EAP_Utils_IsValidEmail(*/
+              /*Email: index(*/
+                /*ri!refIntEscalation[ri!index],*/
+                /*"escalation_recipients",*/
+                /*{}*/
+              /*)*/
+            /*)=true(),*/
+            /*{},*/
+            /*"Please enter valid email id"*/
+            /*),*/
+            /*rule!EAP_Utils_CheckTextLengthValidation(*/
+            /*value: index(*/
+              /*ri!refIntEscalation[ri!index],*/
+              /*"escalation_recipients",*/
+              /*{}*/
+            /*),*/
+            /*ValidationLength: cons!EAP_VALID_FIELD_LENGTH[5]*/
+          /*)*/
+          /*}*/
+        /*)*/
+      /*}*/
+    /*),*/
+    /*image field*/
+    if(
+      ri!isReadOnly,
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        images: {
+          #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(
+                contains(
+                  toboolean(
+                    index(
+                      ri!refIntEscalation[ri!index],
+                      "is_active",
+                      {}
+                    )
+                  ),
+                  true()
+                ),
+                "STATUS_OK",
+                "STATUS_NOTDONE"
+              )
+            )
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: if(
+          or(
+            tointeger(
+              index(
+                ri!refIntEscalation[ri!index],
+                "is_active",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-on",
+            caption: "Active",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!refIntEscalation[ri!index].is_active,
+                  0
+                )
+              }
+            ),
+            linkStyle: "STANDALONE",
+            size: "MEDIUM_PLUS"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-off",
+            caption: "In-Active",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!refIntEscalation[ri!index].is_active,
+                  1
+                )
+              }
+
+            ),
+            linkStyle: "STANDALONE",
+            size: "MEDIUM_PLUS"
+          )
+        )
+      )
+    ),
+    if(
+      ri!isReadOnly,
+      {},
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+          ri!refIntEscalation[ri!index].escalation_config_id
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!refIntEscalation,
+                  remove(
+                    ri!refIntEscalation,
+                    ri!index
+                  )
+                )
+              }
+            )
+          ),
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          showWhen: contains(
+            tointeger(
+              index(ri!refIntEscalation, "escalation_config_id",{})
+            ),
+            tointeger(
+              null
+            )
+          )
+        )
+      )
+    )
+
+  }
+)</definition>
+        <namedTypedValue>
+            <name>refIntEscalation</name>
+            <type>
+                <name>EAP_T_IntEscalation?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_129755"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_191434"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_222050"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_329389"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_557553"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_662525"/>
+    </history>
+</contentHaul>

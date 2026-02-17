@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_761200</versionUuid>
+    <rule>
+        <name>EAP_getMakerCheckerIdByProcessId</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_9960</uuid>
+        <description>Rule to fetch the logical user group based on the process id</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!details: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9924"(
+    processId: ri!processId
+  ),
+  local!makers: #"SYSTEM_SYSRULES_forEach"(
+    items: split(
+      index(
+        local!details,
+        "makers",
+        {}
+      ),
+      ";"
+    ),
+    expression: trim(
+      fv!item
+    )
+  ),
+  local!checkers: #"SYSTEM_SYSRULES_forEach"(
+    items: split(
+      index(
+        local!details,
+        "checkers",
+        {}
+      ),
+      ";"
+    ),
+    expression: trim(
+      fv!item
+    )
+  ),
+  local!doaUsers: #"SYSTEM_SYSRULES_forEach"(
+    items: split(
+      index(
+        local!details,
+        "doaUsers",
+        {}
+      ),
+      ";"
+    ),
+    expression: trim(
+      fv!item
+    )
+  ),
+  local!finalMakers: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!checkerId
+    ),
+    local!makers,
+    remove(
+      local!makers,
+      wherecontains(
+        tostring(
+          ri!checkerId
+        ),
+        touniformstring(
+          local!makers
+        )
+      )
+    )
+  ),
+  local!finalCheckers: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!makerId
+    ),
+    local!checkers,
+    remove(
+      local!checkers,
+      wherecontains(
+        tostring(
+          ri!makerId
+        ),
+        touniformstring(
+          local!checkers
+        )
+      )
+    )
+  ),
+  local!finalDOAUsers: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!checkerId
+    ),
+    local!doaUsers,
+    remove(
+      local!doaUsers,
+      wherecontains(
+        {
+          tostring(
+            ri!makerId
+          ),
+          tostring(
+            ri!checkerId
+          )
+        },
+        touniformstring(
+          local!doaUsers
+        )
+      )
+    )
+  ),
+  if(
+    ri!isMakerBl,
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!finalMakers,
+      expression: touser(
+        trim(
+          fv!item
+        )
+      )
+    ),
+    if(
+      ri!isCheckerBl,
+      #"SYSTEM_SYSRULES_forEach"(
+        items: local!finalCheckers,
+        expression: touser(
+          trim(
+            fv!item
+          )
+        )
+      ),
+      if(
+        ri!IsDOABI,
+        #"SYSTEM_SYSRULES_forEach"(
+          items: local!finalDOAUsers,
+          expression: touser(
+            trim(
+              fv!item
+            )
+          )
+        ),
+        null
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isMakerBl</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isCheckerBl</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>IsDOABI</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>makerId</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>checkerId</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_28056"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_192128"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_761200"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_22272</versionUuid>
+    <constant>
+        <name>EAP_ACTION_TYPE_MILESTONE_CATEGORY</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_22268</uuid>
+        <description>Holds milestone steps category:
+1. Input_Copy Milestone Steps |
+2. REFRESH_PIVOT_MIESTONE_STEPS |
+3. OUTPUT_COPY_MILESTONE_STEPS |
+4. SHEET_TO_SHEET_COPY_MILESTONE_STEPS</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>Input_Copy Milestone Steps</el>
+                <el>REFRESH_PIVOT_MIESTONE_STEPS</el>
+                <el>OUTPUT_COPY_MILESTONE_STEPS</el>
+                <el>SHEET_TO_SHEET_COPY_MILESTONE_STEPS</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_22272"/>
+    </history>
+</contentHaul>

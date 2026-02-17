@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e55f-7063-8000-d945-a7ef90a7ef90_5638736</versionUuid>
+    <rule>
+        <name>EAP_populateFileParsIntTrans</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_86201</uuid>
+        <description>Expression rule to populate file Pars Int Trans data</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!statusCode: index(
+    ri!integrationResponse,
+    "statusCode",
+    null
+  ),
+  local!body: index(
+    ri!integrationResponse,
+    "body",
+    null
+  ),
+  #"SYSTEM_SYSRULES_forEach"(
+    items: ri!inputParsingInputData,
+    expression: 'type!{urn:com:appian:types:eap}EAP_T_ProcessInFileParsingTrans'(
+      request_id: fv!item.requestId,
+      parsing_status: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!integrationResponse
+        ),
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_86234"[4],
+        if(
+          200 = tointeger(
+            local!statusCode
+          ),
+          #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_86234"[1],
+          #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_86234"[3]
+        )
+      ),
+      file_name: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            fv!item.appianDocumentId
+          ),
+          contains(
+            {
+              "N/A",
+              "SKIP_PARSING"
+            },
+            fv!item.appianDocumentId
+          )
+        ),
+        "N/A",
+        document(
+          tointeger(
+            fv!item.appianDocumentId
+          ),
+          "name"
+        )
+      ),
+      exception_type: "N/A",
+      exception_message: "N/A",
+      requested_by: ri!requestDetails.createdBy,
+      in_file_type_config_id: fv!item.inFileTypeConfigId,
+      requested_on: now(),
+      started_on: now()
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>inputParsingInputData</name>
+            <type>
+                <name>EAP_U_InputParsingRequest?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestDetails</name>
+            <type>
+                <name>EAP_T_ProcessRequest</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>integrationResponse</name>
+            <type>
+                <name>HttpResponse</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_89960"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_192077"/>
+        <historyInfo versionUuid="_a-0000e4db-cf55-8000-d8e5-a7ef90a7ef90_1309124"/>
+        <historyInfo versionUuid="_a-0000e501-c23e-8000-d8f8-a7ef90a7ef90_1975172"/>
+        <historyInfo versionUuid="_a-0000e539-32f0-8000-d91d-a7ef90a7ef90_3622981"/>
+        <historyInfo versionUuid="_a-0000e542-5cfc-8000-d92a-a7ef90a7ef90_3939568"/>
+        <historyInfo versionUuid="_a-0000e55f-7063-8000-d945-a7ef90a7ef90_5638736"/>
+    </history>
+</contentHaul>

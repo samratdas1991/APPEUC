@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5f4-e010-8000-526a-1bef901bef90_775485</versionUuid>
+    <constant>
+        <name>EAP_CHECKLIST_TYPE</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_13667</uuid>
+        <description>Holds Checklist Types</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>Standard</el>
+                <el>Adjustments/JE - Processing</el>
+                <el>Adjustments/JE - Origination</el>
+                <el>JE - Processing</el>
+                <el>JE - Origination</el>
+                <el>Standard and Non Standard</el>
+                <el>Accounting - Report Preparation and Analysis</el>
+                <el>Adjustments/JE - Uploads</el>
+                <el>Adjustments/JE - Uploads: Specialised Accounting</el>
+                <el>Reporting - Non Standard</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_60117"/>
+        <historyInfo versionUuid="_a-0000e4d4-ed10-8000-d8d3-a7ef90a7ef90_1200166"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_192158"/>
+        <historyInfo versionUuid="_a-0000e4e2-51bd-8000-d8ec-a7ef90a7ef90_1452091"/>
+        <historyInfo versionUuid="_a-0000e4e2-51bd-8000-d8ec-a7ef90a7ef90_1536412"/>
+        <historyInfo versionUuid="_a-0000e4f7-75e6-8000-d8f5-a7ef90a7ef90_1815000"/>
+        <historyInfo versionUuid="_a-0000e5f4-e010-8000-526a-1bef901bef90_775485"/>
+    </history>
+</contentHaul>

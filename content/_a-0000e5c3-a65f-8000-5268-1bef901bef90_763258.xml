@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_767594</versionUuid>
+    <rule>
+        <name>EAP_dynamicGridRowLayoutForProcessParameters</name>
+        <uuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_763258</uuid>
+        <description>Holds Dynamic Grid Row Layout For Process Param.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  id: ri!index,
+  contents: {
+    #"SYSTEM_SYSRULES_textField"(
+      value: index(
+        ri!tempProcessParam[ri!index],
+        "param_display_name",
+        {}
+      ),
+      readOnly: true()
+    ),
+    /*text*/
+    if(
+      tostring(
+        index(
+          ri!tempProcessParam[ri!index],
+          "process_param_type",
+          {}
+        )
+      ) = "Text_Field",
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!tempProcessParam[ri!index],
+          "process_param_value",
+          {}
+        ),
+        required: true,
+        saveInto: a!save(
+          ri!tempProcessParam[ri!index].process_param_value,
+          tostring(
+            save!value
+          )
+        )
+      ),{}
+    ),
+    /*Integer*/
+    if(
+      tostring(
+        index(
+          ri!tempProcessParam[ri!index],
+          "process_param_type",
+          {}
+        )
+      ) = "INTEGER_FIELD",
+      #"SYSTEM_SYSRULES_integerField"(
+        value: index(
+          ri!tempProcessParam[ri!index],
+          "process_param_value",
+          {}
+        ),
+        required: true(),
+        saveInto: a!save(
+          ri!tempProcessParam[ri!index].process_param_value,
+          tostring(
+            save!value
+          )
+        )
+      ),
+      {}
+    ),
+    /*Date*/
+    if(
+      tostring(
+        index(
+          ri!tempProcessParam[ri!index],
+          "process_param_type",
+          {}
+        )
+      ) = "DATE_FIELD",
+      #"SYSTEM_SYSRULES_dateField"(
+        value: index(
+          ri!tempProcessParam[ri!index],
+          "process_param_value",
+          {}
+        ),
+        required: true(),
+        saveInto: a!save(
+          ri!tempProcessParam[ri!index].process_param_value,
+          tostring(
+            save!value
+          )
+        )
+      ),
+      {}
+    ),
+    /*DateTime*/
+    if(
+      tostring(
+        index(
+          ri!tempProcessParam[ri!index],
+          "process_param_type",
+          {}
+        )
+      ) = "DATE_TIME_FIELD",
+      #"SYSTEM_SYSRULES_dateTimeField"(
+        value: index(
+          ri!tempProcessParam[ri!index],
+          "process_param_value",
+          {}
+        ),
+        required: true(),
+        saveInto: a!save(
+          ri!tempProcessParam[ri!index].process_param_value,
+          tostring(
+            save!value
+          )
+        )
+      ),
+      {}
+    ),
+    /*Decimal*/
+    if(
+      tostring(index(ri!tempProcessParam[ri!index],"process_param_type",{}))="DECIMAL",
+      #"SYSTEM_SYSRULES_floatingPointField"(
+        value: index(ri!tempProcessParam[ri!index],"process_param_value",{}),
+        saveInto: a!save(ri!tempProcessParam[ri!index].process_param_value,tostring(
+          save!value
+        )),
+        required: true()
+      ),{}
+    ),
+    /*Paragraph*/
+    if(
+      tostring(
+        index(ri!tempProcessParam[ri!index],"process_param_type",{})
+      )="PARAGRAPH",
+      #"SYSTEM_SYSRULES_paragraphField"(
+        value: index(ri!tempProcessParam[ri!index],"process_param_value",{}),
+        saveInto: a!save(ri!tempProcessParam[ri!index].process_param_value,tostring(save!value)),
+        required: true()
+      ),{}
+      
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>tempProcessParam</name>
+            <type>
+                <name>EAP_Temp_ProcessParamValues?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_767594"/>
+    </history>
+</contentHaul>

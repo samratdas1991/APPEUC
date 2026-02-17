@@ -1,0 +1,2903 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_329563</versionUuid>
+    <rule>
+        <name>EAP_IOConfigDynamicFieldGeneration</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_144808</uuid>
+        <description>Used to generate dynamic field</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>choose(
+  if(
+    count(
+      wherecontains(
+        tostring(
+          index(
+            ri!input,
+            "parameter_type",
+            null
+          )
+        ),
+        touniformstring(
+          #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_145097"
+        )
+      )
+    ) &gt; 0,
+    wherecontains(
+      tostring(
+        index(
+          ri!input,
+          "parameter_type",
+          null
+        )
+      ),
+      touniformstring(
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_145097"
+      )
+    ),
+    1
+  ),
+  #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+    labelPosition: "ADJACENT",
+    label: index(
+      ri!input,
+      "parameter_label",
+      null
+    ),
+    required: if(
+      or(
+        ri!isReadOnly,
+        index(
+          ri!input,
+          "is_read_only",
+          null
+        ),
+        not(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        )
+      ),
+      false(),
+      or(
+        index(
+          ri!input,
+          "is_required",
+          null
+        )
+      )
+    ),
+    readOnly: or(
+      ri!isReadOnly,
+      index(
+        ri!input,
+        "is_read_only",
+        null
+      ),
+      not(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      )
+    ),
+    value: if(
+      or(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      ),
+      if(
+        or(
+          ri!isEditableGrid
+        ),
+        index(
+          ri!cdt,
+          "parameter_value",
+          null
+        ),
+        index(
+          ri!cdt,
+          index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          null
+        )
+      ),
+      #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+        input: index(
+          ri!input,
+          "calculated_value_expression",
+          null
+        ),
+        parameterCode: index(
+          ri!input,
+          "parameter_code",
+          null
+        ),
+        sectionDetails: ri!sectionDetails,
+        editableGridDetails: ri!editableGridDetails
+      )
+    ),
+    saveInto: if(
+      or(
+        ri!isEditableGrid
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+        input: concat(
+          "a!save(
+ri!cdt.",
+          "parameter_value",
+          ",save!value)"
+        )
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+        input: concat(
+          "a!save(
+ri!cdt.",
+          index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          ",save!value)"
+        )
+      )
+    ),
+    validations: {
+      #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_241716"(
+        value: if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "calculated_value_expression",
+                null
+              )
+            )
+          ),
+          if(
+            or(
+              ri!isEditableGrid
+            ),
+            index(
+              ri!cdt,
+              "parameter_value",
+              null
+            ),
+            index(
+              ri!cdt,
+              index(
+                ri!input,
+                "parameter_code",
+                null
+              ),
+              null
+            )
+          ),
+          #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+            input: index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            ),
+            parameterCode: index(
+              ri!input,
+              "parameter_code",
+              null
+            ),
+            sectionDetails: ri!sectionDetails,
+            editableGridDetails: ri!editableGridDetails
+          )
+        ),
+        minLength: index(
+          ri!input,
+          "min_length",
+          null
+        ),
+        maxLength: index(
+          ri!input,
+          "max_length",
+          null
+        ),
+        validationExpression: index(
+          ri!input,
+          "validation_expression",
+          null
+        ),
+        isReadOnly: or(
+          ri!isReadOnly,
+          index(
+            ri!input,
+            "is_read_only",
+            null
+          ),
+          not(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "calculated_value_expression",
+                null
+              )
+            )
+          )
+        )
+      )
+    }
+  ),
+  #"SYSTEM_SYSRULES_integerField"(
+    labelPosition: "ADJACENT",
+    required: if(
+      or(
+        ri!isReadOnly,
+        index(
+          ri!input,
+          "is_read_only",
+          null
+        ),
+        not(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        )
+      ),
+      false(),
+      or(
+        index(
+          ri!input,
+          "is_required",
+          null
+        )
+      )
+    ),
+    readOnly: or(
+      ri!isReadOnly,
+      index(
+        ri!input,
+        "is_read_only",
+        null
+      ),
+      not(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      )
+    ),
+    label: index(
+      ri!input,
+      "parameter_label",
+      null
+    ),
+    value: if(
+      or(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      ),
+      if(
+        or(
+          ri!isEditableGrid
+        ),
+        index(
+          ri!cdt,
+          "parameter_value",
+          null
+        ),
+        index(
+          ri!cdt,
+          index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          null
+        )
+      ),
+      #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+        input: index(
+          ri!input,
+          "calculated_value_expression",
+          null
+        ),
+        parameterCode: index(
+          ri!input,
+          "parameter_code",
+          null
+        ),
+        sectionDetails: ri!sectionDetails,
+        editableGridDetails: ri!editableGridDetails
+      )
+    ),
+    saveInto: if(
+      or(
+        ri!isEditableGrid
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+        input: concat(
+          "a!save(
+ri!cdt.",
+          "parameter_value",
+          ",save!value)"
+        )
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+        input: concat(
+          "a!save(
+ri!cdt.",
+          index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          ",save!value)"
+        )
+      )
+    ),
+    validations: {
+      #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_241716"(
+        value: if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "calculated_value_expression",
+                null
+              )
+            )
+          ),
+          if(
+            or(
+              ri!isEditableGrid
+            ),
+            index(
+              ri!cdt,
+              "parameter_value",
+              null
+            ),
+            index(
+              ri!cdt,
+              index(
+                ri!input,
+                "parameter_code",
+                null
+              ),
+              null
+            )
+          ),
+          #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+            input: index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            ),
+            parameterCode: index(
+              ri!input,
+              "parameter_code",
+              null
+            ),
+            sectionDetails: ri!sectionDetails,
+            editableGridDetails: ri!editableGridDetails
+          )
+        ),
+        minLength: index(
+          ri!input,
+          "min_length",
+          null
+        ),
+        maxLength: index(
+          ri!input,
+          "max_length",
+          null
+        ),
+        validationExpression: index(
+          ri!input,
+          "validation_expression",
+          null
+        ),
+        isReadOnly: or(
+          ri!isReadOnly,
+          index(
+            ri!input,
+            "is_read_only",
+            null
+          ),
+          not(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "calculated_value_expression",
+                null
+              )
+            )
+          )
+        )
+      )
+    }
+  ),
+  if(
+    or(
+      ri!isReadOnly,
+      index(
+        ri!input,
+        "is_read_only",
+        null
+      ),
+      not(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      )
+    ),
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      labelPosition: "ADJACENT",
+      label: index(
+        ri!input,
+        "parameter_label",
+        null
+      ),
+      readOnly: true(),
+      value: index(
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "master_refdata_type",
+                index(
+                  ri!input,
+                  "master_ref_datatype",
+                  null
+                )
+              )
+            )
+          ),
+          {},
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: ri!masterLookUpData,
+            UniqueKey: index(
+              ri!input,
+              "master_refdata_type",
+              index(
+                ri!input,
+                "master_ref_datatype",
+                null
+              )
+            ),
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          )
+        ),
+        wherecontains(
+          touniformstring(
+            if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!input,
+                    "calculated_value_expression",
+                    null
+                  )
+                )
+              ),
+              if(
+                or(
+                  ri!isEditableGrid
+                ),
+                index(
+                  ri!cdt,
+                  "parameter_value",
+                  null
+                ),
+                index(
+                  ri!cdt,
+                  index(
+                    ri!input,
+                    "parameter_code",
+                    null
+                  ),
+                  null
+                )
+              ),
+              #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+                input: index(
+                  ri!input,
+                  "calculated_value_expression",
+                  null
+                ),
+                parameterCode: index(
+                  ri!input,
+                  "parameter_code",
+                  null
+                ),
+                sectionDetails: ri!sectionDetails,
+                editableGridDetails: ri!editableGridDetails
+              )
+            )
+          ),
+          touniformstring(
+            if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!input,
+                    "master_refdata_type",
+                    index(
+                      ri!input,
+                      "master_ref_datatype",
+                      null
+                    )
+                  )
+                )
+              ),
+              {},
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: ri!masterLookUpData,
+                UniqueKey: index(
+                  ri!input,
+                  "master_refdata_type",
+                  index(
+                    ri!input,
+                    "master_ref_datatype",
+                    null
+                  )
+                ),
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+              )
+            )
+          )
+        ),
+        {}
+      )
+    ),
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+      labelPosition: "ADJACENT",
+      required: if(
+        or(
+          ri!isReadOnly,
+          index(
+            ri!input,
+            "is_read_only",
+            null
+          ),
+          not(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "calculated_value_expression",
+                null
+              )
+            )
+          )
+        ),
+        false(),
+        or(
+          index(
+            ri!input,
+            "is_required",
+            null
+          )
+        )
+      ),
+      disabled: or(
+        ri!isReadOnly,
+        index(
+          ri!input,
+          "is_read_only",
+          null
+        ),
+        not(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        )
+      ),
+      label: index(
+        ri!input,
+        "parameter_label",
+        null
+      ),
+      choiceLabels: {
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "master_refdata_type",
+                index(
+                  ri!input,
+                  "master_ref_datatype",
+                  null
+                )
+              )
+            )
+          ),
+          {},
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: ri!masterLookUpData,
+            UniqueKey: index(
+              ri!input,
+              "master_refdata_type",
+              index(
+                ri!input,
+                "master_ref_datatype",
+                null
+              )
+            ),
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          )
+        )
+      },
+      choiceValues: {
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "master_refdata_type",
+                index(
+                  ri!input,
+                  "master_ref_datatype",
+                  null
+                )
+              )
+            )
+          ),
+          {},
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: ri!masterLookUpData,
+            UniqueKey: index(
+              ri!input,
+              "master_refdata_type",
+              index(
+                ri!input,
+                "master_ref_datatype",
+                null
+              )
+            ),
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+          )
+        )
+      },
+      placeholderLabel: "--- Select ---",
+      value: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        ),
+        if(
+          or(
+            ri!isEditableGrid
+          ),
+          index(
+            ri!cdt,
+            "parameter_value",
+            null
+          ),
+          index(
+            ri!cdt,
+            index(
+              ri!input,
+              "parameter_code",
+              null
+            ),
+            null
+          )
+        ),
+        #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+          input: index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          ),
+          parameterCode: index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          sectionDetails: ri!sectionDetails,
+          editableGridDetails: ri!editableGridDetails
+        )
+      ),
+      saveInto: if(
+        or(
+          ri!isEditableGrid
+        ),
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+          input: concat(
+            "a!save(
+ri!cdt.",
+            "parameter_value",
+            ",save!value)"
+          )
+        ),
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+          input: concat(
+            "a!save(
+ri!cdt.",
+            index(
+              ri!input,
+              "parameter_code",
+              null
+            ),
+            ",save!value)"
+          )
+        )
+      )
+    )
+  ),
+  #"SYSTEM_SYSRULES_dateField"(
+    labelPosition: "ADJACENT",
+    required: if(
+      or(
+        ri!isReadOnly,
+        index(
+          ri!input,
+          "is_read_only",
+          null
+        ),
+        not(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        )
+      ),
+      false(),
+      or(
+        index(
+          ri!input,
+          "is_required",
+          null
+        )
+      )
+    ),
+    readOnly: or(
+      ri!isReadOnly,
+      index(
+        ri!input,
+        "is_read_only",
+        null
+      ),
+      not(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      )
+    ),
+    label: index(
+      ri!input,
+      "parameter_label",
+      null
+    ),
+    value: if(
+      or(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      ),
+      if(
+        or(
+          ri!isEditableGrid
+        ),
+        index(
+          ri!cdt,
+          "parameter_value",
+          null
+        ),
+        index(
+          ri!cdt,
+          index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          null
+        )
+      ),
+      #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+        input: index(
+          ri!input,
+          "calculated_value_expression",
+          null
+        ),
+        parameterCode: index(
+          ri!input,
+          "parameter_code",
+          null
+        ),
+        sectionDetails: ri!sectionDetails,
+        editableGridDetails: ri!editableGridDetails
+      )
+    ),
+    saveInto: if(
+      or(
+        ri!isEditableGrid
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+        input: concat(
+          "a!save(
+ri!cdt.",
+          "parameter_value",
+          ",save!value)"
+        )
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+        input: concat(
+          "a!save(
+ri!cdt.",
+          index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          ",save!value)"
+        )
+      )
+    )
+  ),
+  if(
+    or(
+      ri!isReadOnly,
+      index(
+        ri!input,
+        "is_read_only",
+        null
+      )
+    ),
+    if(
+      or(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          if(
+            or(
+              ri!isEditableGrid
+            ),
+            index(
+              ri!cdt,
+              "parameter_value",
+              null
+            ),
+            index(
+              ri!cdt,
+              index(
+                ri!input,
+                "parameter_code",
+                null
+              ),
+              null
+            )
+          )
+        )
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: true(),
+        labelPosition: "ADJACENT",
+        label: index(
+          ri!input,
+          "parameter_label",
+          null
+        )
+      ),
+      #"SYSTEM_SYSRULES_linkField"(
+        labelPosition: "ADJACENT",
+        label: index(
+          ri!input,
+          "parameter_label",
+          null
+        ),
+        links: #"SYSTEM_SYSRULES_documentDownloadLink"(
+          label: "click here to download",
+          document: if(
+            or(
+              ri!isEditableGrid
+            ),
+            index(
+              ri!cdt,
+              "parameter_value",
+              null
+            ),
+            index(
+              ri!cdt,
+              index(
+                ri!input,
+                "parameter_code",
+                null
+              ),
+              null
+            )
+          )
+        )
+      )
+    ),
+    #"SYSTEM_SYSRULES_fileUploadField_v1"(
+      labelPosition: "ADJACENT",
+      required: if(
+        or(
+          ri!isReadOnly,
+          index(
+            ri!input,
+            "is_read_only",
+            null
+          )
+        ),
+        false(),
+        or(
+          index(
+            ri!input,
+            "is_required",
+            null
+          )
+        )
+      ),
+      maxSelections: 1,
+      label: index(
+        ri!input,
+        "parameter_label",
+        null
+      ),
+      target: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_150712",
+      value: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        ),
+        if(
+          or(
+            ri!isEditableGrid
+          ),
+          index(
+            ri!cdt,
+            "parameter_value",
+            null
+          ),
+          index(
+            ri!cdt,
+            index(
+              ri!input,
+              "parameter_code",
+              null
+            ),
+            null
+          )
+        ),
+        #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+          input: index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          ),
+          parameterCode: index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          sectionDetails: ri!sectionDetails,
+          editableGridDetails: ri!editableGridDetails
+        )
+      ),
+      saveInto: if(
+        or(
+          ri!isEditableGrid
+        ),
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+          input: concat(
+            "a!save(
+ri!cdt.",
+            "parameter_value",
+            ",save!value)"
+          )
+        ),
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+          input: concat(
+            "a!save(
+ri!cdt.",
+            index(
+              ri!input,
+              "parameter_code",
+              null
+            ),
+            ",save!value)"
+          )
+        )
+      )
+    )
+  ),
+  if(
+    or(
+      ri!isReadOnly,
+      index(
+        ri!input,
+        "is_read_only",
+        null
+      ),
+      not(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      )
+    ),
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      labelPosition: "ADJACENT",
+      label: index(
+        ri!input,
+        "parameter_label",
+        null
+      ),
+      readOnly: true(),
+      value: index(
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "master_refdata_type",
+                null
+              )
+            )
+          ),
+          {},
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: ri!masterLookUpData,
+            UniqueKey: index(
+              ri!input,
+              "master_refdata_type",
+              null
+            ),
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          )
+        ),
+        wherecontains(
+          touniformstring(
+            if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!input,
+                    "calculated_value_expression",
+                    null
+                  )
+                )
+              ),
+              if(
+                or(
+                  ri!isEditableGrid
+                ),
+                index(
+                  ri!cdt,
+                  "parameter_value",
+                  null
+                ),
+                index(
+                  ri!cdt,
+                  index(
+                    ri!input,
+                    "parameter_code",
+                    null
+                  ),
+                  null
+                )
+              ),
+              #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+                input: index(
+                  ri!input,
+                  "calculated_value_expression",
+                  null
+                ),
+                parameterCode: index(
+                  ri!input,
+                  "parameter_code",
+                  null
+                ),
+                sectionDetails: ri!sectionDetails,
+                editableGridDetails: ri!editableGridDetails
+              )
+            )
+          ),
+          touniformstring(
+            if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!input,
+                    "master_refdata_type",
+                    null
+                  )
+                )
+              ),
+              {},
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: ri!masterLookUpData,
+                UniqueKey: index(
+                  ri!input,
+                  "master_refdata_type",
+                  null
+                ),
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+              )
+            )
+          )
+        ),
+        {}
+      )
+    ),
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288522"(
+      choiceLayout: "COMPACT",
+      labelPosition: "ADJACENT",
+      required: if(
+        or(
+          ri!isReadOnly,
+          index(
+            ri!input,
+            "is_read_only",
+            null
+          ),
+          not(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "calculated_value_expression",
+                null
+              )
+            )
+          )
+        ),
+        false(),
+        or(
+          index(
+            ri!input,
+            "is_required",
+            null
+          )
+        )
+      ),
+      disabled: or(
+        ri!isReadOnly,
+        index(
+          ri!input,
+          "is_read_only",
+          null
+        ),
+        not(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        )
+      ),
+      label: index(
+        ri!input,
+        "parameter_label",
+        null
+      ),
+      choiceLabels: {
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "master_refdata_type",
+                null
+              )
+            )
+          ),
+          {},
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: ri!masterLookUpData,
+            UniqueKey: index(
+              ri!input,
+              "master_refdata_type",
+              null
+            ),
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          )
+        )
+      },
+      choiceValues: {
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "master_refdata_type",
+                null
+              )
+            )
+          ),
+          {},
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: ri!masterLookUpData,
+            UniqueKey: index(
+              ri!input,
+              "master_refdata_type",
+              null
+            ),
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+          )
+        )
+      },
+      value: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        ),
+        if(
+          or(
+            ri!isEditableGrid
+          ),
+          index(
+            ri!cdt,
+            "parameter_value",
+            null
+          ),
+          index(
+            ri!cdt,
+            index(
+              ri!input,
+              "parameter_code",
+              null
+            ),
+            null
+          )
+        ),
+        #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+          input: index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          ),
+          parameterCode: index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          sectionDetails: ri!sectionDetails,
+          editableGridDetails: ri!editableGridDetails
+        )
+      ),
+      saveInto: if(
+        or(
+          ri!isEditableGrid
+        ),
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+          input: concat(
+            "a!save(
+ri!cdt.",
+            "parameter_value",
+            ",save!value)"
+          )
+        ),
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+          input: concat(
+            "a!save(
+ri!cdt.",
+            index(
+              ri!input,
+              "parameter_code",
+              null
+            ),
+            ",save!value)"
+          )
+        )
+      )
+    )
+  ),
+  #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+    readOnly: true()
+  ),
+  #"SYSTEM_SYSRULES_floatingPointField"(
+    labelPosition: "ADJACENT",
+    required: if(
+      or(
+        ri!isReadOnly,
+        index(
+          ri!input,
+          "is_read_only",
+          null
+        ),
+        not(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        )
+      ),
+      false(),
+      or(
+        index(
+          ri!input,
+          "is_required",
+          null
+        )
+      )
+    ),
+    readOnly: or(
+      ri!isReadOnly,
+      index(
+        ri!input,
+        "is_read_only",
+        null
+      ),
+      not(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      )
+    ),
+    label: index(
+      ri!input,
+      "parameter_label",
+      null
+    ),
+    value: if(
+      or(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      ),
+      if(
+        or(
+          ri!isEditableGrid
+        ),
+        index(
+          ri!cdt,
+          "parameter_value",
+          null
+        ),
+        index(
+          ri!cdt,
+          index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          null
+        )
+      ),
+      #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+        input: index(
+          ri!input,
+          "calculated_value_expression",
+          null
+        ),
+        parameterCode: index(
+          ri!input,
+          "parameter_code",
+          null
+        ),
+        sectionDetails: ri!sectionDetails,
+        editableGridDetails: ri!editableGridDetails
+      )
+    ),
+    saveInto: if(
+      or(
+        ri!isEditableGrid
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+        input: concat(
+          "a!save(
+ri!cdt.",
+          "parameter_value",
+          ",save!value)"
+        )
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+        input: concat(
+          "a!save(
+ri!cdt.",
+          index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          ",save!value)"
+        )
+      )
+    ),
+    validations: {
+      #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_241716"(
+        value: if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "calculated_value_expression",
+                null
+              )
+            )
+          ),
+          if(
+            or(
+              ri!isEditableGrid
+            ),
+            index(
+              ri!cdt,
+              "parameter_value",
+              null
+            ),
+            index(
+              ri!cdt,
+              index(
+                ri!input,
+                "parameter_code",
+                null
+              ),
+              null
+            )
+          ),
+          #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+            input: index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            ),
+            parameterCode: index(
+              ri!input,
+              "parameter_code",
+              null
+            ),
+            sectionDetails: ri!sectionDetails,
+            editableGridDetails: ri!editableGridDetails
+          )
+        ),
+        minLength: index(
+          ri!input,
+          "min_length",
+          null
+        ),
+        maxLength: index(
+          ri!input,
+          "max_length",
+          null
+        ),
+        validationExpression: index(
+          ri!input,
+          "validation_expression",
+          null
+        ),
+        isReadOnly: or(
+          index(
+            ri!input,
+            "is_read_only",
+            null
+          ),
+          not(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "calculated_value_expression",
+                null
+              )
+            )
+          )
+        )
+      )
+    }
+  ),
+  #"SYSTEM_SYSRULES_paragraphField"(
+    labelPosition: "ADJACENT",
+    required: if(
+      or(
+        ri!isReadOnly,
+        index(
+          ri!input,
+          "is_read_only",
+          null
+        ),
+        not(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        )
+      ),
+      false(),
+      or(
+        index(
+          ri!input,
+          "is_required",
+          null
+        )
+      )
+    ),
+    readOnly: or(
+      ri!isReadOnly,
+      index(
+        ri!input,
+        "is_read_only",
+        null
+      ),
+      not(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      )
+    ),
+    label: index(
+      ri!input,
+      "parameter_label",
+      null
+    ),
+    value: if(
+      or(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      ),
+      if(
+        or(
+          ri!isEditableGrid
+        ),
+        index(
+          ri!cdt,
+          "parameter_value",
+          null
+        ),
+        index(
+          ri!cdt,
+          index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          null
+        )
+      ),
+      #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+        input: index(
+          ri!input,
+          "calculated_value_expression",
+          null
+        ),
+        parameterCode: index(
+          ri!input,
+          "parameter_code",
+          null
+        ),
+        sectionDetails: ri!sectionDetails,
+        editableGridDetails: ri!editableGridDetails
+      )
+    ),
+    saveInto: if(
+      or(
+        ri!isEditableGrid
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+        input: concat(
+          "a!save(
+ri!cdt.",
+          "parameter_value",
+          ",save!value)"
+        )
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+        input: concat(
+          "a!save(
+ri!cdt.",
+          index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          ",save!value)"
+        )
+      )
+    ),
+    validations: {
+      #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_241716"(
+        value: if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "calculated_value_expression",
+                null
+              )
+            )
+          ),
+          if(
+            or(
+              ri!isEditableGrid
+            ),
+            index(
+              ri!cdt,
+              "parameter_value",
+              null
+            ),
+            index(
+              ri!cdt,
+              index(
+                ri!input,
+                "parameter_code",
+                null
+              ),
+              null
+            )
+          ),
+          #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+            input: index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            ),
+            parameterCode: index(
+              ri!input,
+              "parameter_code",
+              null
+            ),
+            sectionDetails: ri!sectionDetails,
+            editableGridDetails: ri!editableGridDetails
+          )
+        ),
+        minLength: index(
+          ri!input,
+          "min_length",
+          null
+        ),
+        maxLength: index(
+          ri!input,
+          "max_length",
+          null
+        ),
+        validationExpression: index(
+          ri!input,
+          "validation_expression",
+          null
+        ),
+        isReadOnly: or(
+          ri!isReadOnly,
+          index(
+            ri!input,
+            "is_read_only",
+            null
+          ),
+          not(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "calculated_value_expression",
+                null
+              )
+            )
+          )
+        )
+      )
+    }
+  ),
+  if(
+    or(
+      ri!isReadOnly,
+      index(
+        ri!input,
+        "is_read_only",
+        null
+      ),
+      not(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      )
+    ),
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      labelPosition: "ADJACENT",
+      label: index(
+        ri!input,
+        "parameter_label",
+        null
+      ),
+      readOnly: true(),
+      value: index(
+        {
+          "Yes",
+          "No"
+        },
+        wherecontains(
+          touniformstring(
+            if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!input,
+                    "calculated_value_expression",
+                    null
+                  )
+                )
+              ),
+              if(
+                or(
+                  ri!isEditableGrid
+                ),
+                index(
+                  ri!cdt,
+                  "parameter_value",
+                  null
+                ),
+                index(
+                  ri!cdt,
+                  index(
+                    ri!input,
+                    "parameter_code",
+                    null
+                  ),
+                  null
+                )
+              ),
+              #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+                input: index(
+                  ri!input,
+                  "calculated_value_expression",
+                  null
+                ),
+                parameterCode: index(
+                  ri!input,
+                  "parameter_code",
+                  null
+                ),
+                sectionDetails: ri!sectionDetails,
+                editableGridDetails: ri!editableGridDetails
+              )
+            )
+          ),
+          touniformstring(
+            {
+              "1",
+              "0"
+            }
+          )
+        ),
+        {}
+      )
+    ),
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288522"(
+      choiceLayout: "COMPACT",
+      labelPosition: "ADJACENT",
+      required: if(
+        or(
+          ri!isReadOnly,
+          index(
+            ri!input,
+            "is_read_only",
+            null
+          ),
+          not(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "calculated_value_expression",
+                null
+              )
+            )
+          )
+        ),
+        false(),
+        or(
+          index(
+            ri!input,
+            "is_required",
+            null
+          )
+        )
+      ),
+      disabled: or(
+        ri!isReadOnly,
+        index(
+          ri!input,
+          "is_read_only",
+          null
+        ),
+        not(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        )
+      ),
+      label: index(
+        ri!input,
+        "parameter_label",
+        null
+      ),
+      choiceLabels: {
+        "Yes",
+        "No"
+      },
+      choiceValues: {
+        "1",
+        "0"
+      },
+      value: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        ),
+        if(
+          or(
+            ri!isEditableGrid
+          ),
+          index(
+            ri!cdt,
+            "parameter_value",
+            null
+          ),
+          index(
+            ri!cdt,
+            index(
+              ri!input,
+              "parameter_code",
+              null
+            ),
+            null
+          )
+        ),
+        #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+          input: index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          ),
+          parameterCode: index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          sectionDetails: ri!sectionDetails,
+          editableGridDetails: ri!editableGridDetails
+        )
+      ),
+      saveInto: if(
+        or(
+          ri!isEditableGrid
+        ),
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+          input: concat(
+            "a!save(
+ri!cdt.",
+            "parameter_value",
+            ",save!value)"
+          )
+        ),
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+          input: concat(
+            "a!save(
+ri!cdt.",
+            index(
+              ri!input,
+              "parameter_code",
+              null
+            ),
+            ",save!value)"
+          )
+        )
+      )
+    )
+  ),
+  #"SYSTEM_SYSRULES_dateTimeField"(
+    labelPosition: "ADJACENT",
+    required: if(
+      or(
+        ri!isReadOnly,
+        index(
+          ri!input,
+          "is_read_only",
+          null
+        ),
+        not(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        )
+      ),
+      false(),
+      or(
+        index(
+          ri!input,
+          "is_required",
+          null
+        )
+      )
+    ),
+    readOnly: or(
+      ri!isReadOnly,
+      index(
+        ri!input,
+        "is_read_only",
+        null
+      ),
+      not(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      )
+    ),
+    label: index(
+      ri!input,
+      "parameter_label",
+      null
+    ),
+    value: if(
+      or(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      ),
+      if(
+        or(
+          ri!isEditableGrid
+        ),
+        index(
+          ri!cdt,
+          "parameter_value",
+          null
+        ),
+        index(
+          ri!cdt,
+          index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          null
+        )
+      ),
+      #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+        input: index(
+          ri!input,
+          "calculated_value_expression",
+          null
+        ),
+        parameterCode: index(
+          ri!input,
+          "parameter_code",
+          null
+        ),
+        sectionDetails: ri!sectionDetails,
+        editableGridDetails: ri!editableGridDetails
+      )
+    ),
+    saveInto: if(
+      or(
+        ri!isEditableGrid
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+        input: concat(
+          "a!save(
+ri!cdt.",
+          "parameter_value",
+          ",save!value)"
+        )
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+        input: concat(
+          "a!save(
+ri!cdt.",
+          index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          ",save!value)"
+        )
+      )
+    )
+  ),
+  if(
+    or(
+      ri!isReadOnly,
+      index(
+        ri!input,
+        "is_read_only",
+        null
+      ),
+      not(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      )
+    ),
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      labelPosition: "ADJACENT",
+      label: index(
+        ri!input,
+        "parameter_label",
+        null
+      ),
+      readOnly: true(),
+      value: index(
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "master_refdata_type",
+                null
+              )
+            )
+          ),
+          {},
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: ri!masterLookUpData,
+            UniqueKey: index(
+              ri!input,
+              "master_refdata_type",
+              null
+            ),
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          )
+        ),
+        wherecontains(
+          touniformstring(
+            if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!input,
+                    "calculated_value_expression",
+                    null
+                  )
+                )
+              ),
+              if(
+                or(
+                  ri!isEditableGrid
+                ),
+                if(
+                  or(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      index(
+                        ri!cdt,
+                        "parameter_value",
+                        null
+                      )
+                    )
+                  ),
+                  null,
+                  split(
+                    index(
+                      ri!cdt,
+                      "parameter_value",
+                      null
+                    ),
+                    ";"
+                  )
+                ),
+                if(
+                  or(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      index(
+                        ri!cdt,
+                        index(
+                          ri!input,
+                          "parameter_code",
+                          null
+                        ),
+                        null
+                      )
+                    )
+                  ),
+                  null,
+                  split(
+                    index(
+                      ri!cdt,
+                      index(
+                        ri!input,
+                        "parameter_code",
+                        null
+                      ),
+                      null
+                    ),
+                    ";"
+                  )
+                )
+              ),
+              #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+                input: index(
+                  ri!input,
+                  "calculated_value_expression",
+                  null
+                ),
+                parameterCode: index(
+                  ri!input,
+                  "parameter_code",
+                  null
+                ),
+                sectionDetails: ri!sectionDetails,
+                editableGridDetails: ri!editableGridDetails
+              )
+            )
+          ),
+          touniformstring(
+            if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!input,
+                    "master_refdata_type",
+                    null
+                  )
+                )
+              ),
+              {},
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: ri!masterLookUpData,
+                UniqueKey: index(
+                  ri!input,
+                  "master_refdata_type",
+                  null
+                ),
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+              )
+            )
+          )
+        ),
+        {}
+      )
+    ),
+    #"SYSTEM_SYSRULES_checkboxField"(
+      choiceLayout: "COMPACT",
+      labelPosition: "ADJACENT",
+      required: if(
+        or(
+          ri!isReadOnly,
+          index(
+            ri!input,
+            "is_read_only",
+            null
+          ),
+          not(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "calculated_value_expression",
+                null
+              )
+            )
+          )
+        ),
+        false(),
+        or(
+          index(
+            ri!input,
+            "is_required",
+            null
+          )
+        )
+      ),
+      disabled: or(
+        ri!isReadOnly,
+        index(
+          ri!input,
+          "is_read_only",
+          null
+        ),
+        not(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        )
+      ),
+      label: index(
+        ri!input,
+        "parameter_label",
+        null
+      ),
+      choiceLabels: {
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "master_refdata_type",
+                null
+              )
+            )
+          ),
+          {},
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: ri!masterLookUpData,
+            UniqueKey: index(
+              ri!input,
+              "master_refdata_type",
+              null
+            ),
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          )
+        )
+      },
+      choiceValues: {
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "master_refdata_type",
+                null
+              )
+            )
+          ),
+          {},
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: ri!masterLookUpData,
+            UniqueKey: index(
+              ri!input,
+              "master_refdata_type",
+              null
+            ),
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+          )
+        )
+      },
+      value: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        ),
+        if(
+          or(
+            ri!isEditableGrid
+          ),
+          if(
+            or(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!cdt,
+                  "parameter_value",
+                  null
+                )
+              )
+            ),
+            null,
+            split(
+              index(
+                ri!cdt,
+                "parameter_value",
+                null
+              ),
+              ";"
+            )
+          ),
+          if(
+            or(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!cdt,
+                  index(
+                    ri!input,
+                    "parameter_code",
+                    null
+                  ),
+                  null
+                )
+              )
+            ),
+            null,
+            split(
+              index(
+                ri!cdt,
+                index(
+                  ri!input,
+                  "parameter_code",
+                  null
+                ),
+                null
+              ),
+              ";"
+            )
+          )
+        ),
+        #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+          input: index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          ),
+          parameterCode: index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          sectionDetails: ri!sectionDetails,
+          editableGridDetails: ri!editableGridDetails
+        )
+      ),
+      saveInto: if(
+        or(
+          ri!isEditableGrid
+        ),
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+          input: concat(
+            "a!save(
+ri!cdt.",
+            "parameter_value",
+            ",joinarray({save!value},"";""))"
+          )
+        ),
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+          input: concat(
+            "a!save(
+ri!cdt.",
+            index(
+              ri!input,
+              "parameter_code",
+              null
+            ),
+            ",joinarray({save!value},"";""))"
+          )
+        )
+      )
+    )
+  ),
+  if(
+    or(
+      ri!isReadOnly,
+      index(
+        ri!input,
+        "is_read_only",
+        null
+      ),
+      not(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          )
+        )
+      )
+    ),
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      labelPosition: "ADJACENT",
+      label: index(
+        ri!input,
+        "parameter_label",
+        null
+      ),
+      readOnly: true(),
+      value: index(
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "master_refdata_type",
+                null
+              )
+            )
+          ),
+          {},
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: ri!masterLookUpData,
+            UniqueKey: index(
+              ri!input,
+              "master_refdata_type",
+              null
+            ),
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          )
+        ),
+        wherecontains(
+          touniformstring(
+            if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!input,
+                    "calculated_value_expression",
+                    null
+                  )
+                )
+              ),
+              if(
+                or(
+                  ri!isEditableGrid
+                ),
+                if(
+                  or(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      index(
+                        ri!cdt,
+                        "parameter_value",
+                        null
+                      )
+                    )
+                  ),
+                  null,
+                  split(
+                    index(
+                      ri!cdt,
+                      "parameter_value",
+                      null
+                    ),
+                    ";"
+                  )
+                ),
+                if(
+                  or(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      index(
+                        ri!cdt,
+                        index(
+                          ri!input,
+                          "parameter_code",
+                          null
+                        ),
+                        null
+                      )
+                    )
+                  ),
+                  null,
+                  split(
+                    index(
+                      ri!cdt,
+                      index(
+                        ri!input,
+                        "parameter_code",
+                        null
+                      ),
+                      null
+                    ),
+                    ";"
+                  )
+                )
+              ),
+              #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+                input: index(
+                  ri!input,
+                  "calculated_value_expression",
+                  null
+                ),
+                parameterCode: index(
+                  ri!input,
+                  "parameter_code",
+                  null
+                ),
+                sectionDetails: ri!sectionDetails,
+                editableGridDetails: ri!editableGridDetails
+              )
+            )
+          ),
+          touniformstring(
+            if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!input,
+                    "master_refdata_type",
+                    null
+                  )
+                )
+              ),
+              {},
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: ri!masterLookUpData,
+                UniqueKey: index(
+                  ri!input,
+                  "master_refdata_type",
+                  null
+                ),
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+              )
+            )
+          )
+        ),
+        {}
+      )
+    ),
+    #"SYSTEM_SYSRULES_multipleDropdownField"(
+      labelPosition: "ADJACENT",
+      required: if(
+        or(
+          ri!isReadOnly,
+          index(
+            ri!input,
+            "is_read_only",
+            null
+          ),
+          not(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "calculated_value_expression",
+                null
+              )
+            )
+          )
+        ),
+        false(),
+        or(
+          index(
+            ri!input,
+            "is_required",
+            null
+          )
+        )
+      ),
+      disabled: or(
+        ri!isReadOnly,
+        index(
+          ri!input,
+          "is_read_only",
+          null
+        ),
+        not(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        )
+      ),
+      label: index(
+        ri!input,
+        "parameter_label",
+        null
+      ),
+      choiceLabels: {
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "master_refdata_type",
+                null
+              )
+            )
+          ),
+          {},
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: ri!masterLookUpData,
+            UniqueKey: index(
+              ri!input,
+              "master_refdata_type",
+              null
+            ),
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          )
+        )
+      },
+      choiceValues: {
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!input,
+                "master_refdata_type",
+                null
+              )
+            )
+          ),
+          {},
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: ri!masterLookUpData,
+            UniqueKey: index(
+              ri!input,
+              "master_refdata_type",
+              null
+            ),
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+          )
+        )
+      },
+      value: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!input,
+              "calculated_value_expression",
+              null
+            )
+          )
+        ),
+        if(
+          or(
+            ri!isEditableGrid
+          ),
+          if(
+            or(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!cdt,
+                  "parameter_value",
+                  null
+                )
+              )
+            ),
+            null,
+            split(
+              index(
+                ri!cdt,
+                "parameter_value",
+                null
+              ),
+              ";"
+            )
+          ),
+          if(
+            or(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!cdt,
+                  index(
+                    ri!input,
+                    "parameter_code",
+                    null
+                  ),
+                  null
+                )
+              )
+            ),
+            null,
+            split(
+              index(
+                ri!cdt,
+                index(
+                  ri!input,
+                  "parameter_code",
+                  null
+                ),
+                null
+              ),
+              ";"
+            )
+          )
+        ),
+        #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_235366"(
+          input: index(
+            ri!input,
+            "calculated_value_expression",
+            null
+          ),
+          parameterCode: index(
+            ri!input,
+            "parameter_code",
+            null
+          ),
+          sectionDetails: ri!sectionDetails,
+          editableGridDetails: ri!editableGridDetails
+        )
+      ),
+      saveInto: if(
+        or(
+          ri!isEditableGrid
+        ),
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+          input: concat(
+            "a!save(
+ri!cdt.",
+            "parameter_value",
+            ",joinarray({save!value},"";""))"
+          )
+        ),
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+          input: concat(
+            "a!save(
+ri!cdt.",
+            index(
+              ri!input,
+              "parameter_code",
+              null
+            ),
+            ",joinarray({save!value},"";""))"
+          )
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>input</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>cdt</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isEditableGrid</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sectionDetails</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>editableGridDetails</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_151037"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_188997"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_192857"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_223695"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_329563"/>
+    </history>
+</contentHaul>

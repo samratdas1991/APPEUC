@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ee0f-0381-8000-9c16-011c48011c48_769131</versionUuid>
+    <rule>
+        <name>EAP_DYN_INV_getDistinctInvestorsID</name>
+        <uuid>_a-0000ed19-51a4-8000-9c01-011c48011c48_369753</uuid>
+        <description>Expression rule to get unique investor IDs</description>
+        <parentUuid>_a-0000e48f-2bcb-8000-9ba8-011c48011c48_1519311</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>/*a!localVariables(*/
+  /*local!ids: index(*/
+    /*a!queryEntity(*/
+      /*entity: cons!EAP_DSE_DYN_INV_SCH1,*/
+      /*query: a!query(*/
+        /*filter: a!queryFilter(*/
+          /*field: "requestId",*/
+          /*operator: "=",*/
+          /*value: ri!requestId*/
+        /*),*/
+        /*pagingInfo: a!pagingInfo(startIndex: 1, batchSize: - 1)*/
+      /*),*/
+      /*fetchTotalCount: false*/
+    /*).data,*/
+    /*"investorId",*/
+    /*{}*/
+  /*),*/
+  /*touniformstring(reject(*/
+    /*rule!EAP_Utils_CheckIsNull,*/
+    /*tointeger(*/
+      /*touniformstring(union(local!ids, local!ids))*/
+    /*)*/
+  /*))*/
+/*)*/
+
+1</definition>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ed19-51a4-8000-9c01-011c48011c48_369764"/>
+        <historyInfo versionUuid="_a-0000eda1-5e46-8000-9c0e-011c48011c48_742583"/>
+        <historyInfo versionUuid="_a-0000ee0f-0381-8000-9c16-011c48011c48_769131"/>
+    </history>
+</contentHaul>

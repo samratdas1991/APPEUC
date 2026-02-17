@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_412697</versionUuid>
+    <interface>
+        <name>EAP_ProcessSheetFixedCellsEditableGrid</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_10182</uuid>
+        <description>Contains editable grid for process sheet fixed cells</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  #"SYSTEM_SYSRULES_columnsLayout"(
+    columns:{
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents:{
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "Cell Mapping",
+              color: "ACCENT",
+              size: "MEDIUM"
+            )
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents:{
+          #"SYSTEM_SYSRULES_ButtonLayout"(
+            primaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+              label: "Map All Columns",
+              style: "NORMAL",
+              saveInto: {
+                a!save(
+                  ri!sheetFixedCellsConfig,
+                  #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_249885"(
+                    uniqueIdentifiers: ri!uniqueIdentifiers,
+                    selectedFileEntityMapping: ri!fileEntityMapping,
+                    sheetFixedCellsConfig: ri!sheetFixedCellsConfig
+                  )
+                )
+              },
+              showWhen: if(
+                ri!isReadOnly,
+                false(),
+                if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!sheetFixedCellsConfig),
+                  true(),
+                  false()
+                )
+              )
+            )
+          )
+        }
+      )
+    }
+  ),
+  #"SYSTEM_SYSRULES_gridLayout"(
+    label: "",
+    shadeAlternateRows: false(),
+    headerCells: {
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Entity Column Name",
+        align: "LEFT",
+        helpTooltip:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+          helpToolTip: "List of Column Names from Selected Entity Name"
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Cells Position",
+        align: "LEFT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Parsing Type",
+        align: "LEFT",
+        helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+          categoryGroup : #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] ,
+          uniqueKey :#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[11]
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Delimiter",
+        align: "LEFT",
+        helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+          categoryGroup : #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] ,
+          uniqueKey :#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1]
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Element Index",
+        align: "RIGHT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Parsing Format",
+        align: "LEFT",
+        helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+          categoryGroup : #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] ,
+          uniqueKey :#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[9]
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Is Active",
+        align: "CENTER"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "",
+        align: "LEFT",
+        showWhen: if(
+          or(
+            ri!isReadOnly
+          ),
+          false(),
+          true()
+        )
+      )
+    },
+    columnConfigs: {
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "ICON"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "ICON",
+        showWhen: if(
+          or(
+            ri!isReadOnly
+          ),
+          false(),
+          true()
+        )
+      )
+    },
+    rows: {
+      #"SYSTEM_SYSRULES_applyComponents"(
+        function: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10281"(
+          index: _,
+          sheetFixedCellsConfig: ri!sheetFixedCellsConfig,
+          masterLookUpData: ri!masterLookUpData,
+          sheetFieldMapping: ri!sheetFieldMapping,
+          isReadOnly: ri!isReadOnly,
+          fileEntityMapping: ri!fileEntityMapping
+        ),
+        array: if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!sheetFixedCellsConfig
+            ),
+            count(
+              ri!sheetFixedCellsConfig
+            ) = 0
+          ),
+          null,
+          tointeger(
+            enumerate(
+              count(
+                ri!sheetFixedCellsConfig
+              )
+            ) + 1
+          )
+        )
+      )
+    },
+    selectionSaveInto: {},
+    addRowLink: if(
+      ri!isReadOnly,
+      {},
+      #"SYSTEM_SYSRULES_dynamicLink"(
+        label: "Add line items",
+        value: 'type!{urn:com:appian:types:eap}EAP_T_RefProcessSheetFixedCellsConfig'(
+          is_active: 1,
+          process_id: index(
+            ri!uniqueIdentifiers,
+            "process_id",
+            null
+          ),
+          created_by: loggedInUser(),
+          created_on: now(),
+          modified_by: loggedInUser(),
+          modified_on: now(),
+          in_file_entity_mapping_id: index(
+            ri!uniqueIdentifiers,
+            "in_file_entity_mapping_id",
+            null
+          )
+        ),
+        saveInto: a!save(
+          ri!sheetFixedCellsConfig,
+          append(
+            ri!sheetFixedCellsConfig,
+            save!value
+          )
+        )
+      )
+    )
+  )
+}</definition>
+        <namedTypedValue>
+            <name>sheetFixedCellsConfig</name>
+            <type>
+                <name>EAP_T_RefProcessSheetFixedCellsConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetFieldMapping</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fileEntityMapping</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>uniqueIdentifiers</name>
+            <type>
+                <name>EAP_Temp_ParsingUniqueIdentifiers</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_83765"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_94937"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_211027"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_314643"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_405716"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_412697"/>
+    </history>
+</contentHaul>

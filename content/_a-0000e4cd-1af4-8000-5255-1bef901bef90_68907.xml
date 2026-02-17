@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_752144</versionUuid>
+    <rule>
+        <name>EAP_RunTime_MasterRuleToUpdateNextTriggerTime</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_68907</uuid>
+        <description>Master Rule to update next trigger time</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!runConfig: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_161438"(
+    runConfigId: ri!runConfigId,
+    processId: ri!processId,
+    calendarId: ri!calendarId
+  ),
+  local!isEdited: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!runConfig,
+        "next_trigger_completion_datetime",
+        {}
+      )
+    ),
+    true(),
+    ri!isEdited
+  ),
+  /*Have to remove the al once calendar id is there in view */
+  local!calendarName: reject(
+    isnull(
+      _
+    ),
+    {
+      touniformstring(
+        union(
+          index(
+            local!runConfig,
+            "calendar_id",
+            null
+          ),
+          index(
+            local!runConfig,
+            "calendar_id",
+            null
+          )
+        )
+      )
+    }
+  ),
+  local!allCalendarDetails: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_125209"(
+    isActive: 1,
+    calendarId: ri!calendarId
+  ),
+  local!allNonWorkingDay: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_125445"(
+    isActive: 1,
+    calendarId: ri!calendarId
+  ),
+  local!allHolidayDetails: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_127093"(
+    isActive: 1,
+    calendarId: ri!calendarId
+  ),
+  local!allExceptionWorkingDay: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_69112"(
+    isActive: 1,
+    calendarId: ri!calendarId
+  ),
+  if(
+    and(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!runConfigId
+      ),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!processId
+      ),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!calendarId
+      )
+    ),
+    {},
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!runConfig,
+      expression: a!localVariables(
+        local!calendarDetails: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_162425"(
+          allCalendarDetails: local!allCalendarDetails,
+          calendarId: fv!item.calendar_id
+        ),
+        local!nonWorkingDay: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_162614"(
+          allNonWorkingDay: local!allNonWorkingDay,
+          calendarId: index(
+            local!calendarDetails,
+            "calendar_id",
+            null
+          )
+        ),
+        local!holidayDetails: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_162460"(
+          allHolidayDetails: local!allHolidayDetails,
+          calendarId: index(
+            local!calendarDetails,
+            "calendar_id",
+            null
+          )
+        ),
+        local!exceptionWorkingDay: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_162595"(
+          allExceptionWorkingDay: local!allExceptionWorkingDay,
+          calendarId: index(
+            local!calendarDetails,
+            "calendar_id",
+            null
+          )
+        ),
+        local!weekdays: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            fv!item.processing_weekdays
+          ),
+          {},
+          split(
+            fv!item.processing_weekdays,
+            ","
+          )
+        ),
+        local!weekdayId: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+          categoryGroup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10373"[3],
+          type: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[2],
+          label: local!weekdays
+        ),
+        local!nextTriggerTime: if(
+          local!isEdited = true(),
+          {
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  fv!item,
+                  "last_trigger_datetime",
+                  {}
+                )
+              ),
+              concat(
+                #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_68950"(
+                  startbusinesdday: index(
+                    fv!item,
+                    "start_businesss_days",
+                    {}
+                  ),
+                  processingMonth: index(
+                    fv!item,
+                    "processing_month",
+                    {}
+                  ),
+                  recurrenceType: index(
+                    fv!item,
+                    "recurrence_type",
+                    {}
+                  ),
+                  nonWorkingDay: index(
+                    local!nonWorkingDay,
+                    "non_working_day",
+                    {}
+                  ),
+                  holidayDate: index(
+                    local!holidayDetails,
+                    "holiday_date",
+                    {}
+                  ),
+                  exceptionWorkingDay: index(
+                    local!exceptionWorkingDay,
+                    "exception_working_date",
+                    {}
+                  ),
+                  processingWeekday: index(
+                    local!weekdayId,
+                    "code",
+                    {}
+                  ),
+                  triggerTime: index(
+                    fv!item,
+                    "trigger_time",
+                    {}
+                  ),
+                  timezone: index(
+                    local!calendarDetails,
+                    "timezone_id",
+                    {}
+                  ),
+                  recurrenceFrequency: index(
+                    fv!item,
+                    "recurrence_frequency",
+                    {}
+                  )
+                ),
+                " ",
+                index(
+                  fv!item,
+                  "trigger_time",
+                  {}
+                )
+              ),
+              #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_69694"(
+                recurrenceType: index(
+                  fv!item,
+                  "recurrence_type",
+                  {}
+                ),
+                recurrenceFrequency: index(
+                  fv!item,
+                  "recurrence_frequency",
+                  {}
+                ),
+                startBusinessDay: index(
+                  fv!item,
+                  "start_businesss_days",
+                  {}
+                ),
+                triggerDateTime: index(
+                  fv!item,
+                  "last_trigger_datetime",
+                  {}
+                ),
+                triggerDateTimeGMT: index(
+                  fv!item,
+                  "last_trigger_datetime_gmt",
+                  {}
+                ),
+                nonWorkingDay: index(
+                  local!nonWorkingDay,
+                  "non_working_day",
+                  {}
+                ),
+                holidayDate: index(
+                  local!holidayDetails,
+                  "holiday_date",
+                  {}
+                ),
+                exceptionWorkingDay: index(
+                  local!exceptionWorkingDay,
+                  "exception_working_date",
+                  {}
+                ),
+                processingWeekday: index(
+                  local!weekdayId,
+                  "code",
+                  {}
+                ),
+                triggerTime: index(
+                  fv!item,
+                  "trigger_time",
+                  {}
+                )
+              )
+            )
+          },
+          #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_69694"(
+            recurrenceType: index(
+              fv!item,
+              "recurrence_type",
+              {}
+            ),
+            recurrenceFrequency: index(
+              fv!item,
+              "recurrence_frequency",
+              {}
+            ),
+            startBusinessDay: index(
+              fv!item,
+              "start_businesss_days",
+              {}
+            ),
+            triggerDateTime: index(
+              fv!item,
+              "next_trigger_datetime",
+              {}
+            ),
+            triggerDateTimeGMT: index(
+              fv!item,
+              "next_trigger_datetime_gmt",
+              {}
+            ),
+            nonWorkingDay: index(
+              local!nonWorkingDay,
+              "non_working_day",
+              {}
+            ),
+            holidayDate: index(
+              local!holidayDetails,
+              "holiday_date",
+              {}
+            ),
+            exceptionWorkingDay: index(
+              local!exceptionWorkingDay,
+              "exception_working_date",
+              {}
+            ),
+            processingWeekday: index(
+              local!weekdayId,
+              "code",
+              {}
+            ),
+            triggerTime: index(
+              fv!item,
+              "trigger_time",
+              {}
+            ),
+            processingMonth: index(
+              fv!item,
+              "processing_month",
+              {}
+            )
+          )
+        ),
+        local!endcompletiontime: if(
+          local!isEdited = true(),
+          {
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  fv!item,
+                  "next_trigger_completion_datetime",
+                  {}
+                )
+              ),
+              concat(
+                #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_68950"(
+                  startbusinesdday: index(
+                    fv!item,
+                    "end_business_days",
+                    {}
+                  ),
+                  processingMonth: index(
+                    fv!item,
+                    "processing_month",
+                    {}
+                  ),
+                  recurrenceType: index(
+                    fv!item,
+                    "recurrence_type",
+                    {}
+                  ),
+                  nonWorkingDay: index(
+                    local!nonWorkingDay,
+                    "non_working_day",
+                    {}
+                  ),
+                  holidayDate: index(
+                    local!holidayDetails,
+                    "holiday_date",
+                    {}
+                  ),
+                  exceptionWorkingDay: index(
+                    local!exceptionWorkingDay,
+                    "exception_working_date",
+                    {}
+                  ),
+                  processingWeekday: index(
+                    local!weekdayId,
+                    "code",
+                    {}
+                  ),
+                  triggerTime: index(
+                    fv!item,
+                    "end_completion_time",
+                    {}
+                  ),
+                  timezone: index(
+                    local!calendarDetails,
+                    "timezone_id",
+                    {}
+                  ),
+                  recurrenceFrequency: index(
+                    fv!item,
+                    "recurrence_frequency",
+                    {}
+                  )
+                ),
+                " ",
+                index(
+                  fv!item,
+                  "end_completion_time",
+                  {}
+                )
+              ),
+              #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_69694"(
+                recurrenceType: index(
+                  fv!item,
+                  "recurrence_type",
+                  {}
+                ),
+                recurrenceFrequency: index(
+                  fv!item,
+                  "recurrence_frequency",
+                  {}
+                ),
+                startBusinessDay: index(
+                  fv!item,
+                  "end_business_days",
+                  {}
+                ),
+                triggerDateTime: index(
+                  fv!item,
+                  "next_trigger_completion_datetime",
+                  {}
+                ),
+                triggerDateTimeGMT: index(
+                  fv!item,
+                  "next_trigger_completion_datetime_gmt",
+                  {}
+                ),
+                nonWorkingDay: index(
+                  local!nonWorkingDay,
+                  "non_working_day",
+                  {}
+                ),
+                holidayDate: index(
+                  local!holidayDetails,
+                  "holiday_date",
+                  {}
+                ),
+                exceptionWorkingDay: index(
+                  local!exceptionWorkingDay,
+                  "exception_working_date",
+                  {}
+                ),
+                processingWeekday: index(
+                  local!weekdayId,
+                  "code",
+                  {}
+                ),
+                triggerTime: index(
+                  fv!item,
+                  "end_completion_time",
+                  {}
+                )
+              )
+            )
+          },
+          #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_69694"(
+            recurrenceType: index(
+              fv!item,
+              "recurrence_type",
+              {}
+            ),
+            recurrenceFrequency: index(
+              fv!item,
+              "recurrence_frequency",
+              {}
+            ),
+            startBusinessDay: index(
+              fv!item,
+              "end_business_days",
+              {}
+            ),
+            triggerDateTime: index(
+              fv!item,
+              "next_trigger_completion_datetime",
+              {}
+            ),
+            triggerDateTimeGMT: index(
+              fv!item,
+              "next_trigger_completion_datetime_gmt",
+              {}
+            ),
+            nonWorkingDay: index(
+              local!nonWorkingDay,
+              "non_working_day",
+              {}
+            ),
+            holidayDate: index(
+              local!holidayDetails,
+              "holiday_date",
+              {}
+            ),
+            exceptionWorkingDay: index(
+              local!exceptionWorkingDay,
+              "exception_working_date",
+              {}
+            ),
+            processingWeekday: index(
+              local!weekdayId,
+              "code",
+              {}
+            ),
+            triggerTime: index(
+              fv!item,
+              "end_completion_time",
+              {}
+            ),
+            processingMonth: index(
+              fv!item,
+              "processing_month",
+              {}
+            )
+          )
+        ),
+        'type!{urn:com:appian:types:eap}EAP_T_RefRunConfig'(
+          run_config_id: fv!item.run_config_id,
+          process_id: fv!item.process_id,
+          /*  versionDesc:fv!item.,*/
+          process_model_uuid: fv!item.process_model_uuid,
+          recurrence_type: fv!item.recurrence_type,
+          recurrence_frequency: fv!item.recurrence_frequency,
+          processing_month: fv!item.processing_month,
+          processing_weekdays: fv!item.processing_weekdays,
+          start_businesss_days: fv!item.start_businesss_days,
+          end_business_days: fv!item.end_business_days,
+          trigger_time: fv!item.trigger_time,
+          next_trigger_datetime: local!nextTriggerTime,
+          is_active: fv!item.is_active,
+          created_by: fv!item.created_by,
+          created_on: fv!item.created_on,
+          modified_by: fv!item.modified_by,
+          modified_on: fv!item.modified_on,
+          next_trigger_datetime_gmt: gmt(
+            local!nextTriggerTime,
+            fv!item.timezone_id
+          ),
+          process_display_name: fv!item.process_display_name,
+          is_process_trigger: fv!item.is_process_trigger,
+          is_adhoc_trigger: fv!item.is_adhoc_trigger,
+          last_trigger_datetime: fv!item.next_trigger_datetime,
+          last_trigger_datetime_gmt: fv!item.next_trigger_datetime_gmt,
+          next_trigger_completion_datetime: local!endcompletiontime,
+          next_trigger_completion_datetime_gmt: gmt(
+            local!endcompletiontime,
+            fv!item.timezone_id
+          ),
+          end_completion_time: fv!item.end_completion_time
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>calendarId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isEdited</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_82854"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_163395"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_216636"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_359057"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_558463"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_698293"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_707511"/>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_752144"/>
+    </history>
+</contentHaul>

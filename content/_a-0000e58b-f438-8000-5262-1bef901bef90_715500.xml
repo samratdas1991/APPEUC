@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e58b-f438-8000-5262-1bef901bef90_715589</versionUuid>
+    <rule>
+        <name>EAP_SetValueForRefProcessRequest</name>
+        <uuid>_a-0000e58b-f438-8000-5262-1bef901bef90_715500</uuid>
+        <description>Rule to set to data into ref process request</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  and(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!requestId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!runConfigId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processControllerMasterId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!runTimeSchedulerDetailId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!requestCurrStatus
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!requestMonth
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!requestYear
+    ),
+
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!makerId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!checkerId
+    ), #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!appianProcessInstanceId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isAdhocTrigger
+    ),   
+
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!createdBy
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!createdOn
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!modifiedBy
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!modifiedOn
+    )
+  ),
+  ri!refProcessRequest,
+  'type!{urn:com:appian:types:EAP}EAP_T_ProcessRequest'(
+    requestId :
+    if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!requestId),index(ri!refProcessRequest,"requestId",{}),ri!requestId),
+    processId : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),index(ri!refProcessRequest,"processId",{}),ri!processId),
+    runConfigId:  if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!runConfigId),index(ri!refProcessRequest,"runConfigId",{}),ri!runConfigId),
+    processControllerMasterId: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processControllerMasterId),index(ri!refProcessRequest,"processControllerMasterId",{}),ri!processControllerMasterId),
+    runTimeSchedulerDetailId  : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!runTimeSchedulerDetailId),index(ri!refProcessRequest,"runTimeSchedulerDetailId",{}),ri!runTimeSchedulerDetailId),
+    requestCurrStatus : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!requestCurrStatus),index(ri!refProcessRequest,"requestCurrStatus",{}),ri!requestCurrStatus),
+    requestMonth : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!requestMonth),index(ri!refProcessRequest,"requestMonth",{}),ri!requestMonth),
+    requestYear : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!requestYear),index(ri!refProcessRequest,"requestYear",{}),ri!requestYear),
+
+    makerId : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!makerId),index(ri!refProcessRequest,"makerId",{}),ri!makerId),
+    checkerId:  if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!checkerId),index(ri!refProcessRequest,"checkerId",{}),ri!checkerId),
+    appianProcessInstanceId : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!appianProcessInstanceId),index(ri!refProcessRequest,"appianProcessInstanceId",{}),ri!appianProcessInstanceId),
+    isAdhocTrigger:  if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isAdhocTrigger),index(ri!refProcessRequest,"isAdhocTrigger",{}),ri!isAdhocTrigger),    
+    created_by : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdBy),index(ri!refProcessRequest,"created_by",{}),ri!createdBy),
+    created_on : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdOn),index(ri!refProcessRequest,"created_on",{}),ri!createdOn),
+    modified_by : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedBy),index(ri!refProcessRequest,"modified_by",{}),ri!modifiedBy),
+    modified_on : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedOn),index(ri!refProcessRequest,"modified_on",{}),ri!modifiedOn),
+  )
+)
+
+
+</definition>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerMasterId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runTimeSchedulerDetailId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestCurrStatus</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestMonth</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestYear</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessRequest</name>
+            <type>
+                <name>EAP_T_ProcessRequest?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>makerId</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>checkerId</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>appianProcessInstanceId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isAdhocTrigger</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_715589"/>
+    </history>
+</contentHaul>

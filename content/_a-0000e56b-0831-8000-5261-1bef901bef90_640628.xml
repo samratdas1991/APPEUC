@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e595-3324-8000-5263-1bef901bef90_727761</versionUuid>
+    <rule>
+        <name>EAP_Execute_StoreProcedureGetScheduledView</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_640628</uuid>
+        <description>Execute SP rule for Scheduled View</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!results:{
+    index(
+      executestoredprocedure(
+        dataSourceName: #"_a-0000e518-940a-8000-525e-1bef901bef90_473018",
+        procedureName: #"_a-0000e56b-0831-8000-5261-1bef901bef90_640747",
+        inputs: {
+          {
+            name: "IS_SUMMARY_VIEW",
+            value: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isSummaryView),
+              "",
+              ri!isSummaryView
+            )
+
+          },
+          {
+            name: "IS_DETAILED_VIEW",
+            value: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isDetailedView),
+              "",
+              ri!isDetailedView
+            )
+          },
+          {
+            name: "PROCESS_ID",
+            value: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),
+              "",
+              ri!processId
+            )
+          },
+          {
+            name: "RUN_CONFIG_ID",
+            value: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!runConfigId),
+              "",
+              ri!runConfigId
+            )
+          },
+          {
+            name: "CENTER_ID",
+            value: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!centerId),
+              "",
+              ri!centerId
+            )
+          },
+          {
+            name: "MGDSEGL7_ID",
+            value: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!mgdSegL7Id),
+              "",
+              ri!mgdSegL7Id
+            )
+          },
+          {
+            name: "MGDSEGL8_ID",
+            value: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!mgdSegL8Id),
+              "",
+              ri!mgdSegL8Id
+            )
+          },
+          {
+            name: "PERIOD_FROM",
+            value: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!periodFrom),
+              "",
+              ri!periodFrom
+            )
+          },
+          {
+            name: "PERIOD_TO",
+            value: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!periodTo),
+              "",
+              ri!periodTo
+            )
+          },
+          {
+            name: "EUC_NUMBER",
+            value: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!eucNumber),
+              "",
+              ri!eucNumber
+            )
+          },
+          {
+            name: "CENTER_SEG_MAPPING_ID",
+            value: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!centerSegMappingId),
+              "",
+              ri!centerSegMappingId
+            )
+          },
+          {
+            name: "MAKERS",
+            value: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!makers),
+              "",
+              ri!makers
+            )
+          },
+          {
+            name: "CHECKERS",
+            value: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!checkers),
+              "",
+              ri!checkers
+            )
+          },
+          {
+            name: "RECORD_COUNT",
+            value: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!rowLimit),
+              "",
+              ri!rowLimit
+            )
+          }
+        }
+      ),
+      "parameters",
+      {}
+    )
+  },
+  a!flatten(local!results)
+)
+</definition>
+        <namedTypedValue>
+            <name>isSummaryView</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isDetailedView</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>centerId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>mgdSegL7Id</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>mgdSegL8Id</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>periodFrom</name>
+            <type>
+                <name>date</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>periodTo</name>
+            <type>
+                <name>date</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>eucNumber</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>centerSegMappingId</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>makers</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>checkers</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>rowLimit</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name>Initial test</a:name>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:int">1</a:value>
+                    <a:nameRef>isSummaryView</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>isDetailedView</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:int">26</a:value>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:int">2506</a:value>
+                    <a:nameRef>runConfigId</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>centerId</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>mgdSegL7Id</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>mgdSegL8Id</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">now()</a:value>
+                    <a:nameRef>periodFrom</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">now()+30</a:value>
+                    <a:nameRef>periodTo</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>eucNumber</a:nameRef>
+                    <a:id>10</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>centerSegMappingId</a:nameRef>
+                    <a:id>11</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>makers</a:nameRef>
+                    <a:id>12</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>checkers</a:nameRef>
+                    <a:id>13</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>rowLimit</a:nameRef>
+                    <a:id>14</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_655452"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_696061"/>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_727761"/>
+    </history>
+</contentHaul>

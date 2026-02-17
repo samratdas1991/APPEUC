@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_355738</versionUuid>
+    <rule>
+        <name>EAP_UIVConfig_OutputValidationRule</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_355717</uuid>
+        <description>Rule to check all requied info filled or not in Output Mapping of UI View Config.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!messages:a!refreshVariable(
+    value:reject(
+      fn!isnull,
+      a!flatten(
+        #"SYSTEM_SYSRULES_forEach"(
+          items: ri!OutEntityMapping,
+          expression: if(
+            not(
+              or(
+                index(
+                  fv!item,
+                  "isActive",
+                  null
+                )
+              )
+            ),
+            null,
+            if(
+              contains(
+                tointeger(
+                  index(
+                    ri!OutEntityFieldMapping,
+                    "uiEntityMappingId",
+                    null
+                  )
+                ),
+                tointeger(
+                  index(
+                    fv!item,
+                    "uiEntityMappingId",
+                    null
+                  )
+                )
+              ),
+              {
+                if(
+                  contains(
+                    tointeger(
+                      index(
+                        ri!OutViewFilters,
+                        "uiEntityMappingId",
+                        null
+                      )
+                    ),
+                    tointeger(
+                      index(
+                        fv!item,
+                        "uiEntityMappingId",
+                        null
+                      )
+                    )
+                  ),
+                  null,
+                  concat(
+                    index(
+                      fv!item,
+                      "displayName",
+                      null
+                    ),
+                    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_354100"[2]
+                  )
+                )
+              },
+              concat(
+                index(
+                  fv!item,
+                  "displayName",
+                  null
+                ),
+                #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_354100"[1]
+              )
+            )
+          )
+        )
+      )
+    ),
+    refreshAlways: true()
+  )
+  ,
+  local!messages
+)</definition>
+        <namedTypedValue>
+            <name>OutEntityMapping</name>
+            <type>
+                <name>EAP_T_UiOutEntityMapping?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>OutEntityFieldMapping</name>
+            <type>
+                <name>EAP_T_UiOutEntityFieldMapping?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>OutViewFilters</name>
+            <type>
+                <name>EAP_T_UiOutViewFilters?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name>Test Case 1</a:name>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_313621"(
+  processId:60
+)</a:value>
+                    <a:nameRef>OutEntityMapping</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_314170"(
+  processId:60
+)</a:value>
+                    <a:nameRef>OutEntityFieldMapping</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_312791"(
+  processId:60
+)</a:value>
+                    <a:nameRef>OutViewFilters</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_355738"/>
+    </history>
+</contentHaul>

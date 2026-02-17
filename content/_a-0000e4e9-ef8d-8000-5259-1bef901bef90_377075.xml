@@ -1,0 +1,1002 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_422661</versionUuid>
+    <rule>
+        <name>EAP_DataValidation_ActionTypeInputCopyEntityMappingGridRowLayout</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377075</uuid>
+        <description>Holds grid row layout for action type input copy entity mapping.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!data,
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    id: ri!index,
+    contents: {
+      /*Entity Column Name*/
+      if(
+        or(
+          ri!isReadOnly = true()
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          value: index(
+            ri!actionTypeInputCopyEntityMapping[ri!index],
+            "entity_column_name",
+            {}
+          ),
+         
+          readOnly: ri!isReadOnly
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+          placeholderLabel: "--Select Entity Column Name-- ",
+          choiceLabels: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!tablesColumns
+            ),
+            null,
+            touniformstring(
+              ri!tablesColumns
+            )
+          ),
+          choiceValues: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!tablesColumns
+            ),
+            null,
+            touniformstring(
+              ri!tablesColumns
+            )
+          ),
+          value: if(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+              value: index(
+                ri!actionTypeInputCopyEntityMapping[ri!index],
+                "entity_column_name",
+                {}
+              ),
+              choiceValue: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!tablesColumns
+                ),
+                null,
+                touniformstring(
+                  ri!tablesColumns
+                )
+              )
+            ),
+            index(
+              ri!actionTypeInputCopyEntityMapping[ri!index],
+              "entity_column_name",
+              {}
+            ),
+            null
+          ),
+          saveInto: {a!save(
+            ri!actionTypeInputCopyEntityMapping[ri!index].entity_column_name,
+            save!value
+          ),
+          a!save(
+            ri!actionTypeInputCopyEntityMapping[ri!index].modified_by,
+           loggedInUser()
+          ),
+          a!save(
+            ri!actionTypeInputCopyEntityMapping[ri!index].modified_on,
+            now()
+          )
+          },
+          validations: {
+            if(
+              ri!isReadOnly,
+              {},
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                value: index(
+                  ri!actionTypeInputCopyEntityMapping[ri!index],
+                  "entity_column_name",
+                  {}
+                ),
+                ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+              )
+            )
+          },
+          required: if(
+            ri!isReadOnly=true(),
+            false(),true()
+          )
+        )
+      ),
+      /*Excel Column Index*/
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value: tostring(index(
+          ri!actionTypeInputCopyEntityMapping[ri!index],
+          "excel_column_index",
+          {}
+        )),
+        placeholder: "--Excel Column Index--",
+        saveInto: {a!save(
+          ri!actionTypeInputCopyEntityMapping[ri!index].excel_column_index,
+          save!value
+        ),
+        
+        a!save(
+          ri!actionTypeInputCopyEntityMapping[ri!index].modified_by,
+          loggedInUser()
+        ),
+        a!save(
+          ri!actionTypeInputCopyEntityMapping[ri!index].modified_on,
+          now()
+        )},
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!actionTypeInputCopyEntityMapping[ri!index],
+                "excel_column_index",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          ),
+          if(
+            index(
+              ri!actionTypeInputCopyEntityMapping[ri!index],
+              "excel_column_index",
+              {}
+            )&lt;=0,
+            "Excel column index should not 0 or -1",
+            {}
+          )
+        },
+        required: if(
+          or(
+            ri!isReadOnly = true(),
+            
+          ),
+          false(),
+          true()
+        ),
+        readOnly: ri!isReadOnly
+      ),
+      /*Excel Column Type*/
+      if(
+        ri!isReadOnly = true(),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          value: index(
+            ri!actionTypeInputCopyEntityMapping[ri!index],
+            "excel_column_type",
+            {}
+          ),
+          readOnly: true()
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+          placeholderLabel: "--Select Excel Column Type-- ",
+          choiceLabels: touniformstring(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[2],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+            )
+          ),
+          choiceValues:   touniformstring(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[2],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            )
+          ),
+          value: if(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+              value: index(
+                ri!actionTypeInputCopyEntityMapping[ri!index],
+                "excel_column_type",
+                {}
+              ),
+              choiceValue:   touniformstring(
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                  MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                    masterLookUpData: ri!masterLookUpData,
+                    categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                  ),
+                  UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[2],
+                  Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                )
+              )
+            ),
+            index(
+              ri!actionTypeInputCopyEntityMapping[ri!index],
+              "excel_column_type",
+              {}
+            ),
+            null
+          ),
+          saveInto:{ a!save(
+            ri!actionTypeInputCopyEntityMapping[ri!index].excel_column_type,
+            save!value
+          ),a!save(
+            ri!actionTypeInputCopyEntityMapping[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!actionTypeInputCopyEntityMapping[ri!index].modified_on,
+            now()
+          ),
+          a!save(
+            ri!actionTypeInputCopyEntityMapping[ri!index].paste_format,
+            null
+          )
+          },
+          validations: {
+            if(
+              ri!isReadOnly,
+              {},
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                value: index(
+                  ri!actionTypeInputCopyEntityMapping[ri!index],
+                  "excel_column_type",
+                  {}
+                ),
+                ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+              )
+            )
+          },
+          required: if(
+            ri!isReadOnly=true(),
+            false(),
+            true()
+          )
+        )
+      ),
+
+      /*Paste Format*/
+      if(
+        ri!isReadOnly = true(),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          value: index(
+            ri!actionTypeInputCopyEntityMapping[ri!index],
+            "paste_format",
+            {}
+          ),
+          readOnly: true()
+        ),
+        if(
+          index(
+            ri!actionTypeInputCopyEntityMapping[ri!index],
+            "excel_column_type",
+            {}
+          ) = "Date",
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+            /*required: true(),*/
+            placeholderLabel: "--Select Paste format--",
+            choiceLabels: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!masterLookUpData
+              ),
+              null,
+              touniformstring(
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                  MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                    masterLookUpData: ri!masterLookUpData,
+                    categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                  ),
+                  UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[16],
+                  Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                )
+              )
+            ),
+            choiceValues: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!masterLookUpData
+              ),
+              null,
+              touniformstring(
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                  MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                    masterLookUpData: ri!masterLookUpData,
+                    categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                  ),
+                  UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[16],
+                  Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                )
+              )
+            ),
+            value: if(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                value: index(
+                  ri!actionTypeInputCopyEntityMapping[ri!index],
+                  "paste_format",
+                  {}
+                ),
+                choiceValue: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!masterLookUpData
+                  ),
+                  null,
+                  touniformstring(
+                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                      MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                        masterLookUpData: ri!masterLookUpData,
+                        categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                      ),
+                      UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[16],
+                      Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                    )
+                  )
+                )
+              ),
+              index(
+                ri!actionTypeInputCopyEntityMapping[ri!index],
+                "paste_format",
+                {}
+              ),
+              null
+            ),
+            saveInto: {a!save(
+              ri!actionTypeInputCopyEntityMapping[ri!index].paste_format,
+              save!value
+            ),
+            a!save(
+              ri!actionTypeInputCopyEntityMapping[ri!index].modified_by,
+              loggedInUser()
+            ),
+            a!save(
+              ri!actionTypeInputCopyEntityMapping[ri!index].modified_on,
+              now()
+            )
+            },
+            required:true(),
+            validations: {
+              if(
+                ri!isReadOnly,
+                {},
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                  value: index(
+                    ri!actionTypeInputCopyEntityMapping[ri!index],
+                    "paste_format",
+                    {}
+                  ),
+                  ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+                )
+              )
+            },
+
+          ),
+          /*Number*/
+          if(
+            index(
+              ri!actionTypeInputCopyEntityMapping[ri!index],
+              "excel_column_type",
+              {}
+            ) = #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[28],
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+              required: true(),
+              placeholderLabel: "--Select Paste format--",
+              choiceLabels: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!masterLookUpData
+                ),
+                null,
+                touniformstring(
+                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                    MasterLookup:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                      masterLookUpData:ri!masterLookUpData,
+                      categoryGroup:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                    ), 
+                    UniqueKey:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[28], 
+                    Column:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                  )
+                )
+              ),
+              choiceValues: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!masterLookUpData
+                ),
+                null,
+                touniformstring(
+                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                    MasterLookup:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                      masterLookUpData:ri!masterLookUpData,
+                      categoryGroup:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                    ), 
+                    UniqueKey:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[28], 
+                    Column:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                  )
+                )
+              ),
+              value: if(
+                #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                  value: index(
+                    ri!actionTypeInputCopyEntityMapping[ri!index],
+                    "paste_format",
+                    {}
+                  ),
+                  choiceValue: if(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      ri!masterLookUpData
+                    ),
+                    null,
+                    touniformstring(
+                      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                        MasterLookup:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                          masterLookUpData:ri!masterLookUpData,
+                          categoryGroup:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                        ), 
+                        UniqueKey:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[28], 
+                        Column:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                      )
+                    )
+                  )
+                ),
+                index(
+                  ri!actionTypeInputCopyEntityMapping[ri!index],
+                  "paste_format",
+                  {}
+                ),
+                null
+              ),
+              saveInto: {a!save(
+                ri!actionTypeInputCopyEntityMapping[ri!index].paste_format,
+                save!value
+              ),
+              a!save(
+                ri!actionTypeInputCopyEntityMapping[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!actionTypeInputCopyEntityMapping[ri!index].modified_on,
+                now()
+              )
+              },
+              validations: {
+                if(
+                  ri!isReadOnly,
+                  {},
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                    value: index(
+                      ri!actionTypeInputCopyEntityMapping[ri!index],
+                      "paste_format",
+                      {}
+                    ),
+                    ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+                  )
+                )
+              },
+
+            ),
+            /*Text*/
+            if(
+              index(
+                ri!actionTypeInputCopyEntityMapping[ri!index],
+                "excel_column_type",
+                {}
+              ) = #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[27],
+              #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                required: true(),
+                placeholderLabel: "--Select Paste format--",
+                choiceLabels: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!masterLookUpData
+                  ),
+                  null,
+                  touniformstring(
+                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                      MasterLookup:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                        masterLookUpData:ri!masterLookUpData,
+                        categoryGroup:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                      ), 
+                      UniqueKey:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[27], 
+                      Column:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                    )
+                  )
+                ),
+                choiceValues: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!masterLookUpData
+                  ),
+                  null,
+                  touniformstring(
+                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                      MasterLookup:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                        masterLookUpData:ri!masterLookUpData,
+                        categoryGroup:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                      ), 
+                      UniqueKey:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[27], 
+                      Column:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                    )
+                  )
+                ),
+                value: if(
+                  #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                    value: index(
+                      ri!actionTypeInputCopyEntityMapping[ri!index],
+                      "paste_format",
+                      {}
+                    ),
+                    choiceValue: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        ri!masterLookUpData
+                      ),
+                      null,
+                      touniformstring(
+                        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                          MasterLookup:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                            masterLookUpData:ri!masterLookUpData,
+                            categoryGroup:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                          ), 
+                          UniqueKey:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[27], 
+                          Column:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                        )
+                      )
+                    )
+                  ),
+                  index(
+                    ri!actionTypeInputCopyEntityMapping[ri!index],
+                    "paste_format",
+                    {}
+                  ),
+                  null
+                ),
+                saveInto: {a!save(
+                  ri!actionTypeInputCopyEntityMapping[ri!index].paste_format,
+                  save!value
+                ),
+                a!save(
+                  ri!actionTypeInputCopyEntityMapping[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!actionTypeInputCopyEntityMapping[ri!index].modified_on,
+                  now()
+                )
+                },
+                validations: {
+                  if(
+                    ri!isReadOnly,
+                    {},
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                      value: index(
+                        ri!actionTypeInputCopyEntityMapping[ri!index],
+                        "paste_format",
+                        {}
+                      ),
+                      ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+                    )
+                  )
+                },
+
+              ),
+              /*Currency*/
+              /*if(*/
+              /*index(*/
+              /*ri!actionTypeInputCopyEntityMapping[ri!index],*/
+              /*"paste_format",*/
+              /*{}*/
+              /*) = "Currency",*/
+              #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                required: true(),
+                placeholderLabel: "--Select Paste format--",
+                choiceLabels: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!masterLookUpData
+                  ),
+                  null,
+                  touniformstring(
+                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                      MasterLookup:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                        masterLookUpData:ri!masterLookUpData,
+                        categoryGroup:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                      ), 
+                      UniqueKey:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_109143"[3], 
+                      Column:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                    )
+                  )
+                ),
+                choiceValues: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!masterLookUpData
+                  ),
+                  null,
+                  touniformstring(
+                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                      MasterLookup:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                        masterLookUpData:ri!masterLookUpData,
+                        categoryGroup:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                      ), 
+                      UniqueKey:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_109143"[3], 
+                      Column:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                    )
+                  )
+                ),
+                value: if(
+                  #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                    value: index(
+                      ri!actionTypeInputCopyEntityMapping[ri!index],
+                      "paste_format",
+                      {}
+                    ),
+                    choiceValue: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        ri!masterLookUpData
+                      ),
+                      null,
+                      touniformstring(
+                        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                          MasterLookup:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                            masterLookUpData:ri!masterLookUpData,
+                            categoryGroup:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                          ), 
+                          UniqueKey:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_109143"[3], 
+                          Column:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                        )
+                      )
+                    )
+                  ),
+                  index(
+                    ri!actionTypeInputCopyEntityMapping[ri!index],
+                    "paste_format",
+                    {}
+                  ),
+                  null
+                ),
+                saveInto: {a!save(
+                  ri!actionTypeInputCopyEntityMapping[ri!index].paste_format,
+                  save!value
+                ),
+                a!save(
+                  ri!actionTypeInputCopyEntityMapping[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!actionTypeInputCopyEntityMapping[ri!index].modified_on,
+                  now()
+                )
+                },
+                validations: {
+                  if(
+                    ri!isReadOnly,
+                    {},
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                      value: index(
+                        ri!actionTypeInputCopyEntityMapping[ri!index],
+                        "paste_format",
+                        {}
+                      ),
+                      ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+                    )
+                  )
+                }
+              ),
+              /*{}*/
+              /*)*/
+            )
+          )
+        )
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        align: "CENTER",
+        value: {
+          if(
+            or(
+              tointeger(
+                index(
+                  ri!actionTypeInputCopyEntityMapping[ri!index],
+                  "isactive",
+                  {}
+                )
+              ) = 1
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-on",
+              caption: "Yes",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: 1,
+                saveInto: {a!save(
+                  ri!actionTypeInputCopyEntityMapping[ri!index].isactive,
+                  0
+                ),
+
+                a!save(
+                  ri!actionTypeInputCopyEntityMapping[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!actionTypeInputCopyEntityMapping[ri!index].modified_on,
+                  now()
+                )},
+                showWhen:ri!isReadOnly&lt;&gt;true()
+              ),
+              size: "MEDIUM_PLUS"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-off",
+              caption: "No",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: 0,
+                saveInto: {a!save(
+                  ri!actionTypeInputCopyEntityMapping[ri!index].isactive,
+                  1
+                ),
+
+                a!save(
+                  ri!actionTypeInputCopyEntityMapping[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!actionTypeInputCopyEntityMapping[ri!index].modified_on,
+                  now()
+                )},
+                showWhen:ri!isReadOnly&lt;&gt;true()
+              ),
+              size: "MEDIUM_PLUS"
+            )
+          )
+        }
+      ),
+      if(
+        or(
+          ri!isReadonly = true(),
+          length(
+            wherecontains(
+              tointeger(
+                ri!inputCopyId
+              ),
+              tointeger(
+                index(
+                  ri!actionTypeInputCopyEntityMapping,
+                  "input_copy_id",
+                  null
+                )
+              )
+            )
+          ) &lt; 2
+        ),
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: " ",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            showWhen: not(
+              ri!index =  tointeger(
+                index(
+                    wherecontains(
+                      tointeger(
+                        ri!inputCopyId
+                      ),
+                      tointeger(
+                        index(
+                          ri!actionTypeInputCopyEntityMapping,
+                          "input_copy_id",
+                          null
+                        )
+                      )
+                    ),
+                  1,
+                  {}
+                )
+              )            
+            ),
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon:  "MOVE_UP"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    local!data,
+                    ri!actionTypeInputCopyEntityMapping[ri!index - 1]
+                  ),
+                  a!save(
+                    ri!actionTypeInputCopyEntityMapping[ri!index - 1],
+                    ri!actionTypeInputCopyEntityMapping[ri!index]
+                  ),
+                  a!save(
+                    ri!actionTypeInputCopyEntityMapping[ri!index],
+                    local!data
+                  )
+                }
+              )
+          )
+        )
+      ),
+      if(
+        or(
+          ri!isReadonly = true(),
+          length(
+            wherecontains(
+              tointeger(
+                ri!inputCopyId
+              ),
+              tointeger(
+                index(
+                  ri!actionTypeInputCopyEntityMapping,
+                  "input_copy_id",
+                  null
+                )
+              )
+            )
+          ) &lt; 2
+        ),
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            showWhen: not(
+              ri!index =  tointeger(
+                index(
+                  reverse( 
+                    wherecontains(
+                      tointeger(
+                        ri!inputCopyId
+                      ),
+                      tointeger(
+                        index(
+                          ri!actionTypeInputCopyEntityMapping,
+                          "input_copy_id",
+                          null
+                        )
+                      )
+                    )
+                  ),
+                  1,
+                  {}
+                )
+              )            
+            ),
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "MOVE_DOWN"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  local!data,
+                  ri!actionTypeInputCopyEntityMapping[ri!index]
+                ),
+                a!save(
+                  ri!actionTypeInputCopyEntityMapping[ri!index],
+                  ri!actionTypeInputCopyEntityMapping[ri!index + 1],
+                  
+                ),
+                a!save(
+                  ri!actionTypeInputCopyEntityMapping[ri!index + 1],
+                  local!data
+                ),
+                
+              }
+            )
+          )
+        )
+      ),
+      /*Delete*/
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!actionTypeInputCopyEntityMapping[ri!index],
+            "wf_entity_sheet_mapping_id",
+            {}
+          )
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "",
+          showWhen: if(
+            or(
+              ri!isReadOnly = true()
+            ),
+            false(),
+            true()
+          ),
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!actionTypeInputCopyEntityMapping,
+                  remove(
+                    ri!actionTypeInputCopyEntityMapping,
+                    ri!index
+                  )
+                )
+              }
+            )
+          )
+        ),
+        if(
+          ri!isReadOnly = true(),
+          {},
+          #"SYSTEM_SYSRULES_richTextDisplayField"()
+        )
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionTypeInputCopyEntityMapping</name>
+            <type>
+                <name>EAP_T_DVEntitySheetMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>tablesColumns</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>inputCopyId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377079"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_395915"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_408518"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_422661"/>
+    </history>
+</contentHaul>

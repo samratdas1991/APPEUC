@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_255803</versionUuid>
+    <interface>
+        <name>EAP_processParameterDetailViewReadOnlyGrid</name>
+        <uuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_762785</uuid>
+        <description>Holds Interface that contains detailed view for process parameter mapping.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!processParamPgConfigData: #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_761075"(
+    processId: ri!processId,
+    pagingInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: -1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "created_on",
+        ascending: false()
+      )
+    )
+  ),
+    local!ProcessParamPgDetailData,
+    local!processparampgid,
+    local!emptyGridDisplay,
+    local!showGrid,
+{ #"SYSTEM_SYSRULES_sectionLayout_v1"(
+  contents: {
+    #"_a-0000e518-940a-8000-525e-1bef901bef90_524783"(
+      size:"MEDIUM_PLUS",
+      label: upper("UI Process Parameters Page Mappings"),
+      color:"ACCENT"
+    )
+  }
+),
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+  
+   contents: {
+     #"SYSTEM_SYSRULES_gridField_v1"(
+       data: local!processParamPgConfigData,
+       columns: {
+         #"SYSTEM_SYSRULES_gridColumn"(
+           label: "Process Display Name",
+           value: index(
+             #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+               runConfigId: fv!row.run_config_id
+             ),
+             "process_display_name",
+             {}
+           ),
+           align: "CENTER"
+         ),
+         #"SYSTEM_SYSRULES_gridColumn"(
+           label: "Page Name",
+           value: fv!row.page_name,
+           align: "CENTER"
+         ),
+         #"SYSTEM_SYSRULES_gridColumn"(
+           label: "Page Display Name",
+           value: fv!row.page_display_name,
+           align: "CENTER"
+         ),
+         #"SYSTEM_SYSRULES_gridColumn"(
+           label: "Page Description",
+           value: fv!row.page_desc,
+           align: "CENTER"
+         ),
+         #"SYSTEM_SYSRULES_gridColumn"(
+           label: "Is Active",
+           value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+             value: if(
+               or(
+                 tointeger(
+                   fv!row.active
+                 ) = 1
+               ),
+               #"SYSTEM_SYSRULES_richTextIcon"(
+                 icon: "check-circle",
+                 color: "POSITIVE",
+                 size: "MEDIUM"
+               ),
+               #"SYSTEM_SYSRULES_richTextIcon"(
+                 icon: "times-circle-o",
+                 color: "NEGATIVE",
+                 size: "MEDIUM"
+               )
+
+             )
+           ),
+           align: "CENTER"
+         ),
+         #"SYSTEM_SYSRULES_gridColumn"(
+           label: "Actions",
+           value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+             value: 
+            { #"SYSTEM_SYSRULES_richTextIcon"(
+               icon: 
+               if(tointeger(fv!row.process_param_pg_id)=tointeger(local!processparampgid),"eye-slash","eye"),
+               link:#"SYSTEM_SYSRULES_dynamicLink"(
+                 value: fv!row.process_param_pg_id,
+                 saveInto: 
+                 {local!processparampgid,
+                   a!save(
+                   local!ProcessParamPgDetailData,
+                   
+                     #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_761028"(
+                       processParamPgId:fv!row.process_param_pg_id
+                     )
+                   
+                 ),
+                 if(
+                   #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!ProcessParamPgDetailData),a!save(
+                     local!emptyGridDisplay,"No parameters enteries for page: "&amp;fv!row.page_display_name
+                   ),a!save(
+                     local!emptyGridDisplay,null
+                   )
+                 )
+              
+                 }
+               ),
+               color: "ACCENT"
+             ),
+             #"SYSTEM_SYSRULES_richTextItem_v1"(
+               text: char(9)
+             ),
+             #"SYSTEM_SYSRULES_richTextIcon"(
+               icon: "edit",
+               caption: "Click here to edit page details",
+               
+               link: #"SYSTEM_SYSRULES_startProcessLink"(
+                 label: "Edit",
+                  processModel: #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_764476",
+                  processParameters: {
+                    processId:ri!processId,
+                    uniqueIdentifiers:'type!{urn:com:appian:types:eap}EAP_Temp_ProcessParamsUniqueIdentifiers'(
+                    
+                      process_param_pg_id: fv!row.process_param_pg_id,
+                      active_step:1
+                    ),
+                    isManage:true()
+                  }
+                ),
+               linkStyle: "STANDALONE"
+             )
+            }
+             
+           ),
+           align: "CENTER"
+         )
+       },
+       shadeAlternateRows: false
+     ),
+     #"SYSTEM_SYSRULES_gridField_v1"(
+      data: local!ProcessParamPgDetailData,
+      columns: {
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label:"Page Name",
+          value:index(index(
+            local!processParamPgConfigData,wherecontains(
+              tointeger(fv!row.process_param_pg_id),
+              tointeger(index(local!processParamPgConfigData,"process_param_pg_id",{}))
+            ),{}
+          ),"page_name",{}),
+          align: "START"
+          
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Parameter Name",
+          value: index(#"_a-0000e5c3-a65f-8000-5268-1bef901bef90_759635"(processParamId:fv!row.process_param_id),"param_display_name",{}),
+          align: "START"
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Is Active",
+          value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: if(
+              or(
+                tointeger(
+                  fv!row.active
+                ) = 1
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "check-circle",
+                color: "POSITIVE",
+                size: "STANDARD"
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "times-circle-o",
+                color: "NEGATIVE",
+                size: "STANDARD"
+              )
+
+            )
+          ),
+          align: "CENTER"
+        )
+      },
+      showWhen: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!ProcessParamPgDetailData),false,true)
+     ),
+     #"SYSTEM_SYSRULES_boxLayout"(
+       contents: {
+       #"SYSTEM_SYSRULES_richTextDisplayField"(
+       value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+         text:local!emptyGridDisplay,
+         color: "NEGATIVE",
+         style:"STRONG"
+         
+       )
+      )
+     },
+     showWhen:not(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!emptyGridDisplay)),
+     style:"INFO")
+   }
+ )}
+)</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_768910"/>
+        <historyInfo versionUuid="_a-0000e5ea-27a1-8000-5269-1bef901bef90_774247"/>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_255803"/>
+    </history>
+</contentHaul>

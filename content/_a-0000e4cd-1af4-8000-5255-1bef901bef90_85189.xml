@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e58b-f438-8000-5262-1bef901bef90_714191</versionUuid>
+    <rule>
+        <name>EAP_SetValueForRefProcessUsers</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_85189</uuid>
+        <description>holds the rule to set data into ref process users CDT</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  and(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processUserId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!userSoeId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isPrimaryMaker
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isSecondaryMaker
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isPrimaryChecker
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isSecondaryChecker
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isAuditor
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isPowerUser
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isViewer
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isDoa
+    ),
+  
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isActive
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!createdBy
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!createdOn
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!updatedBy
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!updatedOn
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isDoa
+    )
+  ),
+  ri!refProcessUsers,
+ 'type!{urn:com:appian:types:EAP}EAP_T_RefProcessUsers'(
+    processUserId :
+    if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processUserId),index(ri!refProcessUsers,"processUserId",{}),ri!processUserId),
+    processId : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),index(ri!refProcessUsers,"processId",{}),ri!processId),
+    userSoeId:  if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!userSoeId),index(ri!refProcessUsers,"userSoeId",{}),ri!userSoeId),
+    isPrimaryMaker: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isPrimaryMaker),index(ri!refProcessUsers,"isPrimaryMaker",{}),ri!isPrimaryMaker),
+    isSecondaryMaker  : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isSecondaryMaker),index(ri!refProcessUsers,"isSecondaryMaker",{}),ri!isSecondaryMaker),
+    isPrimaryChecker : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isPrimaryChecker),index(ri!refProcessUsers,"isPrimaryChecker",{}),ri!isPrimaryChecker),
+    isSecondaryChecker : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isSecondaryChecker),index(ri!refProcessUsers,"isSecondaryChecker",{}),ri!isSecondaryChecker),
+    isAuditor : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isAuditor),index(ri!refProcessUsers,"isAuditor",{}),ri!isAuditor),
+    isPowerUser : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isPowerUser),index(ri!refProcessUsers,"isPowerUser",{}),ri!isPowerUser),
+    isViewer : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isViewer),index(ri!refProcessUsers,"isViewer",{}),ri!isViewer),
+    isActive : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isActive),index(ri!refProcessUsers,"isActive",{}),ri!isActive),
+    createdBy : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdBy),index(ri!refProcessUsers,"createdBy",{}),ri!createdBy),
+    createdOn : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdBy),index(ri!refProcessUsers,"createdOn",{}),ri!createdOn),
+    updatedBy : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!updatedBy),index(ri!refProcessUsers,"updatedBy",{}),ri!updatedBy),
+    updatedOn : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!updatedOn),index(ri!refProcessUsers,"updatedOn",{}),ri!updatedOn),
+    isDoa: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isDoa),index(ri!refProcessUsers,"isDoa",{}),ri!isDoa),
+    
+  )
+)
+
+
+</definition>
+        <namedTypedValue>
+            <name>processUserId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>userSoeId</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isPrimaryMaker</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isSecondaryMaker</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isPrimaryChecker</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isSecondaryChecker</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isAuditor</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isPowerUser</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isViewer</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>updatedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>updatedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessUsers</name>
+            <type>
+                <name>EAP_T_RefProcessUsers?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isDoa</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_85207"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_99969"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_714191"/>
+    </history>
+</contentHaul>

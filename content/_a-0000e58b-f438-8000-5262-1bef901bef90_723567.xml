@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e58b-f438-8000-5262-1bef901bef90_723847</versionUuid>
+    <interface>
+        <name>EAP_getValidOrInvalidUserValue</name>
+        <uuid>_a-0000e58b-f438-8000-5262-1bef901bef90_723567</uuid>
+        <description>Rule to check expected values validation for process users</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  #"SYSTEM_SYSRULES_richTextDisplayField"(
+    align: "CENTER",
+    value: {
+      if(
+        or(
+          ri!value
+        ) = or(
+          ri!expectedValue
+        ),
+        #"SYSTEM_SYSRULES_richTextItem_v1"(
+          color: "",
+          text: if(
+            or(
+              ri!value
+            ),
+            "Yes",
+            "No"
+          )
+        ),
+        {
+          #"SYSTEM_SYSRULES_richTextItem_v1"(
+            color: "NEGATIVE",
+            text: concat(
+              if(
+                or(
+                  ri!value
+                ),
+                "Yes",
+                "No"
+              )
+            )
+          ),
+          #"SYSTEM_SYSRULES_richTextItem_v1"(
+            color: "POSITIVE",
+            text: concat(
+              " (",
+              if(
+                or(
+                  ri!expectedValue
+                ),
+                "Yes",
+                "No"
+              ),
+              ")"
+            )
+          )
+        }
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>value</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>expectedValue</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_723847"/>
+    </history>
+</contentHaul>

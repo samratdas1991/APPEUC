@@ -1,0 +1,911 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_771962</versionUuid>
+    <rule>
+        <name>EAP_FileTypeGridRowLayout</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_8059</uuid>
+        <description>Holds gridRowLayout for File Type Editable grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  id: ri!index,
+  contents: {
+    /*Config Name*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65407"(
+            configId: index(
+              ri!fileTypeConfig[ri!index],
+              "config_id",
+              {}
+            )
+          ),
+          "config_data_name",
+          {}
+        )
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select Config Name--",
+        choiceLabels: {
+          touniformstring(
+            index(
+              ri!configInfo,
+              "config_data_name",
+              {}
+            )
+          )
+        },
+        choiceValues: {
+          tointeger(
+            index(
+              ri!configInfo,
+              "config_id",
+              {}
+            )
+          )
+        },
+        value: if(
+          contains(
+            index(
+              ri!configInfo,
+              "config_id",
+              {}
+            ),
+            index(
+              ri!fileTypeConfig[ri!index],
+              "config_id",
+              {}
+            )
+          ),
+          index(
+            ri!fileTypeConfig[ri!index],
+            "config_id",
+            {}
+          ),
+          null
+        ),
+        saveInto: {a!save(
+          ri!fileTypeConfig[ri!index].config_id,
+          save!value
+        ),
+        
+        a!save(ri!fileTypeConfig[ri!index].is_optional,
+          if(or(
+
+            tointeger(
+              index(
+                index(
+                  ri!configInfo,
+                  wherecontains(
+                    tointeger(index(
+                      ri!fileTypeConfig[ri!index],
+                      "config_id",
+                      {}
+                    )),
+                    tointeger(index(
+                      ri!configInfo,
+                      "config_id",
+                      {}
+                    ))
+                  ),
+                  {}
+                ),
+                "is_optional",
+                {}
+              ))=1
+          ),
+          tointeger(1),tointeger(0)
+          )
+        )
+        
+        },
+        required: true(),
+        validations: if(
+          count(
+            wherecontains(
+              tointeger(
+                index(
+                  ri!fileTypeConfig[ri!index],
+                  "config_id",
+                  {}
+                )
+              ),
+              tointeger(
+                index(
+                  ri!fileTypeConfig,
+                  "config_id",
+                  {}
+                )
+              )
+            )
+          ) &gt; 1,
+          "Duplicate config name!",
+          {}
+        )
+      )
+    ),
+    /*File Config Name*/
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      readOnly: ri!isReadOnly,
+      value:  
+
+       
+     
+      index(
+        ri!fileTypeConfig[ri!index],
+        "file_config_name",
+        {}
+      ),
+      saveInto: a!save(
+        ri!fileTypeConfig[ri!index].file_config_name,
+        save!value
+      ),
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            value: index(
+              ri!fileTypeConfig[ri!index],
+              "file_config_name",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[1]
+          )
+        )
+      },
+      required: if(
+        ri!isReadOnly,
+        false(),
+        true()
+      )
+    ),
+    /*File Type*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!fileTypeConfig[ri!index],
+          "file_type",
+          {}
+        )
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select File Type--",
+        choiceLabels: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+          MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+            masterLookUpData: ri!masterLookUpData,
+            categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[2]
+          ),
+          UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108436"[4],
+          /*cons!EAP_REF_MASTER_TYPE[21],*/
+          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+        ),
+        choiceValues: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+          MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+            masterLookUpData: ri!masterLookUpData,
+            categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[2]
+          ),
+          UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108436"[4],
+          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+        ),
+        value: if(
+          contains(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[2]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108436"[4],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            ),
+            index(
+              ri!fileTypeConfig[ri!index],
+              "file_type",
+              {}
+            )
+          ),
+          index(
+            ri!fileTypeConfig[ri!index],
+            "file_type",
+            {}
+          ),
+          null
+        ),
+        saveInto: {
+          a!save(
+          ri!fileTypeConfig[ri!index].file_type,
+          save!value
+        ),
+        if(
+          contains(
+            touniformstring({#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] 
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[31],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            )}),
+            tostring(index(
+              ri!fileTypeConfig[ri!index],
+              "file_type",
+              {}
+            ))
+          ),
+          {
+            a!save(
+              ri!fileTypeConfig[ri!index].is_parsing_reqd,
+              tointeger(true())
+            )
+          },
+          {
+            a!save(
+              ri!fileTypeConfig[ri!index].is_parsing_reqd,
+              tointeger(false())
+            )
+          }
+        )
+        },
+        required: true()
+      )
+    ),
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!fileTypeConfig[ri!index],
+          "delimiter",
+          {}
+        )
+      ),
+      /*Delimiter*/
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select Delimiter--",
+        choiceLabels: {
+          union(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+            ),
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+            )
+          )
+        },
+        choiceValues: {
+          union(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            ),
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+              /*cons!EAP_CATEGORY_GROUP_PARSING[1],*/
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            )
+          )
+        },
+        value: if(
+          contains(
+            touniformstring(
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                  masterLookUpData: ri!masterLookUpData,
+                  categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                ),
+                UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+                /*cons!EAP_CATEGORY_GROUP_PARSING[1],*/
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+              )
+            ),
+            tostring(
+              index(
+                ri!fileTypeConfig[ri!index],
+                "delimiter",
+                {}
+              )
+            )
+          ),
+          index(
+            ri!fileTypeConfig[ri!index],
+            "delimiter",
+            {}
+          ),
+          null
+        ),
+        saveInto: ri!fileTypeConfig[ri!index].delimiter,
+        required: if(
+          or(
+            index(
+              ri!fileTypeConfig[ri!index],
+              "file_type",
+              {}
+            ) = "CSV",
+            index(
+              ri!fileTypeConfig[ri!index],
+              "file_type",
+              {}
+            ) = "TXT"
+          ),
+          true(),
+          false()
+        )
+      )
+    ),
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        value: if(
+          index(
+            ri!fileTypeConfig[ri!index],
+            "is_password_protected",
+            {}
+          ) = "Y",
+          "Yes",
+          "No"
+        ),
+        /*saveInto: a!save(*/
+        /*ri!fileTypeConfig[ri!index].file_type,*/
+        /*save!value*/
+        /*)*/
+        
+      ),
+      /*Is Password Protected*/
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288522"(
+        choiceLayout: "COMPACT",
+        choiceLabels: touniformstring(
+          {
+            "Yes",
+            "No"
+          }
+        ),
+        choiceValues: touniformstring(
+          {
+            "Y",
+            "N"
+          }
+        ),
+        value: if(
+          contains(
+            touniformstring(
+              {
+                "Y",
+                "N"
+              }
+            ),
+            tostring(
+              index(
+                ri!fileTypeConfig[ri!index],
+                "is_password_protected",
+                {}
+              )
+            )
+          ),
+          tostring(
+            index(
+              ri!fileTypeConfig[ri!index],
+              "is_password_protected",
+              {}
+            )
+          ),
+          null
+        ),
+        saveInto: {
+          a!save(
+            ri!fileTypeConfig[ri!index].is_password_protected,
+            save!value
+          )
+        }
+      )
+    ),
+    /*Password*/
+    if(
+      or(
+        index(
+          ri!fileTypeConfig[ri!index],
+          "is_password_protected",
+          {}
+        ) = "N",
+        index(
+          ri!fileTypeConfig[ri!index],
+          "is_password_protected",
+          {}
+        ) = 0
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: true()
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        masked: true(),
+        readOnly: if(
+          or(
+            index(
+              ri!fileTypeConfig[ri!index],
+              "is_password_protected",
+              {}
+            ) = "N",
+            index(
+              ri!fileTypeConfig[ri!index],
+              "is_password_protected",
+              {}
+            ) = 0,
+            ri!isReadOnly
+          ),
+          true(),
+          ri!isReadOnly
+        ),
+        required: if(
+          ri!isReadOnly,
+          false(),
+          if(
+            or(
+              index(
+                ri!fileTypeConfig[ri!index],
+                "is_password_protected",
+                {}
+              ) = "N"
+            ),
+            false(),
+            true()
+          )
+        ),
+        value: index(
+          ri!fileTypeConfig[ri!index],
+          "encrypted_password",
+          {}
+        ),
+        saveInto: a!save(
+          ri!fileTypeConfig[ri!index].encrypted_password,
+          encodebase64string(
+            save!value
+          )
+        ),
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!fileTypeConfig[ri!index],
+                "encrypted_password",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[4]
+            )
+          )
+        }
+      )
+    ),
+    /*Ave File Size*/
+    #"SYSTEM_SYSRULES_floatingPointField"(
+      readOnly: ri!isReadOnly,
+      value: index(
+        ri!fileTypeConfig[ri!index],
+        "avg_file_size",
+        {}
+      ),
+      saveInto: {
+        a!save(
+          ri!fileTypeConfig[ri!index].avg_file_size,
+          save!value
+        )
+      },
+      align: "RIGHT"
+    ),
+    /*Is Optional*/
+    if(
+      ri!isReadOnly,
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        images: {
+          #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(
+                contains(
+                  toboolean(
+                    index(
+                      ri!fileTypeConfig[ri!index],
+                      "is_optional",
+                      {}
+                    )
+                  ),
+                  true()
+                ),
+                "STATUS_OK",
+                "STATUS_NOTDONE"
+              )
+            )
+          )
+        },
+        align: "CENTER"
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: {
+        if(
+         or(tointeger(index(
+          ri!fileTypeConfig[ri!index],"is_optional",{} 
+         ))=1)
+         ,
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-on",
+            caption: "Yes",
+            size: "MEDIUM_PLUS",
+            link:#"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: a!save(
+                ri!fileTypeConfig[ri!index].is_optional,
+                0
+              )
+            )
+           
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-off",
+            caption: "No",
+     
+            size: "MEDIUM_PLUS",
+            link:#"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: a!save(
+                ri!fileTypeConfig[ri!index].is_optional,
+                1
+              )
+            )
+            
+          )
+        )
+        },
+        align: "CENTER"
+      )
+    ),
+    /*Is Parsing Required*/
+    if(
+      ri!isReadOnly,
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        images: {
+          #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(
+                contains(
+                  toboolean(
+                    index(
+                      ri!fileTypeConfig[ri!index],
+                      "is_parsing_reqd",
+                      {}
+                    )
+                  ),
+                  true()
+                ),
+                "STATUS_OK",
+                "STATUS_NOTDONE"
+              )
+            )
+          )
+        },
+        align: "CENTER"
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: {
+          if(
+            or(tointeger(index(
+              ri!fileTypeConfig[ri!index],"is_parsing_reqd",{} 
+            ))=1)
+            ,
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "toggle-on",
+              caption: "Yes",
+              size: "MEDIUM_PLUS",
+              link:
+              #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: a!save(
+                  ri!fileTypeConfig[ri!index].is_parsing_reqd,
+                  0
+                )
+              )
+
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "toggle-off",
+              caption: if(
+                contains(
+                  touniformstring({#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                    MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                      masterLookUpData: ri!masterLookUpData,
+                      categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] 
+                    ),
+                    UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[31],
+                    Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                  )}),
+                  tostring(index(
+                    ri!fileTypeConfig[ri!index],
+                    "file_type",
+                    {}
+                  ))
+                ),
+                "No",
+                "You file type you selected is not parsable!"
+
+              ),
+              size: "MEDIUM_PLUS",
+              link: if(
+                contains(
+                    touniformstring({#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                      MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                        masterLookUpData: ri!masterLookUpData,
+                        categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] 
+                      ),
+                      UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[31],
+                      Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                    )}),
+                    tostring(index(
+                      ri!fileTypeConfig[ri!index],
+                      "file_type",
+                      {}
+                    ))
+                  ),
+                  #"SYSTEM_SYSRULES_dynamicLink"(
+                    saveInto: a!save(
+                      ri!fileTypeConfig[ri!index].is_parsing_reqd,
+                      1
+                    )
+                  ),
+                {}
+               
+              )
+              
+
+            )
+          )
+        },
+        align: "CENTER"
+      )
+    ),
+    /*Is Active*/
+    if(
+      ri!isReadOnly,
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        images: {
+          #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(
+                contains(
+                  toboolean(
+                    index(
+                      ri!fileTypeConfig[ri!index],
+                      "is_active",
+                      {}
+                    )
+                  ),
+                  true()
+                ),
+                "STATUS_OK",
+                "STATUS_NOTDONE"
+              )
+            )
+          )
+        },
+        align: "CENTER"
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: if(
+          or(
+            tointeger(
+              index(
+                ri!fileTypeConfig[ri!index],
+                "is_active",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!fileTypeConfig[ri!index].is_active,
+                  0
+                ),
+                if(#"_a-0000e5c3-a65f-8000-5268-1bef901bef90_767759"=true(),
+                if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!fileTypeConfig[ri!index],"in_file_type_config_id",{})),{},  
+                a!save(
+                  ri!processControllerData,
+                  
+                   append(ri!processControllerData,
+                   #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_756090"(
+                      parsingId: index(ri!fileTypeConfig[ri!index],"in_file_type_config_id",{})
+                    ))
+                  
+                )),{})
+              },
+              showWhen: not(
+                ri!isReadOnly
+              )
+            ),
+            size: "MEDIUM_PLUS"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-off",
+            caption: "No",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!fileTypeConfig[ri!index].is_active,
+                  1
+                ),
+               if(#"_a-0000e5c3-a65f-8000-5268-1bef901bef90_767759"=true(),
+               if(
+                 #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                   index(ri!fileTypeConfig[ri!index],"in_file_type_config_id",{})),{},  
+               a!save(ri!processControllerData,difference(
+                  ri!processControllerData,
+                  
+                  #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_756090"(
+                    parsingId: index(ri!fileTypeConfig[ri!index],"in_file_type_config_id",{})
+                  )
+                  
+                ))),{})
+              },
+              showWhen: not(
+                ri!isReadOnly
+              )
+            ),
+            size: "MEDIUM_PLUS"
+          )
+        ),
+        align: "CENTER"
+      )
+    ),
+    /*Delete*/
+    if(
+      ri!isReadOnly,
+      {},
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+          ri!fileTypeConfig[ri!index].in_file_type_config_id
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!fileTypeConfig,
+                  remove(
+                    ri!fileTypeConfig,
+                    ri!index
+                  )
+                )
+              }
+            )
+          )
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          readOnly: true()
+        )
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fileTypeConfig</name>
+            <type>
+                <name>EAP_T_RefProcessInFileType?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>configInfo</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_47311"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_88539"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_91604"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_94952"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_175496"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_227058"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_301480"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_370854"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_415139"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_450053"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_507420"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_557382"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_757659"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_758595"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_771962"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<processModelFolderHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_g-0000e4cd-1af4-8000-587b-1b4d981b4d98_39</versionUuid>
+    <processModelFolder>
+        <name>EAP CUD Models</name>
+        <uuid>_g-0000e4c3-7a1b-8000-52be-1b4d981b4d98_10</uuid>
+        <description>Folder contains EAP CUD (Create/Update/Delete) Models</description>
+        <parentFolderUuid>_g-0000e4c3-7a1b-8000-52be-1b4d981b4d98_1</parentFolderUuid>
+    </processModelFolder>
+    <roleMap>
+        <role name="ADMIN_OWNER">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+            </groups>
+        </role>
+        <role name="EDITOR">
+            <users/>
+            <groups/>
+        </role>
+        <role name="EXPLICIT_NONMEMBER">
+            <users/>
+            <groups/>
+        </role>
+        <role name="VIEWER">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+            </groups>
+        </role>
+        <role name="MANAGER">
+            <users/>
+            <groups/>
+        </role>
+        <role name="INITIATOR">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_g-0000e4c3-ab68-8000-52bf-1b4d981b4d98_25"/>
+        <historyInfo versionUuid="_g-0000e4cd-1af4-8000-587b-1b4d981b4d98_30"/>
+        <historyInfo versionUuid="_g-0000e4cd-1af4-8000-587b-1b4d981b4d98_39"/>
+    </history>
+</processModelFolderHaul>

@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_760997</versionUuid>
+    <rule>
+        <name>EAP_emailTemplateContactsGridRowLayout</name>
+        <uuid>_a-0000e595-3324-8000-5263-1bef901bef90_738638</uuid>
+        <description>Hold email template contacts grid row layout</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!businessGroups: a!groupsByType(
+    groupType: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_191063"
+  ),
+  local!businessGroupUUIDS: #"SYSTEM_SYSRULES_forEach"(
+    items: local!businessGroups,
+    expression: getgroupuuid(
+      fv!item
+    )
+  ),
+  local!businessGroupIdentifiers: #"SYSTEM_SYSRULES_forEach"(
+    items: index(local!businessGroups,"data",null),
+    expression: getgroupuuid(
+      group(
+        fv!item,
+        "id"
+      )
+    )
+  ),
+  local!businessGroupNames: #"SYSTEM_SYSRULES_forEach"(
+    items: index(local!businessGroups,"data",null),
+    expression: group(
+      fv!item,
+      "groupName"
+    )
+  ),
+  
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+  id: ri!index,
+  contents: {
+    /*send as*/
+    if(
+      ri!isReadOnly=true(),
+      #"SYSTEM_SYSRULES_textField"(
+        value:index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+          code:index(ri!emailTeamplateContacts[ri!index],"send_as",{})
+        ),"label",{})
+        ,
+        readOnly: true()
+      ),
+      #"SYSTEM_SYSRULES_dropdownField"(
+        label:"Send As",
+        placeholderLabel:"--Send As--",
+        choiceLabels: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!masterLookUpData
+          ),
+          null,
+          touniformstring(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[36],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+            )
+          )
+        ),
+        choiceValues: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!masterLookUpData
+          ),
+          null,
+          touniformstring(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[36],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            )
+          )
+        ),
+        value: index(ri!emailTeamplateContacts[ri!index],"send_as",{}),
+        saveInto: ri!emailTeamplateContacts[ri!index].send_as,
+        required: if(
+          ri!isReadOnly,
+          false(),
+          true()
+        )
+      )
+    )
+   ,
+    /*recipient type*/
+    if(
+      ri!isReadOnly=true(),
+      #"SYSTEM_SYSRULES_textField"(
+        value:index(ri!emailTeamplateContacts[ri!index],"recipient_type",{}),
+        readOnly: true()
+      ),
+    #"SYSTEM_SYSRULES_dropdownField"(
+      label:"Recipient Type",
+      placeholderLabel:"--Select Recipient Type--",
+      choiceLabels: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!masterLookUpData
+        ),
+        null,
+        touniformstring(
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+              masterLookUpData: ri!masterLookUpData,
+              categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+            ),
+            UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[35],
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          )
+        )
+      ),
+      choiceValues: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!masterLookUpData
+        ),
+        null,
+        touniformstring(
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+              masterLookUpData: ri!masterLookUpData,
+              categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+            ),
+            UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[35],
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+          )
+        )
+      ),
+      value: index(ri!emailTeamplateContacts[ri!index],"recipient_type",{}),
+      saveInto: {ri!emailTeamplateContacts[ri!index].recipient_type,
+      a!save(ri!emailTeamplateContacts[ri!index].recipient,null)
+      },
+      required: if(
+        ri!isReadOnly,
+        false(),
+        true()
+      )
+    )),
+    /*recipient*/
+    if(
+      ri!isReadOnly=true(),
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(wherecontains(index(ri!emailTeamplateContacts[ri!index],"recipient_type",{}),#"_a-0000e595-3324-8000-5263-1bef901bef90_739577")),
+        #"SYSTEM_SYSRULES_textField"(
+          disabled: true()
+
+
+        ),
+        choose(
+          wherecontains(index(ri!emailTeamplateContacts[ri!index],"recipient_type",{}),#"_a-0000e595-3324-8000-5263-1bef901bef90_739577"),
+          #"SYSTEM_SYSRULES_textField"(
+            value:joinarray(#"SYSTEM_SYSRULES_forEach"(
+              items:split(
+                index(ri!emailTeamplateContacts[ri!index],"recipient",{}),","),
+                expression:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251824"(
+                  fv!item
+                )
+            ),","),
+
+
+            readOnly: true()
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            
+            value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(ri!emailTeamplateContacts[ri!index],"recipient",{})
+                ),
+                "N/A",
+                if(
+                  not(
+                    contains(
+                      local!businessGroupUUIDS,
+                      tostring(
+                        index(ri!emailTeamplateContacts[ri!index],"recipient",{})
+                      )
+                    )
+                  ),
+                  "N/A",
+                  group(
+                    #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                      inputUUID: index(ri!emailTeamplateContacts[ri!index],"recipient",{}),
+                      businessGroups: local!businessGroups,
+                      businessGroupUUIDS: local!businessGroupUUIDS
+                    ),
+                    "groupName"
+                  )
+                )
+              )
+            )
+          ),
+          #"SYSTEM_SYSRULES_textField"(
+            placeholder: "--Enter Receipient--",
+            value:index(
+              ri!emailTeamplateContacts[ri!index],
+              "recipient",
+              {}
+            ),
+            readOnly: true()
+
+
+          ),
+          #"SYSTEM_SYSRULES_textField"(
+            disabled: true(),
+
+
+          ),
+          #"SYSTEM_SYSRULES_textField"(
+            disabled: true()
+
+
+          ),
+          #"SYSTEM_SYSRULES_textField"(
+            disabled: true()
+
+
+          )
+        )
+      ),
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(wherecontains(index(ri!emailTeamplateContacts[ri!index],"recipient_type",{}),#"_a-0000e595-3324-8000-5263-1bef901bef90_739577")),
+      #"SYSTEM_SYSRULES_textField"(
+        disabled: true()
+
+
+      ),
+      choose(
+        wherecontains(index(ri!emailTeamplateContacts[ri!index],"recipient_type",{}),#"_a-0000e595-3324-8000-5263-1bef901bef90_739577"),
+        #"SYSTEM_SYSRULES_pickerFieldUsers"(
+          label:"Recipient",
+          required:if(
+            ri!isReadOnly,
+            false(),
+            true()
+          ),
+         
+          value:if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!emailTeamplateContacts[ri!index],
+                "recipient",
+                {}
+              )
+            ),
+            null,
+            split(
+              touniformstring(index(
+                ri!emailTeamplateContacts[ri!index],
+                "recipient",
+                {}
+              )),",")
+          )
+          ,
+          placeholder: "--Select User SOEID--",
+          saveInto: a!save(
+            ri!emailTeamplateContacts[ri!index].recipient,
+            joinarray(union(save!value,save!value),",")
+          ),
+
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_369088"(
+
+          placeholder: "--enter Receipient group name--",
+          maxSelections: 1,
+          identifiers: local!businessGroupIdentifiers,
+          selectedValue: if(
+            contains(
+              touniformstring(
+                local!businessGroupIdentifiers
+              ),
+              tostring(
+                index(
+                  ri!emailTeamplateContacts[ri!index],
+                  "recipient",
+                  {}
+                )
+              )
+            ),
+            index(
+              ri!emailTeamplateContacts[ri!index],
+              "recipient",
+              {}
+            ),
+            /*returns groupId*/
+            null
+          ),
+          choiceLabels: local!businessGroupNames,
+          isRequired: if(
+            ri!isReadOnly = true(),
+            false(),
+            true()
+          ),
+          /*isReadOnly: ri!isReadOnly,*/
+          saveInto: ri!emailTeamplateContacts[ri!index].recipient,
+          type: typeof(
+            ri!emailTeamplateContacts[ri!index].recipient
+          )
+        ),
+        #"SYSTEM_SYSRULES_textField"(
+          placeholder: "--Enter Receipient--",
+          value:index(
+            ri!emailTeamplateContacts[ri!index],
+            "recipient",
+            {}
+          ),
+          saveInto: ri!emailTeamplateContacts[ri!index].recipient,
+          required: if(
+            ri!isReadOnly = true(),
+            false(),
+            true()
+          ),
+          validations: if(
+            validateemailaddress(ri!emailTeamplateContacts[ri!index].recipient)=true(),
+            {},
+            "Please Enter Valid Email Address"
+          )
+
+
+        ),
+        #"SYSTEM_SYSRULES_textField"(
+          disabled: true(),
+
+
+        ),
+        #"SYSTEM_SYSRULES_textField"(
+          disabled: true()
+
+
+        ),
+        #"SYSTEM_SYSRULES_textField"(
+          disabled: true()
+
+
+        )
+      )
+    )),
+   
+    /*is active*/
+    if(
+      ri!isReadOnly = true,
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        align: "CENTER",
+        value: if(
+          or(
+            tointeger(
+              index(
+                ri!emailTeamplateContacts[ri!index],
+                "is_active",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "check-circle",
+            size: "STANDARD",
+            color: "POSITIVE"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "times-circle-o",
+            size: "STANDARD",
+            color: "NEGATIVE"
+          ),
+
+        )
+      ),
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      align: "CENTER",
+      value: {
+        if(
+          or(
+            tointeger(
+              index(
+                ri!emailTeamplateContacts[ri!index],
+                "is_active",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              value: 1,
+              showWhen:  if(
+                or(
+                  ri!isReadOnly
+                ),
+                false(),
+                true()
+              ),
+              saveInto: {a!save(
+                ri!emailTeamplateContacts[ri!index].is_active,
+                0
+              )
+              }
+            ),
+            linkStyle: "STANDALONE",
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-off",
+            caption: "No",
+            linkStyle: "STANDALONE",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              value: 0,
+              showWhen:  if(
+                or(
+                  ri!isReadOnly
+                ),
+                false(),
+                true()
+              ),
+              saveInto: {a!save(
+                ri!emailTeamplateContacts[ri!index].is_active,
+                1
+              )
+}
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          )
+        )
+      }
+    )),
+    /*Delete*/
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        index(
+          ri!emailTeamplateContacts[ri!index],
+          "out_email_contact_id",
+          {}
+        )
+      ),
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        label: "",
+        showWhen: if(
+          or(
+            ri!isReadOnly = true()
+          ),
+          false(),
+          true()
+        ),
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            "REMOVE"
+          ),
+          link: #"SYSTEM_SYSRULES_dynamicLink"(
+            saveInto: {
+              a!save(
+                ri!emailTeamplateContacts,
+                remove(
+                  ri!emailTeamplateContacts,
+                  ri!index
+                )
+              )
+            }
+          )
+        )
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        showWhen: not(
+          or(
+            ri!isReadOnly
+          )
+        )
+      )
+    )
+  }
+))</definition>
+        <namedTypedValue>
+            <name>emailTeamplateContacts</name>
+            <type>
+                <name>EAP_T_OutEmailContact?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_755222"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_760997"/>
+    </history>
+</contentHaul>

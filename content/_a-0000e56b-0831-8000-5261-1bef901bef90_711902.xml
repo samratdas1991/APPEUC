@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e58b-f438-8000-5262-1bef901bef90_716931</versionUuid>
+    <rule>
+        <name>EAP_setProcessUserInUsersTemp</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_711902</uuid>
+        <description>Holds expression rule to verify users not exist in environment.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!processUsers:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),
+  {},
+  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9887"(
+    processId: ri!processId,
+
+  )
+  ),
+ 
+  local!verifiedData:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!processUsers),
+  null,
+  #"SYSTEM_SYSRULES_forEach"(
+    items: local!processUsers,
+    expression: 'type!{urn:com:appian:types:eap}EAP_Temp_ProcessUsers'(
+      ProcessId:fv!item.processId,
+      userSoeId:fv!item.userSoeId,
+      isPrimaryMaker:fv!item.isPrimaryMaker,
+      isSecondaryMaker: fv!item.isSecondaryMaker,
+      isExpectedMaker:"",
+      isPrimaryChecker:fv!item.isPrimaryChecker,
+      isSecondaryChecker:fv!item.isSecondaryChecker,
+      isExpectedChecker:"",
+      isDoa:fv!item.isDoa,
+      isExpectedDoa:"",
+      isPowerUser:fv!item.isPowerUser,
+      isAuditor:fv!item.isAuditor,
+      isViewer:fv!item.isViewer,
+      isExpectedAuditor:"",
+      isExpectedViewer:"",
+      isExpectedPowerUser:"",
+      createdBy:fv!item.createdBy, 
+      createdOn:fv!item.createdOn, 
+      isActive:fv!item.isActive, 
+      processUserId:fv!item.processUserId,
+      updatedBy:fv!item.updatedBy, 
+      updatedOn:fv!item.updatedOn
+    )
+  )
+  ),
+  local!verifiedData
+)</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_716931"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_481171</versionUuid>
+    <interface>
+        <name>EAP_LinkEucConfigMasterForm</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_418804</uuid>
+        <description>Holds master form to manage link euc config</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!processData: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+    isActive: 1,
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: -1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "name",
+        ascending: true()
+      )
+    )
+  ),
+  local!nextStepConfigure: 0,
+  local!sgb: 0,
+  local!linkEucConfigName: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!manageLinkConfigId
+    ),
+    {},
+    index(
+      #"_a-0000e505-ae05-8000-525c-1bef901bef90_417553"(
+        linkConfigId: ri!manageLinkConfigId
+      ),
+      "link_config_name",
+      {}
+    ),
+    
+  ),
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: concat(
+        upper(
+          "Linked EUC configuration"
+        ),
+        " | ",
+        local!linkEucConfigName
+      ),
+      divider: "ABOVE",
+      marginBelow: "NONE"
+    ),
+    if(
+      tointeger(
+        ri!showLinkConfig
+      ) = 1,
+      #"_a-0000e505-ae05-8000-525c-1bef901bef90_417628"(
+        linkEucConfig: ri!linkEucConfig,
+        manageLinkConfigId: ri!manageLinkConfigId,
+        isReadOnly: false(),
+        showLinkConfig: ri!showLinkConfig,
+        showLinkMapping: ri!showLinkMapping,
+        linkEucMapping: ri!linkEucMapping
+      ),
+      {}
+    ),
+    if(
+      and(
+        tointeger(
+          ri!showLinkConfig
+        ) = 0,
+        tointeger(
+          ri!showLinkMapping
+        ) = 0
+      ),
+      #"_a-0000e505-ae05-8000-525c-1bef901bef90_418216"(
+        linkEucMapping: ri!linkEucMapping,
+        isReadOnly: ri!isReadOnly,
+        linkEucConfig: ri!linkEucConfig,
+        processData: local!processData,
+        filteredLinkEucMappingData: ri!filteredLinkEucMappingData,
+        manageLinkEucMappingId: ri!manageLinkEucMappingId,
+        manageLinkConfigId: ri!manageLinkConfigId,
+        showLinkMapping: ri!showLinkMapping
+      ),
+      {}
+    ),
+    /*Workflow Steps Readonly*/
+    /*if(*/
+    /*and(*/
+    /*tointeger(ri!showLinkMapping) = 1,*/
+    /*),*/
+    /*   */
+    /*{*/
+    /*rule!EAP_DwfDynamicWorkflowStepsReadOnlyGrid(*/
+    /*nextStepConfigure: local!nextStepConfigure,*/
+    /*isReadOnly: ri!isReadOnly,*/
+    /*nextStep: ri!nextStep,*/
+    /*manageWorkflowId: ri!processControllerMasterId,*/
+    /*processControllerConfig: ri!dwfProcessControllerConfig,*/
+    /*sgb: local!sgb,*/
+    /*processControllerId: ri!processControllerId,*/
+    /*showWorkFlowGrid: ri!showWorkFlowGrid,*/
+    /*isViewConfig: ri!isViewConfig*/
+    /*)*/
+    /*},*/
+    /*{}*/
+    /*)*/
+    #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Save",
+          value: "",
+          saveInto: {
+            a!save(
+              ri!buttonAction,
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[4]
+            ),
+            a!save(
+              ri!manageLinkEucMappingId,0
+            )
+          },
+          submit: true(),
+          size: "SMALL",
+          style: "STANDARD",
+          showWhen: not(
+            or(
+              ri!isReadOnly
+            )
+          ),
+          validate: true()
+        )
+      },
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Cancel",
+          value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+          saveInto: {
+            ri!buttonAction
+          },
+          submit: true(),
+          size: "SMALL",
+          style: "DESTRUCTIVE",
+          validate: false()
+        ),
+        if(
+          and(
+            tointeger(
+              ri!showLinkConfig
+            ) = 0,
+            tointeger(
+              ri!showLinkMapping
+            ) = 0
+          ),
+          #"SYSTEM_SYSRULES_ButtonWidget"(
+            label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[7],
+            value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[7],
+            saveInto: {
+              a!save(
+                ri!manageLinkConfigId,
+                null
+              ),
+              a!save(
+                ri!linkEucMapping,
+                null
+              ),
+              a!save(
+                ri!showLinkConfig,
+                1
+              ),
+              a!save(
+                ri!showLinkMapping,
+                1
+              )
+            },
+            submit: false(),
+            size: "SMALL",
+            style: "SECONDARY",
+            validate: false()
+          ),
+          {}
+        )
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>linkEucConfig</name>
+            <type>
+                <name>EAP_T_LinkEucConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>manageLinkConfigId</name>
+            <type>
+                <name>double</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>linkEucMapping</name>
+            <type>
+                <name>EAP_T_LinkEucMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>allLinkEucMapping</name>
+            <type>
+                <name>EAP_T_LinkEucMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>filteredLinkEucMappingData</name>
+            <type>
+                <name>EAP_T_LinkEucMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>manageLinkEucMappingId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showLinkConfig</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showLinkMapping</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerMasterId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e505-ae05-8000-525c-1bef901bef90_417553"(isActive: 1)</a:value>
+                    <a:nameRef>linkEucConfig</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:double"/>
+                    <a:nameRef>manageLinkConfigId</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonAction</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>linkEucMapping</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>allLinkEucMapping</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>filteredLinkEucMappingData</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>manageLinkEucMappingId</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:int">1</a:value>
+                    <a:nameRef>showLinkConfig</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>showLinkMapping</a:nameRef>
+                    <a:id>10</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>processControllerMasterId</a:nameRef>
+                    <a:id>11</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_468868"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_481171"/>
+    </history>
+</contentHaul>

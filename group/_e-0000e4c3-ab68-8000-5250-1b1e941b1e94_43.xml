@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_45</versionUuid>
+    <group>
+        <name>EAP All Users</name>
+        <securityMap>SECURITYMAP_PUBLIC</securityMap>
+        <uuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</uuid>
+        <groupTypeUuid>SYSTEM_GROUP_TYPE_CUSTOM</groupTypeUuid>
+        <description>Holds all users of EUC Accelerator Platform.</description>
+        <delegatedCreation>false</delegatedCreation>
+        <memberPolicy>MEMBERPOLICY_CLOSED</memberPolicy>
+        <viewingPolicy>VIEWINGPOLICY_LOW</viewingPolicy>
+        <attributes/>
+    </group>
+    <members>
+        <users/>
+        <groups>
+            <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+            <groupUuid>_e-0000e753-0d97-8000-527e-1b1e941b1e94_533</groupUuid>
+            <groupUuid>_e-0000eda1-5e24-8000-9b5a-01075c01075c_4696</groupUuid>
+            <groupUuid>_e-0000e753-0d97-8000-527e-1b1e941b1e94_535</groupUuid>
+            <groupUuid>_e-0000eda1-5e24-8000-9b5a-01075c01075c_4678</groupUuid>
+            <groupUuid>_e-0000eda1-5e24-8000-9b5a-01075c01075c_4676</groupUuid>
+        </groups>
+    </members>
+    <admins>
+        <users/>
+        <groups>
+            <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+        </groups>
+    </admins>
+    <ruleSet/>
+    <history>
+        <historyInfo versionUuid="_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_45"/>
+    </history>
+</groupHaul>

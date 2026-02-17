@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_701151</versionUuid>
+    <rule>
+        <name>EAP_Utils_ConvertTimeZone</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_701127</uuid>
+        <description>Utility rule for converting provided time into the desired timezone</description>
+        <parentUuid>_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251406</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!converted: if(
+    or(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!dateTime
+      ),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!timeZone
+      )
+    ),
+    "",
+    local(
+      ri!dateTime,
+      ri!timeZone
+    )
+  ),
+  local!dateText: datetext(
+    local!converted,
+    "MM/dd/YYYY hh:mm a"
+  ),
+  local!dateText
+)</definition>
+        <namedTypedValue>
+            <name>dateTime</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>timeZone</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_701151"/>
+    </history>
+</contentHaul>

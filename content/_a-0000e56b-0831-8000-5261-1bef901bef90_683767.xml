@@ -1,0 +1,1158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e58b-f438-8000-5262-1bef901bef90_716014</versionUuid>
+    <interface>
+        <name>EAP_bulkUploadUsersSummaryDashboard</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_683767</uuid>
+        <description>Interface for summary dashboard for bulk upload users.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!isViewSuccess: true(),
+  local!bulkConfUploadTransData: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!bulkConfTransId
+    ),
+    {},
+    #"_a-0000e56b-0831-8000-5261-1bef901bef90_677914"(
+      bulkUploadTransId: ri!bulkConfTransId
+    )
+  ),
+  local!rawData: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!bulkConfUploadTransData,
+        "bulk_upload_trans_id",
+        {}
+      )
+    ),
+    {},
+    #"_a-0000e56b-0831-8000-5261-1bef901bef90_679842"(
+      bulkUploadTransId: index(
+        local!bulkConfUploadTransData,
+        "bulk_upload_trans_id",
+        {}
+      ),
+      validationStatus: "Success"
+    )
+  ),
+  local!failedCount: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!bulkConfUploadTransData,
+        "bulk_upload_trans_id",
+        {}
+      )
+    ),
+    {},
+    count(
+      #"_a-0000e56b-0831-8000-5261-1bef901bef90_679842"(
+        bulkUploadTransId: index(
+          local!bulkConfUploadTransData,
+          "bulk_upload_trans_id",
+          {}
+        ),
+        validationStatus: "Failed"
+      )
+    )
+  ),
+  {
+    #"_a-0000e518-940a-8000-525e-1bef901bef90_524783"(
+      label: "Bulk Upload Type: " &amp; index(local!bulkConfUploadTransData,"bulk_upload_type",{}),
+      
+      color: "ACCENT",
+      size: "MEDIUM_PLUS"
+    ),
+    #"SYSTEM_SYSRULES_cardLayout"(
+      contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "hashtag",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "MEDIUM_PLUS"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Status",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(
+                            10
+                          ),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: index(
+                              local!bulkConfUploadTransData,
+                              "tran_status",
+                              {}
+                            ),
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[12]
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "info-circle",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "MEDIUM_PLUS"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Success Count",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(
+                            10
+                          ),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: index(
+                              local!bulkConfUploadTransData,
+                              "success_count",
+                              {}
+                            )
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "download",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "MEDIUM_PLUS"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Uploaded Document",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(
+                            10
+                          ),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: index(
+                              local!bulkConfUploadTransData,
+                              "uploaded_filename",
+                              {}
+                            ),
+                            link: #"SYSTEM_SYSRULES_documentDownloadLink"(
+                              document: tointeger(
+                                index(
+                                  local!bulkConfUploadTransData,
+                                  "appian_doc_id",
+                                  {}
+                                )
+                              )
+                            )
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            
+          },
+          marginBelow: "STANDARD"
+        ),
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              #"SYSTEM_SYSRULES_sideBySideLayout"(
+                items: {
+                  #"SYSTEM_SYSRULES_sideBySideItem"(
+                    item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      value: {
+                        #"SYSTEM_SYSRULES_richTextIcon"(
+                          icon: "asterisk",
+                          color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                          size: "MEDIUM_PLUS"
+                        )
+                      }
+                    ),
+                    width: "MINIMIZE"
+                  ),
+                  #"SYSTEM_SYSRULES_sideBySideItem"(
+                    item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      value: {
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          text: "Total Count",
+                          color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                          style: "STRONG"
+                        ),
+                        char(
+                          10
+                        ),
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          text: index(
+                            local!bulkConfUploadTransData,
+                            "total_record_count",
+                            {}
+                          ),
+                          color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[12]
+                        )
+                      }
+                    ),
+                    width: "AUTO"
+                  )
+                },
+                alignVertical: "MIDDLE"
+              )
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              #"SYSTEM_SYSRULES_sideBySideLayout"(
+                items: {
+                  #"SYSTEM_SYSRULES_sideBySideItem"(
+                    item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      value: {
+                        #"SYSTEM_SYSRULES_richTextIcon"(
+                          icon: "arrows-alt",
+                          color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                          size: "MEDIUM_PLUS"
+                        )
+                      }
+                    ),
+                    width: "MINIMIZE"
+                  ),
+                  #"SYSTEM_SYSRULES_sideBySideItem"(
+                    item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      value: {
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          text: "Failed Count",
+                          color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                          style: "STRONG"
+                        ),
+                        char(
+                          10
+                        ),
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          text: index(
+                            local!bulkConfUploadTransData,
+                            "failed_count",
+                            {}
+                          ),
+                          color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[12]
+                        )
+                      }
+                    ),
+                    width: "AUTO"
+                  )
+                },
+                alignVertical: "MIDDLE"
+              )
+            ),
+            if(
+              not(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  local!rawData
+                )
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: a!localVariables(
+                  local!exportDocId,
+                  local!errorMessage,
+                  if(
+                    contains(
+                      {
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[7],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[8],
+                      #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[9]
+                      },
+                      tostring(
+                        index(
+                          local!bulkConfUploadTransData,
+                          "tran_status",
+                          {}
+                        ) 
+                      )
+                    ),
+                    {
+                      if(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          local!exportDocId
+                        ),
+                        #"SYSTEM_SYSRULES_sideBySideLayout"(
+                          items: {
+                            #"SYSTEM_SYSRULES_sideBySideItem"(
+                              item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                value: {
+                                  #"SYSTEM_SYSRULES_richTextIcon"(
+                                    icon: "file-excel-o",
+                                    color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                                    size: "MEDIUM_PLUS"
+                                  )
+                                }
+                              ),
+                              width: "MINIMIZE"
+                            ),
+                            #"SYSTEM_SYSRULES_sideBySideItem"(
+                              item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                value: {
+                                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                    text: "Generate Acknowledgement",
+                                    color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                                    style: "STRONG",
+                                    link: #"SYSTEM_SYSRULES_dynamicLink"(
+                                      label: "Click Here To Download Acknowledgement",
+                                      saveInto: {
+                                        #"SYSTEM_SYSRULES_exportDataStoreEntityToExcel_v1"(
+                                          entity: #"_a-0000e56b-0831-8000-5261-1bef901bef90_677823",
+                                          documentName: concat(
+                                            "Bulk User Acknowledgment For Trans# ",
+                                            ri!bulkConfTransId,
+                                            now()
+                                          ),
+                                          saveInFolder: #"_a-0000e56b-0831-8000-5261-1bef901bef90_711567"[1],
+                                          selection: #"SYSTEM_SYSRULES_querySelection"(
+                                            columns: {
+                                              #"SYSTEM_SYSRULES_queryColumn"(
+                                                field: "euc_reference_txt",
+                                                alias: "EUC_Reference_Text",
+                                                visible: true()
+                                              ),
+                                              #"SYSTEM_SYSRULES_queryColumn"(
+                                                field: "process_id_txt",
+                                                alias: "Process_Id",
+                                                visible: true()
+                                              ),
+                                              #"SYSTEM_SYSRULES_queryColumn"(
+                                                field: "user_soe_id_txt",
+                                                alias: "User_SOE_Id",
+                                                visible: true()
+                                              ),
+                                              #"SYSTEM_SYSRULES_queryColumn"(
+                                                field: "is_primary_maker_txt",
+                                                alias: "Primary_Maker",
+                                                visible: true()
+                                              ),
+                                              #"SYSTEM_SYSRULES_queryColumn"(
+                                                field: "is_secondary_maker_txt",
+                                                alias: "Secondary_Maker",
+                                                visible: true()
+                                              ),
+                                              #"SYSTEM_SYSRULES_queryColumn"(
+                                                field: "is_primary_checker_txt",
+                                                alias: "Primary_Checker",
+                                                visible: true()
+                                              ),
+                                              #"SYSTEM_SYSRULES_queryColumn"(
+                                                field: "is_secondary_checker_txt",
+                                                alias: "Secondary_Checker",
+                                                visible: true()
+                                              ),
+                                              #"SYSTEM_SYSRULES_queryColumn"(
+                                                field: "is_doa_txt",
+                                                alias: "Is_DOA",
+                                                visible: true()
+                                              ),
+                                              #"SYSTEM_SYSRULES_queryColumn"(
+                                                field: "is_power_user_txt",
+                                                alias: "Power_User",
+                                                visible: true()
+                                              ),
+                                              #"SYSTEM_SYSRULES_queryColumn"(
+                                                field: "is_auditor_txt",
+                                                alias: "Auditor",
+                                                visible: true()
+                                              ),
+                                              #"SYSTEM_SYSRULES_queryColumn"(
+                                                field: "is_viewer_txt",
+                                                alias: "Viewer",
+                                                visible: true()
+                                              ),
+                                              #"SYSTEM_SYSRULES_queryColumn"(
+                                                field: "is_active_txt",
+                                                alias: "Is_Active",
+                                                visible: true()
+                                              ),
+                                              #"SYSTEM_SYSRULES_queryColumn"(
+                                                field: "validataion_status",
+                                                alias: "Validation_Status",
+                                                visible: true()
+                                              ),
+                                              #"SYSTEM_SYSRULES_queryColumn"(
+                                                field: "validation_remarks",
+                                                alias: "Validation_Remarks",
+                                                visible: true()
+                                              ),
+
+                                            }
+                                          ),
+                                          filters: reject(
+                                            fn!isnull,
+                                            {
+                                              if(
+                                                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                                  ri!bulkConfTransId
+                                                ),
+                                                null,
+                                                #"SYSTEM_SYSRULES_queryFilter"(
+                                                  field: "bulk_upload_trans_id",
+                                                  operator: "=",
+                                                  value: ri!bulkConfTransId
+                                                )
+                                              )
+                                            }
+                                          ),
+                                          onSuccess: a!save(
+                                            local!exportDocId,
+                                            fv!newDocument
+                                          ),
+                                          sheetName: "Report",
+                                          includeHeader: true(),
+                                          /*This displays an error if there is an issue executing the the save*/
+                                          onError: a!save(
+                                            local!errorMessage,
+                                            "Error Exporting File to Excel"
+                                          )
+                                        )
+                                      }
+                                    )
+                                  ),
+
+                                }
+                              ),
+                              width: "AUTO"
+                            )
+                          },
+                          alignVertical: "MIDDLE"
+                        ),
+                        {}
+                      ),
+                      if(
+                        not(
+                          isnull(
+                            local!exportDocId
+                          )
+                        ),
+                        #"SYSTEM_SYSRULES_sideBySideLayout"(
+                          items: {
+                            #"SYSTEM_SYSRULES_sideBySideItem"(
+                              item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                value: {
+                                  #"SYSTEM_SYSRULES_richTextIcon"(
+                                    icon: "download",
+                                    color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                                    size: "MEDIUM_PLUS"
+                                  )
+                                }
+                              ),
+                              width: "MINIMIZE"
+                            ),
+                            #"SYSTEM_SYSRULES_sideBySideItem"(
+                              item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                value: {
+                                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                    text: "Download Acknowledgement",
+                                    color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                                    style: "STRONG",
+                                    link: #"SYSTEM_SYSRULES_documentDownloadLink"(
+                                      label: "Download Excel File",
+                                      document: local!exportDocId
+                                    )
+                                  ),
+
+                                }
+                              ),
+                              width: "AUTO"
+                            )
+                          },
+                          alignVertical: "MIDDLE"
+                        ),
+                        #"SYSTEM_SYSRULES_textField"(
+                          value: local!errorMessage,
+                          readOnly: true
+                        )
+                      )
+                    },
+                    {}
+                  )
+                  
+                )
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"()
+            )
+          }
+        )
+      },
+      height: "AUTO",
+      style: "#D6DBDF",
+      marginBelow: "STANDARD",
+      showBorder: false()
+    ),
+    /*a!richTextDisplayField(*/
+      /*value: {*/
+        /*a!richTextItem(*/
+          /*text: char(*/
+            /*10*/
+          /*)*/
+        /*)*/
+      /*}*/
+    /*),*/
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        index(
+          local!bulkConfUploadTransData,
+          "remarks",
+          {}
+        )
+      ),
+      {},
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text: index(
+            local!bulkConfUploadTransData,
+            "remarks",
+            {}
+          ),
+          size: "STANDARD",
+          color: "NEGATIVE"
+        )
+      )
+    ),
+    /*Informative legend*/
+    #"_a-0000e56b-0831-8000-5261-1bef901bef90_712753"(
+      currentStatus: tostring(
+        index(
+          local!bulkConfUploadTransData,
+          "tran_status",
+          {}
+        )
+      )
+    ),
+    if(
+      contains(
+        {#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[6],
+        #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[7],
+        #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[8],
+        #"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[9]},
+        tostring(
+          index(
+            local!bulkConfUploadTransData,
+            "tran_status",
+            {}
+          ) 
+        )
+      ),
+      /*a!richTextDisplayField(*/
+        /*value: a!richTextItem(*/
+          /*text: "Status Currently In Progress Check Later",*/
+          /*size: "LARGE",*/
+          /*color: "ACCENT"*/
+        /*)*/
+      /*),*/
+      {
+        #"SYSTEM_SYSRULES_ButtonArrayLayout"(
+          align: "START",
+          buttons: {
+            #"SYSTEM_SYSRULES_ButtonWidget"(
+              label: "SUCCESS",
+              size: "SMALL",
+              showWhen: if(
+                tointeger(
+                  count(
+                    local!rawData
+                  )
+                ) &gt; 0,
+                true(),
+                false()
+              ),
+              style: if(
+                local!isViewSuccess,
+                "PRIMARY",
+                "SECONDARY"
+              ),
+              saveInto: {
+                a!save(
+                  local!isViewSuccess,
+                  true()
+                ),
+                a!save(
+                  local!rawData,
+                  #"_a-0000e56b-0831-8000-5261-1bef901bef90_679842"(
+                    bulkUploadTransId: index(
+                      local!bulkConfUploadTransData,
+                      "bulk_upload_trans_id",
+                      {}
+                    ),
+                    validationStatus: "Success"
+                  )
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_ButtonWidget"(
+              label: "FAILED",
+              size: "SMALL",
+              showWhen: if(
+                tointeger(
+                  local!failedCount
+                ) &gt; 0,
+                true(),
+                false()
+              ),
+              style: if(
+                not(
+                  local!isViewSuccess
+                ),
+                "PRIMARY",
+                "SECONDARY"
+              ),
+              saveInto: {
+                a!save(
+                  local!isViewSuccess,
+                  false()
+                ),
+                a!save(
+                  local!rawData,
+                  #"_a-0000e56b-0831-8000-5261-1bef901bef90_679842"(
+                    bulkUploadTransId: index(
+                      local!bulkConfUploadTransData,
+                      "bulk_upload_trans_id",
+                      {}
+                    ),
+                    validationStatus: "Failed"
+                  )
+                )
+              }
+            )
+          }
+        ),
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            local!rawData
+          ),
+          {},
+          if(
+            local!isViewSuccess = true(),
+            #"SYSTEM_SYSRULES_gridField_v1"(
+              data: local!rawData,
+              emptyGridMessage: "No Enteries",
+              columns: {
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Process Id",
+                  value: index(
+                    fv!row,
+                    "process_id_txt",
+                    {}
+                  ),
+                  align: "END"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "EUC #",
+                  value: index(
+                    fv!row,
+                    "euc_reference_txt",
+                    {}
+                  ),
+                  align: "END"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Soe Id",
+                  value: index(
+                    fv!row,
+                    "user_soe_id_txt",
+                    {}
+                  ),
+                  align: "START"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Primary Maker",
+                  value: #"SYSTEM_SYSRULES_imageField_v1"(
+                    images: {
+                      #"SYSTEM_SYSRULES_documentImage"(
+                        document: #"SYSTEM_SYSRULES_iconIndicator"(
+                          icon: if(
+                            contains(
+                              toboolean(
+                                index(
+                                  fv!row,
+                                  "is_primary_maker_txt",
+                                  {}
+                                )
+                              ),
+                              true()
+                            ),
+                            "STATUS_OK",
+                            "STATUS_NOTDONE"
+                          )
+                        )
+                      )
+                    },
+                    align: "CENTER"
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Secondary Maker",
+                  value: #"SYSTEM_SYSRULES_imageField_v1"(
+                    images: {
+                      #"SYSTEM_SYSRULES_documentImage"(
+                        document: #"SYSTEM_SYSRULES_iconIndicator"(
+                          icon: if(
+                            contains(
+                              toboolean(
+                                index(
+                                  fv!row,
+                                  "is_secondary_maker_txt",
+                                  {}
+                                )
+                              ),
+                              true()
+                            ),
+                            "STATUS_OK",
+                            "STATUS_NOTDONE"
+                          )
+                        )
+                      )
+                    },
+                    align: "CENTER"
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Primary Checker",
+                  value: #"SYSTEM_SYSRULES_imageField_v1"(
+                    images: {
+                      #"SYSTEM_SYSRULES_documentImage"(
+                        document: #"SYSTEM_SYSRULES_iconIndicator"(
+                          icon: if(
+                            contains(
+                              toboolean(
+                                index(
+                                  fv!row,
+                                  "is_primary_checker_txt",
+                                  {}
+                                )
+                              ),
+                              true()
+                            ),
+                            "STATUS_OK",
+                            "STATUS_NOTDONE"
+                          )
+                        )
+                      )
+                    },
+                    align: "CENTER"
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Secondary Checker",
+                  value: #"SYSTEM_SYSRULES_imageField_v1"(
+                    images: {
+                      #"SYSTEM_SYSRULES_documentImage"(
+                        document: #"SYSTEM_SYSRULES_iconIndicator"(
+                          icon: if(
+                            contains(
+                              toboolean(
+                                index(
+                                  fv!row,
+                                  "is_secondary_checker_txt",
+                                  {}
+                                )
+                              ),
+                              true()
+                            ),
+                            "STATUS_OK",
+                            "STATUS_NOTDONE"
+                          )
+                        )
+                      )
+                    },
+                    align: "CENTER"
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "DOA",
+                  value: #"SYSTEM_SYSRULES_imageField_v1"(
+                    images: {
+                      #"SYSTEM_SYSRULES_documentImage"(
+                        document: #"SYSTEM_SYSRULES_iconIndicator"(
+                          icon: if(
+                            contains(
+                              toboolean(
+                                index(
+                                  fv!row,
+                                  "is_doa_txt",
+                                  {}
+                                )
+                              ),
+                              true()
+                            ),
+                            "STATUS_OK",
+                            "STATUS_NOTDONE"
+                          )
+                        )
+                      )
+                    },
+                    align: "CENTER"
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Power User",
+                  value: #"SYSTEM_SYSRULES_imageField_v1"(
+                    images: {
+                      #"SYSTEM_SYSRULES_documentImage"(
+                        document: #"SYSTEM_SYSRULES_iconIndicator"(
+                          icon: if(
+                            contains(
+                              toboolean(
+                                index(
+                                  fv!row,
+                                  "is_power_user_txt",
+                                  {}
+                                )
+                              ),
+                              true()
+                            ),
+                            "STATUS_OK",
+                            "STATUS_NOTDONE"
+                          )
+                        )
+                      )
+                    },
+                    align: "CENTER"
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Auditor",
+                  value: #"SYSTEM_SYSRULES_imageField_v1"(
+                    images: {
+                      #"SYSTEM_SYSRULES_documentImage"(
+                        document: #"SYSTEM_SYSRULES_iconIndicator"(
+                          icon: if(
+                            contains(
+                              toboolean(
+                                index(
+                                  fv!row,
+                                  "is_auditor_txt",
+                                  {}
+                                )
+                              ),
+                              true()
+                            ),
+                            "STATUS_OK",
+                            "STATUS_NOTDONE"
+                          )
+                        )
+                      )
+                    },
+                    align: "CENTER"
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Viewer",
+                  value: #"SYSTEM_SYSRULES_imageField_v1"(
+                    images: {
+                      #"SYSTEM_SYSRULES_documentImage"(
+                        document: #"SYSTEM_SYSRULES_iconIndicator"(
+                          icon: if(
+                            contains(
+                              toboolean(
+                                index(
+                                  fv!row,
+                                  "is_viewer_txt",
+                                  {}
+                                )
+                              ),
+                              true()
+                            ),
+                            "STATUS_OK",
+                            "STATUS_NOTDONE"
+                          )
+                        )
+                      )
+                    },
+                    align: "CENTER"
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Is Active",
+                  value: #"SYSTEM_SYSRULES_imageField_v1"(
+                    images: {
+                      #"SYSTEM_SYSRULES_documentImage"(
+                        document: #"SYSTEM_SYSRULES_iconIndicator"(
+                          icon: if(
+                            contains(
+                              toboolean(
+                                index(
+                                  fv!row,
+                                  "is_active_txt",
+                                  {}
+                                )
+                              ),
+                              true()
+                            ),
+                            "STATUS_OK",
+                            "STATUS_NOTDONE"
+                          )
+                        )
+                      )
+                    },
+                    align: "CENTER"
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Status",
+                  value: index(
+                    fv!row,
+                    "validataion_status",
+                    {}
+                  ),
+                  align: "START"
+                ),
+                
+              }
+            ),
+            #"SYSTEM_SYSRULES_gridField_v1"(
+              data: local!rawData,
+              emptyGridMessage: "No Enteries",
+              columns: {
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Process Id",
+                  value: index(
+                    fv!row,
+                    "process_id_txt",
+                    {}
+                  ),
+                  align: "END"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "EUC #",
+                  value: index(
+                    fv!row,
+                    "euc_reference_txt",
+                    {}
+                  ),
+                  align: "END"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Soe Id",
+                  value: index(
+                    fv!row,
+                    "user_soe_id_txt",
+                    {}
+                  ),
+                  align: "START"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Primary Maker",
+                  value: index(
+                    fv!row,
+                    "is_primary_maker_txt",
+                    {}
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Secondary Maker",
+                  value: index(
+                    fv!row,
+                    "is_secondary_maker_txt",
+                    {}
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Primary Checker",
+                  value: index(
+                    fv!row,
+                    "is_primary_checker_txt",
+                    {}
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Secondary Checker",
+                  value: index(
+                    fv!row,
+                    "is_secondary_checker_txt",
+                    {}
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "DOA",
+                  value: index(
+                    fv!row,
+                    "is_doa_txt",
+                    {}
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Power User",
+                  value: index(
+                    fv!row,
+                    "is_power_user_txt",
+                    {}
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Auditor",
+                  value: index(
+                    fv!row,
+                    "is_auditor_txt",
+                    {}
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Viewer",
+                  value: index(
+                    fv!row,
+                    "is_viewer_txt",
+                    {}
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Is Active",
+                  value: index(
+                    fv!row,
+                    "is_active_txt",
+                    {}
+                  ),
+                  align: "CENTER"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Status",
+                  value: index(
+                    fv!row,
+                    "validataion_status",
+                    {}
+                  ),
+                  align: "START"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Remarks",
+                  value: index(
+                    fv!row,
+                    "validation_remarks",
+                    {}
+                  ),
+                  align: "START"
+                )
+              }
+            )
+          )
+        )
+      },
+      {}
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>bulkConfTransId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_701291"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_711763"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_714388"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_716014"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_746984</versionUuid>
+    <constant>
+        <name>EAP_PM_MANAGE_CONFIGURATIONS</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_63935</uuid>
+        <description>Hold process models for manage configurations</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>ProcessModel?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>0002e4c9-0ecd-8000-5624-1b4d981b4d98</el>
+                <el>0002e4d4-c63e-8000-5c0a-1b4d981b4d98</el>
+                <el>0002e4c9-595d-8000-565b-1b4d981b4d98</el>
+                <el>0002e4cd-1015-8000-5869-1b4d981b4d98</el>
+                <el>0002e4d2-426a-8000-5a5c-1b4d981b4d98</el>
+                <el>0002e4d2-606c-8000-5ab5-1b4d981b4d98</el>
+                <el>0002e4d2-7cde-8000-5af5-1b4d981b4d98</el>
+                <el>0002e4d6-6c0d-8000-5d01-1b4d981b4d98</el>
+                <el>0002e4d6-8674-8000-5d17-1b4d981b4d98</el>
+                <el>0002e4d5-09ad-8000-5c53-1b4d981b4d98</el>
+                <el>0002e4d6-13db-8000-5cc6-1b4d981b4d98</el>
+                <el>0002e4e8-e4ea-8000-61e5-1b4d981b4d98</el>
+                <el>0002e4fb-5e5b-8000-63c7-1b4d981b4d98</el>
+                <el>0002e50d-bec4-8000-6742-1b4d981b4d98</el>
+                <el>0002e514-06cc-8000-687c-1b4d981b4d98</el>
+                <el>0009e514-2d56-8000-6887-1b4d981b4d98</el>
+                <el>0010e52f-c374-8000-6baf-1b4d981b4d98</el>
+                <el>0002e4db-b8a7-8000-5ee2-1b4d981b4d98</el>
+                <el>0002e567-6468-8000-6d4e-1b4d981b4d98</el>
+                <el>0002e56a-00e1-8000-6ddb-1b4d981b4d98</el>
+                <el>0002e56a-0f74-8000-6dea-1b4d981b4d98</el>
+                <el>0007e570-99f9-8000-6ea2-1b4d981b4d98</el>
+                <el>0002e573-1b32-8000-6ed5-1b4d981b4d98</el>
+                <el>0002e574-8edb-8000-6ef4-1b4d981b4d98</el>
+                <el>0002e5b8-ebea-8000-7383-1b4d981b4d98</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_63939"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_98610"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_163503"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_355011"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_426348"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_529504"/>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_566830"/>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_746984"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e571-e495-8000-d950-a7ef90a7ef90_6324743</versionUuid>
+    <rule>
+        <name>EAP_generateDwfInputParsingJsonRequest</name>
+        <uuid>_a-0000e518-940a-8000-525e-1bef901bef90_512223</uuid>
+        <description>Rule to generate request Json with the documents for the input parsing.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!getRefFileTypeList: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7456"(
+    isActive: 1,
+    processId: ri!requestDetails.processId,
+    inFileTypeConfigId: index(ri!dwfUniqueIdentifiers,"parsing_id",{})
+    /*configId: index(*/
+    /*local!transData,*/
+    /*"configId",*/
+    /*null*/
+    /*)*/
+  ),
+  local!transData: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_23096"(
+    requestId: ri!requestDetails.requestId,
+    configId: index(local!getRefFileTypeList,"config_id",{})
+  ),
+  local!transAttachments: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_29621"(
+    requestId: ri!requestDetails.requestId,
+    transactionId: index(local!transData,"transactionId",{})
+  ),  
+  
+  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9930"(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!transAttachments,
+      expression: with(
+        local!indexedTransData: index(
+          local!transData,
+          wherecontains(
+            tointeger(
+              fv!item.transaction_id
+            ),
+            tointeger(
+              index(
+                local!transData,
+                "transactionId",
+                null
+              )
+            )
+          ),
+          null
+        ),
+        local!indexFileTypeId: index(
+          index(
+            local!getRefFileTypeList,
+            wherecontains(
+              tointeger(
+                index(
+                  local!indexedTransData,
+                  "configId",
+                  null
+                )
+              ),
+              tointeger(
+                index(
+                  local!getRefFileTypeList,
+                  "config_id",
+                  null
+                )
+              )
+            ),
+            null
+          ),
+          "in_file_type_config_id",
+          null
+        ),
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              local!indexedTransData
+            ),
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              local!indexFileTypeId
+            )
+          ),
+          null,
+          'type!{urn:com:appian:types:eap}EAP_U_DwfInputParsingRequest'(
+            requestId: ri!requestDetails.requestId,
+            processId: ri!requestDetails.processId,
+            appianDocumentId:if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.appian_document_id),
+              "N/A",
+              fv!item.appian_document_id
+            ),
+            /*fv!item.appian_document_id,*/
+            /*if(rule!EAP_Utils_CheckIsNull(fv!item.appian_document_id),"N/A",fv!item.appian_document_id),*/
+            inFileTypeConfigId: local!indexFileTypeId
+          )
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>requestDetails</name>
+            <type>
+                <name>EAP_T_ProcessRequest</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dwfUniqueIdentifiers</name>
+            <type>
+                <name>EAP_Temp_DwfUniqueIdentifiers</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name>RequestId - 34</a:name>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">{
+  processId:9,
+  requestId:34
+}</a:value>
+                    <a:nameRef>requestDetails</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>dwfUniqueIdentifiers</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+            <el>
+                <a:name>Valid Case</a:name>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+  requestId: 34
+)</a:value>
+                    <a:nameRef>requestDetails</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>dwfUniqueIdentifiers</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_519353"/>
+        <historyInfo versionUuid="_a-0000e570-923c-8000-d94f-a7ef90a7ef90_6311050"/>
+        <historyInfo versionUuid="_a-0000e571-e495-8000-d950-a7ef90a7ef90_6324743"/>
+    </history>
+</contentHaul>

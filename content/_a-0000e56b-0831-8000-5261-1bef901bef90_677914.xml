@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_679832</versionUuid>
+    <rule>
+        <name>EAP_QE_BulkConfUploadTrans</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_677914</uuid>
+        <description>Hold QE for EAP_T_BulkConfUploadTrans</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_queryEntity_v1"(
+  entity: #"_a-0000e56b-0831-8000-5261-1bef901bef90_677817",
+  query: #"SYSTEM_SYSRULES_query"(
+    logicalExpression: if(
+      and(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!bulkUploadTransId
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!bulkUploadType
+        ),
+        
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!tranStatus
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!uploadedFilename
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!appianDocId
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!totalRecordCount
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!successCount
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!failedCount
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!remarks
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!createdBy
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!createdOn
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!modifiedBy
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!modifiedOn
+        ),
+ 
+      ),
+      null,
+      #"SYSTEM_SYSRULES_queryLogicalExpression"(
+        operator: "AND",
+        filters: {
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!bulkUploadTransId
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "bulk_upload_trans_id",
+              operator: "IN",
+              value: {
+                ri!bulkUploadTransId
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!bulkUploadType
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "bulk_upload_type",
+              operator: "IN",
+              value: 
+              ri!bulkUploadType
+              
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!tranStatus
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "tran_status",
+              operator: "IN",
+              value: {
+                ri!tranStatus
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!uploadedFilename
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "uploaded_filename",
+              operator: "=",
+              value: ri!uploadedFilename
+              
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!appianDocId
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "appian_doc_id",
+              operator: "IN",
+              value: {
+                ri!appianDocId
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!totalRecordCount
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "total_record_count",
+              operator: "IN",
+              value: 
+              ri!totalRecordCount
+
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!successCount
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "success_count",
+              operator: "IN",
+              value: {
+                ri!successCount
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!failedCount
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "failed_count",
+              operator: "=",
+              value: ri!failedCount
+
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!remarks
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "remarks",
+              operator: "IN",
+              value: {
+                ri!remarks
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!createdBy
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "created_by",
+              operator: "=",
+              value: ri!createdBy
+
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!createdOn
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "created_on",
+              operator: "IN",
+              value: {
+                ri!createdOn
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!modifiedBy
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "modified_by",
+              operator: "IN",
+              value: 
+              ri!modifiedBy
+
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!modifiedOn
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "modified_on",
+              operator: "IN",
+              value: {
+                ri!modifiedOn
+              }
+            )
+          ),
+          
+          
+          
+          
+
+        }
+      )
+    ),
+    pagingInfo: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!pagingInfo
+      ),
+      #"SYSTEM_SYSRULES_pagingInfo"(
+        startIndex: 1,
+        batchSize: - 1,
+        sort: #"SYSTEM_SYSRULES_sortInfo"(
+          field: "bulk_upload_trans_id",
+          ascending: false()
+        )
+      ),
+      ri!pagingInfo
+    )
+  )
+).data</definition>
+        <namedTypedValue>
+            <name>bulkUploadTransId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>bulkUploadType</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>tranStatus</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>uploadedFilename</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>appianDocId</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>totalRecordCount</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>successCount</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>failedCount</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>remarks</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_679832"/>
+    </history>
+</contentHaul>

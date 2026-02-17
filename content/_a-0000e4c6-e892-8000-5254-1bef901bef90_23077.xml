@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_421472</versionUuid>
+    <rule>
+        <name>EAP_ActionTypeOutputCopyGridRowLayout</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_23077</uuid>
+        <description>Holds gridRowLayout for Output Copy</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!data,
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    id: ri!index,
+    contents: {
+      /* Sheet Name*/
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        label: "Sheet Name" &amp; ri!index,
+        placeholder: " Enter Sheet Name ",
+        value: index(
+          ri!actionTypeOutputCopy[ri!index],
+          "sheet_name"
+        ),
+        saveInto: {
+          ri!actionTypeOutputCopy[ri!index].sheet_name ,
+          a!save(
+            ri!actionTypeOutputCopy[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!actionTypeOutputCopy[ri!index].modified_on,
+            now()
+          )
+          },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!actionTypeOutputCopy[ri!index],
+                "sheet_name"
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          )
+        },
+        readOnly: ri!isReadOnly,
+        required: not(or(ri!isReadOnly))
+      ),
+      /* Entity Name*/
+      if(
+        ri!isReadOnly,
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          label: "Entity Name" &amp; ri!index,
+          value: index(
+            ri!actionTypeOutputCopy[ri!index],
+            "entity_name"
+          ),
+          readOnly: true()
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+          label: "Entity Name" &amp; ri!index,
+          placeholderLabel: "--Select Entity Name--",
+      
+          choiceValues: ri!entityNames,
+          choiceLabels: ri!entityNames,
+          value: if(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+              value: index(
+                ri!actionTypeOutputCopy[ri!index],
+                "entity_name"
+              ),
+              choiceValue: ri!entityNames,
+            ),
+            index(
+              ri!actionTypeOutputCopy[ri!index],
+              "entity_name"
+            ),
+            null
+          ),
+          saveInto: {
+            ri!actionTypeOutputCopy[ri!index].entity_name ,
+            a!save(
+              ri!actionTypeOutputCopy[ri!index].modified_by,
+              loggedInUser()
+            ),
+            a!save(
+              ri!actionTypeOutputCopy[ri!index].modified_on,
+              now()
+            )
+            },
+          validations: {
+            if(
+              ri!isReadOnly,
+              {},
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                value: index(
+                  ri!actionTypeOutputCopy[ri!index],
+                  "entity_name"
+                ),
+                ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+              )
+            )
+          },
+          required: not(or(ri!isReadOnly))
+        ),
+        
+      ),
+      /* Start row */
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        label: "Start Row" &amp; ri!index,
+        placeholder: " Enter Start Row ",
+        value: index(
+          ri!actionTypeOutputCopy[ri!index],
+          "start_row"
+        ),
+        saveInto: {
+          ri!actionTypeOutputCopy[ri!index].start_row ,
+          a!save(
+            ri!actionTypeOutputCopy[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!actionTypeOutputCopy[ri!index].modified_on,
+            now()
+          )
+          },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!actionTypeOutputCopy[ri!index],
+                "start_row"
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          ),
+          if(
+            index(
+              ri!actionTypeOutputCopy[ri!index],
+              "start_row"
+            )&lt;=0,
+            "Start Row should not be smaller than or equals to 0",
+            {}
+          )
+        },
+        readOnly: ri!isReadOnly,
+        align: "RIGHT",
+        required: not(or(ri!isReadOnly))
+      ),
+      /* End Row */
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        label: "End Row" &amp; ri!index,
+        placeholder: " Enter End Row ",
+        value: index(
+          ri!actionTypeOutputCopy[ri!index],
+          "end_row"
+        ),
+        saveInto: {
+          ri!actionTypeOutputCopy[ri!index].end_row,
+          a!save(
+            ri!actionTypeOutputCopy[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!actionTypeOutputCopy[ri!index].modified_on,
+            now()
+          )
+          },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!actionTypeOutputCopy[ri!index],
+                "end_row"
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          ),
+          if(
+            ri!isReadOnly,
+            {},
+          /*if(*/
+            /*or(*/
+              /*tointeger(index(*/
+                /*ri!actionTypeOutputCopy[ri!index],*/
+                /*"end_row",*/
+                /*{}*/
+              /*)) = 0,   */
+            /*),*/
+            /*{},*/
+            /*if(*/
+              /*or(*/
+                /*tointeger(index(*/
+                  /*ri!actionTypeOutputCopy[ri!index],*/
+                  /*"end_row",*/
+                  /*{}*/
+                /*)) &lt; tointeger(index(*/
+                  /*ri!actionTypeOutputCopy[ri!index],*/
+                  /*"start_row",*/
+                  /*{}*/
+                /*)),   */
+              /*) */
+            /*)*/
+            /*"End Row should not be smaller than or equals to 0",*/
+/**/
+          /*)*/
+          if(
+            or(tointeger(index(
+              ri!actionTypeOutputCopy[ri!index],
+              "end_row",
+              {}
+            ))
+            &lt; tointeger(index(
+              ri!actionTypeOutputCopy[ri!index],
+              "start_row",
+              {}
+            ))),
+              if(
+                or(tointeger(index(
+                  ri!actionTypeOutputCopy[ri!index],
+                  "end_row",
+                  {}
+                ))
+                = 0),
+                {},
+                "End Row should be greater than Start Row"
+              ),
+              {}
+          )
+          
+          )
+          /*if(*/
+            /*ri!isReadOnly,*/
+            /*{},*/
+          /*if(*/
+            /*or(tointeger(index(*/
+              /*ri!actionTypeOutputCopy[ri!index],*/
+              /*"end_row",*/
+              /*{}*/
+            /*))&lt;=tointeger(index(*/
+              /*ri!actionTypeOutputCopy[ri!index],*/
+              /*"start_row",*/
+              /*{}*/
+            /*))),*/
+            /*"End Row should be greater than Start Row",*/
+            /*{}*/
+/**/
+          /*)*/
+          /*)*/
+        },
+        readOnly: ri!isReadOnly,
+        align: "RIGHT"
+      ),
+      /* Apply Formula Copy */
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        align: "CENTER",
+        value: {
+          if(
+            or(
+              tointeger(
+                index(
+                  ri!actionTypeOutputCopy[ri!index],
+                  "apply_formula_copy",
+                  {}
+                )
+              ) = 1
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-on",
+              caption: "Yes",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: 1,
+
+                saveInto: {
+                  a!save(
+                    ri!actionTypeOutputCopy[ri!index].apply_formula_copy,
+                    0
+                  ),
+                  a!save(
+                    ri!actionTypeOutputCopy[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!actionTypeOutputCopy[ri!index].modified_on,
+                    now()
+                  )
+                },
+                showWhen:  not(or(ri!isReadOnly))
+              ),
+              size: "MEDIUM_PLUS",
+              color: "ACCENT"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-off",
+              caption: "No",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: 0,
+                saveInto: {
+                  a!save(
+                    ri!actionTypeOutputCopy[ri!index].apply_formula_copy,
+                    1
+                  ),
+                  a!save(
+                    ri!actionTypeOutputCopy[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!actionTypeOutputCopy[ri!index].modified_on,
+                    now()
+                  )
+                },
+                showWhen:  not(or(ri!isReadOnly))
+              ),
+              size: "MEDIUM_PLUS",
+              color: "ACCENT"
+            )
+          )
+        }
+      ),
+    
+      /* Is Active */
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        align: "CENTER",
+        value: {
+          if(
+            or(
+              tointeger(
+                index(
+                  ri!actionTypeOutputCopy[ri!index],
+                  "isactive",
+                  {}
+                )
+              ) = 1
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-on",
+              caption: "Yes",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: 1,
+
+                saveInto: {
+                  a!save(
+                  ri!actionTypeOutputCopy[ri!index].isactive,
+                  0
+                  ),
+                  a!save(
+                    ri!actionTypeOutputCopy[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!actionTypeOutputCopy[ri!index].modified_on,
+                    now()
+                  )
+                },
+                showWhen:  not(or(ri!isReadOnly))
+              ),
+              size: "MEDIUM_PLUS",
+              color: "ACCENT"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-off",
+              caption: "No",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: 0,
+                saveInto: {
+                  a!save(
+                  ri!actionTypeOutputCopy[ri!index].isactive,
+                  1
+                  ),
+                  a!save(
+                    ri!actionTypeOutputCopy[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!actionTypeOutputCopy[ri!index].modified_on,
+                    now()
+                  )
+                },
+                showWhen:  not(or(ri!isReadOnly))
+              ),
+              size: "MEDIUM_PLUS",
+              color: "ACCENT"
+            )
+          )
+        }
+      ),
+      /* Move Up*/
+      if(
+        or(
+          ri!isReadonly = true(),
+          length(
+            wherecontains(
+              tointeger(ri!actionId),
+              tointeger(index(ri!actionTypeOutputCopy,"wf_action_id",null))
+            ))
+            
+            &lt; 2
+        ),
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: " ",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(
+                ri!index = 1,
+                "MOVE_UP_DISABLED",
+                "MOVE_UP"
+              )
+            ),
+            link: if(
+              ri!index = 1,
+              {},
+              #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    local!data,
+                    ri!actionTypeOutputCopy[ri!index - 1]
+                  ),
+                  a!save(
+                    ri!actionTypeOutputCopy[ri!index - 1],
+                    ri!actionTypeOutputCopy[ri!index]
+                  ),
+                  a!save(
+                    ri!actionTypeOutputCopy[ri!index],
+                    local!data
+                  ),
+                  a!save(
+                    ri!actionTypeOutputCopy[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!actionTypeOutputCopy[ri!index].modified_on,
+                    now()
+                  )
+                }
+              )
+            )
+          )
+        )
+      ),
+      /* Move Down*/
+      if(
+        or(
+          ri!isReadonly = true(),
+          length(
+            wherecontains(
+              tointeger(ri!actionId),
+              tointeger(index(ri!actionTypeOutputCopy,"wf_action_id",null))
+            )) &lt; 2
+        ),
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              if(
+                or(
+                  length(
+                    ri!actionTypeOutputCopy
+                  ) = 1,
+                  ri!index = count(
+                    ri!actionTypeOutputCopy
+                  )
+                ),
+                "MOVE_DOWN_DISABLED",
+                "MOVE_DOWN"
+              )
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(or(
+                length(
+                  ri!actionTypeOutputCopy
+                ) = 1,
+                ri!index = count(
+                  ri!actionTypeOutputCopy
+                )
+              )),
+              saveInto: {
+                a!save(
+                  local!data,
+                  ri!actionTypeOutputCopy[ri!index]
+                ),
+                a!save(
+                  ri!actionTypeOutputCopy[ri!index],
+                  ri!actionTypeOutputCopy[ri!index + 1],
+                  
+                ),
+                a!save(
+                  ri!actionTypeOutputCopy[ri!index + 1],
+                  local!data
+                ),
+                a!save(
+                  ri!actionTypeOutputCopy[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!actionTypeOutputCopy[ri!index].modified_on,
+                  now()
+                )
+                
+              }
+            )
+          )
+        )
+      ),
+      /* Remove/Delete */
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!actionTypeOutputCopy[ri!index],
+            "output_copy_id"
+          )
+        ),
+        if(
+          ri!isReadOnly,
+          {},
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            label: "delete" &amp; ri!index,
+            images: #"SYSTEM_SYSRULES_documentImage"(
+              document: #"SYSTEM_SYSRULES_iconIndicator"(
+                "REMOVE"
+              ),
+              altText: "Remove",
+              caption: "Remove",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: ri!index,
+                saveInto: {
+                  if(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      index(
+                        ri!actionTypeOutputCopy[ri!index],
+                        "output_copy_id"
+                      )
+                    ),
+                    a!save(
+                      ri!actionTypeOutputCopy,
+                      remove(
+                        ri!actionTypeOutputCopy,
+                        save!value
+                      )
+                    ),
+                    a!save(
+                      ri!actionTypeOutputCopy[ri!index].isactive,
+                      false
+                    )
+                  )
+                }
+              )
+            ),
+            size: "ICON"
+          )
+        ),
+        if(
+          ri!isReadOnly = true(),
+          {},
+          #"SYSTEM_SYSRULES_richTextDisplayField"()
+        )
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionTypeOutputCopy</name>
+            <type>
+                <name>EAP_T_RefProcessWfOutputCopy?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookup</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>allTables</name>
+            <type>
+                <name>EAP_V_AllTables?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityNames</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_84543"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_98159"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_102574"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_159158"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_201408"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365492"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_413924"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_421472"/>
+    </history>
+</contentHaul>

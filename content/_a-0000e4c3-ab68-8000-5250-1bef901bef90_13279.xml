@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_192031</versionUuid>
+    <rule>
+        <name>EAP_getChecklistTransData</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_13279</uuid>
+        <description>Fetch and prepare Checklist Data based on given Checklist Type</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!refData: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12888"(
+    processId: ri!request.processId,
+    checklistType: ri!checklistType
+  ),
+  #"SYSTEM_SYSRULES_forEach"(
+    items: local!refData,
+    expression: 'type!{urn:com:appian:types:EAP}EAP_T_ChecklistTrans'(
+      checklistDetailId: "", 
+      checklistId: fv!item.checklistId, 
+      requestId: ri!request.requestId, 
+      rejectionComments: null, 
+      createdBy: loggedInUser(), 
+      createdOn: now(), 
+      isReviewed: null, 
+      isNotApplicable:null
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>request</name>
+            <type>
+                <name>EAP_T_ProcessRequest</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>checklistType</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_46844"/>
+        <historyInfo versionUuid="_a-0000e4d2-a9ee-8000-d8d2-a7ef90a7ef90_1180951"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_192031"/>
+    </history>
+</contentHaul>

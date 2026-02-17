@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_413114</versionUuid>
+    <rule>
+        <name>EAP_GetSelectedEntityCardForParsing</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_370984</uuid>
+        <description>Rule for fetching Selected Entity Card for Parsing process model</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_80228"(ri!selectedFileEntityMapping),
+null,
+if(
+  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_80228"(
+    ri!selectedEntityCard
+  ),
+  index(
+    index(
+      index(
+          ri!selectedFileEntityMapping,
+        wherecontains(
+          tostring(
+            ri!selectedCard
+          ),
+          touniformstring(
+            #"SYSTEM_SYSRULES_forEach"(
+              items: ri!selectedFileEntityMapping,
+              expression: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    fv!item,
+                    "sheet_name",
+                    {}
+                  )
+                ),
+                index(
+                  fv!item,
+                  "sheet_index",
+                  {}
+                ),
+                index(
+                  fv!item,
+                  "sheet_name",
+                  {}
+                )
+              )
+            )
+          )
+        ),
+        {}
+      ),
+      "in_file_entity_mapping_id",
+      {}
+    ),
+    1,
+    null
+  ),
+  /*ri!selectedEntityCard*/
+  index(
+    index(
+      index(
+        ri!selectedFileEntityMapping,
+        wherecontains(
+          tostring(
+            ri!selectedCard
+          ),
+          touniformstring(
+            #"SYSTEM_SYSRULES_forEach"(
+              items: ri!selectedFileEntityMapping,
+              expression: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    fv!item,
+                    "sheet_name",
+                    {}
+                  )
+                ),
+                index(
+                  fv!item,
+                  "sheet_index",
+                  {}
+                ),
+                index(
+                  fv!item,
+                  "sheet_name",
+                  {}
+                )
+              )
+            )
+          )
+        ),
+        {}
+      ),
+      "in_file_entity_mapping_id",
+      {}
+    ),
+    1,
+    null
+  ),
+)
+)</definition>
+        <namedTypedValue>
+            <name>selectedFileEntityMapping</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedEntityCard</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedCard</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_372314"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_411223"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_413114"/>
+    </history>
+</contentHaul>

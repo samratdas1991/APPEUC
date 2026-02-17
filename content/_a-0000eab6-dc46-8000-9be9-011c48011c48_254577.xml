@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ec66-6981-8000-9bf9-011c48011c48_339294</versionUuid>
+    <interface>
+        <name>EAP_ProcessRequestAuditGridView_V2</name>
+        <uuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_254577</uuid>
+        <description>Holds Interface for process request audit</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+local!statusCode,
+local!pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(startIndex: 1, batchSize: 10),
+local!totalCount: #"_a-0000eab6-dc46-8000-9be9-011c48011c48_254690"(processId: ri!processId),
+local!processDetails: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+  isActive: true()
+),
+local!refMasterLookupDetails: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+  type: "WORKFLOW_STATUS",
+  isActive: 1
+),
+local!allMilestones:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_350906"(
+  isActive:true()
+),
+local!selectedMilestoneId,
+local!requestDetails:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+  requestId:ri!requestId
+),
+local!processControllerSteps:#"_a-0000e51e-d772-8000-d90e-a7ef90a7ef90_2730615"(
+  runConfigId:index(local!requestDetails,"runConfigId",{}),
+  processId:index(local!requestDetails,"processId",{}),
+  processControllerMasterId:index(local!requestDetails,"processControllerMasterId",{})
+),
+local!selectedStep,
+with(
+#"SYSTEM_SYSRULES_sectionLayout_v1"(
+  label: "Audit Process Request",
+  contents: {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        /*Workflow status filter*/
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents:{
+            #"SYSTEM_SYSRULES_dropdownField"(
+              label:"WORKFLOW STATUS",
+              placeholderLabel: "--Select status--",
+              choiceLabels: 
+              touniformstring(
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                  MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                    masterLookUpData: local!refMasterLookupDetails,
+                    categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                  ),
+                  UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[30],
+                  Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                )
+              ),
+              choiceValues: touniformstring(
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                  MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                    masterLookUpData: local!refMasterLookupDetails,
+                    categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                  ),
+                  UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[30],
+                  Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                )
+              ),
+              value: if(
+                #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                  value: local!statusCode,
+                  choiceValue: touniformstring(
+                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                      MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                        masterLookUpData:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(isActive: 1),
+                        categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                      ),
+                      UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[30],
+                      Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                    )
+                  )
+                ),
+                local!statusCode,null),
+                saveInto: local!statusCode
+            )
+          }
+        ),
+        /*Milestone name filter*/
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents:{
+            #"SYSTEM_SYSRULES_dropdownField"(
+              label:"Milestone Name",
+              placeholderLabel: "--Select Milestone--",
+              choiceLabels: touniformstring(
+                index(local!allMilestones,"name",{})
+              ),
+              choiceValues: tointeger(
+                index(local!allMilestones,"milestone_id",{})
+              ),
+              value: if(
+                contains(
+                  tointeger(
+                    index(local!allMilestones,"milestone_id",{})
+                  ),
+                  tointeger(local!selectedMilestoneId)
+                ),
+                local!selectedMilestoneId,
+                null
+              ),
+              saveInto: local!selectedMilestoneId
+            )
+          }
+        ),
+        /*Step Name*/
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(local!processControllerSteps,"step_name",{})),
+        #"SYSTEM_SYSRULES_columnLayout"(),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents:{
+            #"SYSTEM_SYSRULES_dropdownField"(
+              label:"Step Name",
+              placeholderLabel: "--Select Step--",
+              choiceLabels: touniformstring(
+                {index(local!processControllerSteps,"step_name",{})}
+              ),
+              choiceValues: touniformstring(
+                {index(local!processControllerSteps,"step_name",{})}
+              ),
+              value: if(
+                contains(
+                  touniformstring(
+                    {index(local!processControllerSteps,"step_name",{})}
+                  ),
+                  tostring(local!selectedStep)
+                ),
+                local!selectedStep,
+                null
+              ),
+              saveInto: local!selectedStep
+            )
+          }
+        )
+        )
+      }
+    ),
+    
+    #"SYSTEM_SYSRULES_gridField_v1"(
+      data: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!requestId),
+        {},
+        #"_a-0000e518-940a-8000-525e-1bef901bef90_487115"(
+          requestId: ri!requestId,
+          requestStatus: local!statusCode,
+          milestoneId: local!selectedMilestoneId,
+          stepName: local!selectedStep
+        )
+      ),
+
+      /*rule!EAP_QE_ProcessRequestAudit(*/
+      /*requestId: ri!requestId,*/
+      /*requestStatus:local!statusCode*/
+      /*),*/
+
+      columns: {
+        /*a!gridColumn(*/
+        /*label: "Process Name",*/
+        /*sortField: "process_id",*/
+        /*value: index(*/
+        /*index(*/
+        /*local!processDetails,*/
+        /*wherecontains(*/
+        /*tointeger(fv!row.process_id),*/
+        /*tointeger(index(local!processDetails,"process_id",{}))*/
+        /*),*/
+        /*{}*/
+        /*),*/
+        /*"name",*/
+        /*{}*/
+        /*)*/
+        /*),*/
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Request Status",
+          sortField: "request_status",
+          value: displayvalue(
+            fv!row.request_status,
+            index(local!refMasterLookupDetails, "code", null),
+            index(local!refMasterLookupDetails, "label", null),
+            null
+          ),
+          align: "CENTER"
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Milestone Name",
+          sortField: "milestone_name",
+          value: fv!row.milestone_name,
+          align: "CENTER"
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Step Name",
+          sortField: "step_name",
+          value: fv!row.step_name,
+          align: "CENTER"
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Comments",
+          sortField: "comments",
+          value: fv!row.comments,
+          align: "CENTER"
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Created By",
+          sortField: "created_by",
+          value: fv!row.created_by,
+          align: "CENTER"
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Created On",
+          sortField: "created_on",
+          value:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3252928"(dateTime: fv!row.created_on),
+          align: "CENTER"
+        )
+
+
+      },
+      pageSize: 20,
+      initialSorts: {
+        #"SYSTEM_SYSRULES_sortInfo"(
+          field: "created_on",
+          ascending: false
+        )
+      },
+      shadeAlternateRows: false
+    ),
+    #"_a-0000eab6-dc46-8000-9be9-011c48011c48_254335"(pagingInfo: local!pagingInfo, totalCount: length(local!totalCount))
+  }
+)
+)
+)
+
+</definition>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:int">1473</a:value>
+                    <a:nameRef>requestId</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_256020"/>
+        <historyInfo versionUuid="_a-0000ec66-6981-8000-9bf9-011c48011c48_339294"/>
+    </history>
+</contentHaul>

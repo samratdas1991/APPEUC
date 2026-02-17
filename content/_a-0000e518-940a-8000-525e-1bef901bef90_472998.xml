@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_749516</versionUuid>
+    <rule>
+        <name>EAP_Execute_StoredProcedureGetEscalationList</name>
+        <uuid>_a-0000e518-940a-8000-525e-1bef901bef90_472998</uuid>
+        <description>Execute stored procedure for SP_Get_Escalation_List</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!result1: index(
+    index(
+      executestoredprocedure(
+        dataSourceName: #"_a-0000e518-940a-8000-525e-1bef901bef90_473018",
+        procedureName: #"_a-0000e518-940a-8000-525e-1bef901bef90_472984",
+        inputs: {}
+      ),
+      "parameters",
+      {}
+    ),
+    "P_OUTPUT",
+    {}
+  ),
+  /*local!result1*/
+  a!flatten(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!result1,
+      expression: 'type!{urn:com:appian:types:eap}EAP_Temp_ProcessEscalationRecipientAudit'(
+        process_controller_id: index(
+          fv!item,
+          "PROCESS_CONTROLLER_ID",
+          null
+        ),
+        milestone_id: index(
+          fv!item,
+          "MILESTONE_ID",
+          {}
+        ),
+        milestone_name: index(
+          fv!item,
+          "MILESTONE_NAME",
+          {}
+        ),
+        step_name: index(
+          fv!item,
+          "STEP_NAME",
+          {}
+        ),
+        process_escalation_recipient_id: index(
+          fv!item,
+          "PROCESS_ESCALATION_RECIPIENT_ID",
+          {}
+        ),
+        escalation_type: index(
+          fv!item,
+          "ESCALATION_TYPE",
+          {}
+        ),
+        soe_id: index(
+          fv!item,
+          "SOE_ID",
+          {}
+        ),
+        recipient_group: index(
+          fv!item,
+          "RECIPIENT_GROUP",
+          {}
+        ),
+        recipient: index(
+          fv!item,
+          "RECIPIENT",
+          {}
+        ),
+        process_id: index(
+          fv!item,
+          "PROCESS_ID",
+          {}
+        ),
+        request_id: index(
+          fv!item,
+          "REQUEST_ID",
+          {}
+        ),
+        is_active: 1,
+        comments:index(fv!item,"COMMENTS",{}),
+        created_by: loggedInUser(),
+        created_on: now(),
+        modified_by: loggedInUser(),
+        modified_on: now(),
+        
+      )
+    )
+  )
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_473459"/>
+        <historyInfo versionUuid="_a-0000e520-265e-8000-d90f-a7ef90a7ef90_2772703"/>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_749516"/>
+    </history>
+</contentHaul>

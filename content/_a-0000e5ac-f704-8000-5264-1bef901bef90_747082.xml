@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_768075</versionUuid>
+    <rule>
+        <name>EAP_gridRowLayoutProcessParamPGConfig</name>
+        <uuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_747082</uuid>
+        <description>Hold grid row layout of process param config</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!runConfigData: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+    processId: ri!processId,
+    isActive: 1
+  ),
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    id: ri!index,
+    contents: {
+      if(
+        ri!isReadOnly = true,
+        #"SYSTEM_SYSRULES_textField"(
+          value: index(
+            index(
+              local!runconfigData,
+              wherecontains(
+                tointeger(
+                  index(
+                    ri!processParamPGConfig[ri!index],
+                    "run_config_id",
+                    {}
+                  )
+                ),
+                tointeger(
+                  index(
+                    local!runconfigData,
+                    "run_config_id",
+                    {}
+                  )
+                )
+              ),
+              {}
+            ),
+            "process_display_name",
+            {}
+          ),
+          readOnly: true()
+        ),
+        #"SYSTEM_SYSRULES_dropdownField"(
+          label: "Process Name",
+          placeholderLabel: "--Select Process--",
+          required: true,
+          choiceLabels: index(
+            local!runconfigData,
+            "process_display_name",
+            {}
+          ),
+          choiceValues: index(
+            local!runconfigData,
+            "run_config_id",
+            {}
+          ),
+          value: if(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+              value: index(
+                ri!processParamPGConfig[ri!index],
+                "run_config_id",
+                {}
+              ),
+              choiceValue: union(
+                index(
+                  local!runconfigData,
+                  "run_config_id",
+                  {}
+                ),
+                index(
+                  local!runconfigData,
+                  "run_config_id",
+                  {}
+                )
+              )
+            ),
+            index(
+              ri!processParamPGConfig[ri!index],
+              "run_config_id",
+              {}
+            ),
+            null
+          ),
+          saveInto: {
+            a!save(
+              ri!processParamPGConfig[ri!index].run_config_id,
+              save!value
+            ),
+            a!save(
+              ri!processParamPGConfig[ri!index].process_id,
+              ri!processId
+            ),
+            
+          }
+        )
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!processParamPGConfig[ri!index],
+          "page_name",
+          {}
+        ),
+        saveInto: {
+          a!save(
+            ri!processParamPGConfig[ri!index].page_name,
+            save!value
+          ),
+          
+        },
+        readOnly: ri!isReadOnly,
+        required: true(),
+        validations: {
+          if(
+            count(
+              wherecontains(
+                tostring(
+                  index(
+                    ri!processParamPGConfig[ri!index],
+                    "page_name",
+                    {}
+                  )
+                ),
+                touniformstring(
+                  index(
+                    index(
+                      ri!processParamPGConfig,
+                      wherecontains(
+                        tointeger(
+                          index(
+                            ri!processParamPGConfig[ri!index],
+                            "run_config_id",
+                            {}
+                          )
+                        ),
+                        tointeger(
+                          index(
+                            ri!processParamPGConfig,
+                            "run_config_id",
+                            {}
+                          )
+                        )
+                      ),
+                      {}
+                    ),
+                    "page_name",
+                    {}
+                  )
+                )
+              )
+            ) &gt; 1,
+            "Page name already exists with this process display name.",
+            {}
+          ),
+          if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(ri!processParamPGConfig[ri!index],"process_param_pg_id",{})),
+          if(
+            contains(
+              proper(touniformstring(
+                index(
+                  #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_761075"(
+                    runConfigId: index(
+                      ri!processParamPGConfig[ri!index],
+                      "run_config_id",
+                      {}
+                    )
+                  ),
+                  "page_name",
+                  {}
+                )
+              )),
+              proper(tostring(
+              index(
+                ri!processParamPGConfig[ri!index],
+                "page_name",
+                {}
+              )
+            ))
+            ),
+            "Page name already exists with this process display name.",
+            {}
+          ),{})
+        }
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!processParamPGConfig[ri!index],
+          "page_display_name",
+          {}
+        ),
+        saveInto: a!save(
+          ri!processParamPGConfig[ri!index].page_display_name,
+          save!value
+        ),
+        readOnly: ri!isReadOnly,
+        required: true()
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!processParamPGConfig[ri!index],
+          "page_desc",
+          {}
+        ),
+        saveInto: a!save(
+          ri!processParamPGConfig[ri!index].page_desc,
+          save!value
+        ),
+        readOnly: ri!isReadOnly,
+        required: true()
+      ),
+      if(
+        ri!isReadOnly = true,
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          value: if(
+            or(
+              tointeger(
+                index(
+                  ri!processParamPGConfig[ri!index],
+                  "is_active",
+                  {}
+                )
+              ) = 1
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "check-circle",
+              size: "STANDARD",
+              color: "POSITIVE"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "times-circle-o",
+              size: "STANDARD",
+              color: "NEGATIVE"
+            ),
+            
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            if(
+              or(
+                tointeger(
+                  index(
+                    ri!processParamPGConfig[ri!index],
+                    "active",
+                    {}
+                  )
+                ) = 1
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                linkStyle: "STANDALONE",
+                icon: "toggle-on",
+                caption: "Yes",
+                color: "ACCENT",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  value: 1,
+                  saveInto: {
+                    a!save(
+                      ri!processParamPGConfig[ri!index].active,
+                      0
+                    ),
+                    a!save(
+                      ri!processParamPGConfig[ri!index].modified_by,
+                      loggedInUser()
+                    ),
+                    a!save(
+                      ri!processParamPGConfig[ri!index].modified_on,
+                      now()
+                    )
+                  },
+                  showWhen: ri!isReadOnly &lt;&gt; true()
+                ),
+                size: "MEDIUM_PLUS"
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                linkStyle: "STANDALONE",
+                icon: "toggle-off",
+                color: "ACCENT",
+                caption: "No",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  value: 0,
+                  saveInto: {
+                    a!save(
+                      ri!processParamPGConfig[ri!index].active,
+                      1
+                    ),
+                    a!save(
+                      ri!processParamPGConfig[ri!index].modified_by,
+                      loggedInUser()
+                    ),
+                    a!save(
+                      ri!processParamPGConfig[ri!index].modified_on,
+                      now()
+                    )
+                  },
+                  showWhen: ri!isReadOnly &lt;&gt; true()
+                ),
+                size: "MEDIUM_PLUS"
+              )
+            )
+          }
+        )
+      ),
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!processParamPGConfig[ri!index],
+            "process_param_pg_id",
+            {}
+          )
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "",
+          showWhen: if(
+            or(
+              ri!isReadOnly = true()
+            ),
+            false(),
+            true()
+          ),
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!processParamPGConfig,
+                  remove(
+                    ri!processParamPGConfig,
+                    ri!index
+                  )
+                )
+              }
+            )
+          )
+        ),
+        if(
+          ri!IsReadOnly = true(),
+          {},
+          #"SYSTEM_SYSRULES_richTextDisplayField"()
+        )
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processParamPGConfig</name>
+            <type>
+                <name>EAP_T_UiProcessParamPgConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_768075"/>
+    </history>
+</contentHaul>

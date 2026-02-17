@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_701643</versionUuid>
+    <decision>
+        <name>EAP_milestoneNameStatusMapping</name>
+        <uuid>820fced1-d8d2-498c-95aa-43c4969b2759</uuid>
+        <description>Map Milestone name to the request Status</description>
+        <parentUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_421005</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>fn!override_exception_appian_internal(fn!with(local!decisiondefinition: a!decisiondesigner_cache(uuid: "820fced1-d8d2-498c-95aa-43c4969b2759",versionKey: "df3f7d1f-d411-4566-99d2-bb4a56db0f19",value: #"SYSTEM_SYSRULES_dd_dd"('hitPolicy': #"SYSTEM_SYSRULES_dd_dhp"("UNIQUE"), 'inputs': {#"SYSTEM_SYSRULES_dd_di"('name': "requestStatus", 'type': 'type!{http://www.appian.com/ae/types/2009}Text', 'id': 1, 'restrictionType': #"SYSTEM_SYSRULES_dd_dirt"("NONE"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_do"('id': 1, 'name': "milestoneName", 'type': 'type!{http://www.appian.com/ae/types/2009}Text', 'restrictionType': #"SYSTEM_SYSRULES_dd_dort"("NONE"), 'returnListType': false)}, 'rules': {#"SYSTEM_SYSRULES_dd_dr"('id': 1, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 1, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "REQ_ARRV"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1, 'value': "Run Configuration")}), #"SYSTEM_SYSRULES_dd_dr"('id': 21, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 25, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "SRC_INT_PROG"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 21, 'decisionOutputId': 1, 'value': "IO Source")}), #"SYSTEM_SYSRULES_dd_dr"('id': 23, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 27, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "SRC_INT_FAIL"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 23, 'decisionOutputId': 1, 'value': "IO Source")}), #"SYSTEM_SYSRULES_dd_dr"('id': 22, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 26, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "SRC_INT_COMP"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 22, 'decisionOutputId': 1, 'value': "IO Source")}), #"SYSTEM_SYSRULES_dd_dr"('id': 2, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 3, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "STG_PROG"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 2, 'decisionOutputId': 1, 'value': "Parsing")}), #"SYSTEM_SYSRULES_dd_dr"('id': 3, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 5, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "STG_FAIL"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 3, 'decisionOutputId': 1, 'value': "Parsing")}), #"SYSTEM_SYSRULES_dd_dr"('id': 4, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 7, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "STG_COMP"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 4, 'decisionOutputId': 1, 'value': "Parsing")}), #"SYSTEM_SYSRULES_dd_dr"('id': 5, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 9, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "TGT_PROG"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 5, 'decisionOutputId': 1, 'value': "Transformation")}), #"SYSTEM_SYSRULES_dd_dr"('id': 6, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 10, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "TGT_FAIL"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 6, 'decisionOutputId': 1, 'value': "Transformation")}), #"SYSTEM_SYSRULES_dd_dr"('id': 7, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 11, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "TGT_COMP"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 7, 'decisionOutputId': 1, 'value': "Transformation")}), #"SYSTEM_SYSRULES_dd_dr"('id': 8, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 12, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "ASSGN_MAKE"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 8, 'decisionOutputId': 1, 'value': "Maker")}), #"SYSTEM_SYSRULES_dd_dr"('id': 9, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 13, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "CNCL_MAKE"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 9, 'decisionOutputId': 1, 'value': "Maker")}), #"SYSTEM_SYSRULES_dd_dr"('id': 10, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 14, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "SUB_MAKE"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 10, 'decisionOutputId': 1, 'value': "Maker")}), #"SYSTEM_SYSRULES_dd_dr"('id': 12, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 16, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "ASSGN_CHCK"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 12, 'decisionOutputId': 1, 'value': "Checker")}), #"SYSTEM_SYSRULES_dd_dr"('id': 13, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 17, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "REJ_CHCK"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 13, 'decisionOutputId': 1, 'value': "Checker")}), #"SYSTEM_SYSRULES_dd_dr"('id': 14, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 18, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "APP_CHCK"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 14, 'decisionOutputId': 1, 'value': "Checker")}), #"SYSTEM_SYSRULES_dd_dr"('id': 15, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 19, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "ASSGN_DOA"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 15, 'decisionOutputId': 1, 'value': "Additional Approvers")}), #"SYSTEM_SYSRULES_dd_dr"('id': 16, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 20, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "APP_DOA"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 16, 'decisionOutputId': 1, 'value': "Additional Approvers")}), #"SYSTEM_SYSRULES_dd_dr"('id': 17, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 21, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "REJ_DOA"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 17, 'decisionOutputId': 1, 'value': "Additional Approvers")}), #"SYSTEM_SYSRULES_dd_dr"('id': 18, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 22, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "VLDN_PROG"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 18, 'decisionOutputId': 1, 'value': "Data Validation")}), #"SYSTEM_SYSRULES_dd_dr"('id': 19, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 23, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "VLDN_FAIL"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 19, 'decisionOutputId': 1, 'value': "Data Validation")}), #"SYSTEM_SYSRULES_dd_dr"('id': 20, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 24, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "VLDN_COMP"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 20, 'decisionOutputId': 1, 'value': "Data Validation")}), #"SYSTEM_SYSRULES_dd_dr"('id': 24, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 28, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "OUT_GEN_PROG"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 24, 'decisionOutputId': 1, 'value': "Output Generation")}), #"SYSTEM_SYSRULES_dd_dr"('id': 25, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 29, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "OUT_GEN_FAIL"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 25, 'decisionOutputId': 1, 'value': "Output Generation")}), #"SYSTEM_SYSRULES_dd_dr"('id': 26, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 30, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "OUT_GEN_COMP"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 26, 'decisionOutputId': 1, 'value': "Output Generation")}), #"SYSTEM_SYSRULES_dd_dr"('id': 27, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 31, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "POST_PROG"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 27, 'decisionOutputId': 1, 'value': "IO Target")}), #"SYSTEM_SYSRULES_dd_dr"('id': 28, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 32, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "POS_FAIL"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 28, 'decisionOutputId': 1, 'value': "IO Target")}), #"SYSTEM_SYSRULES_dd_dr"('id': 29, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 33, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "POS_COMP"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 29, 'decisionOutputId': 1, 'value': "IO Target")}), #"SYSTEM_SYSRULES_dd_dr"('id': 30, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 34, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "TSK_COMP"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 30, 'decisionOutputId': 1, 'value': "End")}), #"SYSTEM_SYSRULES_dd_dr"('id': 32, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 36, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "TSK_RJCT"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 32, 'decisionOutputId': 1, 'value': "End")})}, 'isUnique': true, 'defaultOutputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1, 'value': "End")})),#"SYSTEM_SYSRULES_dd_exr"(decisionDefinition:local!decisiondefinition,executionInputs:{#"SYSTEM_SYSRULES_dd_dei"(decisionInputId:1,value:'ri!requestStatus')})))</definition>
+        <namedTypedValue>
+            <name>requestStatus</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <outputMetadataList>
+            <outputMetadata>
+                <outputId>1</outputId>
+                <nameRef>milestoneName</nameRef>
+                <typeName>{http://www.appian.com/ae/types/2009}Text</typeName>
+            </outputMetadata>
+        </outputMetadataList>
+        <hitPolicy>UNIQUE</hitPolicy>
+    </decision>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_701643"/>
+    </history>
+</contentHaul>

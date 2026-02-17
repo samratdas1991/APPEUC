@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_711653</versionUuid>
+    <interface>
+        <name>EAP_uploadBulkUsersForm</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_680430</uuid>
+        <description>Holds Interface to upload Bulk Users</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    contents: {
+      #"_a-0000e518-940a-8000-525e-1bef901bef90_524783"(
+        icon:"UPLOAD",
+        size: "MEDIUM",
+        label: "Upload Bulk Users",
+        color: "ACCENT"
+      )
+    },
+    divider:"BELOW"
+  ),
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    contents: {
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(
+            
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(),
+          
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"_a-0000e56b-0831-8000-5261-1bef901bef90_680552"(),
+              #"SYSTEM_SYSRULES_fileUploadField_v1"(
+                label: "Upload Document",
+                target: #"_a-0000e56b-0831-8000-5261-1bef901bef90_711567"[2],
+                buttonStyle: "STANDARD",
+                buttonSize: "STANDARD",
+                helpTooltip:"Upload xlsx/xls only",
+                required: true,
+                maxSelections: 1,
+                value:ri!uploadDocument,
+                saveInto:    a!save(ri!uploadDocument,tointeger(save!value)),
+                validations: {
+                  if(
+                    or(
+                      tostring(
+                      upper(
+                        fv!files.extension
+                      )
+                    ) = "XLSX"
+                    ,
+                    tostring(
+                      upper(
+                        fv!files.extension
+                      )
+                    ) = "XLS"
+                    ),
+                    {},
+                    "Please upload xlsx/xls format only"
+
+                  )
+                }
+              ),
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {}
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              
+
+            }
+          )
+          
+        }
+      )
+    },
+    divider: "BELOW",
+    
+  ),
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    contents: {
+      #"SYSTEM_SYSRULES_ButtonLayout"(
+        primaryButtons: {
+          #"SYSTEM_SYSRULES_ButtonWidget"(
+            label: "Submit",
+            value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[1],
+            saveInto: {
+              ri!buttonAction,
+
+            },
+            submit: true(),
+            size: "SMALL",
+            style: "STANDARD",
+            validate: true,
+           showWhen: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+             ri!uploadDocument
+           ),false(),true)
+          )
+        },
+        secondaryButtons: {
+          #"SYSTEM_SYSRULES_ButtonWidget"(
+            label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+            style: "DESTRUCTIVE",
+            value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+            saveInto: ri!buttonAction,
+            submit: true(),
+            validate: false()
+          )
+        },
+
+      )
+    }
+  )
+}</definition>
+        <namedTypedValue>
+            <name>uploadDocument</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_681798"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_711653"/>
+    </history>
+</contentHaul>

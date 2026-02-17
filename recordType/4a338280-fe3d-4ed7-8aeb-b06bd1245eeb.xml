@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>0fac774b-abbc-4865-8410-f256e84ba901</versionUuid>
+  <recordType a:uuid="4a338280-fe3d-4ed7-8aeb-b06bd1245eeb" name="EAP Process Detail">
+    <a:pluralName>EAP Process Details</a:pluralName>
+    <a:description>Contains record list view for Process</a:description>
+    <a:urlStub>6pZaqA</a:urlStub>
+    <a:source
+      a:uuid="975dc06f-39f7-4741-b6e6-d2f60ec267ea@_a-0000e4c3-ab68-8000-5250-1bef901bef90_7363" xsi:type="a:DataStoreEntity"/>
+    <a:listViewTemplateExpr>#"SYSTEM_SYSRULES_recordGridLayoutColumns"(
+  columns: {
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "EUC #",
+      field: "euc_reference_number",
+      component: #"SYSTEM_SYSRULES_recordGrid_linkField"(
+        links: #"SYSTEM_SYSRULES_recordLink"(
+          label: rf!euc_reference_number,
+          recordType: rp!type,
+          identifier: rp!id
+        )
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Process Id",
+      width: "DISTRIBUTE",
+      field: "process_id",
+      align: "RIGHT",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!process_id,
+        align: "RIGHT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Process Name",
+      field: "process_name",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayValue: rf!process_name,
+        align: null
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Sub Cluster Name",
+      width: "DISTRIBUTE",
+      field: "sub_cluster_name",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!sub_cluster_name
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Cluster Name",
+      field: "cluster_name",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!cluster_name
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Region",
+      width: "DISTRIBUTE",
+      field: "region_name",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!region_name
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Country",
+      width: "DISTRIBUTE",
+      field: "country_name",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!country_name
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Calendar",
+      width: "DISTRIBUTE",
+      field: "calendar_name",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!calendar_name
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Is Active",
+      width: "DISTRIBUTE",
+      align: "CENTER",
+      component: #"SYSTEM_SYSRULES_recordGrid_imageField_v1"(
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            icon: if(
+              contains(
+                toboolean(
+                  rf!is_active
+                ),
+                true()
+              ),
+              "STATUS_OK",
+              "STATUS_NOTDONE"
+            )
+          ),
+          caption: if(
+            contains(
+              toboolean(
+                rf!is_active
+              ),
+              true()
+            ),
+            "Active",
+            "In-Active"
+          )
+        ),
+        size: "ICON",
+        isThumbnail: false,
+        style: "STANDARD",
+        align: "CENTER"
+      )
+    )
+  },
+  pageSize: 50,
+  defaultSort: #"SYSTEM_SYSRULES_sortInfo"(
+    ascending: false
+  ),
+  shadeAlternateRows: true
+)</a:listViewTemplateExpr>
+    <a:detailViewCfg>
+      <a:nameExpr>#"SYSTEM_SYSRULES_rtd_getDefaultSummaryViewName"()</a:nameExpr>
+      <a:uiExpr>#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233736"(
+  processId: rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>summary</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:defaultFilter>
+      <a:field>process_id</a:field>
+      <a:operator>in</a:operator>
+      <a:valueExpression>tointeger(
+  index(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9887"(
+      userSoeId: loggedInUser(),
+      isActive: true()
+    ),
+    "processId",
+    {}
+  )
+)</a:valueExpression>
+    </a:defaultFilter>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4db-60a9-8000-5eb4-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>afe8e829-5b6a-4721-ac72-56e8ea2c483e</a:refId>
+      <a:titleExpr>"Initiate "&amp;if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+    index(
+      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(processId: rf!process_id),
+      "process_display_name",
+      {}
+    )
+  ),
+  "N/A",
+  index(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(processId: rf!process_id),
+    "process_display_name",
+    {}
+  )
+)</a:titleExpr>
+      <a:staticDescriptionString>Click here to Initiate the process</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:isSystem>false</a:isSystem>
+    <a:dataSrcExpr/>
+    <a:facetsListExpr/>
+    <a:titleExpr>"EUC|"&amp;rf!euc_reference_number</a:titleExpr>
+    <a:defaultFiltersExpr/>
+    <a:layoutType>GRID</a:layoutType>
+    <a:security>16383</a:security>
+    <a:hideLatestNews>false</a:hideLatestNews>
+    <a:hideNewsView>false</a:hideNewsView>
+    <a:hideRelatedActionsView>false</a:hideRelatedActionsView>
+    <a:isExportable>false</a:isExportable>
+    <a:listViewSrcExpr/>
+    <a:recordViewSrcExpr/>
+    <a:recordTypeSearchCfg>
+      <searchFieldsSrc>DEFAULT</searchFieldsSrc>
+      <placeholderSrc>DEFAULT</placeholderSrc>
+      <placeholder/>
+    </a:recordTypeSearchCfg>
+    <a:iconId/>
+    <a:listAutoRefreshInterval>0.0</a:listAutoRefreshInterval>
+    <a:enabledFeatures>32</a:enabledFeatures>
+    <a:isVisibleInRecordTypeList>true</a:isVisibleInRecordTypeList>
+    <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+    <a:showSearchBox>true</a:showSearchBox>
+    <a:isVisibleInDataFabric>true</a:isVisibleInDataFabric>
+    <a:usesRollingSyncLimit>false</a:usesRollingSyncLimit>
+    <a:usesRecoverySync>false</a:usesRecoverySync>
+    <a:isScheduledIndexingEnabled>false</a:isScheduledIndexingEnabled>
+    <a:smartSearchAcceptableFailureRate>0.0</a:smartSearchAcceptableFailureRate>
+    <a:skipFailedSmartServicesSync>false</a:skipFailedSmartServicesSync>
+  </recordType>
+  <roleMap>
+    <role name="record_type_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+      </groups>
+    </role>
+    <role name="record_type_viewer">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="594a6b58-a57a-4176-8c0b-bdaaddcc5ac3"/>
+    <historyInfo versionUuid="0fac774b-abbc-4865-8410-f256e84ba901"/>
+  </history>
+  <migrationVersion>1</migrationVersion>
+</recordTypeHaul>

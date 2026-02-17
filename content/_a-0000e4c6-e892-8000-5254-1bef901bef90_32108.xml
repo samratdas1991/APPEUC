@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_130862</versionUuid>
+    <rule>
+        <name>EAP_RunConfigurationSubClusterGridRowLayout</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_32108</uuid>
+        <description>Holds gridRowLayout for run configuration sub cluster editable grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!clusterData: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_16958"(
+    isActive: "1"
+  ),
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    contents: {
+      /* Sub Cluster Name */
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!runConfigSubCluster[ri!index],
+          "name",
+          {}
+        ),
+        saveInto: ri!runConfigSubCluster[ri!index].name,
+        readOnly: if(
+          or(
+            index(
+              ri!runConfigSubCluster[ri!index],
+              "sub_cluster_id",
+              {}
+            ) = ri!subClusterId
+          ),
+          false(),
+          true()
+        )
+      ),
+      /* Cluster Name */
+      if(
+        or(
+          index(
+            ri!runConfigSubCluster[ri!index],
+            "sub_cluster_id",
+            {}
+          ) = ri!subClusterId
+        ),
+        #"SYSTEM_SYSRULES_dropdownField"(
+          placeholderLabel: "--Select Cluster--",
+          required: true(),
+          choiceLabels: local!clusterData.name,
+          choiceValues: local!clusterData.cluster_id,
+          value: index(
+            ri!runConfigSubCluster[ri!index],
+            "cluster_id",
+            {}
+          ),
+          saveInto: ri!runConfigSubCluster[ri!index].cluster_id
+        ),
+        #"SYSTEM_SYSRULES_textField"(
+          value: index(
+            index(
+              local!clusterData,
+              index(
+                ri!runConfigSubCluster[ri!index],
+                "cluster_id",
+                {}
+              ),
+              {}
+            ),
+            "name",
+            {}
+          ),
+          readOnly: true()
+        )
+      ),
+      /* Sub Cluster Description */
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!runConfigSubCluster[ri!index],
+          "description",
+          {}
+        ),
+        saveInto: ri!runConfigSubCluster[ri!index].description,
+        readOnly: if(
+          or(
+            index(
+              ri!runConfigSubCluster[ri!index],
+              "sub_cluster_id",
+              {}
+            ) = ri!subClusterId
+          ),
+          false(),
+          true()
+        )
+      ),
+      /* Is Active */
+      if(
+        or(
+          index(
+            ri!runConfigSubCluster[ri!index],
+            "sub_cluster_id",
+            {}
+          ) = ri!subClusterId
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          value: {
+            if(
+              or(
+                tointeger(
+                  index(
+                    ri!runConfigSubCluster[ri!index],
+                    "is_active",
+                    {}
+                  )
+                ) = 1
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "toggle-on",
+                caption: "Active",
+                linkStyle: "STANDALONE",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  value: 0,
+                  saveInto: a!save(
+                    ri!runConfigSubCluster[ri!index].is_active,
+                    0
+                  )
+                ),
+                size: "MEDIUM_PLUS"
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "toggle-off",
+                caption: "In-active",
+                linkStyle: "STANDALONE",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  value: 1,
+                  saveInto: a!save(
+                    ri!runConfigSubCluster[ri!index].is_active,
+                    1
+                  )
+                ),
+                size: "MEDIUM_PLUS"
+              )
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: " ",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: if(
+              or(
+                tointeger(
+                  index(
+                    ri!runConfigSubCluster[ri!index],
+                    "is_active",
+                    {}
+                  )
+                ) = 1
+              ),
+              #"SYSTEM_SYSRULES_iconIndicator"(
+                icon: "STATUS_OK"
+              ),
+              #"SYSTEM_SYSRULES_iconIndicator"(
+                icon: "STATUS_NOTDONE"
+              )
+            )
+          )
+        )
+      ),
+      /* Edit/Save Options */
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        align: "CENTER",
+        value: {
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!runConfigSubCluster[ri!index],
+                "sub_cluster_id",
+                {}
+              )
+            ),
+            {},
+            if(
+              or(
+                index(
+                  ri!runConfigSubCluster[ri!index],
+                  "sub_cluster_id",
+                  {}
+                ) = ri!subClusterId
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "save",
+                caption: "Save",
+                color: "ACCENT",
+                size: "MEDIUM",
+                link: if(
+                  or(
+                    index(
+                      ri!runConfigSubCluster[ri!index],
+                      "sub_cluster_id",
+                      {}
+                    ) = ri!subClusterId
+                  ),
+                  #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: null,
+                    saveInto: {
+                      ri!subClusterId,
+                      #"SYSTEM_SYSRULES_writeToDataStoreEntity"(
+                        dataStoreEntity: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_17642",
+                        valueToStore: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_17865"(
+                          refSubCluster: ri!runConfigSubCluster,
+                          clusterId: index(
+                            ri!runConfigSubCluster[ri!index],
+                            "cluster_id",
+                            {}
+                          ),
+                          name: index(
+                            ri!runConfigSubCluster[ri!index],
+                            "name",
+                            {}
+                          ),
+                          description: index(
+                            ri!runConfigSubCluster[ri!index],
+                            "description",
+                            {}
+                          ),
+                          isActive: index(
+                            ri!runConfigSubCluster[ri!index],
+                            "is_active",
+                            {}
+                          ),
+                          createdBy: index(
+                            ri!runConfigSubCluster[ri!index],
+                            "created_by",
+                            {}
+                          ),
+                          createdOn: index(
+                            ri!runConfigSubCluster[ri!index],
+                            "created_on",
+                            {}
+                          ),
+                          modifiedBy: index(
+                            ri!runConfigSubCluster[ri!index],
+                            "modified_by",
+                            {}
+                          ),
+                          modifiedOn: index(
+                            ri!runConfigSubCluster[ri!index],
+                            "modified_on",
+                            {}
+                          ),
+                          subClusterId: index(
+                            ri!runConfigSubCluster[ri!index],
+                            "sub_cluster_id",
+                            {}
+                          )
+                        ),
+                        onSuccess: a!save(
+                          ri!runConfigSubCluster,
+                          #"_a-0000e4c6-4628-8000-5253-1bef901bef90_17680"(
+                            pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+                              startIndex: 1,
+                              batchSize: - 1,
+                              sort: #"SYSTEM_SYSRULES_sortInfo"(
+                                field: "name",
+                                ascending: false()
+                              )
+                            )
+                          )
+                        )
+                      )
+                    }
+                  ),
+                  {}
+                )
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "edit",
+                size: "MEDIUM",
+                caption: "Edit",
+                color: if(
+                  or(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      ri!subClusterId
+                    ),
+                    tointeger(
+                      ri!subClusterId
+                    ) = 0
+                  ),
+                  "ACCENT",
+                  "SECONDARY"
+                ),
+                link: if(
+                  or(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      ri!subClusterId
+                    ),
+                    tointeger(
+                      ri!subClusterId
+                    ) = 0
+                  ),
+                  #"SYSTEM_SYSRULES_dynamicLink"(
+                    saveInto: a!save(
+                      ri!subClusterId,
+                      ri!runConfigSubCluster[ri!index].sub_cluster_id
+                    )
+                  ),
+                  {}
+                )
+              )
+            )
+          )
+        },
+        
+      ),
+      /* Delete */
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        label: "Remove",
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            "REMOVE"
+          ),
+          altText: "Remove",
+          caption: "Remove",
+          link: #"SYSTEM_SYSRULES_dynamicLink"(
+            value: ri!index,
+            saveInto: {
+              a!save(
+                ri!runConfigSubCluster,
+                remove(
+                  ri!runConfigSubCluster,
+                  save!value
+                )
+              ),
+              
+            }
+          ),
+          showWhen: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!runConfigSubCluster[ri!index],
+                "sub_cluster_id",
+                {}
+              )
+            ),
+            true(),
+            false()
+          )
+        ),
+        size: "ICON"
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigSubCluster</name>
+            <type>
+                <name>EAP_T_RefSubCluster?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>subClusterId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_59288"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_99091"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_130862"/>
+    </history>
+</contentHaul>

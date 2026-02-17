@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_324177</versionUuid>
+    <interface>
+        <name>EAP_RunConfiguration_CreateNewRuntimefilter</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_146581</uuid>
+        <description>Contains form to create new Run time filter</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!filterMasterdata:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    category_group:"Global",
+    type:"RUN_TIME_FILTER_VALUES",
+    isActive: "1",
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1, 
+      batchSize: -1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "label",
+        ascending: true()
+      )
+    )
+  ), 
+  local!processMasterdata:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+    isActive: 1,
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1, 
+      batchSize: -1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "process_id",
+        ascending: true()
+      )
+    )
+  ), 
+  {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents:{
+           #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+              label:"Runtime Filter Key",
+              placeholderLabel: "--Select Filter--",
+              required: true,
+              choiceLabels: index(local!filterMasterdata,"label",{}),
+              choiceValues: index(local!filterMasterdata,"code",{}),
+              value: index(ri!refRuntimeConfig,"configRtKey",null),
+              saveInto: ri!refRuntimeConfig.configRtKey
+            )
+           }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+            label:"Process Name",
+            placeholderLabel: "--Select Filter--",
+            required: true,
+            choiceLabels: index(local!processMasterdata,"name",{}),
+            choiceValues: index(local!processMasterdata,"process_id",{}),
+            value: index(ri!refRuntimeConfig,"processId",null),
+            saveInto: ri!refRuntimeConfig.processId
+          )
+          /*a!textField(*/
+            /*label: "Process Id",*/
+            /*value: index(ri!refRuntimeConfig,"processId",null),*/
+            /*required: true,*/
+            /*saveInto: ri!refRuntimeConfig.processId,*/
+           /*)*/
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288522"(
+            label: "Status",
+            choiceLabels: {
+              "Active",
+              "Inactive"
+            },
+            choiceValues: {
+              1,
+              0
+            },
+            value: index(
+              ri!refRuntimeConfig,
+              "isActive",
+              {}
+            ),
+            /*value:ri!refRuntimeConfig.isActive,*/
+            saveInto: ri!refRuntimeConfig.isActive,
+            required: true,
+            choiceLayout: "COMPACT"
+            )
+        ),
+
+        #"SYSTEM_SYSRULES_columnLayout"()}),
+        
+        #"SYSTEM_SYSRULES_ButtonLayout"(
+          primaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+            label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[4],
+            value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[4],
+            saveInto: {
+              ri!buttonAction
+            },
+            submit: true(),
+            style: "PRIMARY",
+            validate: true()
+          ),
+          secondaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+            label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[7],
+            value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[7],
+            saveInto: {
+              ri!buttonAction,
+              a!save(
+                ri!refRuntimeConfig.configRtKey,
+                null
+              ),
+              a!save(
+                ri!refRuntimeConfig.processId,
+                null
+              ),
+              a!save(
+                ri!refRuntimeConfig.isActive,
+                null
+              )
+            },
+            submit: true(),
+            validate: false()
+          )
+        )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refRuntimeConfig</name>
+            <type>
+                <name>EAP_T_RefProcessRuntimeConfig</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>activeStep</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_156783"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_192260"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_324177"/>
+    </history>
+</contentHaul>

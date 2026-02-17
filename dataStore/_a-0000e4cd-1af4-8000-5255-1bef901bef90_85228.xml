@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ec54-f04b-8000-9bf7-011c48011c48_320791</versionUuid>
+    <dataStore>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_85228</uuid>
+        <name>EAP IO Integration Config DS</name>
+        <description>Primary Data Store for EAP IO Integration Configuration Tables</description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>8ff490cb-7e06-4bac-a29b-ff5b1a993d9c</uuid>
+                <name>EAP_T_IntSys</name>
+                <type>{urn:com:appian:types:eap}EAP_T_IntSys</type>
+            </entity>
+            <entity>
+                <uuid>a5678114-ed7b-4c6f-8e85-9da38d36336d</uuid>
+                <name>EAP_T_IntSysParam</name>
+                <type>{urn:com:appian:types:eap}EAP_T_IntSysParam</type>
+            </entity>
+            <entity>
+                <uuid>1e73a789-4a1c-4b67-862b-a01cd820c853</uuid>
+                <name>EAP_T_IntSysDepParam</name>
+                <type>{urn:com:appian:types:eap}EAP_T_IntSysDepParam</type>
+            </entity>
+            <entity>
+                <uuid>ff03b99c-e327-4112-a7e8-c119f14f0e1d</uuid>
+                <name>EAP_T_Int</name>
+                <type>{urn:com:appian:types:eap}EAP_T_Int</type>
+            </entity>
+            <entity>
+                <uuid>4f89a946-22ec-451b-adba-bfaa3b0430f6</uuid>
+                <name>EAP_T_IntParam</name>
+                <type>{urn:com:appian:types:eap}EAP_T_IntParam</type>
+            </entity>
+            <entity>
+                <uuid>8036149f-d41c-4730-a9e5-f0ce3d1a5d88</uuid>
+                <name>EAP_T_IntDepParam</name>
+                <type>{urn:com:appian:types:eap}EAP_T_IntDepParam</type>
+            </entity>
+            <entity>
+                <uuid>94dc0894-2d29-4dab-bb3c-92563bdc1872</uuid>
+                <name>EAP_T_IntEscalation</name>
+                <type>{urn:com:appian:types:eap}EAP_T_IntEscalation</type>
+            </entity>
+            <entity>
+                <uuid>d46314b9-f402-4959-b092-3244ec3851bb</uuid>
+                <name>EAP_T_EmailWhitelist</name>
+                <type>{urn:com:appian:types:eap}EAP_T_EmailWhitelist</type>
+            </entity>
+            <entity>
+                <uuid>88b0ca9b-4b64-4fa1-96e2-0438b1c10d90</uuid>
+                <name>EAP_T_ProcessIntTrans</name>
+                <type>{urn:com:appian:types:EAP}EAP_T_ProcessIntTrans</type>
+            </entity>
+            <entity>
+                <uuid>99ee5163-ab43-4bd4-b4de-44981ba7333f</uuid>
+                <name>EAP_T_ProcessIntTransAttachments</name>
+                <type>{urn:com:appian:types:eap}EAP_T_IntTransAttachments</type>
+            </entity>
+            <entity>
+                <uuid>29508fe7-e5e3-4614-924f-ce6dd9debf1c</uuid>
+                <name>EAP_T_IntLookupSys</name>
+                <type>{urn:com:appian:types:eap}EAP_T_IntLookupSys</type>
+            </entity>
+            <entity>
+                <uuid>e15bdc96-16b3-4730-8a24-7c02258aaaea</uuid>
+                <name>EAP_Static_Data_Src</name>
+                <type>{urn:com:appian:types}EAP_Static_Data_Src</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_85232"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_86508"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_93994"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_220224"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_240281"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_411407"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_496471"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_527104"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_707746"/>
+        <historyInfo versionUuid="_a-0000e9e9-0626-8000-9bb3-011c48011c48_33545"/>
+        <historyInfo versionUuid="_a-0000ec54-f04b-8000-9bf7-011c48011c48_320791"/>
+    </history>
+</dataStoreHaul>

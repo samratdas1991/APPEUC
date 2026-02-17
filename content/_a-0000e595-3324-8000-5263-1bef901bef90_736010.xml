@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_257091</versionUuid>
+    <interface>
+        <name>EAP_LinkedEucSummaryDashboard</name>
+        <uuid>_a-0000e595-3324-8000-5263-1bef901bef90_736010</uuid>
+        <description>Summary dashboard for linked euc</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!requestDetails: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(requestId: ri!requestId),
+  local!processDetails: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+    processId: index(local!requestDetails, "processId", {})
+  ),
+  local!refMasterLookupDetails: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(type: "WORKFLOW_STATUS", isActive: 1),
+  local!linkMappingId: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!requestId),
+    {},
+    tointeger(
+      index(
+        #"_a-0000e505-ae05-8000-525c-1bef901bef90_417868"(requestId: ri!requestId),
+        "link_mapping_id",
+        null
+      )
+    )
+  ),
+  local!linkEucMapping: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!linkMappingId),
+    {},
+    #"_a-0000e505-ae05-8000-525c-1bef901bef90_417610"(linkMappingId: local!linkMappingId)
+  ),
+  local!linkEucConfig: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!linkEucMapping,
+        "link_config_id",
+        null
+      )
+    ),
+    {},
+    #"_a-0000e505-ae05-8000-525c-1bef901bef90_417553"(
+      linkConfigId: tointeger(
+        index(
+          local!linkEucMapping,
+          "link_config_id",
+          null
+        )
+      )
+    )
+  ),
+  local!manageLinkEucMappingId,
+  {
+    #"SYSTEM_SYSRULES_cardLayout"(
+      contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "hashtag",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Process #",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(10),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: index(local!requestDetails, "processId", {}),
+                            /*color: cons!EAP_COLORS[12]*/
+                            
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "info-circle",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Status",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(10),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                index(
+                                  local!requestDetails,
+                                  "requestCurrStatus",
+                                  {}
+                                )
+                              ),
+                              "N/A",
+                              index(
+                                index(
+                                  local!refMasterLookupDetails,
+                                  "label",
+                                  null
+                                ),
+                                wherecontains(
+                                  index(
+                                    local!requestDetails,
+                                    "requestCurrStatus",
+                                    null
+                                  ),
+                                  touniformstring(
+                                    index(
+                                      local!refMasterLookupDetails,
+                                      "code",
+                                      null
+                                    )
+                                  )
+                                ),
+                                null
+                              )
+                            )
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "user-circle",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Maker",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(10),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                index(local!requestDetails, "makerId", {})
+                              ),
+                              "N/A",
+                              #"SYSTEM_SYSRULES_forEach"(
+                                items: index(local!requestDetails, "makerId", {}),
+                                expression: #"_a-0000e520-265e-8000-d90f-a7ef90a7ef90_2776401"(user: fv!item)
+                              )
+                            )
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "user-circle",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Checker",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(10),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                index(local!requestDetails, "checkerId")
+                              ),
+                              "N/A",
+                              #"SYSTEM_SYSRULES_forEach"(
+                                items: index(local!requestDetails, "checkerId", {}),
+                                expression: #"_a-0000e520-265e-8000-d90f-a7ef90a7ef90_2776401"(user: fv!item)
+                              )
+                            )
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "clock-o",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Is Adhoc Trigger",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(10),
+                          if(
+                            tointeger(
+                              index(local!requestDetails, "isAdhocTrigger")
+                            ) = 1,
+                            #"SYSTEM_SYSRULES_richTextIcon"(
+                              icon: "check-circle",
+                              size: "MEDIUM",
+                              color: "POSITIVE",
+                              caption: "Yes"
+                            ),
+                            #"SYSTEM_SYSRULES_richTextIcon"(
+                              icon: "times-circle",
+                              size: "MEDIUM",
+                              color: "NEGATIVE",
+                              caption: "No"
+                            )
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            
+          },
+          marginBelow: "STANDARD"
+        )
+      },
+      height: "AUTO",
+      /*style: "#D6DBDF",*/
+      /*showBorder: false()*/
+      
+    ),
+    #"SYSTEM_SYSRULES_richTextDisplayField"(value: { #"SYSTEM_SYSRULES_richTextItem_v1"(text: char(10)) }),
+    #"_a-0000e518-940a-8000-525e-1bef901bef90_516686"(
+      LinkEucConfig: local!linkEucConfig,
+      linkEucMapping: local!linkEucMapping,
+      readOnly: true(),
+      manageLinkEucMappingId: local!manageLinkEucMappingId,
+      isSummaryDashboard: true()
+    )
+  },
+  
+)</definition>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isProductionSite</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">9</a:value>
+                    <a:nameRef>requestId</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isProductionSite</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_736471"/>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_257091"/>
+    </history>
+</contentHaul>

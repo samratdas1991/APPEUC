@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_98863</versionUuid>
+    <rule>
+        <name>EAP_SetValueForRefProcessWfEntitySheetMapping</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_9603</uuid>
+        <description>Rule to set value rule to ref process wf entity sheet mapping</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processSheetWfEntitySheetMapping),
+  null,
+#"SYSTEM_SYSRULES_forEach"(
+  items: ri!processSheetWfEntitySheetMapping,
+  expression: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_8767"(
+    wfEntitySheetMappingId: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!wfEntitySheetMappingId
+      ),
+      ri!processSheetWfEntitySheetMapping[fv!index].wf_entity_sheet_mapping_id,
+      ri!wfEntitySheetMappingId
+    ), 
+    inputCopyId: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!inputCopyId
+      ),
+      ri!processSheetWfEntitySheetMapping[fv!index].input_copy_id,
+      ri!inputCopyId
+    ),
+    entityColumnName: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!entityColumnName
+      ),
+      ri!processSheetWfEntitySheetMapping[fv!index].entity_column_name,
+      ri!entityColumnName
+    ),
+    excelColumnIndex: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!excelColumnIndex
+      ),
+      ri!processSheetWfEntitySheetMapping[fv!index].excel_column_index,
+      ri!excelColumnIndex
+    ),
+    excelColumnType: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!excelColumnType
+      ),
+      ri!processSheetWfEntitySheetMapping[fv!index].excel_column_type,
+      ri!excelColumnType
+    ),
+    filterOperator:if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!filterOperator
+      ),
+      ri!processSheetWfEntitySheetMapping[fv!index].filter_operator,
+      ri!filterOperator
+    ),
+    filterGeneration:if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!filterGeneration
+      ),
+      ri!processSheetWfEntitySheetMapping[fv!index].filter_generation,
+      ri!filterGeneration
+    ),
+    filterValue:if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!filterValue
+      ),
+      ri!processSheetWfEntitySheetMapping[fv!index].filter_value,
+      ri!filterValue
+    ), 
+    pasteFormat: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!pasteFormat
+      ),
+      ri!processSheetWfEntitySheetMapping[fv!index].paste_format,
+      ri!pasteFormat
+    ),
+    isActive:if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!isActive
+      ),
+      ri!processSheetWfEntitySheetMapping[fv!index].isactive,
+      ri!isActive
+    ),
+    createdBy: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!createdBy,
+      ),
+      
+      ri!processSheetWfEntitySheetMapping[fv!index].created_by,
+      ri!createdBy
+    ),
+    createdOn:  if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!createdOn
+      ),
+     
+      ri!processSheetWfEntitySheetMapping[fv!index].created_on,
+      ri!createdOn
+    ),
+    modifiedBy: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!modifiedBy
+      ),
+      ri!processSheetWfEntitySheetMapping[fv!index].modified_by,
+      ri!modifiedBy
+    ),
+    modifiedOn: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!modifiedOn
+      ),
+      ri!processSheetWfEntitySheetMapping[fv!index].modified_on,
+      ri!modifiedOn
+    )
+  )
+)
+
+
+)
+
+
+
+</definition>
+        <namedTypedValue>
+            <name>wfEntitySheetMappingId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>inputCopyId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityColumnName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>excelColumnIndex</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>excelColumnType</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>filterOperator</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>filterGeneration</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>filterValue</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pasteFormat</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processSheetWfEntitySheetMapping</name>
+            <type>
+                <name>EAP_T_RefProcessWfEntitySheetMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c3-ab68-8000-5250-1bef901bef90_9708"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_98863"/>
+    </history>
+</contentHaul>

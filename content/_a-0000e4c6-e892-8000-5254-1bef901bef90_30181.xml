@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_83074</versionUuid>
+    <rule>
+        <name>EAP_RefProcessGroupGridRowLayout</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_30181</uuid>
+        <description>Holds gridRowLayout for Ref Process Group Editable grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  contents: {
+    #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!fileEntityMapping[ri!index],
+          "sequence_order",
+          {}
+        ),
+        saveInto: a!save(
+          ri!fileEntityMapping[ri!index].sequence_order,
+          save!value
+        ),
+        align: "RIGHT",
+        readOnly: true()
+      ),
+      if(
+        contains(
+          ri!isReadOnly,
+          true()
+        ),
+        #"SYSTEM_SYSRULES_textField"(
+          value: index(
+            ri!fileEntityMapping[ri!index],
+            "entity_name",
+            {}
+          ),
+          readOnly: ri!isReadOnly
+        ),
+    #"SYSTEM_SYSRULES_dropdownField"(
+      placeholderLabel: "--Select Entity Name--",
+      choiceLabels: 
+      { #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+        MasterLookup: ri!masterLookUpData,
+        UniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[30],
+        Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+      )},
+      /*cons!EUC_ENTITY_NAMES,*/
+      /*ri!entityNames, */
+      
+      /*if(*/
+        /*rule!EAP_Utils_CheckIsNull(ri!masterLookUpData),*/
+        /*null,*/
+        /*touniformstring(rule!EAP_GetOptionOrIdFromMasterLookup(*/
+          /*MasterLookup:ri!masterLookUpData, */
+          /*UniqueKey:cons!EAP_REF_MASTER_TYPE[10], */
+          /*Column:cons!EAP_REF_MASTER_LOOKUP_COLUMN[2]*/
+        /*))*/
+      /*),*/
+      choiceValues: 
+      { #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+        MasterLookup: ri!masterLookUpData,
+        UniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[30],
+        Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+      )},
+      /*cons!EUC_ENTITY_NAMES,*/
+      /*ri!entityNames,*/
+      /*if(*/
+        /*rule!EAP_Utils_CheckIsNull(ri!masterLookUpData),*/
+        /*null,*/
+        /*touniformstring(rule!EAP_GetOptionOrIdFromMasterLookup(*/
+          /*MasterLookup:ri!masterLookUpData, */
+          /*UniqueKey:cons!EAP_REF_MASTER_TYPE[10], */
+          /*Column:cons!EAP_REF_MASTER_LOOKUP_COLUMN[3]*/
+        /*))*/
+      /*), */
+      
+      value:  index(ri!fileEntityMapping[ri!index], "entity_name", {}),
+      saveInto:  {ri!fileEntityMapping[ri!index].entity_name,
+      a!save(
+        ri!fileEntityMapping[ri!index].sequence_order,
+        ri!index
+      )
+      },
+      required: true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_textField"(
+      value: index(
+        ri!fileEntityMapping[ri!index],
+        "sheet_name",
+        {}
+      ),
+      saveInto: ri!fileEntityMapping[ri!index].sheet_name,
+      readOnly: ri!isReadOnly
+    ),
+    #"SYSTEM_SYSRULES_textField"(
+      value: index(
+        ri!fileEntityMapping[ri!index],
+        "sheet_index",
+        {}
+      ),
+      saveInto: ri!fileEntityMapping[ri!index].sheet_index,
+      readOnly: ri!isReadOnly
+    ),
+    #"SYSTEM_SYSRULES_textField"(
+      value: index(
+        ri!fileEntityMapping[ri!index],
+        "start_row",
+        {}
+      ),
+      saveInto: ri!fileEntityMapping[ri!index].start_row,
+      readOnly: ri!isReadOnly
+    ),
+    #"SYSTEM_SYSRULES_textField"(
+      value: index(
+        ri!fileEntityMapping[ri!index],
+        "start_row_value",
+        {}
+      ),
+      saveInto: ri!fileEntityMapping[ri!index].start_row_value,
+      readOnly: ri!isReadOnly
+    ),
+    #"SYSTEM_SYSRULES_textField"(
+      value: index(
+        ri!fileEntityMapping[ri!index],
+        "end_row",
+        {}
+      ),
+      saveInto: ri!fileEntityMapping[ri!index].end_row,
+      readOnly: ri!isReadOnly
+    ),
+    #"SYSTEM_SYSRULES_textField"(
+      value: index(
+        ri!fileEntityMapping[ri!index],
+        "end_row_value",
+        {}
+      ),
+      saveInto: ri!fileEntityMapping[ri!index].end_row_value,
+      readOnly: ri!isReadOnly
+    ),
+      if(
+        ri!isReadOnly,
+          #"SYSTEM_SYSRULES_textField"(
+            value: index(
+              ri!fileEntityMapping[ri!index],
+              "parser_type",
+              {}
+            ),
+            readOnly: ri!isReadOnly
+          ),
+          #"SYSTEM_SYSRULES_dropdownField"(
+            label: "Parser Type",
+            placeholderLabel: "--Select Parser Type--",
+            choiceLabels: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233177",
+            /*if(*/
+                /*rule!EAP_Utils_CheckIsNull(ri!masterLookUpData),*/
+                /*index(*/
+                  /*ri!fileEntityMapping[ri!index],*/
+                  /*"parser_type",*/
+                  /*{}*/
+                /*),*/
+                /*touniformstring(rule!EAP_GetOptionOrIdFromMasterLookup(*/
+                  /*MasterLookup:ri!masterLookUpData, */
+                  /*UniqueKey:cons!EAP_REF_MASTER_TYPE[12], */
+                  /*Column:cons!EAP_REF_MASTER_LOOKUP_COLUMN[2]*/
+                /*))*/
+              /*),*/
+            choiceValues: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233177",
+            /*if(*/
+              /*rule!EAP_Utils_CheckIsNull(ri!masterLookUpData),*/
+              /*index(*/
+                /*ri!fileEntityMapping[ri!index],*/
+                /*"parser_type",*/
+                /*{}*/
+              /*),*/
+              /*touniformstring(rule!EAP_GetOptionOrIdFromMasterLookup(*/
+                /*MasterLookup:ri!masterLookUpData, */
+                /*UniqueKey:cons!EAP_REF_MASTER_TYPE[12], */
+                /*Column:cons!EAP_REF_MASTER_LOOKUP_COLUMN[3]*/
+              /*))*/
+            /*),*/
+            value: index(
+              ri!fileEntityMapping[ri!index],
+              "parser_type",
+              {}
+            ),
+            saveInto: ri!fileEntityMapping[ri!index].parser_type,
+            required: true()
+          )
+      ),
+   
+      if(
+        ri!isReadOnly,
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          images: {
+            #"SYSTEM_SYSRULES_documentImage"(
+              document: #"SYSTEM_SYSRULES_iconIndicator"(
+                icon: if(
+                  contains(
+                    toboolean(
+                      index(ri!fileEntityMapping[ri!index], "is_active", {})
+                    ),
+                    true()
+                    ),
+                    "STATUS_OK",
+                    "STATUS_NOTDONE"
+                  )
+              ),
+              link: if(
+                contains(
+                  toboolean(
+                    index(ri!fileEntityMapping[ri!index], "is_active", {})
+                  ),
+                  true()
+                ),
+                #"SYSTEM_SYSRULES_dynamicLink"(
+                value: false(),
+                saveInto: ri!fileEntityMapping[ri!index].is_active
+              ),
+              #"SYSTEM_SYSRULES_dynamicLink"(
+                value: true(),
+                saveInto: ri!fileEntityMapping[ri!index].is_active
+              )
+              ),
+              caption: if(
+                contains(
+                  toboolean(
+                    index(ri!fileEntityMapping[ri!index], "is_active", {})
+                  ),
+                  true()
+                ),
+                "Active",
+                "In-Active"
+              )
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_radioButtonField"(
+          choiceLayout: "COMPACT",
+          choiceLabels: {
+            "Active",
+            "Inactive"
+          },
+          choiceValues: tointeger({
+            1,
+            0
+          }),
+          value: index(
+            ri!fileEntityMapping[ri!index],
+            "is_active",
+            {}
+          ),
+          saveInto: ri!fileEntityMapping[ri!index].is_active,
+          
+        )
+      ),
+      if(
+        ri!isReadOnly,
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "Remove",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            altText: "Remove",
+            caption: "Remove",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              value: ri!index,
+              saveInto: {
+                a!save(
+                  ri!fileEntityMapping,
+                  remove(
+                    ri!fileEntityMapping,
+                    save!value
+                  )
+                ),
+
+              }
+            )
+          ),
+          size: "ICON",
+          showWhen: if(
+            contains(
+              ri!isReadOnly,
+              true()
+            ),
+            false(),
+            true()
+          )
+        )
+      )
+    
+  }
+)
+</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fileEntityMapping</name>
+            <type>
+                <name>EAP_T_RefProcessInFileEntityMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityNames</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_83074"/>
+    </history>
+</contentHaul>

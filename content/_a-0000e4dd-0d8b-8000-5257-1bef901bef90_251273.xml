@@ -1,0 +1,1110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_425156</versionUuid>
+    <interface>
+        <name>EAP_ValidationSectionForOutputConfig</name>
+        <uuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_251273</uuid>
+        <description>Hold interface to for validation section</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!IsDetailsFilled: a!refreshVariable(
+    value: #"SYSTEM_SYSRULES_forEach"(
+      items: index(
+        index(ri!outFileEntityMapping,
+        wherecontains(
+          true(),
+          toboolean( index(
+            ri!outFileEntityMapping,
+            "is_active",
+            null
+          ))
+        ),
+        null),
+        "out_file_entity_mapping_id",
+        null
+      ),
+      expression: if(
+        tointeger(
+          index(
+            index(
+              index(
+                ri!outFileEntityMapping,
+                wherecontains(
+                  tointeger(
+                    fv!item
+                  ),
+                  tointeger(
+                    index(
+                      ri!outFileEntityMapping,
+                      "out_file_entity_mapping_id",
+                      null
+                    )
+                  )
+                ),
+                null
+              ),
+              "include_custom_cells"
+            ),
+            1,
+            null
+          )
+        ) = 1,
+        {
+          and(and(
+            contains(
+              tointeger(index(ri!fixedCellsFilters,"out_file_entity_mapping_id",null)),
+              tointeger(fv!item)
+            ),
+            not(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!fixedCellsFilters,
+                  wherecontains(
+                    tointeger(
+                      fv!item
+                    ),
+                    tointeger(
+                      index(
+                        ri!fixedCellsFilters,
+                        "out_file_entity_mapping_id",
+                        null
+                      )
+                    )
+                  ),
+                  null
+                )
+              )
+            ),
+            
+          ),
+          and(
+            contains(
+              tointeger(index(ri!gtSheetFixedCellsConfigList,"out_file_entity_mapping_id",null)),
+              tointeger(fv!item)
+            ),
+            not(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!gtSheetFixedCellsConfigList,
+                  wherecontains(
+                    tointeger(
+                      fv!item
+                    ),
+                    tointeger(
+                      index(
+                        ri!gtSheetFixedCellsConfigList,
+                        "out_file_entity_mapping_id",
+                        null
+                      )
+                    )
+                  ),
+                  null
+                )
+              )
+            ),
+
+          ),
+          and(
+            contains(
+              tointeger(index(ri!outFileFieldMapping,"out_file_entity_mapping_id",null)),
+              tointeger(fv!item)
+            ),
+            not(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!outFileFieldMapping,
+                  wherecontains(
+                    tointeger(
+                      fv!item
+                    ),
+                    tointeger(
+                      index(
+                        ri!outFileFieldMapping,
+                        "out_file_entity_mapping_id",
+                        null
+                      )
+                    )
+                  ),
+                  null
+                )
+              )
+            ),
+
+          ),
+          and(
+            contains(
+              tointeger(index(ri!outEntityFIlters,"out_file_entity_mapping_id",null)),
+              tointeger(fv!item)
+            ),
+            not(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!outEntityFIlters,
+                  wherecontains(
+                    tointeger(
+                      fv!item
+                    ),
+                    tointeger(
+                      index(
+                        ri!outEntityFIlters,
+                        "out_file_entity_mapping_id",
+                        null
+                      )
+                    )
+                  ),
+                  null
+                )
+              )
+            ),
+
+          ),
+          and(
+            contains(
+              tointeger(index(ri!outEntitySort,"out_file_entity_mapping_id",null)),
+              tointeger(fv!item)
+            ),
+            not(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!outEntitySort,
+                  wherecontains(
+                    tointeger(
+                      fv!item
+                    ),
+                    tointeger(
+                      index(
+                        ri!outEntitySort,
+                        "out_file_entity_mapping_id",
+                        null
+                      )
+                    )
+                  ),
+                  null
+                )
+              )
+            ),
+
+          ))
+       
+        },
+        {
+          and(and(
+            contains(
+              tointeger(index(ri!outFileFieldMapping,"out_file_entity_mapping_id",null)),
+              tointeger(fv!item)
+            ),
+            not(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!outFileFieldMapping,
+                  wherecontains(
+                    tointeger(
+                      fv!item
+                    ),
+                    tointeger(
+                      index(
+                        ri!outFileFieldMapping,
+                        "out_file_entity_mapping_id",
+                        null
+                      )
+                    )
+                  ),
+                  null
+                )
+              )
+            ),
+
+          ),
+          and(
+            contains(
+              tointeger(index(ri!outEntityFIlters,"out_file_entity_mapping_id",null)),
+              tointeger(fv!item)
+            ),
+            not(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!outEntityFIlters,
+                  wherecontains(
+                    tointeger(
+                      fv!item
+                    ),
+                    tointeger(
+                      index(
+                        ri!outEntityFIlters,
+                        "out_file_entity_mapping_id",
+                        null
+                      )
+                    )
+                  ),
+                  null
+                )
+              )
+            ),
+
+          ),
+          and(
+            contains(
+              tointeger(index(ri!outEntitySort,"out_file_entity_mapping_id",null)),
+              tointeger(fv!item)
+            ),
+            not(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!outEntitySort,
+                  wherecontains(
+                    tointeger(
+                      fv!item
+                    ),
+                    tointeger(
+                      index(
+                        ri!outEntitySort,
+                        "out_file_entity_mapping_id",
+                        null
+                      )
+                    )
+                  ),
+                  null
+                )
+              )
+            ),
+
+          ))
+
+        }
+      )
+    ),
+    refreshOnReferencedVarChange: true(),
+    refreshOnVarChange: {
+    ri!outEntityFIlters,
+    ri!outEntitySort,
+    ri!outFileEntityMapping,
+    ri!outFileFieldMapping,
+    ri!gtSheetFixedCellsConfigList,
+    ri!fixedCellsFilters
+    }
+
+  ),
+  {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {   
+        /*Validation message*/
+        #"SYSTEM_SYSRULES_columnLayout"(
+          showWhen:ri!isReadOnly&lt;&gt;true(),
+          contents: {
+            #"SYSTEM_SYSRULES_cardLayout"(
+              label: "Checklist",
+              style: "ERROR",
+
+              showWhen:if(
+                contains(
+                  toboolean(
+                    local!IsDetailsFilled
+                  ),
+                false()
+                ),
+                true(),
+                false()
+                
+              ),
+              showBorder:  false(),
+              contents: {
+                #"SYSTEM_SYSRULES_forEach"(
+                  items: ri!outFileEntityMapping,
+                  expression: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    showWhen: not(or(index(local!IsDetailsFilled,fv!index,null))),
+                    value:if(
+                      not(
+                        or(
+                          index(
+                            fv!item,
+                            "is_active",
+                            null
+                          )
+                        )
+                      ),
+                      null,
+                      {
+                        /*a!richTextIcon(*/
+                        /*icon: if(or(index(local!IsDetailsFilled,fv!index,null)),"check-circle","times-circle"),*/
+                        /*color: if(or(index(local!IsDetailsFilled,fv!index,null)),"POSITIVE","NEGATIVE")*/
+                        /*),*/
+
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          text:
+                          if(or(index(local!IsDetailsFilled,fv!index,null)),"Details succesfully added.","Please add missing details in "),
+                          color: if(or(index(local!IsDetailsFilled,fv!index,null)),#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[1],"NEGATIVE"),
+                          size: "SMALL"
+                        ),
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          text:  tostring(index(fv!item,"sheet_name",null)),
+                          style: "STRONG",
+                          color: if(or(index(local!IsDetailsFilled,fv!index,null)),#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[1],"NEGATIVE")
+                        )
+
+                      }
+                    ) 
+                  )
+                )
+              }
+            )
+          }
+
+        ),    
+        /*BUTTON SECTION*/
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_ButtonLayout"(
+              primaryButtons: {
+
+
+                if(  
+                  or(index(
+                    index(
+                      ri!outFileEntityMapping,
+                      wherecontains(
+                        tointeger(
+                          ri!uniqueIdentifiers.selectedCard
+                        ),
+                        tointeger(
+                          index(
+                            ri!outFileEntityMapping,
+                            "out_file_entity_mapping_id",
+                            null
+                          )
+                        )
+                      ),
+                      {}
+                    ),
+                    "include_custom_cells"
+                  )),
+                  #"SYSTEM_SYSRULES_ButtonWidget"(
+                    label: if(
+                      or(
+                        ri!isReadOnly
+                      ),
+                      "Next",
+                      "Save &amp; Next"
+                    ),
+                    saveInto: {
+                      if(
+                        count(
+                          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_265705"
+                        ) &lt; 2,
+                        {},
+                        {
+                          a!save(
+                            ri!uniqueIdentifiers.sheetTypeSelectedStep,
+                            ri!uniqueIdentifiers.sheetTypeSelectedStep + 1
+                          )
+                        }
+                      ),
+                      a!save(
+                        ri!buttonAction,
+                        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3]
+                      )
+                    },
+                    submit: if(
+                      or(
+                        ri!isReadOnly
+                      ),
+                      false(),
+                      true()
+                    ),
+                    size: "SMALL",
+                    style: "STANDARD",
+                    disabled: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        ri!uniqueIdentifiers.sheetTypeSelectedStep
+                      ),
+                      false(),
+                      if(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          index(
+                            choose(
+
+                              tointeger(
+                                ri!uniqueIdentifiers.sheetTypeSelectedStep
+                              ),
+                              ri!outFileFieldMapping,
+                              ri!outEntityFIlters,
+                              ri!outEntitySort
+                            ),
+                            wherecontains(
+                              tointeger(
+                                ri!uniqueIdentifiers.selectedCard
+                              ),
+                              tointeger(
+                                index(
+                                  choose(
+
+                                    tointeger(
+                                      ri!uniqueIdentifiers.sheetTypeSelectedStep
+                                    ),
+                                    ri!outFileFieldMapping,
+                                    ri!outEntityFIlters,
+                                    ri!outEntitySort
+                                  ),
+                                  "out_file_entity_mapping_id",
+                                  null
+                                )
+                              )
+                            ),
+                            null
+                          )
+                        ),
+                        true(),
+                        false()
+                      )
+                    ),
+                    showWhen: and(
+                      and(
+                        not(
+                          or(
+                            ri!isReadOnly
+                          )
+                        ),
+                        length(
+                          {
+                            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_265705"
+                          }
+                        ) &lt;&gt; ri!uniqueIdentifiers.sheetTypeSelectedStep
+
+                      )
+                    ),
+                    validate: true()
+                  ),
+                  #"SYSTEM_SYSRULES_ButtonWidget"(
+                    label: if(
+                      or(
+                        ri!isReadOnly
+                      ),
+                      "Next",
+                      "Save &amp; Next"
+                    ),
+                    saveInto: {
+                      if(
+                        count(
+                          #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_221667"
+                        ) &lt; 2,
+                        {},
+                        {
+                          a!save(
+                            ri!uniqueIdentifiers.sheetTypeSelectedStep,
+                            ri!uniqueIdentifiers.sheetTypeSelectedStep + 1
+                          )
+                        }
+                      ),
+                      a!save(
+                        ri!buttonAction,
+                        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3]
+                      )
+                    },
+                    submit: if(
+                      or(
+                        ri!isReadOnly
+                      ),
+                      false(),
+                      true()
+                    ),
+                    size: "SMALL",
+                    style: "STANDARD",
+                    disabled: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        ri!uniqueIdentifiers.sheetTypeSelectedStep
+                      ),
+                      false(),
+                      if(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          index(
+                            choose(
+
+                              tointeger(
+                                ri!uniqueIdentifiers.sheetTypeSelectedStep
+                              ),
+                              ri!outFileFieldMapping,
+                              ri!outEntityFIlters,
+                              ri!outEntitySort
+                            ),
+                            wherecontains(
+                              tointeger(
+                                ri!uniqueIdentifiers.selectedCard
+                              ),
+                              tointeger(
+                                index(
+                                  choose(
+
+                                    tointeger(
+                                      ri!uniqueIdentifiers.sheetTypeSelectedStep
+                                    ),
+                                    ri!outFileFieldMapping,
+                                    ri!outEntityFIlters,
+                                    ri!outEntitySort
+                                  ),
+                                  "out_file_entity_mapping_id",
+                                  null
+                                )
+                              )
+                            ),
+                            null
+                          )
+                        ),
+                        true(),
+                        false()
+                      )
+                    ),
+                    showWhen: and(
+                      and(
+                        not(
+                          or(
+                            ri!isReadOnly
+                          )
+                        ),
+                        length(
+                          {
+                            #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_221667"
+                          }
+                        ) &lt;&gt; ri!uniqueIdentifiers.sheetTypeSelectedStep
+
+                      )
+                    ),
+                    validate: true()
+                  ),
+                ),
+
+                #"SYSTEM_SYSRULES_ButtonWidget"(
+                  label: if(
+                    or(
+                      ri!isReadOnly
+                    ),
+                    "Next",
+                    "Save"
+                  ),
+                  saveInto: {
+                    a!save(
+                      ri!buttonAction,
+                      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3]
+                    )
+                  },
+                  submit: if(
+                    or(
+                      ri!isReadOnly
+                    ),
+                    false(),
+                    true()
+                  ),
+                  size: "SMALL",
+                  style: "STANDARD",
+                  showWhen: and(
+                    not(
+                      or(
+                        ri!isReadOnly
+                      )
+                    ),
+                    length(
+                      {
+                        if(  
+                          or(index(
+                            index(
+                              ri!outFileEntityMapping,
+                              wherecontains(
+                                tointeger(
+                                  ri!uniqueIdentifiers.selectedCard
+                                ),
+                                tointeger(
+                                  index(
+                                    ri!outFileEntityMapping,
+                                    "out_file_entity_mapping_id",
+                                    null
+                                  )
+                                )
+                              ),
+                              {}
+                            ),
+                            "include_custom_cells"
+                          )),
+                          append(#"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_221667","Custom Cell Config"),
+                          #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_221667"
+                        )
+                      }
+                    ) = ri!uniqueIdentifiers.sheetTypeSelectedStep
+                  )
+                ),
+
+                if(  
+                  or(index(
+                    index(
+                      ri!outFileEntityMapping,
+                      wherecontains(
+                        tointeger(
+                          ri!uniqueIdentifiers.selectedCard
+                        ),
+                        tointeger(
+                          index(
+                            ri!outFileEntityMapping,
+                            "out_file_entity_mapping_id",
+                            null
+                          )
+                        )
+                      ),
+                      {}
+                    ),
+                    "include_custom_cells"
+                  )),
+                  #"SYSTEM_SYSRULES_ButtonWidget"(
+                    label: if(
+                      or(
+                        ri!isReadOnly
+                      ),
+                      "Next",
+                      "Save &amp; Next"
+                    ),
+                    saveInto: {
+                      a!save(
+                        ri!buttonAction,
+                        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3]
+                      ),
+                      a!save(
+                        ri!uniqueIdentifiers.sheetTypeSelectedStep,
+                        1
+                      ),
+                      /*Switching to next tab*/
+                      a!save(
+                        ri!uniqueIdentifiers.selectedCard,
+                        index(
+                          index(
+                            index(
+                              ri!outFileEntityMapping,
+                              wherecontains(
+                                toboolean(
+                                  true()
+                                ),
+                                toboolean(
+                                  index(
+                                    ri!outFileEntityMapping,
+                                    "is_active",
+                                    null
+                                  )
+                                )
+                              ),
+                              {}
+                            ),
+                            "out_file_entity_mapping_id",
+                            null
+                          ),
+                          wherecontains(
+                            tointeger(
+                              ri!uniqueIdentifiers.selectedCard
+                            ),
+                            tointeger(
+                              index(
+                                index(
+                                  ri!outFileEntityMapping,
+                                  wherecontains(
+                                    toboolean(
+                                      true()
+                                    ),
+                                    toboolean(
+                                      index(
+                                        ri!outFileEntityMapping,
+                                        "is_active",
+                                        null
+                                      )
+                                    )
+                                  ),
+                                  {}
+                                ),
+                                "out_file_entity_mapping_id",
+                                null
+                              )
+                            )
+                          ) + 1,
+                          null
+                        )
+                      ),
+                      if(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          ri!uniqueIdentifiers.selectedCard
+                        ),
+                        a!save(
+                          ri!uniqueIdentifiers.selectedCard,
+                          index(
+                            index(
+                              index(
+                                ri!outFileEntityMapping,
+                                wherecontains(
+                                  toboolean(
+                                    true()
+                                  ),
+                                  toboolean(
+                                    index(
+                                      ri!outFileEntityMapping,
+                                      "is_active",
+                                      null
+                                    )
+                                  )
+                                ),
+                                {}
+                              ),
+                              "out_file_entity_mapping_id",
+                              null
+                            ),
+                            1,
+                            null
+                          )
+                        ),
+                        {}
+                      )
+                    },
+                    submit: if(
+                      or(
+                        ri!isReadOnly
+                      ),
+                      false(),
+                      true()
+                    ),
+                    size: "SMALL",
+                    style: "STANDARD",
+                    disabled: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        ri!uniqueIdentifiers.sheetTypeSelectedStep
+                      ),
+                      false(),
+                      if(
+                        or(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          index(
+                            ri!fixedCellsFilters,
+                            wherecontains(
+                              tointeger(
+                                ri!uniqueIdentifiers.selectedCard
+                              ),
+                              tointeger(
+                                index(
+                                  ri!fixedCellsFilters,
+                                  "out_file_entity_mapping_id",
+                                  null
+                                )
+                              )
+                            ),
+                            null
+                          )
+                        ),
+
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          index(
+                            ri!gtSheetFixedCellsConfigList,
+                            wherecontains(
+                              tointeger(
+                                ri!uniqueIdentifiers.selectedCard
+                              ),
+                              tointeger(
+                                index(
+                                  ri!gtSheetFixedCellsConfigList,
+                                  "out_file_entity_mapping_id",
+                                  null
+                                )
+                              )
+                            ),
+                            null
+                          )
+                        )),
+                        true(),
+                        false()
+                      )
+                    ),
+                    showWhen: and(
+                      and(
+                        not(
+                          or(
+                            ri!isReadOnly
+                          )
+                        ),
+                        length(
+                          {
+                            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_265705"
+                          }
+                        ) = ri!uniqueIdentifiers.sheetTypeSelectedStep
+                      )
+                    )
+                  ),
+                  #"SYSTEM_SYSRULES_ButtonWidget"(
+                    label: if(
+                      or(
+                        ri!isReadOnly
+                      ),
+                      "Next",
+                      "Save &amp; Next"
+                    ),
+                    saveInto: {
+                      a!save(
+                        ri!buttonAction,
+                        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3]
+                      ),
+                      a!save(
+                        ri!uniqueIdentifiers.sheetTypeSelectedStep,
+                        1
+                      ),
+                      /*Switching to next tab*/
+                      a!save(
+                        ri!uniqueIdentifiers.selectedCard,
+                        index(
+                          index(
+                            index(
+                              ri!outFileEntityMapping,
+                              wherecontains(
+                                toboolean(
+                                  true()
+                                ),
+                                toboolean(
+                                  index(
+                                    ri!outFileEntityMapping,
+                                    "is_active",
+                                    null
+                                  )
+                                )
+                              ),
+                              {}
+                            ),
+                            "out_file_entity_mapping_id",
+                            null
+                          ),
+                          wherecontains(
+                            tointeger(
+                              ri!uniqueIdentifiers.selectedCard
+                            ),
+                            tointeger(
+                              index(
+                                index(
+                                  ri!outFileEntityMapping,
+                                  wherecontains(
+                                    toboolean(
+                                      true()
+                                    ),
+                                    toboolean(
+                                      index(
+                                        ri!outFileEntityMapping,
+                                        "is_active",
+                                        null
+                                      )
+                                    )
+                                  ),
+                                  {}
+                                ),
+                                "out_file_entity_mapping_id",
+                                null
+                              )
+                            )
+                          ) + 1,
+                          null
+                        )
+                      ),
+                      if(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          ri!uniqueIdentifiers.selectedCard
+                        ),
+                        a!save(
+                          ri!uniqueIdentifiers.selectedCard,
+                          index(
+                            index(
+                              index(
+                                ri!outFileEntityMapping,
+                                wherecontains(
+                                  toboolean(
+                                    true()
+                                  ),
+                                  toboolean(
+                                    index(
+                                      ri!outFileEntityMapping,
+                                      "is_active",
+                                      null
+                                    )
+                                  )
+                                ),
+                                {}
+                              ),
+                              "out_file_entity_mapping_id",
+                              null
+                            ),
+                            1,
+                            null
+                          )
+                        ),
+                        {}
+                      )
+                    },
+                    submit: if(
+                      or(
+                        ri!isReadOnly
+                      ),
+                      false(),
+                      true()
+                    ),
+                    size: "SMALL",
+                    style: "STANDARD",
+                    disabled: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        ri!uniqueIdentifiers.sheetTypeSelectedStep
+                      ),
+                      false(),
+                      if(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          index(
+                            ri!outEntitySort,
+                            wherecontains(
+                              tointeger(
+                                ri!uniqueIdentifiers.selectedCard
+                              ),
+                              tointeger(
+                                index(
+                                  ri!outEntitySort,
+                                  "out_file_entity_mapping_id",
+                                  null
+                                )
+                              )
+                            ),
+                            null
+                          )
+                        ),
+                        true(),
+                        false()
+                      )
+                    ),
+                    showWhen: and(
+                      and(
+                        not(
+                          or(
+                            ri!isReadOnly
+                          )
+                        ),
+                        length(
+                          {
+                            #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_221667"
+                          }
+                        ) = ri!uniqueIdentifiers.sheetTypeSelectedStep
+                      )
+                    )
+                  )
+                )
+              },
+              secondaryButtons: {},
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              )
+            )
+          }
+        )
+      }
+    )
+  }
+)
+
+</definition>
+        <namedTypedValue>
+            <name>fixedCellsFilters</name>
+            <type>
+                <name>EAP_T_GtFixedCellsFilters?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outFileEntityMapping</name>
+            <type>
+                <name>EAP_T_GtOutFileEntityMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outEntityFIlters</name>
+            <type>
+                <name>EAP_T_GtOutEntityFilters?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outEntitySort</name>
+            <type>
+                <name>EAP_T_GtOutEntitySort?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>uniqueIdentifiers</name>
+            <type>
+                <name>EAP_Temp_OutputConfigUniqueIdentifiers</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outFileFieldMapping</name>
+            <type>
+                <name>EAP_T_GtOutFileFieldMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>gtSheetFixedCellsConfigList</name>
+            <type>
+                <name>EAP_T_GtSheetFixedCellsConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_278838"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_425156"/>
+    </history>
+</contentHaul>

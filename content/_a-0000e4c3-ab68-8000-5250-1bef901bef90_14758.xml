@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_421559</versionUuid>
+    <rule>
+        <name>EAP_ActionTypeSheetCopyGridRowLayout</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_14758</uuid>
+        <description>Holds gridRowLayout for sheet copy Editable grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!data,
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    id:ri!index,
+    contents: {
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly  :ri!isReadOnly,
+        value: index(
+          ri!sheetCopy[ri!index],
+          "from_sheet_name",
+          {}
+        ),
+        placeholder:"Enter From Sheet Name",
+        saveInto: {
+          ri!sheetCopy[ri!index].from_sheet_name ,
+          a!save(
+            ri!sheetCopy[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!sheetCopy[ri!index].modified_on,
+            now()
+          )
+        },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!sheetCopy[ri!index],
+                "from_sheet_name",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          )
+        },
+        required: if(or(ri!isReadOnly),false(),true())
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly  :ri!isReadOnly,
+        value: index(
+          ri!sheetCopy[ri!index],
+          "to_sheet_name",
+          {}
+        ),
+        placeholder:"Enter To Sheet Name",
+        saveInto: {
+          ri!sheetCopy[ri!index].to_sheet_name,
+          a!save(
+            ri!sheetCopy[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!sheetCopy[ri!index].modified_on,
+            now()
+          )
+        },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!sheetCopy[ri!index],
+                "to_sheet_name",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          )
+        },
+        required: if(or(ri!isReadOnly),false(),true())
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly  :ri!isReadOnly,
+        value: index(
+          ri!sheetCopy[ri!index],
+          "from_named_range",
+          {}
+        ),
+        placeholder:"Enter From Named Range",
+        saveInto: {
+          ri!sheetCopy[ri!index].from_named_range,
+          a!save(
+            ri!sheetCopy[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!sheetCopy[ri!index].modified_on,
+            now()
+          )
+        },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!sheetCopy[ri!index],
+                "from_named_range",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          )
+        },
+        required: false()
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly  :ri!isReadOnly,
+        value: index(
+          ri!sheetCopy[ri!index],
+          "from_start_row",
+          {}
+        ),
+        placeholder:"Enter From Start Row",
+        saveInto: {
+          ri!sheetCopy[ri!index].from_start_row,
+          a!save(
+            ri!sheetCopy[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!sheetCopy[ri!index].modified_on,
+            now()
+          )
+        },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value:index(
+                ri!sheetCopy[ri!index],
+                "from_start_row",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[3]
+            )
+          ),
+          if(
+            ri!isReadOnly,
+            {},
+            if(
+              index(
+                ri!sheetCopy[ri!index],
+                "from_start_row",
+                {}
+              )&lt;1,
+              "Start Row should not be smaller than or equals to 0",
+              {}
+            )
+          )
+        },
+        required: if(or(ri!isReadOnly),false(),true()),
+        align: "RIGHT"
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly  :ri!isReadOnly,
+        value: index(
+          ri!sheetCopy[ri!index],
+          "from_end_row",
+          null
+        ),
+        placeholder:"Enter From End Row",
+        saveInto: {
+          ri!sheetCopy[ri!index].from_end_row,
+          a!save(
+            ri!sheetCopy[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!sheetCopy[ri!index].modified_on,
+            now()
+          )
+        },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value:index(
+                ri!sheetCopy[ri!index],
+                "from_end_row",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[3]
+            )
+          ),
+          if(
+            ri!isReadOnly,
+            {},
+            if(
+              or(tointeger(index(
+                ri!sheetCopy[ri!index],
+                "from_end_row",
+                null
+
+              ))
+              &lt;tointeger(index(
+                ri!sheetCopy[ri!index],
+                "from_start_row",
+                null))),
+                if(
+                  or(tointeger(index(
+                    ri!sheetCopy[ri!index],
+                    "from_end_row",
+                    null
+
+                  ))
+                  = 0),
+                  {},
+                  "End Row should be greater than Start Row"
+                ),
+                {}
+            )
+          ),
+        },
+        required: if(or(ri!isReadOnly),false(),true()),
+        align: "RIGHT"
+      ),
+
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly  :ri!isReadOnly,
+        value: index(
+          ri!sheetCopy[ri!index],
+          "to_named_range",
+          {}
+        ),
+        placeholder:"Enter To Named Range",
+        saveInto: {
+          ri!sheetCopy[ri!index].to_named_range,
+          a!save(
+            ri!sheetCopy[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!sheetCopy[ri!index].modified_on,
+            now()
+          )
+        },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!sheetCopy[ri!index],
+                "to_named_range",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          )
+        },
+        required: false()
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly  :ri!isReadOnly,
+        value: index(
+          ri!sheetCopy[ri!index],
+          "to_start_row",
+          {}
+        ),
+        placeholder:"Enter To Start Row",
+        saveInto: {
+          ri!sheetCopy[ri!index].to_start_row,
+          a!save(
+            ri!sheetCopy[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!sheetCopy[ri!index].modified_on,
+            now()
+          )
+        },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value:index(
+                ri!sheetCopy[ri!index],
+                "to_start_row",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[3]
+            )
+          ),
+          if(
+            ri!isReadOnly,
+            {},
+            if(
+              tointeger(index(ri!sheetCopy,"is_paste_append",{})) = tointeger(1),
+              if(
+                index(
+                  ri!sheetCopy[ri!index],
+                  "to_start_row",
+                  {}
+                )&lt;0,
+                "Start Row should not be smaller than 0",
+                {}
+              ),
+              if(
+                index(
+                  ri!sheetCopy[ri!index],
+                  "to_start_row",
+                  {}
+                )&lt;=0,
+                "Start Row should not be smaller than or equals to 0",
+                {}
+              )
+            )
+          ),
+
+        },
+        required: if(or(ri!isReadOnly),false(),true()),
+        align: "RIGHT"
+      ),
+
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly  :ri!isReadOnly,
+        value: index(
+          ri!sheetCopy[ri!index],
+          "to_end_row",
+          {}
+        ),
+        placeholder:"Enter To End Row",
+        saveInto: {
+          ri!sheetCopy[ri!index].to_end_row,
+          a!save(
+            ri!sheetCopy[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!sheetCopy[ri!index].modified_on,
+            now()
+          )
+        },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!sheetCopy[ri!index],
+                "to_end_row",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[3]
+            )
+          ),
+          if(
+            or(tointeger(index(
+              ri!sheetCopy[ri!index],
+              "to_end_row",
+              null
+
+            ))
+            &lt;tointeger(index(
+              ri!sheetCopy[ri!index],
+              "to_start_row",
+              null))),
+              if(
+                or(tointeger(index(
+                  ri!sheetCopy[ri!index],
+                  "to_end_row",
+                  null
+
+                ))
+                = 0),
+                {},
+                "End Row should be greater than Start Row"
+              ),
+              {}
+          ),
+        },
+        required: if(or(ri!isReadOnly),false(),true()),
+        align: "RIGHT"
+      ),
+      #"SYSTEM_SYSRULES_checkboxField"(
+        choiceLabels:{""},
+        align: "CENTER",
+        choiceValues: 1,
+        value: if( or(
+          tointeger(index(
+            ri!sheetCopy[ri!index],
+            "is_paste_append",
+            {}
+          )) = 1,
+        ),1,null),
+        choiceLayout:"STACKED",
+        disabled: ri!isReadOnly,
+        saveInto: 
+        {
+          a!save(ri!sheetCopy[ri!index].is_paste_append,
+          if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(save!value),0,1))
+        }
+      ),
+      /* Apply Formula Copy */
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        align: "CENTER",
+        value: {if(
+          or(
+            tointeger(
+              index(
+                ri!sheetCopy[ri!index],
+                "apply_formula_copy",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-on",
+            caption: "Yes",
+            linkStyle:"STANDALONE",
+            link:#"SYSTEM_SYSRULES_dynamicLink"(
+              value:1,
+              showWhen:  not(or(ri!isReadOnly)),
+              saveInto:{
+                a!save(  
+                  ri!sheetCopy[ri!index].apply_formula_copy,0),
+                  a!save(
+                    ri!sheetCopy[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!sheetCopy[ri!index].modified_on,
+                    now()
+                  )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-off",
+            caption: "No",
+            linkStyle:"STANDALONE",
+            link:#"SYSTEM_SYSRULES_dynamicLink"(
+              value:0,
+              showWhen:  not(or(ri!isReadOnly)),
+              saveInto: {
+                a!save(  
+                  ri!sheetCopy[ri!index].apply_formula_copy,1),
+                  a!save(
+                    ri!sheetCopy[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!sheetCopy[ri!index].modified_on,
+                    now()
+                  )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          )
+        )}
+
+
+      ),
+    
+      /* Is Active */
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        align: "CENTER",
+        value: {if(
+          or(
+            tointeger(
+              index(
+                ri!sheetCopy[ri!index],
+                "isactive",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-on",
+            caption: "Yes",
+            linkStyle:"STANDALONE",
+            link:#"SYSTEM_SYSRULES_dynamicLink"(
+              value:1,
+              showWhen:  not(or(ri!isReadOnly)),
+              saveInto:{
+                a!save(  
+                  ri!sheetCopy[ri!index].isactive,0),
+                  a!save(
+                    ri!sheetCopy[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!sheetCopy[ri!index].modified_on,
+                    now()
+                  )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-off",
+            caption: "No",
+            linkStyle:"STANDALONE",
+            link:#"SYSTEM_SYSRULES_dynamicLink"(
+              value:0,
+              showWhen:  not(or(ri!isReadOnly)),
+              saveInto: {
+                a!save(  
+                  ri!sheetCopy[ri!index].isactive,1),
+                  a!save(
+                    ri!sheetCopy[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!sheetCopy[ri!index].modified_on,
+                    now()
+                  )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          )
+        )}
+
+
+      ),
+      if(
+        or(
+          ri!isReadonly=true(),
+          length( 
+            wherecontains(
+              tointeger(ri!actionId),
+              tointeger(index(ri!sheetCopy,"wf_action_id",null))
+            ) )&lt;2
+        ),
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: " ",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            showWhen: not(
+              ri!index = 
+              tointeger(
+                index(                
+                  wherecontains(
+                    tointeger(ri!actionId),
+                    tointeger(index(ri!sheetCopy,"wf_action_id",null))
+                  ),
+                  1,
+                  {}
+                )
+              )
+            ),
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: "MOVE_UP"
+            ),
+            link:   #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  local!data,
+                  ri!sheetCopy[ri!index-1]
+                ),
+                a!save(
+                  ri!sheetCopy[ri!index-1],
+                  ri!sheetCopy[ri!index]
+                ),
+                a!save(
+                  ri!sheetCopy[ri!index],
+                  local!data
+                ),
+                a!save(
+                  ri!sheetCopy[ri!index].modified_by,
+                  loggedInUser()
+                ),
+                a!save(
+                  ri!sheetCopy[ri!index].modified_on,
+                  now()
+                )
+
+              }
+            )
+          )
+        )),
+        if(
+          or(
+            ri!isReadonly=true(),
+            length( 
+              wherecontains(
+                tointeger(ri!actionId),
+                tointeger(index(ri!sheetCopy,"wf_action_id",null))
+              ) )&lt;2
+          ),
+          {},
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            images: #"SYSTEM_SYSRULES_documentImage"(
+              showWhen: not(
+                ri!index = 
+                tointeger(
+                  index(
+                    reverse(
+                      wherecontains(
+                        tointeger(ri!actionId),
+                        tointeger(index(ri!sheetCopy,"wf_action_id",null))
+                      )
+                    ),
+                    1,
+                    {}
+                  )
+                )
+              ),
+              document: #"SYSTEM_SYSRULES_iconIndicator"(
+                "MOVE_DOWN"
+              ),
+              link:   #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    local!data,
+                    ri!sheetCopy[ri!index]
+                  ),
+
+                  a!save(
+                    ri!sheetCopy[ri!index],
+                    ri!sheetCopy[ri!index+1],
+                  ),
+                  a!save(
+                    ri!sheetCopy[ri!index+1],
+                    local!data
+                  ),
+                  a!save(
+                    ri!sheetCopy[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!sheetCopy[ri!index].modified_on,
+                    now()
+                  )
+
+                }
+              )
+            ) 
+          )),
+          /*Remove option*/
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+              ri!sheetCopy[ri!index],
+              "sheet_copy_id",
+              {}
+            )),
+            #"SYSTEM_SYSRULES_imageField_v1"(
+              showWhen :  if(
+                or(ri!isReadOnly=true()),
+                false(),
+                true()
+              ),
+              label: "delete ",
+              images: #"SYSTEM_SYSRULES_documentImage"(
+                document: #"SYSTEM_SYSRULES_iconIndicator"(
+                  "REMOVE"
+                ),
+                altText: "Remove Document",
+                caption: "Remove",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  value: ri!index,
+                  saveInto: {
+                    a!save(
+                      ri!sheetCopy,
+                      remove(
+                        ri!sheetCopy,
+                        save!value
+                      )
+                    )
+                  }
+                )
+              ),
+              size: "ICON"
+            ),
+            if(
+              ri!isReadOnly=true(),
+              {},
+              #"SYSTEM_SYSRULES_richTextDisplayField"()
+            )
+
+          )
+
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetCopy</name>
+            <type>
+                <name>EAP_T_RefProcessWfSheetCopy?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_85095"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_171308"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_206835"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365668"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_413810"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_421559"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,965 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_512116</versionUuid>
+    <interface>
+        <name>EAP_IntSystemDepParamsSectionLayout</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_143061</uuid>
+        <description>Contains Section Layout for creating integrated system dependent parameters.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  #"SYSTEM_SYSRULES_cardLayout"(
+    contents: {
+#"SYSTEM_SYSRULES_sectionLayout_v1"(
+  label: "System Dependent Parameters|"
+  &amp;ri!refIntSysDepParam.parameter_label,
+
+ 
+  contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            /*Parameter Label*/
+            #"SYSTEM_SYSRULES_textField"(
+              label: "Parameter Label",
+              readOnly: ri!isReadOnly,
+              value: trim(index(
+                ri!refIntSysDepParam,
+                "parameter_label",
+                {}
+              )
+              ),
+              saveInto: {
+                a!save(
+                  ri!refIntSysDepParam.parameter_label,
+                  trim(save!value)
+                )
+              },
+              validations: {
+                if(
+                  ri!isReadOnly,
+                  {},
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                    value: index(
+                      ri!refIntSysDepParam,
+                      "parameter_label",
+                      {}
+                    ),
+                    ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[2]
+                  )
+                ),
+                if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!refIntSysDepParam,"system_parameter_id",{})),                    
+                  if(
+                    contains(
+                      touniformstring(
+                        index(#"_a-0000e4c6-e892-8000-5254-1bef901bef90_57426"(
+                          systemParameterId: ri!systemParameterId
+                        ),"parameter_label",{})
+                      ), touniformstring(index(
+                        ri!refIntSysDepParam, "parameter_label", {}))
+                    ),
+                    "Label already exist. Please enter new label!",
+                    {}
+                  ),
+                  if(
+                    touniformstring(index(
+                      ri!refIntSysDepParam, "parameter_label", {}))=touniformstring(
+                        index(#"_a-0000e4c6-e892-8000-5254-1bef901bef90_57426"(
+                          dependentParameterId:  index(ri!refIntSysDepParam,"dependent_parameter_id",{})
+                        ),"parameter_label",{})
+                      ),
+                      {},
+                      if(
+                        contains(
+                          touniformstring(
+                            index(#"_a-0000e4c6-e892-8000-5254-1bef901bef90_57426"(
+                              systemParameterId: ri!systemParameterId
+                            ),"parameter_label",{})
+                          ), touniformstring(
+                            index(ri!refIntSysDepParam, "parameter_label", {})
+                          )
+                        ),
+                        "Label already exist. Please enter new label!",
+                        {}
+                      )
+                  )
+                )
+              }
+
+            ),
+            if(
+              ri!isReadOnly = true(),
+              #"SYSTEM_SYSRULES_textField"(
+                label:"Generation Type",
+                value: index(
+                  ri!refIntSysDepParam,
+                  "generation_type",
+                  {}
+                ),
+                readOnly: true()
+              ),
+              #"SYSTEM_SYSRULES_dropdownField"(
+                label:"Generation Type",
+                placeholderLabel: "--Select Generation Type--",
+                choiceLabels: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!masterLookUp
+                  ),
+                  null,
+                  touniformstring(
+                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                      MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                        masterLookUpData: ri!masterLookUp,
+                        categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                      ),
+                      UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[15],
+                      Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                    )
+                  )
+                ),
+                choiceValues: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!masterLookUp
+                  ),
+                  null,
+                  touniformstring(
+                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                      MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                        masterLookUpData: ri!masterLookUp,
+                        categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                      ),
+                      UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[15],
+                      Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                    )
+                  )
+                ),
+                value: if(
+                  #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                    value: index(
+                      ri!refIntSysDepParam,
+                      "generation_type",
+                      {}
+                    ),
+                    choiceValue: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        ri!masterLookUp
+                      ),
+                      null,
+                      touniformstring(
+                        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                          MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                            masterLookUpData: ri!masterLookUp,
+                            categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+                          ),
+                          UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[15],
+                          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                        )
+                      )
+                    )
+                  ),
+                  index(
+                    ri!refIntSysDepParam,
+                    "generation_type",
+                    {}
+                  ),
+                  null
+                ),
+                saveInto: {
+                  a!save(
+                    ri!refIntSysDepParam.generation_type,
+                    save!value
+                  ),
+
+                  a!save(
+                    ri!refIntSysDepParam.modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!refIntSysDepParam.modified_on,
+                    now()
+                  )
+                },
+                validations: {
+                  if(
+                    ri!isReadOnly,
+                    {},
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                      value: index(
+                        ri!refIntSysDepParam,
+                        "generation_type"
+                      ),
+                      ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+                    )
+                  )
+                }
+                /*required: true()*/
+              )
+            ),
+            /*Calculated Value Expression*/
+            #"SYSTEM_SYSRULES_textField"(
+              label: "Calculated Value Expression",
+              readOnly: ri!isReadOnly,
+              value: trim(index(
+                ri!refIntSysDepParam,
+                "calculated_value_expression",
+                {}
+              )
+              ),
+              saveInto: {
+                a!save(
+                  ri!refIntSysDepParam.calculated_value_expression,
+                  trim(save!value)
+                )
+              },
+              validations: {
+                if(
+                  ri!isReadOnly,
+                  {},
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                    value: index(
+                      ri!refIntSysDepParam,
+                      "config_data_name",
+                      {}
+                    ),
+                    ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[7]
+                  )
+                )
+              }
+
+            ),
+            /*Validation Expression*/
+            #"SYSTEM_SYSRULES_textField"(
+              label: "Validation Expression",
+              readOnly: ri!isReadOnly,
+              value: trim(index(
+                ri!refIntSysDepParam,
+                "validation_expression",
+                {}
+              )
+              ),
+              saveInto: {
+                a!save(
+                  ri!refIntSysDepParam.validation_expression,
+                  trim(save!value)
+                )
+              },
+              validations: {
+                if(
+                  ri!isReadOnly,
+                  {},
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                    value: index(
+                      ri!refIntSysDepParam,
+                      "validation_expression",
+                      {}
+                    ),
+                    ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[7]
+                  )
+                )
+              }/*align: "RIGHT"*/
+
+            ),
+            /*Is Read Only*/
+            if(
+              ri!isReadOnly,
+              #"SYSTEM_SYSRULES_imageField_v1"(
+                label: "Is Read Only",
+                images: {
+                  #"SYSTEM_SYSRULES_documentImage"(
+                    document: #"SYSTEM_SYSRULES_iconIndicator"(
+                      icon: if(
+                        contains(
+                          toboolean(
+                            index(
+                              ri!refIntSysDepParam,
+                              "is_read_only",
+                              {}
+                            )
+                          ),
+                          true()
+                        ),
+                        "STATUS_OK",
+                        "STATUS_NOTDONE"
+                      )
+                    )
+                  )
+                },
+                size: "ICON"
+              ),
+              #"SYSTEM_SYSRULES_radioButtonField"(
+                label: "Is Read Only",
+                choiceLabels: {"Yes", "No"},
+                choiceValues: {true(),false()},
+                value: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      ri!refIntSysDepParam,
+                      "is_read_only",
+                      {}
+                    )
+                  ),
+                  {},
+                  index(
+                    ri!refIntSysDepParam,
+                    "is_read_only",
+                    {}
+                  )
+                ),
+                saveInto: ri!refIntSysDepParam.is_read_only,
+                choiceLayout: "COMPACT",
+              )
+            ),
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            /*Parameter Code*/
+            #"SYSTEM_SYSRULES_textField"(
+              label: "Parameter Code",
+              readOnly: ri!isReadOnly,
+              required: if(
+                ri!isReadOnly,
+                false(),
+                true()
+              ),
+              value: joinarray(
+                split(
+                  touniformstring(
+                    trim(index(
+                      ri!refIntSysDepParam,
+                      "parameter_code",
+                      {}
+                    ))
+                  ), " ")
+              ),
+              saveInto: {
+                a!save(
+                  ri!refIntSysDepParam.parameter_code,
+                  joinarray(
+                    split(
+                      touniformstring(trim(save!value)), " ")
+                  )
+                )
+              },
+              validations: {
+                if(
+                  ri!isReadOnly,
+                  {},
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                    value: index(
+                      ri!refIntSysDepParam,
+                      "parameter_code",
+                      {}
+                    ),
+                    ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[2]
+                  )
+                ),
+                if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!refIntSysDepParam,"system_parameter_id",{})),                    
+                  if(
+                    contains(
+                      touniformstring(
+                        index(#"_a-0000e4c6-e892-8000-5254-1bef901bef90_57426"(
+                          systemParameterId: ri!systemParameterId
+                        ),"parameter_code",{})
+                      ), touniformstring(index(
+                        ri!refIntSysDepParam, "parameter_code", {}))
+                    ),
+                    "Code already exist. Please enter new code!",
+                    {}
+                  ),
+                  if(
+                    touniformstring(index(
+                      ri!refIntSysDepParam, "parameter_code", {}))=touniformstring(
+                        index(#"_a-0000e4c6-e892-8000-5254-1bef901bef90_57426"(
+                          dependentParameterId:  index(ri!refIntSysDepParam,"dependent_parameter_id",{})
+                        ),"parameter_code",{})
+                      ),
+                      {},
+                      if(
+                        contains(
+                          touniformstring(
+                            index(#"_a-0000e4c6-e892-8000-5254-1bef901bef90_57426"(
+                              systemParameterId: ri!systemParameterId
+                            ),"parameter_code",{})
+                          ), touniformstring(
+                            index(ri!refIntSysDepParam, "parameter_code", {})
+                          )
+                        ),
+                        "Code already exist. Please enter new code!",
+                        {}
+                      )
+                  )
+                )
+              }
+
+            ),
+            /* Master Ref Data Type */
+            if(
+              ri!isReadOnly,
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Master Ref Data Type",
+                readOnly: ri!isReadOnly,
+
+                value: index(
+                  ri!refIntSysDepParam,
+                  "master_refdata_type",
+                  {}
+                ),
+                saveInto: {
+                  a!save(
+                    ri!refIntSysDepParam.master_refdata_type,
+                    save!value
+                  )
+                },
+                validations: {
+                  if(
+                    ri!isReadOnly,
+                    {},
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                      value: index(
+                        ri!refIntSysDepParam,
+                        "master_refdata_type",
+                        {}
+                      ),
+                      ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[2]
+                    )
+                  )
+                }
+
+              ),
+              #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                label: "Master Ref Data Type",
+                placeholderLabel: "--Select Master Ref Data Type--",
+                choiceLabels: touniformstring(
+                  index(ri!masterLookUpType, "Type", {})
+                  ),
+                  choiceValues: touniformstring(
+                    index(ri!masterLookUpType, "Type", {})
+                  ),
+                  value: if(
+                    or(
+                      contains(
+                        touniformstring(
+                          index(ri!masterLookUpType, "Type", {})
+                        ),
+                        touniformstring(
+                          index(
+                            ri!refIntSysDepParam,
+                            "master_refdata_type",
+                            {}
+                          )
+                        )
+                      )
+                    ),
+                    index(
+                      ri!refIntSysDepParam,
+                      "master_refdata_type",
+                      {}
+                    ),
+                    null
+                  ),
+                saveInto: {
+                  a!save(
+                    ri!refIntSysDepParam.master_refdata_type,
+                    save!value
+                  )
+                },
+                disabled: if(
+                  contains(
+                    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_145097"[{3,6,12,13}],
+                    touniformstring(
+                      index(ri!refIntSysDepParam, "parameter_type", {})
+                      )
+                  ),
+                  false(),
+                  true()
+                ),
+                required: if(
+                  contains(
+                    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_145097"[{3,6,12,13}],
+                    touniformstring(
+                      index(ri!refIntSysDepParam, "parameter_type", {})
+                    )
+                  ),
+                  true(),
+                  false()
+                ),
+                helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+                  helpToolTip: "Contains all the master look up types."
+                )
+                
+              )
+            ),
+            /*Min Length*/
+            #"SYSTEM_SYSRULES_integerField"(
+              label: "Min Length",
+              readOnly: ri!isReadOnly,
+              
+              value: index(
+                ri!refIntSysDepParam,
+                "min_length",
+                {}
+              ),
+              saveInto: {
+                a!save(
+                  ri!refIntSysDepParam.min_length,
+                  save!value
+                )
+              },
+              disabled: if(
+                contains(
+                  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_145097"[{1,9}],
+                  touniformstring(
+                    index(ri!refIntSysDepParam, "parameter_type", {})
+                  )
+                ),
+                false(),
+                true()
+              ),
+              required: if(
+                contains(
+                  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_145097"[{1,9}],
+                  touniformstring(
+                    index(ri!refIntSysDepParam, "parameter_type", {})
+                  )
+                ),
+                true(),
+                false()
+              ),
+
+            ),
+            /*Is Required*/
+            if(
+              ri!isReadOnly,
+              #"SYSTEM_SYSRULES_imageField_v1"(
+                label: "Is Required",
+                images: {
+                  #"SYSTEM_SYSRULES_documentImage"(
+                    document: #"SYSTEM_SYSRULES_iconIndicator"(
+                      icon: if(
+                        contains(
+                          toboolean(
+                            index(
+                              ri!refIntSysDepParam,
+                              "is_required",
+                              {}
+                            )
+                          ),
+                          true()
+                        ),
+                        "STATUS_OK",
+                        "STATUS_NOTDONE"
+                      )
+                    )
+                  )
+                },
+                size: "ICON"
+              ),
+            #"SYSTEM_SYSRULES_radioButtonField"(
+              label: "Is Required",
+              choiceLabels: {"Yes", "No"},
+              choiceValues: {true(),false()},
+              value: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!refIntSysDepParam,
+                    "is_required",
+                    {}
+                  )
+                ),
+                {},
+                index(
+                  ri!refIntSysDepParam,
+                  "is_required",
+                  {}
+                )
+              ),
+              saveInto: ri!refIntSysDepParam.is_required,
+              choiceLayout: "COMPACT",
+            )
+            ),
+            
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            /* Parameter Type */
+            if(
+              ri!isReadOnly,
+            #"SYSTEM_SYSRULES_textField"(
+              label: "Parameter Type",
+              readOnly: ri!isReadOnly,
+              
+              value: trim(index(
+                ri!refIntSysDepParam,
+                "parameter_type",
+                {}
+              )
+              ),
+              saveInto: {
+                a!save(
+                  ri!refIntSysDepParam.parameter_type,
+                  trim(save!value)
+                )
+              },
+              validations: {
+                if(
+                  ri!isReadOnly,
+                  {},
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                    value: index(
+                      ri!refIntSysDepParam,
+                      "parameter_type",
+                      {}
+                    ),
+                    ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[2]
+                  )
+                )
+              }
+
+            ),
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+              label: "Parameter Type",
+              placeholderLabel: "--Select Lookup System Type Code--",
+              choiceLabels: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: ri!masterLookUpLabel,
+                UniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[36],
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+              ),
+              choiceValues: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: ri!masterLookUpLabel,
+                UniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[36],
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+              ),
+              value: if(
+                or(
+                  contains(
+                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                      MasterLookup: ri!masterLookUpLabel,
+                      UniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[36],
+                      Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                    ),
+                    touniformstring(
+                      index(
+                        ri!refIntSysDepParam,
+                        "parameter_type",
+                        {}
+                      )
+                    )
+                  )
+                ),
+                index(
+                  ri!refIntSysDepParam,
+                  "parameter_type",
+                  {}
+                ),
+                null
+              ),
+              saveInto: {
+                a!save(
+                  ri!refIntSysDepParam.parameter_type,
+                  save!value
+                ),
+                a!save(
+                  ri!refIntSysDepParam.min_length,
+                  null
+                ),
+                a!save(
+                  ri!refIntSysDepParam.max_length,
+                  null
+                ),
+                a!save(
+                  ri!refIntSysDepParam.master_refdata_type,
+                  null
+                )
+              },
+              helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+                uniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[36],
+                categoryGroup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10373"[5]
+              )
+            )
+            ),
+            /*Default Value Expression*/
+            #"SYSTEM_SYSRULES_textField"(
+              label: "Default Value Expression",
+              readOnly: ri!isReadOnly,
+              value: trim(index(
+                ri!refIntSysDepParam,
+                "default_value_expression",
+                {}
+              )
+              ),
+              saveInto: {
+                a!save(
+                  ri!refIntSysDepParam.default_value_expression,
+                  trim(save!value)
+                )
+              },
+              validations: {
+                if(
+                  ri!isReadOnly,
+                  {},
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                    value: index(
+                      ri!refIntSysDepParam,
+                      "default_value_expression",
+                      {}
+                    ),
+                    ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[7]
+                  )
+                )
+              }
+
+            ),
+            /*Max Length*/
+            #"SYSTEM_SYSRULES_integerField"(
+              label: "Max Length",
+              readOnly: ri!isReadOnly,
+              
+              value: index(
+                ri!refIntSysDepParam,
+                "max_length",
+                {}
+              ),
+              saveInto: {
+                a!save(
+                  ri!refIntSysDepParam.max_length,
+                  save!value
+                )
+              },
+              disabled: if(
+                contains(
+                  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_145097"[{1,9}],
+                  touniformstring(
+                    index(ri!refIntSysDepParam, "parameter_type", {})
+                  )
+                ),
+                false(),
+                true()
+              ),
+              required: if(
+                contains(
+                  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_145097"[{1,9}],
+                  touniformstring(
+                    index(ri!refIntSysDepParam, "parameter_type", {})
+                  )
+                ),
+                true(),
+                false()
+              ),
+
+            ),
+            /* Is Active */
+            if(
+              ri!isReadOnly,
+              #"SYSTEM_SYSRULES_imageField_v1"(
+                label: "Is Active",
+                images: {
+                  #"SYSTEM_SYSRULES_documentImage"(
+                    document: #"SYSTEM_SYSRULES_iconIndicator"(
+                      icon: if(
+                        contains(
+                          toboolean(
+                            index(
+                              ri!refIntSysDepParam,
+                              "is_active",
+                              {}
+                            )
+                          ),
+                          true()
+                        ),
+                        "STATUS_OK",
+                        "STATUS_NOTDONE"
+                      )
+                    )
+                  )
+                },
+                size: "ICON"
+              ),
+              #"SYSTEM_SYSRULES_radioButtonField"(
+                label: "Status",
+                choiceLayout: "COMPACT",
+                choiceLabels: touniformstring(
+                  {
+                    "Active",
+                    "In-Active"
+                  }
+                ),
+                choiceValues: {true(),false()},
+                value: index(
+                  ri!refIntSysDepParam,
+                  "is_active",
+                  {}
+                ),
+                saveInto: {
+                  a!save(
+                    ri!refIntSysDepParam.is_active,
+                    save!value
+                  )
+                }
+              )
+
+            )
+          }
+        )
+      }
+    )
+  }
+)
+    },
+    style: "INFO",
+    showBorder:false()
+  )
+}</definition>
+        <namedTypedValue>
+            <name>refIntSysDepParam</name>
+            <type>
+                <name>EAP_T_IntSysDepParam</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpLabel</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dependentParameter</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>systemParameterId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpType</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUp</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">'type!{urn:com:appian:types:eap}EAP_T_IntSysDepParam'('parameter_label': "dsfghj", 'parameter_code': "sdxgvhbjn", 'parameter_type': "Checkbox", 'master_ref_datatype': "FAEM_REPORT_TYPE", 'default_value_expression': "zxvdcbvbm", 'calculated_value_expression': "dxdcvbn", 'is_required': 1, 'is_read_only': 0, 'is_active': 1)</a:value>
+                    <a:nameRef>refIntSysDepParam</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+  masterLookUpData: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    isActive: true()
+  ),
+  categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[5]
+)</a:value>
+                    <a:nameRef>masterLookUpLabel</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>dependentParameter</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>systemParameterId</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>masterLookUpType</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>masterLookUp</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_171810"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_183303"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_220660"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_356385"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_508576"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_512116"/>
+    </history>
+</contentHaul>

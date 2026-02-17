@@ -1,0 +1,2414 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ea-27a1-8000-5269-1bef901bef90_775146</versionUuid>
+    <interface>
+        <name>EAP_ManageRunConfig</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_23148</uuid>
+        <description>Rule to Manage Run Config</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!refRunConfig: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: - 1
+    )
+  ),
+  local!process: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        ri!refRunConfig,
+        "process_id",
+        {}
+      )
+    ),
+    {},
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+      processId: index(
+        ri!refRunConfig,
+        "process_id",
+        {}
+      )
+    )
+  ),
+  local!country: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!process,
+        "calendar_id",
+        {}
+      )
+    ),
+    {},
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_125209"(
+      calendarId: index(
+        local!process,
+        "calendar_id",
+        {}
+      )
+    )
+  ),
+  local!nonWorkingday: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!process,
+        "calendar_id",
+        {}
+      )
+    ),
+    {},
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_125445"(
+      calendarId: index(
+        local!country,
+        "calendar_id",
+        {}
+      ),
+      isActive: 1
+    )
+  ),
+  local!holidayDate: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!process,
+        "calendar_id",
+        {}
+      )
+    ),
+    {},
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_127093"(
+      calendarId: index(
+        local!country,
+        "calendar_id",
+        {}
+      ),
+      isActive: 1
+    )
+  ),
+  local!exceptionWorkingDay: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!process,
+        "calendar_id",
+        {}
+      )
+    ),
+    {},
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_69112"(
+      calendarId: index(
+        local!country,
+        "calendar_id",
+        {}
+      ),
+      isActive: 1
+    )
+  ),
+  local!processingWeekdayId: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    categoryGroup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10373"[3],
+    type: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[2],
+    label: split(
+      index(
+        ri!refRunConfig,
+        "processing_weekdays",
+        {}
+      ),
+      ","
+    )
+  ),
+  local!runConfig: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!runConfigId
+    ),
+    {},
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+      runConfigId: ri!runConfigId
+    )
+  ),
+  local!hour: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!runConfig,
+        "trigger_time",
+        {}
+      )
+    ),
+    {},
+    left(
+      touniformstring(
+        index(
+          local!runConfig,
+          "trigger_time",
+          {}
+        )
+      ),
+      1
+    )
+  ),
+  local!completionhour: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!runConfig,
+        "end_completion_time",
+        {}
+      )
+    ),
+    {},
+    left(
+      touniformstring(
+        index(
+          local!runConfig,
+          "end_completion_time",
+          {}
+        )
+      ),
+      1
+    )
+  ),
+  local!minute: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!runConfig,
+        "trigger_time",
+        {}
+      )
+    ),
+    {},
+    extract(
+      touniformstring(
+        index(
+          local!runConfig,
+          "trigger_time",
+          {}
+        )
+      ),
+      ":",
+      " "
+    )
+  ),
+  local!completionminute: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!runConfig,
+        "end_completion_time",
+        {}
+      )
+    ),
+    {},
+    extract(
+      touniformstring(
+        index(
+          local!runConfig,
+          "end_completion_time",
+          {}
+        )
+      ),
+      ":",
+      " "
+    )
+  ),
+  local!meridiem: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!runConfig,
+        "trigger_time",
+        {}
+      )
+    ),
+    {},
+    right(
+      touniformstring(
+        index(
+          local!runConfig,
+          "trigger_time",
+          {}
+        )
+      ),
+      2
+    )
+  ),
+  local!completionmeridiem: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!runConfig,
+        "end_completion_time",
+        {}
+      )
+    ),
+    {},
+    right(
+      touniformstring(
+        index(
+          local!runConfig,
+          "end_completion_time",
+          {}
+        )
+      ),
+      2
+    )
+  ),
+  local!triggerDate: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_68950"(
+    startbusinesdday: index(
+      ri!refRunConfig,
+      "start_businesss_days",
+      {}
+    ),
+    processingMonth: index(
+      ri!refRunConfig,
+      "processing_month",
+      {}
+    ),
+    recurrenceType: index(
+      ri!refRunConfig,
+      "recurrence_type",
+      {}
+    ),
+    processingWeekday: index(
+      local!processingWeekdayId,
+      "code",
+      {}
+    ),
+    nonWorkingDay: index(
+      local!nonWorkingday,
+      "non_working_day",
+      {}
+    ),
+    holidayDate: index(
+      local!holidayDate,
+      "holiday_date",
+      {}
+    ),
+    exceptionWorkingDay: index(
+      local!exceptionWorkingDay,
+      "exception_working_date",
+      {}
+    ),
+    triggerTime: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!hour
+      ),
+      {},
+      totime(
+        concat(
+          ri!hour,
+          ":",
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!minute
+            ),
+            "00",
+            ri!minute
+          ),
+          " ",
+          ri!meridiem
+        )
+      )
+    ),
+    timezone: index(
+      local!country,
+      "timezone_id",
+      {}
+    ),
+   /*    Adding recurrence frequency to provide processing month for Recurrence type = Monthly    */
+    recurrenceFrequency: index(
+      ri!refRunConfig,
+      "recurrence_frequency",
+      {}
+    ),
+  ),
+  local!triggerDateTime: if(
+    or(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        local!triggerDate
+      ),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!hour
+      ),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!meridiem
+      )
+    ),
+    {},
+    concat(
+      local!triggerDate,
+      " ",
+      ri!hour,
+      ":",
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!minute
+        ),
+        "00",
+        ri!minute
+      ),
+      " ",
+      ri!meridiem
+    )
+  ),
+  local!completiontriggerDate: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_68950"(
+    startbusinesdday: index(
+      ri!refRunConfig,
+      "end_business_days",
+      {}
+    ),
+    processingMonth: index(
+      ri!refRunConfig,
+      "processing_month",
+      {}
+    ),
+    recurrenceType: index(
+      ri!refRunConfig,
+      "recurrence_type",
+      {}
+    ),
+    processingWeekday: index(
+      local!processingWeekdayId,
+      "code",
+      {}
+    ),
+    nonWorkingDay: index(
+      local!nonWorkingday,
+      "non_working_day",
+      {}
+    ),
+    holidayDate: index(
+      local!holidayDate,
+      "holiday_date",
+      {}
+    ),
+    exceptionWorkingDay: index(
+      local!exceptionWorkingDay,
+      "exception_working_date",
+      {}
+    ),
+    triggerTime: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!completion_hour
+      ),
+      {},
+      totime(
+        concat(
+          ri!completion_hour,
+          ":",
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!completion_minute
+            ),
+            "00",
+            ri!completion_minute
+          ),
+          " ",
+          ri!completion_meridiem
+        )
+      )
+    ),
+    timezone: index(
+      local!country,
+      "timezone_id",
+      {}
+    ),
+    /*    Adding recurrence frequency to provide processing month for Recurrence type = Monthly    */
+    recurrenceFrequency: index(
+      ri!refRunConfig,
+      "recurrence_frequency",
+      {}
+    ),
+  ),
+  local!completiontriggerDateTime: if(
+    or(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        local!completiontriggerDate
+      ),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!completion_hour
+      ),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!completion_meridiem
+      )
+    ),
+    {},
+    concat(
+      local!completiontriggerDate,
+      " ",
+      ri!completion_hour,
+      ":",
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!completion_minute
+        ),
+        "00",
+        ri!completion_minute
+      ),
+      " ",
+      ri!completion_meridiem
+    )
+  ),
+  local!masterLookup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    categoryGroup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10373"[3],
+    type: {
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[3],
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[1],
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[2]
+    },
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: - 1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "sort_order",
+        ascending: true()
+      )
+    )
+  ),
+  local!recurrenceType: index(
+    local!masterLookup,
+    wherecontains(
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[3],
+      touniformstring(
+        index(
+          local!masterLookup,
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[4],
+          {}
+        )
+      )
+    ),
+    {}
+  ),
+  local!processingMonth: index(
+    local!masterLookup,
+    wherecontains(
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[1],
+      touniformstring(
+        index(
+          local!masterLookup,
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[4],
+          {}
+        )
+      )
+    ),
+    {}
+  ),
+  local!processingWeekday: index(
+    local!masterLookup,
+    wherecontains(
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[2],
+      touniformstring(
+        index(
+          local!masterLookup,
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[4],
+          {}
+        )
+      )
+    ),
+    {}
+  ),
+  local!convertHoursIntoMinute: if(
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_80228"(
+      ri!hour
+    ),
+    {},
+    if(
+      or(
+        ri!meridiem = #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"[1]
+      ),
+      ri!hour * 60,
+      sum(
+        12,
+        ri!hour
+      ) * 60
+    )
+  ),
+  local!totalMinutes: if(
+    or(
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_80228"(
+        ri!minute
+      ),
+      ri!minute = 0
+    ),
+    local!convertHoursIntoMinute,
+    sum(
+      local!convertHoursIntoMinute,
+      ri!minute
+    )
+  ),
+  local!countryStartTimeHour: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!country,
+        "start_working_time",
+        {}
+      )
+    ),
+    0,
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        split(
+          index(
+            local!country,
+            "start_working_time",
+            {}
+          ),
+          ":"
+        )[1]
+      ),
+      0,
+      split(
+        index(
+          local!country,
+          "start_working_time",
+          {}
+        ),
+        ":"
+      )[1]
+    )
+  ),
+  local!countryStartTimeMinute: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!country,
+        "start_working_time",
+        {}
+      )
+    ),
+    0,
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        extract(
+          index(
+            local!country,
+            "start_working_time",
+            {}
+          ),
+          ":",
+          " "
+        )
+      ),
+      0,
+      extract(
+        index(
+          local!country,
+          "start_working_time",
+          {}
+        ),
+        ":",
+        " "
+      )
+    )
+  ),
+  local!countryStartTimeMeridiem: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!country,
+        "start_working_time",
+        {}
+      )
+    ),
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"[1],
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        right(
+          touniformstring(
+            index(
+              local!country,
+              "start_working_time",
+              {}
+            )
+          ),
+          2
+        )
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"[1],
+      right(
+        touniformstring(
+          index(
+            local!country,
+            "start_working_time",
+            {}
+          )
+        ),
+        2
+      )
+    )
+  ),
+  local!countryStartTimeInMinutes: if(
+    or(
+      local!countryStartTimeMeridiem = #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"[1]
+    ),
+    sum(
+      tointeger(
+        local!countryStartTimeHour
+      ) * 60,
+      local!countryStartTimeMinute
+    ),
+    sum(
+      sum(
+        12,
+        local!countryStartTimeHour
+      ) * 60,
+      local!countryStartTimeMinute
+    )
+  ),
+  local!countryEndTimeHour: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!country,
+        "end_working_time",
+        {}
+      )
+    ),
+    0,
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        split(
+          index(
+            local!country,
+            "end_working_time",
+            {}
+          ),
+          ":"
+        )[1]
+      ),
+      0,
+      split(
+        index(
+          local!country,
+          "end_working_time",
+          {}
+        ),
+        ":"
+      )[1]
+    )
+  ),
+  local!countryEndTimeMinute: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!country,
+        "end_working_time",
+        {}
+      )
+    ),
+    0,
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        extract(
+          index(
+            local!country,
+            "end_working_time",
+            {}
+          ),
+          ":",
+          " "
+        )
+      ),
+      0,
+      extract(
+        index(
+          local!country,
+          "end_working_time",
+          {}
+        ),
+        ":",
+        " "
+      )
+    )
+  ),
+  local!countryEndTimeMeridiem: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!country,
+        "end_working_time",
+        {}
+      )
+    ),
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"[1],
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        right(
+          touniformstring(
+            index(
+              local!country,
+              "end_working_time",
+              {}
+            )
+          ),
+          2
+        )
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"[1],
+      right(
+        touniformstring(
+          index(
+            local!country,
+            "end_working_time",
+            {}
+          )
+        ),
+        2
+      )
+    )
+  ),
+  local!countryEndTimeInMinutes: if(
+    or(
+      local!countryEndTimeMeridiem = #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"[1]
+    ),
+    sum(
+      tointeger(
+        local!countryEndTimeHour
+      ) * 60,
+      local!countryEndTimeMinute
+    ),
+    sum(
+      sum(
+        12,
+        local!countryEndTimeHour
+      ) * 60,
+      local!countryEndTimeMinute
+    )
+  ),
+  local!weekdays: remove(
+    local!processingWeekday,
+    index(
+      index(
+        local!nonWorkingday,
+        wherecontains(
+          tointeger(
+            1
+          ),
+          tointeger(
+            index(
+              local!nonWorkingday,
+              "is_active",
+              {}
+            )
+          )
+        ),
+        {}
+      ),
+      "non_working_day",
+      {}
+    )
+  ),
+  {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+            label: "Recurrence Type",
+            placeholderLabel: "--Enter Recurrence Type--",
+            choiceLabels: index(
+              local!recurrenceType,
+              "label",
+              {}
+            ),
+            choiceValues: index(
+              local!recurrenceType,
+              "label",
+              {}
+            ),
+            /* value: index(
+              ri!refRunConfig,
+              "recurrence_type",
+              null
+            ),
+            */
+            value: if(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                value: index(
+                  ri!refRunConfig,
+                  "recurrence_type",
+                  null
+                ),
+                choiceValue: index(
+                  local!recurrenceType,
+                  "label",
+                  {}
+                ),
+                
+              ),
+              index(
+                ri!refRunConfig,
+                "recurrence_type",
+                null
+              ),
+              null
+            ),
+            saveInto: {
+              ri!refRunConfig.recurrence_type,
+              a!save(
+                ri!refRunConfig.recurrence_frequency,
+                1
+              ),
+              a!save(
+                ri!refRunConfig.processing_month,
+                /*if(*/
+                /*or(index(*/
+                /*ri!refRunConfig,*/
+                /*"recurrence_type",*/
+                /*{}*/
+                /*) = cons!EAP_RECURRENCE_TYPE[2]),*/
+                /*month(now()),*/
+                null/*)*/
+                
+              ),
+              a!save(
+                ri!refRunConfig.processing_weekdays,
+                null
+              ),
+              a!save(
+                ri!isEdit,
+                false()
+              )
+            },
+            required: true(),
+            disabled: if(
+              ri!isProductionSite = true,
+              true,
+              false()
+            )
+          )
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+              label: "Processing Month",
+              placeholderLabel: "--Enter Processing Month--",
+              choiceLabels: index(
+                local!processingMonth,
+                "label",
+                null
+              ),
+              choiceValues: tointeger(
+                index(
+                  local!processingMonth,
+                  "code",
+                  null
+                )
+              ),
+              /* value: index(
+                ri!refRunConfig,
+                "processing_month",
+                null
+              ),
+              */
+              value: if(
+                #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                  value: index(
+                    ri!refRunConfig,
+                    "processing_month",
+                    null
+                  ),
+                  choiceValue: tointeger(
+                    index(
+                      local!processingMonth,
+                      "code",
+                      null
+                    )
+                  )
+                ),
+                index(
+                  ri!refRunConfig,
+                  "processing_month",
+                  null
+                ),
+                null
+              ),
+              saveInto: {
+                ri!refRunConfig.processing_month,
+                a!save(
+                  ri!isEdit,
+                  false()
+                )
+              },
+              required: true(),
+              showWhen: or(
+                index(
+                  ri!refRunConfig,
+                  "recurrence_type",
+                  {}
+                ) = #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[1],
+                index(
+                  ri!refRunConfig,
+                  "recurrence_type",
+                  {}
+                ) = #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[2]
+              ),
+              disabled: if(
+                ri!isProductionSite = true,
+                true,
+                false()
+              )
+            ),
+            #"SYSTEM_SYSRULES_multipleDropdownField"(
+              label: "Processing Weekday",
+              placeholderLabel: "--Enter Processing Weekday--",
+              choiceLabels: index(
+                local!weekdays,
+                "label",
+                {}
+              ),
+              choiceValues: touniformstring(
+                index(
+                  local!weekdays,
+                  "label",
+                  {}
+                )
+              ),
+              value: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!refRunConfig,
+                    "processing_weekdays",
+                    {}
+                  )
+                ),
+                null,
+                split(
+                  touniformstring(
+                    index(
+                      ri!refRunConfig,
+                      "processing_weekdays",
+                      {}
+                    )
+                  ),
+                  ","
+                )
+              ),
+              saveInto: {
+                a!save(
+                  ri!refRunConfig.processing_weekdays,
+                  joinarray(
+                    save!value,
+                    ","
+                  )
+                ),
+                a!save(
+                  ri!isEdit,
+                  false()
+                )
+              },
+              required: true(),
+              showWhen: or(
+                index(
+                  ri!refRunConfig,
+                  "recurrence_type",
+                  {}
+                ) = #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[3]
+              ),
+              disabled: if(
+                ri!isProductionSite = true,
+                true,
+                false()
+              )
+            )
+          },
+          showWhen: 
+          /*not(*/
+            or(
+              index(
+                ri!refRunConfig,
+                "recurrence_type",
+                {}
+              ) = #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[1],
+              index(
+              ri!refRunConfig,
+              "recurrence_type",
+              {}
+            ) = #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[2]
+            )
+          /*)*/
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"SYSTEM_SYSRULES_integerField"(
+            label: "Start Business Day",
+            required: true(),
+            helpTooltip: "Value between 1 to 15 and -1 to -15. 
+'1' is the first day of month and '-1' is the last day of the month.",
+            validations: if(
+              or(
+                and(
+                  tointeger(
+                    index(
+                      ri!refRunConfig,
+                      "start_businesss_days",
+                      {}
+                    )
+                  ) &gt; tointeger(
+                    0
+                  ),
+                  tointeger(
+                    index(
+                      ri!refRunConfig,
+                      "start_businesss_days",
+                      {}
+                    )
+                  ) &lt; tointeger(
+                    16
+                  )
+                ),
+                and(
+                  tointeger(
+                    index(
+                      ri!refRunConfig,
+                      "start_businesss_days",
+                      {}
+                    )
+                  ) &lt; tointeger(
+                    0
+                  ),
+                  tointeger(
+                    index(
+                      ri!refRunConfig,
+                      "start_businesss_days",
+                      {}
+                    )
+                  ) &gt; tointeger(
+                    - 16
+                  )
+                )
+              ),
+              {},
+              "Value should be between 1 to 15 and -1 to -15"
+            ),
+            value: index(
+              ri!refRunConfig,
+              "start_businesss_days",
+              {}
+            ),
+            saveInto: {
+              ri!refRunConfig.start_businesss_days,
+              a!save(
+                ri!isEdit,
+                false()
+              )
+            },
+            showWhen: or(
+              index(
+                ri!refRunConfig,
+                "recurrence_type",
+                {}
+              ) = #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[1],
+              index(
+                ri!refRunConfig,
+                "recurrence_type",
+                {}
+              ) = #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[2]
+            ),
+            readOnly: if(
+              ri!isProductionSite,
+              true,
+              false()
+            )
+          ),
+          
+        ),
+        
+/*    show when condition modified for Processing month dropdown    */
+        
+        #"SYSTEM_SYSRULES_columnLayout"(
+          showWhen: or(
+            index(
+            ri!refRunConfig,
+            "recurrence_type",
+            {}
+          ) = #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[3],
+          index(
+            ri!refRunConfig,
+            "recurrence_type",
+            {}
+          ) = #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[4]
+          )
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            label: "Process Display Name",
+            value: index(
+              ri!refRunConfig,
+              "process_display_name",
+              {}
+            ),
+            saveInto: ri!refRunConfig.process_display_name,
+            helpTooltip: "Unique name for this run configuration",
+            required: true(),
+            validations: if(
+              or(
+                proper(
+                  touniformstring(
+                    index(
+                      local!runConfig,
+                      "process_display_name",
+                      {}
+                    )
+                  )
+                ) = proper(
+                  touniformstring(
+                    index(
+                      ri!refRunConfig,
+                      "process_display_name",
+                      {}
+                    )
+                  )
+                )
+              ),
+              {},
+              if(
+                contains(
+                  proper(
+                    touniformstring(
+                      index(
+                        local!refRunConfig,
+                        "process_display_name",
+                        {}
+                      )
+                    )
+                  ),
+                  proper(
+                    touniformstring(
+                      index(
+                        ri!refRunConfig,
+                        "process_display_name",
+                        {}
+                      )
+                    )
+                  ),
+                  
+                ),
+                "Duplicate Name found",
+                {}
+              )
+            ),
+            readOnly: if(
+              ri!isProductionSite,
+              true,
+              false()
+            )
+          )
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            label: "Process Model UUID",
+            value: index(
+              ri!refRunConfig,
+              "process_model_uuid",
+              {}
+            ),
+            saveInto: ri!refRunConfig.process_model_uuid,
+            required: true(),
+            readOnly: if(
+              ri!isProductionSite,
+              true,
+              false
+            ),
+            helpTooltip: "UUID of process model to be executed for this run configuration",
+            validations: if(
+              index(
+                split(
+                  index(
+                    split(
+                      getprocessmodeldetailsbyuuid(
+                        ri!refRunConfig.process_model_uuid
+                      ),
+                      "UUID:"
+                    ),
+                    2,
+                    {}
+                  ),
+                  ","
+                ),
+                1,
+                {}
+              ) = ri!refRunConfig.process_model_uuid,
+              {},
+              "Not a valid UUID"
+            )
+          )
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"SYSTEM_SYSRULES_integerField"(
+            label: "Recurrence Frequency",
+            required: true(),
+            value: index(
+              ri!refRunConfig,
+              "recurrence_frequency",
+              {}
+            ),
+            saveInto: ri!refRunConfig.recurrence_frequency,
+            readOnly: or(
+              index(
+                ri!refRunConfig,
+                "recurrence_type",
+                {}
+              ) = #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[1],
+              if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!refRunConfig,
+                    "processing_weekdays",
+                    {}
+                  )
+                ),
+                null,
+                count(
+                  split(
+                    index(
+                      ri!refRunConfig,
+                      "processing_weekdays",
+                      {}
+                    ),
+                    ","
+                  )
+                ) &gt; 1
+              ),
+              if(
+                ri!isProductionSite = true,
+                true(),
+                false
+              )
+            ),
+            helpTooltip: if(
+              count(
+                split(
+                  index(
+                    ri!refRunConfig,
+                    "processing_weekdays",
+                    {}
+                  ),
+                  ","
+                )
+              ) &gt; 1,
+              "if you are selecting multiple processing weekdays then recurrence frequency will be 1",
+              "Value should be number. 
+e.g. '2' means this Run config will be executed once in 2 years (Recurrence Type)"
+            ),
+            
+          )
+        ),
+        
+      }
+    ),
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288522"(
+            label: "Status",
+            choiceLabels: {
+              "Active",
+              "Inactive"
+            },
+            choiceValues: {
+              1,
+              0
+            },
+            value: index(
+              ri!refRunConfig,
+              "is_active",
+              {}
+            ),
+            saveInto: {
+              ri!refRunConfig.is_active,
+              a!save(
+                ri!isActive,
+                if(
+                  or(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      ri!runConfigId
+                    ),
+                    tointeger(
+                      ri!runConfigId
+                    ) = 0
+                  ),
+                  null,
+                  if(
+                    tointeger(
+                      index(
+                        local!runConfig,
+                        "is_active",
+                        {}
+                      )
+                    ) = 1,
+                    null,
+                    if(
+                      tointeger(
+                        index(
+                          ri!refRunConfig,
+                          "is_active",
+                          {}
+                        )
+                      ) = 1,
+                      true(),
+                      null
+                    )
+                  )
+                )
+              ),
+              a!save(
+                ri!isInactive,
+                if(
+                  or(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      ri!runConfigId
+                    ),
+                    tointeger(
+                      ri!runConfigId
+                    ) = 0
+                  ),
+                  null,
+                  if(
+                    tointeger(
+                      index(
+                        local!runConfig,
+                        "is_active",
+                        {}
+                      )
+                    ) = 0,
+                    null,
+                    if(
+                      tointeger(
+                        index(
+                          ri!refRunConfig,
+                          "is_active",
+                          {}
+                        )
+                      ) = 0,
+                      true(),
+                      null
+                    )
+                  )
+                )
+              ),
+              if(#"_a-0000e5c3-a65f-8000-5268-1bef901bef90_767759"=true(),
+              if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!refRunConfig,"run_config_id",{})),{},
+                if(ri!refRunConfig.is_active=1,
+                a!save(
+                  ri!dwfProcessControllerConfig,difference(
+                    ri!dwfProcessControllerConfig, #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_756090"(
+                      runConfigId:ri!refRunConfig.run_config_id
+                    )
+                  )
+                ),
+                a!save(
+                  ri!dwfProcessControllerConfig,append(
+                    ri!dwfProcessControllerConfig,
+                    #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_756090"(
+                      runConfigId:ri!refRunConfig.run_config_id
+                    )
+                  )
+                )
+                
+                  
+                )
+              ),{})
+            },
+            required: true(),
+            choiceLayout: "COMPACT",
+            
+          )
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288522"(
+            label: "Is Process Trigger",
+            choiceLabels: {
+              "Yes",
+              "No"
+            },
+            choiceValues: {
+              1,
+              0
+            },
+            value: index(
+              ri!refRunConfig,
+              "is_process_trigger",
+              {}
+            ),
+            saveInto: ri!refRunConfig.is_process_trigger,
+            required: true(),
+            choiceLayout: "COMPACT",
+            disabled: if(
+              ri!isProductionSite = true,
+              true,
+              false
+            )
+          )
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288522"(
+            label: "Is Adhoc Trigger",
+            choiceLabels: {
+              "Yes",
+              "No"
+            },
+            choiceValues: {
+              1,
+              0
+            },
+            value: index(
+              ri!refRunConfig,
+              "is_adhoc_trigger",
+              {}
+            ),
+            saveInto: ri!refRunConfig.is_adhoc_trigger,
+            required: true(),
+            choiceLayout: "COMPACT",
+            disabled: if(
+              ri!isProductionSite = true,
+              true,
+              false
+            )
+          )
+        ),
+        
+      }
+    ),
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"SYSTEM_SYSRULES_integerField"(
+            label: "End Business Day",
+            readOnly: if(
+              ri!isProductionSite,
+              true,
+              false
+            ),
+            value: index(
+              ri!refRunConfig,
+              "end_business_days",
+              {}
+            ),
+            required: true(),
+            saveInto: ri!refRunConfig.end_business_days,
+            helpTooltip: "Value between 1 to 15 and -1 to -15. 
+'1' is the first day of month and '-1' is the last day of the month.",
+            validations: {
+              if(
+                or(
+                  and(
+                    tointeger(
+                      index(
+                        ri!refRunConfig,
+                        "end_business_days",
+                        {}
+                      )
+                    ) &gt; tointeger(
+                      0
+                    ),
+                    tointeger(
+                      index(
+                        ri!refRunConfig,
+                        "end_business_days",
+                        {}
+                      )
+                    ) &lt; tointeger(
+                      16
+                    )
+                  ),
+                  and(
+                    tointeger(
+                      index(
+                        ri!refRunConfig,
+                        "end_business_days",
+                        {}
+                      )
+                    ) &lt; tointeger(
+                      0
+                    ),
+                    tointeger(
+                      index(
+                        ri!refRunConfig,
+                        "end_business_days",
+                        {}
+                      )
+                    ) &gt; tointeger(
+                      - 16
+                    )
+                  )
+                ),
+                {},
+                "Value should be between 1 to 15 and -1 to -15"
+              )/*if(*/
+              /*or(*/
+              /*tointeger(*/
+              /*ri!refRunConfig.end_business_days*/
+              /*) &lt; tointeger(*/
+              /*ri!refRunConfig.start_businesss_days*/
+              /*)*/
+              /*),*/
+              /*"End business day cannot be less that start business day.",*/
+              /*{}*/
+              /*)*/
+              
+            },
+            showWhen: or(
+              index(
+                ri!refRunConfig,
+                "recurrence_type",
+                {}
+              ) = #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[1],
+              index(
+                ri!refRunConfig,
+                "recurrence_type",
+                {}
+              ) = #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[2]
+            )
+          )
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_richTextDisplayField"(
+              label: "Trigger Time",
+              labelPosition: "JUSTIFIED"
+            ),
+            #"SYSTEM_SYSRULES_sideBySideLayout"(
+              items: {
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                    labelPosition: "COLLAPSED",
+                    placeholderLabel: "Select hour",
+                    instructions: "Hour",
+                    choiceLabels: tointeger(
+                      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_71424"
+                    ),
+                    choiceValues: tointeger(
+                      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_71424"
+                    ),
+                    /*value:ri!hour,*/
+                    value: if(
+                      #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                        value: ri!hour,
+                        choiceValue: tointeger(
+                          #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_71424"
+                        ),
+                        
+                      ),
+                      ri!hour,
+                      null
+                    ),
+                    saveInto: {
+                      ri!hour,
+                      a!save(
+                        ri!isEdit,
+                        false()
+                      )
+                    },
+                    required: true(),
+                    disabled: if(
+                      ri!isProductionSite,
+                      true,
+                      false
+                    )
+                  ),
+                  width: "MINIMIZE"
+                ),
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: ":",
+                      style: "STRONG",
+                      size: "MEDIUM"
+                    )
+                  ),
+                  width: "MINIMIZE"
+                ),
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                    labelPosition: "COLLAPSED",
+                    placeholderLabel: "Select minute",
+                    instructions: "Minute",
+                    choiceLabels: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_71671",
+                    choiceValues: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_71671",
+                    required: true(),
+                    value: if(
+                      not(
+                        contains(
+                          #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_71671",
+                          ri!minute
+                        )
+                      ),
+                      null,
+                      ri!minute
+                    ),
+                    saveInto: {
+                      ri!minute,
+                      a!save(
+                        ri!isEdit,
+                        false()
+                      )
+                    },
+                    disabled: if(
+                      ri!isProductionSite,
+                      true,
+                      false
+                    )
+                  ),
+                  width: "MINIMIZE"
+                ),
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                    labelPosition: "COLLAPSED",
+                    instructions: "Meridiem",
+                    choiceLabels: touniformstring(
+                      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"
+                    ),
+                    choiceValues: touniformstring(
+                      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"
+                    ),
+                    /*value:ri!meridiem,*/
+                    value: if(
+                      #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                        value: ri!meridiem,
+                        choiceValue: touniformstring(
+                          #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"
+                        ),
+                        
+                      ),
+                      ri!meridiem,
+                      null
+                    ),
+                    saveInto: {
+                      ri!meridiem,
+                      a!save(
+                        ri!isEdit,
+                        false()
+                      )
+                    },
+                    required: true(),
+                    disabled: if(
+                      ri!isProductionSite,
+                      true,
+                      false
+                    )
+                  ),
+                  width: "MINIMIZE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_richTextDisplayField"(
+              label: "Completion Trigger Time",
+              
+            ),
+            #"SYSTEM_SYSRULES_sideBySideLayout"(
+              items: {
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                    labelPosition: "COLLAPSED",
+                    placeholderLabel: "Select hour",
+                    instructions: "Hour",
+                    choiceLabels: tointeger(
+                      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_71424"
+                    ),
+                    choiceValues: tointeger(
+                      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_71424"
+                    ),
+                    /*value:ri!hour,*/
+                    value: if(
+                      #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                        value: ri!completion_hour,
+                        choiceValue: tointeger(
+                          #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_71424"
+                        ),
+                        
+                      ),
+                      ri!completion_hour,
+                      null
+                    ),
+                    saveInto: {
+                      ri!completion_hour,
+                      a!save(
+                        ri!isEdit,
+                        false()
+                      )
+                    },
+                    required: true(),
+                    disabled: if(
+                      ri!isProductionSite,
+                      true,
+                      false
+                    )
+                  ),
+                  width: "MINIMIZE"
+                ),
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: ":",
+                      style: "STRONG",
+                      size: "MEDIUM"
+                    )
+                  ),
+                  width: "MINIMIZE"
+                ),
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                    labelPosition: "COLLAPSED",
+                    placeholderLabel: "Select minute",
+                    instructions: "Minute",
+                    choiceLabels: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_71671",
+                    choiceValues: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_71671",
+                    required: true(),
+                    value: if(
+                      not(
+                        contains(
+                          #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_71671",
+                          ri!completion_minute
+                        )
+                      ),
+                      null,
+                      ri!completion_minute
+                    ),
+                    saveInto: {
+                      ri!completion_minute,
+                      a!save(
+                        ri!isEdit,
+                        false()
+                      )
+                    },
+                    disabled: if(
+                      ri!isProductionSite,
+                      true,
+                      false
+                    )
+                  ),
+                  width: "MINIMIZE"
+                ),
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                    labelPosition: "COLLAPSED",
+                    instructions: "Meridiem",
+                    choiceLabels: touniformstring(
+                      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"
+                    ),
+                    choiceValues: touniformstring(
+                      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"
+                    ),
+                    /*value:ri!meridiem,*/
+                    value: if(
+                      #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                        value: ri!completion_meridiem,
+                        choiceValue: touniformstring(
+                          #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"
+                        ),
+                        
+                      ),
+                      ri!completion_meridiem,
+                      null
+                    ),
+                    saveInto: {
+                      ri!completion_meridiem,
+                      a!save(
+                        ri!isEdit,
+                        false()
+                      )
+                    },
+                    required: true(),
+                    disabled: if(
+                      ri!isProductionSite,
+                      true,
+                      false
+                    )
+                  ),
+                  width: "MINIMIZE"
+                )
+              }
+            ),
+            /*if(*/
+            /*or(rule!EAP_Utils_CheckIsNull(*/
+            /*local!totalMinutes*/
+            /*),*/
+            /*tointeger(local!countryStartTimeInMinutes)=0*/
+            /*,*/
+            /*tointeger(local!countryEndTimeInMinutes)=0*/
+            /*,),*/
+            /*{},*/
+            /*if(*/
+            /*or(tointeger(local!totalMinutes) &lt; tointeger(local!countryStartTimeInMinutes),tointeger(local!totalMinutes) &gt; tointeger(local!countryEndTimeInMinutes)),*/
+            /*a!richTextDisplayField(*/
+            /*value: a!richTextItem(*/
+            /*text: */
+            /*"Trigger time should be between the working time",*/
+            /*color: "NEGATIVE"*/
+            /*)*/
+            /*),*/
+            /*{})*/
+            /*)*/
+            
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_sideBySideLayout"(
+              items: {
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    label: "Next Trigger Date/Time",
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: if(
+                        toboolean(
+                          ri!isEdit
+                        ) = true(),
+                        concat(
+                          todate(
+                            index(
+                              ri!refRunConfig,
+                              "next_trigger_datetime",
+                              {}
+                            )
+                          ),
+                          " ",
+                          totime(
+                            index(
+                              ri!refRunConfig,
+                              "next_trigger_datetime",
+                              {}
+                            )
+                          )
+                        ),
+                        local!triggerDateTime
+                      ),
+                      color: "POSITIVE"
+                    ),
+                    showWhen: not(
+                      or(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          local!triggerDate
+                        ),
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          index(
+                            ri!refRunConfig,
+                            "recurrence_type",
+                            {}
+                          )
+                        ),
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          ri!hour
+                        ),
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          ri!meridiem
+                        )
+                      )
+                    )
+                  )
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_sideBySideLayout"(
+              items: {
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    label: "Next Trigger Completion Date/Time",
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: if(
+                        toboolean(
+                          ri!isEdit
+                        ) = true(),
+                        concat(
+                          todate(
+                            index(
+                              ri!refRunConfig,
+                              "next_trigger_completion_datetime",
+                              {}
+                            )
+                          ),
+                          " ",
+                          totime(
+                            index(
+                              ri!refRunConfig,
+                              "next_trigger_completion_datetime",
+                              {}
+                            )
+                          )
+                        ),
+                        local!completiontriggerDateTime
+                      ),
+                      color: "POSITIVE"
+                    ),
+                    showWhen: not(
+                      or(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          local!completiontriggerDate
+                        ),
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          index(
+                            ri!refRunConfig,
+                            "recurrence_type",
+                            {}
+                          )
+                        ),
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          ri!completion_hour
+                        ),
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          ri!completion_meridiem
+                        )
+                      )
+                    )
+                  )
+                )
+              }
+            ),
+            if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  local!triggerDateTime
+                ),
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  local!completiontriggerDateTime
+                )
+              ),
+              {},
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                showWhen: if(
+                  and(
+                    toboolean(todatetime(
+                    local!triggerDateTime
+                  ) &gt; todatetime(
+                    local!completiontriggerDateTime
+                  )),
+                 /* toboolean(totime(
+                    local!triggerDateTime
+                  ) &gt; totime(
+                    local!completiontriggerDateTime
+                  ))*/
+                  ),
+                  true(),
+                  false()
+                ),
+                value: {
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: "'Next Trigger Completion Date/Time' should be greater than 'Next Trigger Date/Time'",
+                    color: "NEGATIVE"
+                  )
+                }
+              )
+            )
+          }
+        ),
+        
+      }
+    ),
+    #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[4],
+        value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[4],
+        saveInto: {
+          ri!buttonAction,
+          a!save(
+            ri!nextTriggerDateTime,
+            local!triggerDateTime
+          ),
+          a!save(
+            ri!refRunConfig.next_trigger_datetime_gmt,
+            gmt(
+              local!triggerDateTime,
+              if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    local!country,
+                    "timezone_id",
+                    {}
+                  )
+                ),
+                0,
+                index(
+                  local!country,
+                  "timezone_id",
+                  {}
+                )
+              )
+            )
+          ),
+          a!save(
+            ri!nextTriggerCompletionDatetime,
+            local!completiontriggerDateTime
+          ),
+          a!save(
+            ri!refRunConfig.next_trigger_completion_datetime_gmt,
+            gmt(
+              local!completiontriggerDateTime,
+              if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    local!country,
+                    "timezone_id",
+                    {}
+                  )
+                ),
+                0,
+                index(
+                  local!country,
+                  "timezone_id",
+                  {}
+                )
+              )
+            )
+          ),
+          
+        },
+        submit: true(),
+        disabled: if(
+          and(
+            toboolean(todatetime(
+            local!triggerDateTime
+          ) &gt; todatetime(
+            local!completiontriggerDateTime
+          )),
+         /* toboolean(totime(
+            local!triggerDateTime
+          ) &gt; totime(
+            local!completiontriggerDateTime
+          )) */
+          ),
+          true(),
+          false()
+        ),
+        style: "PRIMARY",
+        validate: true(),
+        showWhen:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!dwfProcessControllerConfig),true,false())
+      ),
+      secondaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[6],
+        value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[6],
+        saveInto: {
+          ri!buttonAction,
+          a!save(
+            ri!refRunConfig.recurrence_type,
+            null
+          ),
+          a!save(
+            ri!refRunConfig.processing_month,
+            null
+          ),
+          a!save(
+            ri!refRunConfig.process_display_name,
+            null
+          ),
+          a!save(
+            ri!refRunConfig.process_model_uuid,
+            null
+          ),
+          a!save(
+            ri!refRunConfig.processing_weekdays,
+            null
+          ),
+          a!save(
+            ri!refRunConfig.start_businesss_days,
+            null
+          ),
+          a!save(
+            ri!refRunConfig.end_business_days,
+            null
+          ),
+          a!save(
+            ri!hour,
+            null
+          ),
+          a!save(
+            ri!minute,
+            null
+          ),
+          a!save(
+            ri!meridiem,
+            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"[1]
+          ),
+          a!save(
+            ri!completion_hour,
+            null
+          ),
+          a!save(
+            ri!completion_minute,
+            null
+          ),
+          a!save(
+            ri!completion_meridiem,
+            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_92842"[1]
+          ),
+          a!save(
+            ri!isActive,
+            null
+          ),
+          a!save(
+            ri!isInactive,
+            null
+          )
+        },
+        submit: true(),
+        validate: false()
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>refRunConfig</name>
+            <type>
+                <name>EAP_T_RefRunConfig</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>hour</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>minute</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>meridiem</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>activeStep</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextTriggerDateTime</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isInactive</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isEdit</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isProductionSite</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>completion_hour</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>completion_minute</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>completion_meridiem</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextTriggerCompletionDatetime</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dwfProcessControllerConfig</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:eap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:EAP_T_RefRunConfig"/>
+                    <a:nameRef>refRunConfig</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonAction</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>hour</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>minute</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">"AM"</a:value>
+                    <a:nameRef>meridiem</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>activeStep</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:dateTime"/>
+                    <a:nameRef>nextTriggerDateTime</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>runConfigId</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isActive</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isInactive</a:nameRef>
+                    <a:id>10</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isEdit</a:nameRef>
+                    <a:id>11</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isProductionSite</a:nameRef>
+                    <a:id>12</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>completion_hour</a:nameRef>
+                    <a:id>13</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>completion_minute</a:nameRef>
+                    <a:id>14</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>completion_meridiem</a:nameRef>
+                    <a:id>15</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:dateTime"/>
+                    <a:nameRef>nextTriggerCompletionDatetime</a:nameRef>
+                    <a:id>16</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>dwfProcessControllerConfig</a:nameRef>
+                    <a:id>17</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_80321"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_93516"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_95495"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_174093"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_191896"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_220440"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_350020"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_414792"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_560313"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_704285"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_709883"/>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_753712"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_759216"/>
+        <historyInfo versionUuid="_a-0000e5ea-27a1-8000-5269-1bef901bef90_775146"/>
+    </history>
+</contentHaul>

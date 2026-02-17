@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e9e9-0626-8000-9bb3-011c48011c48_33608</versionUuid>
+    <dataStore>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_349836</uuid>
+        <name>EAP Dynamic Workflow DS</name>
+        <description>Data store for dynamic workflow entites</description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>b8074505-0d57-4e5d-9d99-953e06872662</uuid>
+                <name>EAP_T_DwfMilestone</name>
+                <type>{urn:com:appian:types:eap}EAP_T_DwfMilestone</type>
+            </entity>
+            <entity>
+                <uuid>e3b22149-19e5-410f-83b9-986e2203e597</uuid>
+                <name>EAP_T_DwfProcessControllerMaster</name>
+                <type>{urn:com:appian:types:eap}EAP_T_DwfProcessControllerMaster</type>
+            </entity>
+            <entity>
+                <uuid>c72e0939-90a9-4ada-8ef5-9adc2d56654c</uuid>
+                <name>EAP_T_DwfProcessControllerConfig</name>
+                <type>{urn:com:appian:types:eap}EAP_T_DwfProcessControllerConfig</type>
+            </entity>
+            <entity>
+                <uuid>300b226c-5886-49bf-a632-751497368f61</uuid>
+                <name>EAP_T_DwfProcessController</name>
+                <type>{urn:com:appian:types:eap}EAP_T_DwfProcessController</type>
+            </entity>
+            <entity>
+                <uuid>d8e8edaf-c1ec-4246-9842-1a30cabceef2</uuid>
+                <name>EAP_T_DwfMilestoneConfig</name>
+                <type>{urn:com:appian:types:eap}EAP_T_DwfMilestoneConfig</type>
+            </entity>
+            <entity>
+                <uuid>54506ec1-bcfe-4e3d-9fc4-705ffb2bc2a8</uuid>
+                <name>EAP_T_DwfAudit</name>
+                <type>{urn:com:appian:types:eap}EAP_T_DwfAudit</type>
+            </entity>
+            <entity>
+                <uuid>38c8cd6a-b60f-4df5-af50-bdd944fd5871</uuid>
+                <name>EAP_T_LinkEucConfig</name>
+                <type>{urn:com:appian:types:eap}EAP_T_LinkEucConfig</type>
+            </entity>
+            <entity>
+                <uuid>8bf566e2-8cc1-45e0-be87-ec3ce8962ca4</uuid>
+                <name>EAP_T_LinkEucMapping</name>
+                <type>{urn:com:appian:types:eap}EAP_T_LinkEucMapping</type>
+            </entity>
+            <entity>
+                <uuid>34ef3f17-36d3-44fe-ae7e-10ada41159ea</uuid>
+                <name>EAP_T_LinkEucTrans</name>
+                <type>{urn:com:appian:types:eap}EAP_T_LinkEucTrans</type>
+            </entity>
+            <entity>
+                <uuid>3708491d-d0b9-45b4-af11-541764e1d79f</uuid>
+                <name>EAP_T_LinkEucTransMapping</name>
+                <type>{urn:com:appian:types:eap}EAP_T_LinkEucTransMapping</type>
+            </entity>
+            <entity>
+                <uuid>d82cf4c8-cc41-46e5-8551-86cf1565418f</uuid>
+                <name>EAP_T_ProcessEscalationRecipient</name>
+                <type>{urn:com:appian:types:eap}EAP_T_ProcessEscalationRecipient</type>
+            </entity>
+            <entity>
+                <uuid>acd0e25f-aecf-43c7-b4a7-1008df160659</uuid>
+                <name>EAP_T_ProcessEscalationRecipientAudit</name>
+                <type>{urn:com:appian:types:eap}EAP_T_ProcessEscalationRecipientAudit</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_359603"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_383008"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_407589"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_411351"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_474157"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_493582"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_557420"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_559558"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_763560"/>
+        <historyInfo versionUuid="_a-0000e9e9-0626-8000-9bb3-011c48011c48_33608"/>
+    </history>
+</dataStoreHaul>

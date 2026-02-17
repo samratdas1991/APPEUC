@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4c6-4628-8000-5253-1bef901bef90_21109</versionUuid>
+    <rule>
+        <name>EAP_WriteToMultipleDatastoreEntity</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_11121</uuid>
+        <description>Returns datastore entities to be write.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  /*1. EAP_DE_REF_PROCESS_IN_FILE_TYPE*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7702",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessInFileTypeList
+      ),
+      {},
+      pv!refProcessInFileTypeList
+    )
+  },
+  /*2. EAP_DE_REF_PROCESS_IN_FILE_ENTITY_MAPPING*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10838",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessInFileEntityMappingList
+      ),
+      {},
+      pv!refProcessInFileEntityMappingList
+    )
+  },
+  /*3. EAP_DE_REF_PROCESS_SHEET_FIELD_MAPPING*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_8412",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessSheetFieldMappingList
+      ),
+      {},
+      pv!refProcessSheetFieldMappingList
+    )
+  },
+  /*4. EAP_DE_REF_PROCESS_SHEET_TRANSPOSE_CONFIG*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_8655",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessSheetTransposeConfigList
+      ),
+      {},
+      pv!refProcessSheetTransposeConfigList
+    )
+  },
+  /*5. EAP_DE_REF_PROCESS_SHEET_FIXED_CELLS_CONFIG*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10552",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessSheetFixedCellsConfigList
+      ),
+      {},
+      pv!refProcessSheetFixedCellsConfigList
+    )
+  }
+}</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-4628-8000-5253-1bef901bef90_21109"/>
+    </history>
+</contentHaul>

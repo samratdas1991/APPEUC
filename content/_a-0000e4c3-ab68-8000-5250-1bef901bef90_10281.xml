@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_402577</versionUuid>
+    <rule>
+        <name>EAP_SheetFixedCellsConfigGridRowLayout</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_10281</uuid>
+        <description>Holds gridRowLayout for sheet fixed cells config Editable grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  id: ri!index,
+  contents: {
+    /*Entity Column Name*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: true(),
+        required: true(),
+        value: index(
+          ri!sheetFixedCellsConfig[ri!index],
+          "entity_column_name",
+          {}
+        ),
+        
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select Entity Column--",
+        choiceLabels: {
+          union(
+            index(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_25128"(
+                tableName: index(
+                  index(
+                    ri!fileEntityMapping,
+                    wherecontains(
+                      tointeger(
+                        index(
+                          ri!sheetFixedCellsConfig,
+                          "in_file_entity_mapping_id",
+                          {}
+                        )
+                      ),
+                      tointeger(
+                        index(
+                          ri!fileEntityMapping,
+                          "in_file_entity_mapping_id",
+                          {}
+                        )
+                      )
+                    )
+                  ),
+                  "entity_name",
+                  {}
+                )
+              ),
+              "columnName",
+              {}
+            ),
+            index(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_25128"(
+                tableName: index(
+                  index(
+                    ri!fileEntityMapping,
+                    wherecontains(
+                      tointeger(
+                        index(
+                          ri!sheetFixedCellsConfig,
+                          "in_file_entity_mapping_id",
+                          {}
+                        )
+                      ),
+                      tointeger(
+                        index(
+                          ri!fileEntityMapping,
+                          "in_file_entity_mapping_id",
+                          {}
+                        )
+                      )
+                    )
+                  ),
+                  "entity_name",
+                  {}
+                )
+              ),
+              "columnName",
+              {}
+            )
+          )
+        },
+        choiceValues: {
+          union(
+            index(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_25128"(
+                tableName: index(
+                  index(
+                    ri!fileEntityMapping,
+                    wherecontains(
+                      tointeger(
+                        index(
+                          ri!sheetFixedCellsConfig,
+                          "in_file_entity_mapping_id",
+                          {}
+                        )
+                      ),
+                      tointeger(
+                        index(
+                          ri!fileEntityMapping,
+                          "in_file_entity_mapping_id",
+                          {}
+                        )
+                      )
+                    )
+                  ),
+                  "entity_name",
+                  {}
+                )/*index(ri!fileEntityMapping,"tableName",{})*/
+                
+              ),
+              "columnName",
+              {}
+            ),
+            index(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_25128"(
+                tableName: index(
+                  index(
+                    ri!fileEntityMapping,
+                    wherecontains(
+                      tointeger(
+                        index(
+                          ri!sheetFixedCellsConfig,
+                          "in_file_entity_mapping_id",
+                          {}
+                        )
+                      ),
+                      tointeger(
+                        index(
+                          ri!fileEntityMapping,
+                          "in_file_entity_mapping_id",
+                          {}
+                        )
+                      )
+                    )
+                  ),
+                  "entity_name",
+                  {}
+                )/*index(ri!fileEntityMapping,"tableName",{})*/
+                
+              ),
+              "columnName",
+              {}
+            )
+          )/*cons!EUC_ENTITY_COLUMN_NAME*/
+          
+        },
+        value: if(
+          #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+            value: index(
+              ri!sheetFixedCellsConfig[ri!index],
+              "entity_column_name",
+              {}
+            ),
+            choiceValue: {
+              union(
+                index(
+                  #"_a-0000e4c6-e892-8000-5254-1bef901bef90_25128"(
+                    tableName: index(
+                      index(
+                        ri!fileEntityMapping,
+                        wherecontains(
+                          tointeger(
+                            index(
+                              ri!sheetFixedCellsConfig,
+                              "in_file_entity_mapping_id",
+                              {}
+                            )
+                          ),
+                          tointeger(
+                            index(
+                              ri!fileEntityMapping,
+                              "in_file_entity_mapping_id",
+                              {}
+                            )
+                          )
+                        )
+                      ),
+                      "entity_name",
+                      {}
+                    )/*index(ri!fileEntityMapping,"tableName",{})*/
+                    
+                  ),
+                  "columnName",
+                  {}
+                ),
+                index(
+                  #"_a-0000e4c6-e892-8000-5254-1bef901bef90_25128"(
+                    tableName: index(
+                      index(
+                        ri!fileEntityMapping,
+                        wherecontains(
+                          tointeger(
+                            index(
+                              ri!sheetFixedCellsConfig,
+                              "in_file_entity_mapping_id",
+                              {}
+                            )
+                          ),
+                          tointeger(
+                            index(
+                              ri!fileEntityMapping,
+                              "in_file_entity_mapping_id",
+                              {}
+                            )
+                          )
+                        )
+                      ),
+                      "entity_name",
+                      {}
+                    )/*index(ri!fileEntityMapping,"tableName",{})*/
+                    
+                  ),
+                  "columnName",
+                  {}
+                )
+              )/*cons!EUC_ENTITY_COLUMN_NAME*/
+              
+            }
+          ),
+          index(
+            ri!sheetFixedCellsConfig[ri!index],
+            "entity_column_name",
+            {}
+          ),
+          null
+        ),
+        saveInto: a!save(
+          ri!sheetFixedCellsConfig[ri!index].entity_column_name,
+          save!value
+        ),
+        required: true()
+      )
+    ),
+    /*Cell Position*/
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      readOnly: ri!isReadOnly,
+      value: index(
+        ri!sheetFixedCellsConfig[ri!index],
+        "cell_position",
+        {}
+      ),
+      saveInto:{
+        a!save(ri!sheetFixedCellsConfig[ri!index].cell_position, stripwith(
+          trim(save!value),
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_313931"
+        ))
+      }
+      ,
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            value: index(
+              ri!sheetFixedCellsConfig[ri!index],
+              "cell_position",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[6]
+          )
+        ),
+        /*if(*/
+          /*regexmatch(*/
+            /*"^[a-zA-z0-9]*$",*/
+            /*index(*/
+              /*ri!sheetFixedCellsConfig[ri!index],*/
+              /*"cell_position",*/
+              /*{}*/
+            /*),*/
+          /*),*/
+          /*{},*/
+          /*"Pleaser enter a valid cell position"*/
+        /*)*/
+      },
+      required: if(
+        or(
+          ri!isReadOnly
+        ),
+        false(),
+        true()
+      )
+    ),
+    /*Parsing type*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        required: if(
+          or(
+            ri!isReadOnly
+          ),
+          false(),
+          true()
+        ),
+        value: index(
+          ri!sheetFixedCellsConfig[ri!index],
+          "parsing_type",
+          {}
+        )
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select Parsing Type--",
+        choiceLabels: {
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+              masterLookUpData: ri!masterLookUpData,
+              categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+            ),
+            UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[11],
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          )
+        },
+        choiceValues: {
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+              masterLookUpData: ri!masterLookUpData,
+              categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+            ),
+            UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[11],
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+          )
+        },
+        value: if(
+          contains(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[11],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            ),
+            index(
+              ri!sheetFixedCellsConfig[ri!index],
+              "parsing_type",
+              {}
+            )
+          ),
+          index(
+            ri!sheetFixedCellsConfig[ri!index],
+            "parsing_type",
+            {}
+          ),
+          null
+        ),
+        saveInto: {
+          a!save(
+          ri!sheetFixedCellsConfig[ri!index].parsing_type,
+          save!value
+        ),
+        a!save(
+          ri!sheetFixedCellsConfig[ri!index].parsing_format,
+          null
+        )
+        },
+        /*required: if(or(ri!isReadOnly),false(),true())*/
+        
+      )
+    ),
+    /*Delimiter*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        required: if(
+          or(
+            ri!isReadOnly
+          ),
+          false(),
+          true()
+        ),
+        value: index(
+          ri!sheetFixedCellsConfig[ri!index],
+          "delimiter",
+          {}
+        )
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select Delimiter--",
+        choiceLabels: {
+          union(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+            ),
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+            )
+          )
+        },
+        choiceValues: {
+          union(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            ),
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+              /*cons!EAP_CATEGORY_GROUP_PARSING[1],*/
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            )
+          )
+        },
+        value: if(
+          contains(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[1],
+              /*cons!EAP_CATEGORY_GROUP_PARSING[1],*/
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            ),
+            index(
+              ri!sheetFixedCellsConfig[ri!index],
+              "delimiter",
+              {}
+            )
+          ),
+          index(
+            ri!sheetFixedCellsConfig[ri!index],
+            "delimiter",
+            {}
+          ),
+          null
+        ),
+        saveInto: a!save(
+          ri!sheetFixedCellsConfig[ri!index].delimiter,
+          save!value
+        ),
+        /*required: if(*/
+        /*exact(*/
+        /*tostring(*/
+        /*index(*/
+        /*ri!sheetFixedCellsConfig[ri!index],*/
+        /*"parsing_type",*/
+        /*{}*/
+        /*)),*/
+        /*"STRING_TOKENIZER"*/
+        /*),*/
+        /*true(),*/
+        /*false()*/
+        /*)*/
+        
+      )
+    ),
+    /*Element index*/
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      readOnly: ri!isReadOnly,
+      value: index(
+        ri!sheetFixedCellsConfig[ri!index],
+        "element_index",
+        {}
+      ),
+      saveInto: a!save(
+        ri!sheetFixedCellsConfig[ri!index].element_index,
+        tointeger(
+          save!value
+        )
+      ),
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            value: index(
+              ri!sheetFixedCellsConfig[ri!index],
+              "element_index",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[4]
+          )
+        ),
+        if(
+          ri!isReadOnly,
+          {},
+          if(
+            tointeger(
+              index(
+                ri!sheetFixedCellsConfig[ri!index],
+                "element_index",
+                {}
+              )
+            ) &lt; 1,
+            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_195977"[3],
+            {},
+            
+          )
+        )
+      },
+      align: "RIGHT"
+    ),
+    /*Parsing format*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!sheetFixedCellsConfig[ri!index],
+          "parsing_format",
+          {}
+        )
+      ),
+      if(
+        index(
+          ri!sheetFixedCellsConfig[ri!index],
+          "parsing_type",
+          {}
+        ) = #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[16],
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "-- Select Parsing Format --",
+        choiceLabels: {
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+              masterLookUpData: ri!masterLookUpData,
+              categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+            ),
+            UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[16],
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          )
+        },
+        choiceValues: {
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+              masterLookUpData: ri!masterLookUpData,
+              categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+            ),
+            UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[16],
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+          )
+        },
+        value: if(
+          contains(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[16],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            ),
+            index(
+              ri!sheetFixedCellsConfig[ri!index],
+              "parsing_format",
+              {}
+            )
+          ),
+          index(
+            ri!sheetFixedCellsConfig[ri!index],
+            "parsing_format",
+            {}
+          ),
+          null
+        ),
+        saveInto: ri!sheetFixedCellsConfig[ri!index].parsing_format,
+        choiceLayout: "COMPACT",
+        /*required:if(*/
+        /*tostring(index(ri!sheetFixedCellsConfig,"parsing_type",{}))=tostring(*/
+        /*cons!EAP_PARSING_CATEGORY_TYPE_VALUES[1]*/
+        /*),*/
+        /*true(),*/
+        /*false()*/
+        /*)*/
+        
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        value: index(
+          ri!sheetFixedCellsConfig[ri!index],
+          "parsing_format",
+          {}
+        ),
+        saveInto: ri!sheetFixedCellsConfig[ri!index].parsing_format,
+        readOnly: ri!isReadOnly
+      )
+      )
+    ),
+    /*Is Active*/
+    if(
+      ri!isReadOnly,
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        images: {
+          #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(
+                contains(
+                  toboolean(
+                    index(
+                      ri!sheetFixedCellsConfig[ri!index],
+                      "is_active",
+                      {}
+                    )
+                  ),
+                  true()
+                ),
+                "STATUS_OK",
+                "STATUS_NOTDONE"
+              )
+            )
+          )
+        },
+        align: "CENTER"
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: if(
+          or(
+            tointeger(
+              index(
+                ri!sheetFixedCellsConfig[ri!index],
+                "is_active",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-on",
+            caption: "Yes",
+            linkStyle: "STANDALONE",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!sheetFixedCellsConfig[ri!index].is_active,
+                  0
+                )
+              },
+              showWhen: not(
+                ri!isReadOnly
+              )
+            ),
+            size: "MEDIUM_PLUS"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-off",
+            caption: "No",
+            linkStyle: "STANDALONE",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!sheetFixedCellsConfig[ri!index].is_active,
+                  1
+                )
+              },
+              showWhen: not(
+                ri!isReadOnly
+              )
+            ),
+            size: "MEDIUM_PLUS"
+          )
+        ),
+        align: "CENTER"
+      )
+    ),
+    /*Delete*/
+    if(
+      ri!isReadOnly,
+      {},
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!sheetFixedCellsConfig[ri!index].cell_config_id
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!sheetFixedCellsConfig,
+                  remove(
+                    ri!sheetFixedCellsConfig,
+                    ri!index
+                  )
+                )
+              }
+            )
+          )
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          readOnly: true()
+        )
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetFixedCellsConfig</name>
+            <type>
+                <name>EAP_T_RefProcessSheetFixedCellsConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetFieldMapping</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fileEntityMapping</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_83121"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_94881"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_131833"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_212071"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_364818"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_370721"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_402577"/>
+    </history>
+</contentHaul>

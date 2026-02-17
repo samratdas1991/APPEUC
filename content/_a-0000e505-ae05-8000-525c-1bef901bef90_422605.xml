@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_422616</versionUuid>
+    <rule>
+        <name>EAP_QE_DataValidationTrans</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_422605</uuid>
+        <description>Holds query rule for process working File data validation trans</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!query: #"SYSTEM_SYSRULES_queryEntity_v1"(
+    entity: #"_a-0000e505-ae05-8000-525c-1bef901bef90_421602",
+  query: #"SYSTEM_SYSRULES_query"(
+    logicalExpression: if(
+      and(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!wfTemplateConfigId
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!requestId
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!transformStatus
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!exceptionCode
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!runConfigId
+        )
+      ),
+      null,
+      #"SYSTEM_SYSRULES_queryLogicalExpression"(
+        operator: "AND",
+        filters: {
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!wfTemplateConfigId
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "wf_template_config_id",
+              operator: "IN",
+              value: {
+                ri!wfTemplateConfigId
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!requestId
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "request_id",
+              operator: "IN",
+              value: {
+                ri!requestId
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!transformStatus
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "transform_status",
+              operator: "IN",
+              value: {
+                ri!transformStatus
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!exceptionCode
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "exception_code",
+              operator: "IN",
+              value: {
+                ri!exceptionCode
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!runConfigId
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "run_config_id",
+              operator: "IN",
+              value: {
+                ri!runConfigId
+              }
+            )
+          )
+        }
+      )
+    ),
+    pagingInfo: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!pagingInfo
+      ),
+      #"SYSTEM_SYSRULES_pagingInfo"(
+        startIndex: 1,
+        batchSize: - 1
+      ),
+      ri!pagingInfo
+    )
+  )
+).data,
+  cast(
+    typeof(
+      {
+        'type!{urn:com:appian:types:eap}EAP_T_DVTrans'()
+      }
+    ),
+    local!query
+  )
+)</definition>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>transformStatus</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>exceptionCode</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>wfTemplateConfigId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_422616"/>
+    </history>
+</contentHaul>

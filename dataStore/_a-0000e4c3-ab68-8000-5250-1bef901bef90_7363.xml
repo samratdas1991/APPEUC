@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_254099</versionUuid>
+    <dataStore>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_7363</uuid>
+        <name>EAP DS Views</name>
+        <description>Primary Data Store for EAP Views</description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>397eb353-0521-4c30-bd48-2b99d03510c3</uuid>
+                <name>EAP_V_MasterLookup</name>
+                <type>{urn:com:appian:types:eap}EAP_V_MasterLookup</type>
+            </entity>
+            <entity>
+                <uuid>07da375b-d5dd-4c9b-970a-2960f011282e</uuid>
+                <name>EAP_V_RunConfig</name>
+                <type>{urn:com:appian:types:eap}EAP_V_RunConfig</type>
+            </entity>
+            <entity>
+                <uuid>0d1c12a2-f2bd-43b6-8a1d-afb02fac6e0d</uuid>
+                <name>EAP_V_ProcessTemplateConfig</name>
+                <type>{urn:com:appian:types:eap}EAP_V_ProcessTemplateConfig</type>
+            </entity>
+            <entity>
+                <uuid>6b7a751b-c539-4e8c-9c55-67412c03a8c8</uuid>
+                <name>EAP_V_AllTables</name>
+                <type>{urn:com:appian:types:EAP}EAP_V_AllTables</type>
+            </entity>
+            <entity>
+                <uuid>5c7c19fe-7f1e-45db-9ed3-455f4798cdcf</uuid>
+                <name>EAP_V_AllTablesColumns</name>
+                <type>{urn:com:appian:types:EAP}EAP_V_AllTablesColumns</type>
+            </entity>
+            <entity>
+                <uuid>975dc06f-39f7-4741-b6e6-d2f60ec267ea</uuid>
+                <name>EAP_V_ProcessDetails</name>
+                <type>{urn:com:appian:types:EAP}EAP_V_ProcessDetails</type>
+            </entity>
+            <entity>
+                <uuid>7123dcd0-e21a-4fca-b28b-43fbc7a46984</uuid>
+                <name>EAP_V_RunConfigDetails</name>
+                <type>{urn:com:appian:types:eap}EAP_V_RunConfigDetails</type>
+            </entity>
+            <entity>
+                <uuid>c05486e9-a60c-4b97-967f-b35e4801641b</uuid>
+                <name>EAP_V_RunTimeSchedulerDetail</name>
+                <type>{urn:com:appian:types:eap}EAP_V_RunTimeSchedulerDetail</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_82517"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_86142"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_93899"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_160132"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_212791"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_298879"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_411414"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_706438"/>
+        <historyInfo versionUuid="_a-0000e9e9-0626-8000-9bb3-011c48011c48_33559"/>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_254099"/>
+    </history>
+</dataStoreHaul>

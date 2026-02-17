@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>11f59fc0-14b7-47a1-b62d-0bc18b66078c</versionUuid>
+  <recordType a:uuid="8e01e0e8-cb19-4023-a394-043e4c57053c" name="EAP Master Lookup">
+    <a:pluralName>EAP Master Lookups</a:pluralName>
+    <a:description>Contains record list view for master lookup</a:description>
+    <a:urlStub>a1NDsw</a:urlStub>
+    <a:source
+      a:uuid="397eb353-0521-4c30-bd48-2b99d03510c3@_a-0000e4c3-ab68-8000-5250-1bef901bef90_7363" xsi:type="a:DataStoreEntity"/>
+    <a:listViewTemplateExpr>#"SYSTEM_SYSRULES_recordGridLayoutColumns"(
+  columns: {
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Type",
+      field: "type",
+      component: #"SYSTEM_SYSRULES_recordGrid_linkField"(
+        links: {
+          #"SYSTEM_SYSRULES_recordLink"(
+            label: rf!type,
+            recordtype: rp!type,
+            identifier: rp!id
+          )
+        }
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Category Group",
+      field: "category_group",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!category_group
+      )
+    )
+  },
+  pageSize: 50,
+  defaultSort: #"SYSTEM_SYSRULES_sortInfo"(
+    field: "category_group",
+    ascending: fn!true()
+  ),
+  shadeAlternateRows: true
+)</a:listViewTemplateExpr>
+    <a:fieldCfg name="Category Group">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_189988"()</a:facetExpr>
+      <a:sortOrderIndex>0</a:sortOrderIndex>
+      <a:facetOrderIndex>0</a:facetOrderIndex>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>#"SYSTEM_SYSRULES_rtd_getDefaultSummaryViewName"()</a:nameExpr>
+      <a:uiExpr>a!localVariables(
+  local!masterLookup,
+#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10869"(
+  categoryGroup: rf!category_group,
+  type: rf!type,
+  masterLookup: local!masterLookup
+)
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>summary</a:urlStub>
+      <a:relatedActionCfg>ba604960-e828-4f80-8bf9-92efcb4f732d</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4c4-f0bc-8000-5394-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  categoryGroup: rf!category_group, /* Text */
+  isRelatedAction: true(), /* Boolean */
+  type: rf!type /* Text */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>ba604960-e828-4f80-8bf9-92efcb4f732d</a:refId>
+      <a:staticTitleString>Manage Master Lookup</a:staticTitleString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:isSystem>false</a:isSystem>
+    <a:titleExpr>rf!category_group&amp;"|"&amp;rf!type</a:titleExpr>
+    <a:layoutType>GRID</a:layoutType>
+    <a:security>16383</a:security>
+    <a:hideLatestNews>false</a:hideLatestNews>
+    <a:hideNewsView>false</a:hideNewsView>
+    <a:hideRelatedActionsView>false</a:hideRelatedActionsView>
+    <a:isExportable>false</a:isExportable>
+    <a:recordListActionCfg>
+      <a:staticTitle>Create new master lookup</a:staticTitle>
+      <a:iconId>f0e7</a:iconId>
+      <a:target a:uuid="0002e4c4-fa43-8000-539c-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>true</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:recordListActionCfg>
+    <a:listAutoRefreshInterval>0.0</a:listAutoRefreshInterval>
+    <a:enabledFeatures>32</a:enabledFeatures>
+    <a:isVisibleInRecordTypeList>true</a:isVisibleInRecordTypeList>
+    <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+    <a:showSearchBox>true</a:showSearchBox>
+    <a:isVisibleInDataFabric>true</a:isVisibleInDataFabric>
+    <a:usesRollingSyncLimit>false</a:usesRollingSyncLimit>
+    <a:usesRecoverySync>false</a:usesRecoverySync>
+    <a:isScheduledIndexingEnabled>false</a:isScheduledIndexingEnabled>
+    <a:smartSearchAcceptableFailureRate>0.0</a:smartSearchAcceptableFailureRate>
+    <a:skipFailedSmartServicesSync>false</a:skipFailedSmartServicesSync>
+  </recordType>
+  <roleMap>
+    <role name="record_type_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+      </groups>
+    </role>
+    <role name="record_type_viewer">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="1b183284-4a5b-4d48-932c-59e1e68f31a6"/>
+    <historyInfo versionUuid="dc11a695-5f97-406c-b006-160eeca6c265"/>
+    <historyInfo versionUuid="66620423-bb56-4cb9-9bc4-b8353c3bcb05"/>
+    <historyInfo versionUuid="11f59fc0-14b7-47a1-b62d-0bc18b66078c"/>
+  </history>
+  <migrationVersion>1</migrationVersion>
+</recordTypeHaul>

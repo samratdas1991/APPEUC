@@ -1,0 +1,1730 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_362486</versionUuid>
+    <interface>
+        <name>EAP_RunTimeSchedulerDetails_PagingGrid_new1</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_282283</uuid>
+        <description>Contains paging grid for run time scheduler details</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!actionType,
+  local!nextTriggerDateTime: a!refreshVariable(
+    value: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_312946"(),
+  refreshInterval: 0.5,
+  refreshOnReferencedVarChange: true()),
+  local!masterLookUpForRegion: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    type: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[17],
+    categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4],
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: - 1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "label",
+        ascending: true()
+      )
+    )
+  ),
+  local!regionValue,
+  local!country: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      local!regionValue
+    ),
+    {},
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+      type:   local!regionValue,
+      pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+        startIndex: 1,
+        batchSize: - 1,
+        sort: #"SYSTEM_SYSRULES_sortInfo"(
+          field: "sort_order",
+          ascending: true()
+        )
+      )
+    )
+  ),
+  local!countryValue,
+  local!calendarValue,
+  local!calendar: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      local!countryValue
+    ),
+    {},
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_125209"(
+      isActive: 1,
+      countryName: local!countryValue,
+      regionName:local!regionValue,
+      pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+        1,
+        - 1
+      )
+    )
+  ),
+  
+  local!status,
+  local!YearDateFilter:1,
+  local!Year:year(today()),
+  local!Month,
+  local!Day,
+  local!masterLookup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    categoryGroup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10373"[3],
+    type:  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[3],
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: -1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "sort_order",
+        ascending: true()
+
+      )
+    )
+  ),
+  local!EUCsFilter:1,
+  local!selectedRecurrenceType,
+  local!selectedProcessDisplayname,
+  local!selectedProcessName,
+  local!selectedStatus,
+  local!isSchedulerTrigger,
+  local!selectedTriggerDate,
+  local!selectedDate,
+  local!startTriggerDate:today(),
+  local!endTriggerDate:today(),
+  local!runConfig: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+    pagingInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: -1
+    )
+  ),
+  local!selectedRunConfigIds:index( index(
+    local!runConfig,
+    wherecontains(
+      touniformstring(local!selectedRecurrenceType),
+      touniformstring(index(local!runConfig,"recurrence_type",{}))
+    ),{}
+  ),"run_config_id",{}),
+  local!dashboardAggregatedData: a!refreshVariable(
+    value:   #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_219259"(
+      processId: ri!processId,
+      startTriggerDate: local!startTriggerDate,
+      endTriggerDate: local!endTriggerDate
+    ).data,
+    refreshInterval: 0.5,
+    refreshOnReferencedVarChange: true()
+  ),
+  local!aggregatedData: a!refreshVariable(
+  value:   #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_219259"(
+    processId: ri!processId,
+    triggerDate: local!selectedTriggerDate,
+    startTriggerDate: local!startTriggerDate,
+    endTriggerDate: local!endTriggerDate,
+    processName:local!selectedProcessName,
+    processDisplayName: local!selectedProcessDisplayname,
+    runConfigId: local!selectedRunConfigIds,
+    region: local!regionValue,
+    country: local!countryValue,
+    calendar: local!calendarValue
+  ).data,
+  refreshInterval: 0.5,
+  refreshOnReferencedVarChange: true()
+  ),
+   local!runTimeScheduler:a!refreshVariable(
+      value:
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_298854"(
+    processId: ri!processId,
+    triggerDate:if(
+      local!EUCsFilter=1,
+      today(),
+     local!selectedDate
+    ),
+    isActive: local!selectedStatus,
+    runConfigId: local!selectedRunConfigIds,
+    isSchedulerTriggered: local!isSchedulerTrigger,
+    processName: local!selectedProcessName,
+    processDisplayName: local!selectedProcessDisplayname,
+    regionName: local!regionValue,
+    countryName: local!countryValue,
+    calendarName: local!calendarValue,
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: -1,
+      sort: if(touniformstring(local!actionType)="queued",
+      #"SYSTEM_SYSRULES_sortInfo"(
+        field:"next_trigger_datetime_gmt",
+        ascending: true()
+      ),
+      #"SYSTEM_SYSRULES_sortInfo"(
+        field:"scheduler_trigger_time",
+        ascending: false()
+      ))
+    )
+  ), refreshAlways: true(),
+  refreshInterval: 0.5,
+  refreshOnReferencedVarChange: true()),
+  local!process: 
+  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+    pagingInfo: null
+  ),
+ local!regionName : union(index(local!calendar,"region_name",{}),index(local!calendar,"region_name",{})),
+ local!countryName: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!regionValue),
+    union(index(local!calendar,"country_name",{}),index(local!calendar,"country_name",{})),
+    union(
+      index(
+        index(
+          local!calendar,
+          wherecontains(
+            local!regionValue,
+            touniformstring(index(local!calendar,"region_name",{}))
+          ),
+          {}
+        ),
+        "country_name",
+        {}
+      ),
+      index(
+        index(
+          local!calendar,
+          wherecontains(
+            local!regionValue,
+            touniformstring(index(local!calendar,"region_name",{}))
+          ),
+          {}
+        ),
+        "country_name",
+        {}
+      )
+    )
+  ),
+  {
+    /*rule!EAP_EUCConfigurationSteps(),*/
+ #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    label: "Scheduler Details",
+    contents: {
+      #"SYSTEM_SYSRULES_columnsLayout"(
+    columns:{
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: {
+          #"SYSTEM_SYSRULES_sideBySideLayout"(
+            items: {
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+                item:  #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: {
+                    #"SYSTEM_SYSRULES_richTextIcon"(
+                      icon: "dashboard",
+                      color: "ACCENT",
+                      size: "MEDIUM"
+                    )," ",
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text:"Next Scheduler Trigger Date/Time(In GMT)",
+                      size: "STANDARD",
+                      style: "STRONG"
+                    ),char(10),
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: concat(todate(local!nextTriggerDateTime)," ",totime(local!nextTriggerDateTime)),
+                      color: "SECONDARY",
+                      style: "STRONG"
+                    )
+                  },
+                  align: "CENTER"
+                ),
+                width: "MINIMIZE"
+              ),
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+
+              )
+
+            }
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: {
+          #"SYSTEM_SYSRULES_sideBySideLayout"(
+            items: {
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+                item:  #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: {
+                    #"SYSTEM_SYSRULES_richTextIcon"(
+                      icon: "columns",
+                      color: "ACCENT",
+                      size: "MEDIUM"
+                    )," ",
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: sum(
+                      index(local!dashboardAggregatedData,"is_active_count",{})
+                    ),
+                    size: "MEDIUM",
+                    style: "STRONG"
+                  ),char(10),
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: concat(
+                      "Total EUCs",
+                      if(
+                        local!EUCsFilter =1,
+                        " For Today",
+                        if(
+                         local!EUCsFilter=2,
+                         " For Upcoming Week",
+                          if(
+                           local!EUCsFilter=3,
+                           " For Previous Week",
+                            if(
+                             local!EUCsFilter=4,
+                             " For Current Month",
+                              if(
+                               local!EUCsFilter=5,
+                              "- Monthly ",
+                              if(
+                               local!EUCsFilter=6,
+                               " For yealy",
+                                ""
+                        )
+                        
+                       
+                       
+                      )
+                    )
+                    )
+                    )
+                    )
+                    ),
+                    color: "SECONDARY",
+                    style: "STRONG"
+                  )
+                  },
+                  align: "CENTER"
+                ),
+                width: "MINIMIZE"
+              ),
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+               
+              ),
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+                item:  #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: { #"SYSTEM_SYSRULES_richTextIcon"(
+                 icon: "check-circle",
+                  color: "POSITIVE",
+                  size: "MEDIUM"
+                       )," ",#"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: sum(
+                      tointeger(index(local!dashboardAggregatedData,"is_scheduler_triggered_sum",{}))
+                    ),
+                    size: "MEDIUM",
+                    style: "STRONG"
+                  ),char(10),#"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: concat(
+                      "Completed EUCs",
+                      if(
+                       local!EUCsFilter=1,
+                       " For Today",
+                        if(
+                         local!EUCsFilter=2,
+                         " For Upcoming Week",
+                          if(
+                           local!EUCsFilter=3,
+                           " For Previous Week",
+                            if(
+                             local!EUCsFilter=4,
+                             " For Current Month",
+                              if(
+                               local!EUCsFilter=5,
+                                "- Monthly ",
+                                if(
+                                 local!EUCsFilter=6,
+                                 " For yealy",
+                                  ""
+                                )
+
+
+
+                              )
+                            )
+                          )
+                        )
+                      )
+                    ),
+                 
+                    color: "SECONDARY",
+                  
+                    style: "STRONG"
+                  )
+                 
+                 },
+                  align: "CENTER"
+                ),
+                width: "MINIMIZE"
+              ),
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+
+              ),
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+                item:  #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: { #"SYSTEM_SYSRULES_richTextIcon"(
+                   icon: "pause-circle",
+                    color: "NEGATIVE",
+                    size: "MEDIUM"
+                       )," ",#"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: sum(
+                    tointeger(index(local!dashboardAggregatedData,"Queued",{}))),
+                    size: "MEDIUM",
+                    style: "STRONG"
+                  ),char(10),#"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: concat(
+                    "Queued EUCs",
+                    if(
+                     local!EUCsFilter=1,
+                     " For Today",
+                      if(
+                       local!EUCsFilter=2,
+                       " For Upcoming Week",
+                        if(
+                         local!EUCsFilter=3,
+                         " For Previous Week",
+                          if(
+                           local!EUCsFilter=4,
+                           " For Current Month",
+                            if(
+                             local!EUCsFilter=5,
+                              "- Monthly ",
+                              if(
+                               local!EUCsFilter=6,
+                               " For yealy",
+                                ""
+                              )
+
+
+
+                            )
+                          )
+                        )
+                      )
+                    )
+                    ),
+                    color: "SECONDARY",
+                    style: "STRONG"
+                  )
+                
+                 },
+                  align: "CENTER"
+                ),
+                width: "MINIMIZE"
+              ),
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+
+              ),
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+                item:  #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: { #"SYSTEM_SYSRULES_richTextIcon"(
+                    icon: "pencil-square",
+                    color: "SECONDARY",
+                    size: "MEDIUM"
+                  )," ",#"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text:(
+                      sum(
+                        index(local!dashboardAggregatedData,"is_active_count",{})
+                      )-
+                      sum(
+                        sum(
+                          tointeger(index(local!dashboardAggregatedData,"Queued",{}))),
+                          sum(
+                            tointeger(index(local!dashboardAggregatedData,"is_scheduler_triggered_sum",{}))
+                          )
+                      ) 
+                    ),
+                    size: "MEDIUM",
+                      style: "STRONG"
+                  ),char(10),#"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: concat(
+                      "Overridden EUCs",
+                      if(
+                        local!EUCsFilter=1,
+                        " For Today",
+                        if(
+                          local!EUCsFilter=2,
+                          " For Upcoming Week",
+                          if(
+                            local!EUCsFilter=3,
+                            " For Previous Week",
+                            if(
+                              local!EUCsFilter=4,
+                              " For Current Month",
+                              if(
+                                local!EUCsFilter=5,
+                                "- Monthly ",
+                                if(
+                                  local!EUCsFilter=6,
+                                  " For yealy",
+                                  ""
+                                )
+
+
+
+                              )
+                            )
+                          )
+                        )
+                      )
+                    ),
+                    color: "SECONDARY",
+                    style: "STRONG"
+                  )
+
+                  },
+                  align: "CENTER"
+                ),
+                width: "MINIMIZE"
+              )
+            }
+          )
+        }
+      )
+      
+    }
+  ),
+  #"SYSTEM_SYSRULES_columnsLayout"(
+    columns: {
+      #"SYSTEM_SYSRULES_columnLayout"(),
+      #"SYSTEM_SYSRULES_columnLayout"()
+     
+    }
+  )
+    
+   
+  }
+   ),
+ #"SYSTEM_SYSRULES_sectionLayout_v1"(
+     label: "Filter By",
+     contents:
+     {
+       #"SYSTEM_SYSRULES_columnsLayout"(
+         columns: {
+           #"SYSTEM_SYSRULES_columnLayout"(
+             contents:  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_177515"(
+               pickerLabel : "Process Name",
+               placeholder: "Select Process Name",
+               maxSelections: 1,
+               identifiers: touniformstring(index(local!process,"name",{})),
+               choiceLabels: index(local!process,"name",{}), 
+               selectedValue:touniformstring(local!selectedProcessName),
+               saveInto: local!selectedProcessName
+             ),
+             showWhen: not(toboolean(ri!isDashboard)=true())
+           ),
+           #"SYSTEM_SYSRULES_columnLayout"(
+             contents:  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_177515"(
+               pickerLabel : "Process Display Name",
+               placeholder: "Select Process Display Name",
+               maxSelections: 1,
+               helpTooltip : "Unique name for this run configuration",
+               identifiers: touniformstring(index(local!runConfig,"process_display_name",{})),
+               choiceLabels: index(local!runConfig,"process_display_name",{}), 
+               selectedValue:touniformstring(local!selectedProcessDisplayname),
+               saveInto: local!selectedProcessDisplayname
+             )
+
+           ),
+           #"SYSTEM_SYSRULES_columnLayout"(
+             contents:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+               label: "Recurrence Type",
+               placeholderLabel: "Select Recurrence Type",
+               choiceLabels: index(
+                 local!masterLookup,
+                 "label",
+                 {}
+               ),
+               choiceValues: index(
+                 local!masterLookup,
+                 "label",
+                 {}
+               ),
+               value: local!selectedRecurrenceType,
+               saveInto: local!selectedRecurrenceType
+
+             )
+           ),
+           #"SYSTEM_SYSRULES_columnLayout"(
+             contents: {
+               #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                 label: "Region",
+                 placeholderLabel: "--select region--",
+           
+                 choiceLabels: index(
+                   local!masterLookUpForRegion,
+                   "label",
+                   null
+                 ),
+                 choiceValues: index(
+                   local!masterLookUpForRegion,
+                   "label",
+                   null
+                 ),
+                 value:local!regionValue,
+                 saveInto: {
+                  a!save(
+                    local!regionValue,
+                    save!value
+                  ),
+                  a!save(
+                    local!countryValue,
+                    null
+                  ),
+                  a!save(
+                    local!calendarValue,
+                    null
+                  )
+                 },
+                 helpTooltip:"Value from MasterLookup"
+               )
+              
+             }
+           ),
+           #"SYSTEM_SYSRULES_columnLayout"(
+             contents: {
+               #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                 label: "Country",
+                 placeholderLabel: "--select country code--",
+                 choiceLabels: touniformstring(
+                   index(
+                     local!country,
+                     "label",
+                     {}
+                   )
+                 ),
+                 choiceValues: touniformstring(
+                   index(
+                     local!country,
+                     "label",
+                     {}
+                   )
+                 ),
+                 value:local!countryValue,
+                 saveInto: {
+                 a!save(
+                   local!countryValue,
+                   save!value
+                 )
+                 },
+                 helpTooltip:"Value with respect to Region from MasterLookup",
+                 disabled: if(
+                   #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                   local!regionValue
+                   ),
+                   true(),
+                   false()
+                 )
+               )
+              
+             }
+           ),
+           #"SYSTEM_SYSRULES_columnLayout"(
+             contents:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+               label: "Calendar",
+                placeholderLabel: "--select calendar--",
+               choiceLabels: touniformstring(
+                 index(
+                   local!calendar,
+                   "calendar_name",
+                   {}
+                 )
+               ),
+               choiceValues: touniformstring(
+                 index(
+                   local!calendar,
+                   "calendar_name",
+                   {}
+                 )
+               ),
+               value: 
+               touniformstring(local!calendarValue),
+               saveInto:local!calendarValue,
+               helpTooltip: "Value with respect to Region and Country from Admin Console",
+               disabled: if(
+                 or(
+                   #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    local!regionValue
+                   ),
+                   #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                     local!countryValue
+                   )
+                 ),
+                 true(),
+                 false()
+               )
+             )
+             
+           )
+         }
+       )
+     
+     },
+     isCollapsible :true(),
+     isInitiallyCollapsed : true(),
+    divider: "ABOVE"
+   ),
+ #"SYSTEM_SYSRULES_sectionLayout_v1"(
+     contents: {
+       #"SYSTEM_SYSRULES_columnsLayout"(
+         columns: {
+           #"SYSTEM_SYSRULES_columnLayout"(
+             contents: {
+               #"SYSTEM_SYSRULES_cardLayout"(
+                   contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                     value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                       text: "Others",
+                       size: "MEDIUM",
+                       style: "STRONG"
+                     ),
+                     align: "CENTER"
+                   ),
+                   link: #"SYSTEM_SYSRULES_dynamicLink"(
+                     saveInto: {
+
+                  a!save(
+                    local!YearDateFilter,
+                    1
+                  ),
+                       a!save(
+                         local!day,
+                         Null
+                       ),
+                       a!save(
+                         local!startTriggerDate,
+                         null
+                       ),
+                       a!save(
+                         local!endTriggerDate,
+                         null
+                       ),
+                       a!save(
+                         local!EUCsFilter,
+                         "Others"
+                       ),
+                       a!save(local!Year,
+                       year(today())),
+                       a!save(local!actionType,
+                       null),
+                       a!save(local!selectedDate,
+                       null)
+                     }
+                   ),
+                 style: if(
+                   and(
+                     local!EUCsFilter=
+                     "Others"
+                   ),
+                   #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[4])
+               ),
+               #"SYSTEM_SYSRULES_richTextDisplayField"(),
+               #"SYSTEM_SYSRULES_cardLayout"(
+                   contents:
+                   #"SYSTEM_SYSRULES_richTextDisplayField"(
+                     value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                       text: "Today",
+                       size: "MEDIUM",
+                       style: "STRONG"
+                     ),
+                     align: "CENTER"
+                   ),
+                   link: #"SYSTEM_SYSRULES_dynamicLink"(
+                     saveInto: {
+
+                       a!save(
+                         local!selectedDate,
+                         null
+                       ),
+                       a!save(
+                         local!YearDateFilter,
+                         null
+                       ),
+                       a!save(
+                         local!Year,
+                         null
+                       ),
+                       a!save(
+                         local!day,
+                         Null
+                       ),
+                       a!save(
+                         local!Month,
+                         save!value
+                       ) ,
+                       a!save(
+                         local!startTriggerDate,
+                         today()
+                       ),
+                       a!save(
+                         local!endTriggerDate,
+                         today()
+                       ),
+                       a!save(
+                         local!EUCsFilter,
+                         1
+                       ),
+                       a!save(
+                         local!countryValue,
+                         null
+                       ),
+                       a!save(
+                         local!regionValue,
+                         null
+                       ),
+                       a!save(
+                         local!selectedProcessName,
+                         null
+                       ),
+                       a!save(
+                         local!selectedProcessDisplayname,
+                         null
+                       ),
+                       a!save(
+                         local!calendarValue,
+                         null
+                       ),
+                       a!save(local!actionType,
+                       null)
+                     }
+                   ),
+                 style: if(
+                   and(
+                     todate(local!endTriggerDate)=today(),
+                     todate(local!startTriggerDate)=today()
+                   ),
+                   #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[4])
+               ),
+               #"SYSTEM_SYSRULES_richTextDisplayField"(),
+               #"SYSTEM_SYSRULES_cardLayout"(
+                 contents:
+                 #"SYSTEM_SYSRULES_richTextDisplayField"(
+                   value:{
+                     #"SYSTEM_SYSRULES_richTextItem_v1"(
+                       text: "Upcoming Week",
+                       size: "MEDIUM",
+                       style: "STRONG"
+                     )
+
+                   },
+                   align: "CENTER"
+                 ),
+                 link: #"SYSTEM_SYSRULES_dynamicLink"(
+                   saveInto: {
+                     a!save(
+                       local!countryValue,
+                       null
+                     ),
+                     a!save(
+                       local!regionValue,
+                       null
+                     ),
+                     a!save(
+                       local!selectedProcessName,
+                       null
+                     ),
+                     a!save(
+                       local!selectedProcessDisplayname,
+                       null
+                     ),
+                     a!save(
+                       local!selectedDate,
+                       null
+                     ),
+                     a!save(
+                       local!YearDateFilter,
+                       null
+                     ),
+                     a!save(
+                       local!Year,
+                       null
+                     ),
+                     a!save(
+                       local!day,
+                       Null
+                     ),
+                     a!save(
+                       local!Month,
+                       save!value
+                     ) ,
+                     a!save(
+                       local!startTriggerDate,
+                       today()+1
+                     ),
+                     a!save(
+                       local!endTriggerDate,
+                       today()+7
+                     ),
+                     a!save(
+                       local!EUCsFilter,
+                       2
+                     ),
+                     a!save(local!calendarValue,
+                     null),
+                     a!save(local!actionType,
+                     null)
+                   }
+                 ),
+                 style:if(todate(local!endTriggerDate)=today()+7,#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[4])
+               ),
+               #"SYSTEM_SYSRULES_richTextDisplayField"(),
+               #"SYSTEM_SYSRULES_cardLayout"(
+                   contents:
+                   #"SYSTEM_SYSRULES_richTextDisplayField"(
+                     value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                       text: "Previous Week",
+                       size: "MEDIUM",
+                       style: "STRONG"
+                     ),
+                     align: "CENTER"
+                   ),
+                   link: #"SYSTEM_SYSRULES_dynamicLink"(
+                     saveInto: {
+                       a!save(
+                         local!countryValue,
+                         null
+                       ),
+                       a!save(local!calendarValue,
+                       null),
+                       a!save(
+                         local!regionValue,
+                         null
+                       ),
+                       a!save(
+                         local!selectedProcessName,
+                         null
+                       ),
+                       a!save(
+                         local!selectedProcessDisplayname,
+                         null
+                       ),
+                       a!save(
+                         local!selectedDate,
+                         null
+                       ),
+                       a!save(
+                         local!YearDateFilter,
+                         null
+                       ),
+                       a!save(
+                         local!Year,
+                         null
+                       ),
+                       a!save(
+                         local!day,
+                         Null
+                       ),
+                       a!save(
+                         local!Month,
+                         save!value
+                       ) ,
+                       a!save(
+                         local!startTriggerDate,
+                         today()-7
+
+                       ),
+                       a!save(
+                         local!endTriggerDate,
+                         today()-1
+
+                       ),
+                       a!save(
+                         local!EUCsFilter,
+                         3
+                       ),
+                       a!save(local!actionType,
+                       null)
+                     }
+                   ),
+                 style:if(
+                   and(
+                     todate(local!endTriggerDate)=today()-1,
+                     todate(local!startTriggerDate)=today()-7
+                   ),
+                   #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[4])
+               ),
+               #"SYSTEM_SYSRULES_richTextDisplayField"(),
+               #"SYSTEM_SYSRULES_cardLayout"(
+                     contents:
+                     #"SYSTEM_SYSRULES_richTextDisplayField"(
+                       value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                         text: "Current Month",
+                         size: "MEDIUM",
+                         style: "STRONG"
+                       ),
+                       align: "CENTER"
+                     ),
+                     link: #"SYSTEM_SYSRULES_dynamicLink"(
+                       saveInto: {
+                         a!save(
+                           local!countryValue,
+                           null
+                         ),
+                         a!save(
+                           local!regionValue,
+                           null
+                         ),
+                         a!save(
+                           local!selectedProcessName,
+                           null
+                         ),
+                         a!save(
+                           local!selectedProcessDisplayname,
+                           null
+                         ),
+                         a!save(
+                           local!selectedDate,
+                           null
+                         ),
+                         a!save(
+                           local!YearDateFilter,
+                           null
+                         ),
+                         a!save(
+                           local!Year,
+                           null
+                         ),
+                         a!save(
+                           local!day,
+                           Null
+                         ),
+                         a!save(
+                           local!Month,
+                           save!value
+                         ) ,
+                         a!save(
+                           local!startTriggerDate,
+                           today()
+                         ),
+                         a!save(
+                           local!endTriggerDate,
+                           today()+30
+                         ),
+                         a!save(
+                           local!EUCsFilter,
+                           4
+                         ),
+                         a!save(local!calendarValue,
+                         null),
+                         a!save(local!actionType,
+                         null)
+                       }
+                     ),
+                 style:if(
+                   and(
+                     todate(local!startTriggerDate)=today(),
+                     todate(local!endTriggerDate)=today()+30 ),
+                     #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[4])
+               ),
+               #"SYSTEM_SYSRULES_richTextDisplayField"()
+             },
+             width: "NARROW"
+           ),
+           #"SYSTEM_SYSRULES_columnLayout"(
+             contents: {
+
+               #"SYSTEM_SYSRULES_columnsLayout"(
+                 columns: {
+                   #"SYSTEM_SYSRULES_columnLayout"(
+                     contents: if(
+                       or(
+                         local!EUCsFilter=
+                         "Others"
+                       ),
+                    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288522"(
+                      
+                       label :"Filter By",
+                       choiceLabels:{"Year/Month","Date"}, 
+                       choiceValues:{1,2},
+                       value :local!YearDateFilter,
+                       saveInto: a!save(
+                         local!YearDateFilter,
+                         save!value
+                       ),
+                       choiceLayout :"STACKED"
+
+                     ),
+                     {}
+                     ),
+                     width: "AUTO"
+                   ),
+                   #"SYSTEM_SYSRULES_columnLayout"(
+                     contents: 
+                     if(
+                       or(
+                         local!EUCsFilter=
+                         "Others"
+                       ),
+                       #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                       label:"Year",
+                       labelPosition: "ABOVE",
+                       placeholderLabel: "---select Year---",
+                       choiceLabels:{2019,2020,2021},
+                       choiceValues:{2019,2020,2021},
+                       value:local!Year,
+                       
+                       saveInto :{
+                         a!save(
+                           local!day,
+                           Null
+                         ),
+                         a!save(
+                           local!Month,
+                           Null
+                         ),
+                         a!save(
+                           local!Year,
+                           save!value
+                         ),
+                         a!save(
+                           local!startTriggerDate,
+                           date(local!Year,1,1)
+                         ),
+                         a!save(
+                           local!endTriggerDate,
+                           date(local!Year,12,1)
+                         )
+                       }
+                     ),{}),
+                     showWhen:if(
+                       or(
+                         tointeger(local!YearDateFilter)=2
+                       ),
+                       false(),
+                       true()
+                     )
+                   ),
+                   #"SYSTEM_SYSRULES_columnLayout"(
+                     contents: if(
+                       or(
+                         local!EUCsFilter=
+                         "Others"
+                       ),
+                     #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                       label:"Month",
+                       labelPosition: "ABOVE",
+                       placeholderLabel: "---select Month---",
+                       choiceLabels: {"January","February",
+                       "March", "April" ,"May" ,"June" , "July",  "August", "September", "October" ,"November", 
+                       "December"},
+                       choiceValues:  {1,2,3,4,5,6,7,8,9,10,11,12},
+                       value: local!Month,
+                       saveInto :{
+                         a!save(
+                           local!day,
+                           Null
+                         ),
+                         a!save(
+                           local!Month,
+                           save!value
+                         ) ,
+                         a!save(
+                           local!startTriggerDate,
+                           date(local!Year,local!Month,1)
+                         ),
+                         a!save(
+                           local!endTriggerDate,
+                           date(local!Year,local!Month,30)
+                         )
+                       }
+                       /*showWhen: not(*/
+                         /*rule!EAP_Utils_CheckIsNull(*/
+                           /*local!Year*/
+                         /*)*/
+                       /*)*/
+                     ),{}),
+                     showWhen:if(
+                       or(
+                         tointeger(local!YearDateFilter)=2
+                       ),
+                       false(),
+                       true()
+                     )
+                   ),
+                   #"SYSTEM_SYSRULES_columnLayout"(
+                    
+                     contents: #"SYSTEM_SYSRULES_dateField"(
+                       label: "Select Trigger Date",
+                       value: local!selectedTriggerDate,
+                       saveInto: local!selectedTriggerDate
+
+                     ),
+                     width: "AUTO",
+                     showWhen:if(
+                       or(
+                         #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                           local!YearDateFilter
+                         ),
+                         local!YearDateFilter=1
+                       ),
+                       false(),
+                       true()
+                     )
+                   ),
+                   #"SYSTEM_SYSRULES_columnLayout"(),
+                   #"SYSTEM_SYSRULES_columnLayout"()
+                 },
+                 showWhen: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!selectedDate)
+               ),
+               /*a!richTextDisplayField(*/
+               /*value: a!richTextItem(*/
+               /*text: "Below is the list of Schedules for upcoming dates with next trigger time.These schedules will get updated with next trigger time once it is triggered.",*/
+               /*color: "ACCENT",*/
+               /*size: "STANDARD",*/
+               /*style: "STRONG"*/
+               /*),*/
+               /*showWhen: if(*/
+               /*or(*/
+               /*local!EUCsFilter=1,*/
+               /*local!EUCsFilter=2,*/
+               /*local!EUCsFilter=4*/
+               /*),*/
+               /*true(),*/
+               /*false()*/
+               /*            */
+               /*)*/
+               /*),*/
+               /*a!columnsLayout(*/
+                 /*columns:{*/
+                   /*a!columnLayout(*/
+                     /*contents: a!dropdownField(*/
+                       /*label: "Status",*/
+                       /*placeholderLabel: "Select Status",*/
+                       /*choiceLabels: {*/
+                         /*"completed",*/
+                         /*"Queued",*/
+                         /*"Overridden"*/
+                       /*},*/
+                       /*choiceValues: {*/
+                         /*1,2,3*/
+                       /*},*/
+                       /*value:  local!status ,*/
+                       /*saveInto: {*/
+                         /*a!save(*/
+                           /*local!status ,save!value*/
+                         /*),*/
+                         /*if(*/
+                           /*ri!Status=1,*/
+                           /*{*/
+                             /*a!save(*/
+                               /*local!isSchedulerTrigger,1*/
+                             /*),*/
+                             /*a!save(*/
+                               /*local!selectedStatus,0*/
+                             /*)*/
+                           /*},*/
+                           /*if(*/
+                             /*ri!Status=2,*/
+                             /*{*/
+                               /*a!save(*/
+                                 /*local!isSchedulerTrigger,0*/
+                               /*),*/
+                               /*a!save(*/
+                                 /*local!selectedStatus,1*/
+                               /*)*/
+                             /*},*/
+                             /*{}*/
+                           /*)*/
+                         /*)*/
+                       /*}*/
+/**/
+                     /*),*/
+                     /*width :"MEDIUM"*/
+                   /*),*/
+                 /*},*/
+                 /*showWhen: not(rule!EAP_Utils_CheckIsNull(local!selectedDate))*/
+               /*),*/
+               #"SYSTEM_SYSRULES_gridField_v1"(
+                 data: local!aggregatedData,
+                 columns: {
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Date",
+                     sortField: "trigger_date",
+                     value: index(fv!row,"trigger_date",{}),
+                     align: "END"
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Total",
+                     sortField: "is_active_count",
+                     value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                       value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                         text: index(fv!row,"is_active_count",{}),
+                         link:if(or(index(fv!row,"is_active_count",{})=0,#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                           index(fv!row,"is_active_count",{})
+                         )),
+                         {}, #"SYSTEM_SYSRULES_dynamicLink"(
+                           value: index(fv!row,"trigger_date",{}),
+                           saveInto: {local!selectedDate,
+                           a!save(local!actionType,
+                           "total"),
+                           a!save(local!isSchedulerTrigger,
+                           null),
+                           a!save(
+                             local!selectedStatus,
+                             null
+                           )}
+                         ))
+                       )
+                     ),
+                     align: "END"
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Completed",
+                     sortField: "is_scheduler_triggered_sum",
+                     value:
+                     #"SYSTEM_SYSRULES_richTextDisplayField"(value: #"SYSTEM_SYSRULES_richTextItem_v1"(text:index(fv!row,"is_scheduler_triggered_sum",{}),
+                     link:if(or(index(fv!row,"is_scheduler_triggered_sum",{})=0,#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                       index(fv!row,"is_scheduler_triggered_sum",{})
+                     )),
+                     {},
+                     #"SYSTEM_SYSRULES_dynamicLink"(
+                       value: index(fv!row,"trigger_date",{}),
+                       saveInto: {local!selectedDate,
+                       a!save(
+                         local!isSchedulerTrigger,
+                         1
+                       ),
+                       a!save(local!selectedStatus,
+                       null),
+                       a!save(local!actionType,
+                       "completed")}
+
+                     )))
+                     ),
+                     align: "END"
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Queued",
+                     sortField: "Queued"
+                     ,
+                     value: #"SYSTEM_SYSRULES_richTextDisplayField"(value: #"SYSTEM_SYSRULES_richTextItem_v1"(text:index(fv!row,"Queued",{}),
+                     link:if(or(index(fv!row,"Queued",{})=0,#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                       index(fv!row,"Queued",{})
+                     )),
+                     {},
+                     #"SYSTEM_SYSRULES_dynamicLink"(
+                       value: index(fv!row,"trigger_date",{}),
+                       saveInto: {local!selectedDate,
+                       a!save(
+                         local!selectedStatus,
+                         1
+                       ),
+                       a!save(local!isSchedulerTrigger,
+                       null),
+                       a!save(local!actionType,
+                       "queued")}
+
+                     )))
+                     ),
+                     align: "END"
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Overridden",
+                     sortField: "Overridden", 
+                     value: #"SYSTEM_SYSRULES_richTextDisplayField"(value:
+
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text:
+                    tointeger(index(fv!row,"is_active_count",{})-
+                     sum(
+                       index(fv!row,"Queued",{}),
+                       index(fv!row,"is_scheduler_triggered_sum",{})
+                     )),
+                 link:
+                 if(or(tointeger(index(fv!row,"is_active_count",{})-
+                     sum(
+                       index(fv!row,"Queued",{}),
+                       index(fv!row,"is_scheduler_triggered_sum",{})
+                     ))=0,#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                       tointeger(index(fv!row,"is_active_count",{})-
+                       sum(
+                         index(fv!row,"Queued",{}),
+                         index(fv!row,"is_scheduler_triggered_sum",{})
+                       ))
+                     )),
+                     {},
+                     #"SYSTEM_SYSRULES_dynamicLink"(
+                       value: index(fv!row,"trigger_date",{}),
+                       saveInto: {local!selectedDate,
+                       a!save(
+                         local!selectedStatus,
+                         0
+                       ),
+                       a!save(
+                         local!isSchedulerTrigger,
+                         0
+                       ),
+                       a!save(local!actionType,
+                       "overridden")}
+
+                     )))
+
+
+                     ),
+                    
+
+                       align: "END"
+                   )
+                   /*a!gridColumn(*/
+                   /*label: "View",*/
+                   /*value:*/
+                   /*a!richTextDisplayField(*/
+                   /*value: a!richTextItem(*/
+                   /*text: "View Details",*/
+                   /*link: a!dynamicLink(*/
+                   /*value: index(fv!row,"trigger_date",{}),*/
+                   /*saveInto: local!selectedDate*/
+                   /*)*/
+                   /*)*/
+                   /*)*/
+                   /*)*/
+                 },
+                 showWhen: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!selectedDate)
+               ),
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                  text: if(touniformstring(local!actionType)="total",
+                  "Total EUCs",
+                  if(touniformstring(local!actionType)="completed",
+                  "Completed EUCs",
+                  if(touniformstring(local!actionType)="queued",
+                  "Queued EUCs",
+                  if(touniformstring(local!actionType)="overridden",
+                  "Overridden EUCs",
+                  "")))),
+                  color: "ACCENT",
+                  size: "MEDIUM",
+                  style: "STRONG"
+                )
+              ),
+               #"SYSTEM_SYSRULES_gridField_v1"(
+                 data:local!runTimeScheduler,
+                 columns: {
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Process Id",
+                     sortField: "process_id",
+                     value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"process_id",{})),
+                     "N/A", index(fv!row,"process_id",{})),
+                     align: "END"
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Process Display Name",
+                     value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"process_display_name",{})),
+                     "N/A", index(
+                      fv!row,
+                       "process_display_name",{}
+                     )) 
+
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Process Name",
+                     value: if(
+                       #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"process_name",{})),         
+                       "N/A", 
+                       #"SYSTEM_SYSRULES_linkField"(
+                         links:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_350812"(
+                           label: index(
+                             fv!row,
+                             "process_name",{}
+                           ),
+                           recordType: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_249729",
+                           identifier:  index(fv!row,"process_id",{}),
+                           siteUrl: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_350980"
+                         )
+                       
+                       )
+
+                     ) 
+
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Recurrence Type",
+                     value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"run_config_id",{})),
+                     "N/A", touniformstring(
+                       index(
+                       index(
+                         local!runConfig,
+                         wherecontains(tointeger(index(fv!row,"run_config_id",{})),
+                         tointeger(index(local!runConfig,"run_config_id",{}))),
+                         {}
+                       ),
+                       "recurrence_type",{}
+                     )) )
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Process Model UUID",
+                     sortField: "process_model_uuid",
+                     value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"process_model_uuid",{})),
+                     "N/A", index(fv!row,"process_model_uuid",{}))
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Calendar",
+                     value:  if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"calendar_name",{})),
+                     "N/A",
+                    #"SYSTEM_SYSRULES_linkField"(
+                      links:
+                      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_350812"(
+                        label: index(
+                          fv!row,
+                          "calendar_name",{}
+                        ),
+                        dashboard: "_5asjbw",
+                        recordType: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_249729",
+                        identifier:  index(fv!row,"process_id",{}),
+                        siteUrl: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_350980"
+                      )
+                     
+                    )
+                      
+                   )),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Trigger Time",
+                     sortField: "trigger_time",
+                     value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"trigger_time",{})),
+                     "N/A", index(fv!row,"trigger_time",{})),
+                     align: "END"
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Trigger Date",
+                     sortField: "trigger_date",
+                     value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"trigger_date",{})),
+                     "N/A", index(fv!row,"trigger_date",{})),
+                     align: "END"
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Next Trigger Date/Time",
+                     sortField: "next_trigger_datetime",
+                     value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"next_trigger_datetime",{})),
+                     "N/A", concat(todate(index(fv!row,"next_trigger_datetime",{}))," ",totime(index(fv!row,"next_trigger_datetime",{})))),
+                     align: "END"
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Next Trigger Date/Time(In GMT)",
+                     sortField: "next_trigger_datetime_gmt",
+                     value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"next_trigger_datetime_gmt",{})),
+                     "N/A", concat(todate(index(fv!row,"next_trigger_datetime_gmt",{}))," ",totime(index(fv!row,"next_trigger_datetime_gmt",{})))),
+                     align: "END"
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Scheduler Trigger Date/Time(In GMT)",
+                     sortField: "scheduler_trigger_time",
+                     value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"scheduler_trigger_time",{})),
+                     "N/A", concat(todate(index(fv!row,"scheduler_trigger_time",{}))," ",totime(index(fv!row,"scheduler_trigger_time",{})))),
+                     align: "END"
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Remarks",
+                     value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(fv!row,"remarks",{})),
+                     "N/A",
+                     index(fv!row,"remarks",{}))
+
+
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Is Scheduler Triggered",
+                     value: 
+                     #"SYSTEM_SYSRULES_imageField_v1"(
+                       images: {
+                         #"SYSTEM_SYSRULES_documentImage"(
+                           document: #"SYSTEM_SYSRULES_iconIndicator"(
+                             icon: if(
+                               contains(
+                                 toboolean(
+                                   index(fv!row, "is_scheduler_triggered", {})
+                                 ),
+                                 true()
+                               ),
+                               "STATUS_OK",
+                               "STATUS_NOTDONE"
+                             )
+                           ),
+                           caption: if(
+                             contains(
+                               toboolean(
+                                 index(fv!row, "is_scheduler_triggered", {})
+                               ),
+                               true()
+                             ),
+                             "Yes",
+                             "No"
+                           )
+                         )
+                       }
+                     ),
+                     align: "CENTER"
+                   ),
+                   #"SYSTEM_SYSRULES_gridColumn"(
+                     label: "Is Active",
+                     value: 
+                     #"SYSTEM_SYSRULES_imageField_v1"(
+                       images: {
+                         #"SYSTEM_SYSRULES_documentImage"(
+                           document: #"SYSTEM_SYSRULES_iconIndicator"(
+                             icon: if(
+                               contains(
+                                 toboolean(
+                                   index(fv!row, "is_active", {})
+                                 ),
+                                 true()
+                               ),
+                               "STATUS_OK",
+                               "STATUS_NOTDONE"
+                             )
+                           ),
+                           caption: if(
+                             contains(
+                               toboolean(
+                                 index(fv!row, "is_active", {})
+                               ),
+                               true()
+                             ),
+                             "Active",
+                             "In-Active"
+                           )
+                         )
+                       }
+                     ),
+                     align: "CENTER"
+                   )
+                 },
+                 pageSize: 5,
+                 showWhen: or(
+
+                   not(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!selectedDate))
+                 )
+
+
+               ),
+               #"SYSTEM_SYSRULES_ButtonLayout"(
+                 secondaryButtons: 
+                 {
+
+                   #"SYSTEM_SYSRULES_ButtonWidget"(
+                     label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[7],
+                     saveInto:{ 
+                       a!save(local!selectedDate,
+                       null),
+                       a!save(
+                         local!regionValue,
+                         null
+                       ),
+                       a!save(
+                         local!countryValue,
+                         null
+                       ),
+                       a!save(
+                         local!calendarValue,
+                         null
+                       ),
+                       a!save(
+                         local!isSchedulerTrigger,
+                         null
+                       ),
+                       a!save(
+                         local!selectedStatus,
+                         null
+                       ),
+                       a!save(local!selectedRecurrenceType,null),
+                       a!save(
+                         local!selectedRunConfigIds,
+                         null
+                       ),
+                       a!save(
+                         local!selectedProcessName,
+                         null
+                       ),
+                       a!save(
+                         local!selectedProcessDisplayname,
+                         null
+                       ),
+                       a!save(local!actionType,
+                       null)
+                     },
+                       showWhen: not(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!selectedDate))
+                   )}
+
+               )
+             }
+           )
+         }
+       )
+     },
+   divider: "ABOVE"
+   )
+   }
+)</definition>
+        <namedTypedValue>
+            <name>activeStep</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isDashboard</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>regionName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>countryName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_362486"/>
+    </history>
+</contentHaul>

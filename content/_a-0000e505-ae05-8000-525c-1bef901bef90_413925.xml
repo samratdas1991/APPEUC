@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_413938</versionUuid>
+    <interface>
+        <name>EAP_AddProcessControllerConfigSectionDummy</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_413925</uuid>
+        <description>Holds section to add new process controller config</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!nextStepDropDown:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_378381"(
+    manageWorkflowId: ri!manageWorkflowId
+  ),
+  local!processControllerIdLatest: max(index(
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_361812"(
+      processControllerMasterId:ri!manageWorkflowId
+    ),
+    "process_controller_id",{}
+  )),
+  local!controllerConfigForParsing: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_360910"(
+    processControllerId: local!processControllerIdLatest
+  ),
+  local!processControllerIdForOG: index(#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_361812"(
+    processControllerMasterId:ri!manageWorkflowId,
+    milestoneId: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[2]
+  ),"process_controller_id",{}
+  ),
+  local!controlConfidForOutputGen:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_360910"(
+    processControllerId:local!processControllerIdForOG
+  ),
+  local!processControllerMaster: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_359325"(
+    processControllerMasterId: ri!manageWorkflowId
+  ),
+  local!transformationDropdown: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_24591"(
+    isActive: true(),
+    runConfigId: index(
+      local!processControllerMaster,
+      "run_config_id",
+      {}
+    )
+  ),
+  {
+    /*a!paragraphField(*/
+      /*label: "",*/
+      /*value: ri!manageWorkflowId*/
+    /*),*/
+    
+   
+    
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      isCollapsible: true(),
+      label: if(
+        ri!isReadOnly,
+        "View Step Configuration"&amp;"|"&amp;#"_a-0000e505-ae05-8000-525c-1bef901bef90_400268"[tointeger(ri!nextStep)],
+        if(
+          ri!isEdit = 1,
+          "Edit Step Configuration"&amp;"|"&amp;#"_a-0000e505-ae05-8000-525c-1bef901bef90_400268"[tointeger(ri!nextStep)],
+          "Next Step Configuration"
+        )
+      ),
+      divider: "ABOVE",
+      contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                  label: "Next Step",
+                  placeholderLabel: "-- Select Next Step --",
+                  choiceLabels: touniformstring(index(local!nextStepDropDown,"name",{})),
+                  choiceValues: tointeger(index(local!nextStepDropDown,"milestone_id",{})),
+                  value: if(
+                    contains(
+                      tointeger(index(local!nextStepDropDown,"milestone_id",{})),
+                      tointeger(ri!nextStep)
+                    ),
+                    tointeger(ri!nextStep),
+                    null
+                  ),
+                  saveInto: {
+                    a!save(ri!nextStep,save!value),
+                    choose(
+                      tointeger(ri!nextStep),
+                      /*Run Config*/
+                      {},
+                      /*IO Config*/
+                      {},
+                      /*Parsing*/
+                      {
+                        a!save(
+                          ri!processControllerConfig,
+                          #"SYSTEM_SYSRULES_forEach"(
+                            items: local!controllerConfigForParsing,
+                            expression: 'type!{urn:com:appian:types:eap}EAP_T_DwfProcessControllerConfig'(
+                              io_config_id: index(fv!item,"io_config_id",{}),
+                              parsing_id:index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7456"(
+                                configId: index(
+                                  fv!item,
+                                  "io_config_id",
+                                  {}
+                                )
+                              ),"in_file_type_config_id",{}),
+                              is_system_driven:true(),
+                              is_active:true(),
+                              created_by: loggedInUser(),
+                              created_on: now(),
+                              modified_by: loggedInUser(),
+                              modified_on: now()
+                            )
+                          )
+                        )
+                      },
+                      /*Transformation*/
+                      {
+                        a!save(
+                          ri!processControllerConfig,
+                          'type!{urn:com:appian:types:eap}EAP_T_DwfProcessControllerConfig'(
+                            transformation_id: index(local!transformationDropdown,"template_config_id",{}),
+                            is_system_driven:true(),
+                            is_active:true(),
+                            created_by: loggedInUser(),
+                            created_on: now(),
+                            modified_by: loggedInUser(),
+                            modified_on: now()
+                          )
+                        )
+                      },
+                      /*Maker*/
+                      {
+                        a!save(
+                        ri!processControllerConfig,
+                        'type!{urn:com:appian:types:eap}EAP_T_DwfProcessControllerConfig'(
+                          is_system_driven:true(),
+                          is_active:true(),
+                          created_by: loggedInUser(),
+                          created_on: now(),
+                          modified_by: loggedInUser(),
+                          modified_on: now()
+                        )
+                      )
+                      },
+                      /*Checker*/
+                      {
+                        a!save(
+                          ri!processControllerConfig,
+                          'type!{urn:com:appian:types:eap}EAP_T_DwfProcessControllerConfig'(
+                            is_system_driven:true(),
+                            is_active:true(),
+                            created_by: loggedInUser(),
+                            created_on: now(),
+                            modified_by: loggedInUser(),
+                            modified_on: now()
+                          )
+                        )
+                      },
+                      /*Additional Approvers*/
+                      {
+                        a!save(
+                          ri!processControllerConfig,
+                          'type!{urn:com:appian:types:eap}EAP_T_DwfProcessControllerConfig'(
+                            is_system_driven:true(),
+                            is_active:true(),
+                            created_by: loggedInUser(),
+                            created_on: now(),
+                            modified_by: loggedInUser(),
+                            modified_on: now()
+                          )
+                        )
+                      },
+                      /*Output Generation*/
+                      {
+                        a!save(
+                          ri!processControllerConfig,
+                          #"SYSTEM_SYSRULES_forEach"(
+                            items: local!controlConfidForOutputGen,
+                            expression: 'type!{urn:com:appian:types:eap}EAP_T_DwfProcessControllerConfig'(
+                              io_config_id: index(fv!item,"io_config_id",{}),
+                              output_generation_id:index(#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_207034"(
+                                configId: index(fv!item,"io_config_id",{})
+                              ),"out_file_type_config_id",{}),
+                              is_system_driven:true(),
+                              is_active:true(),
+                              created_by: loggedInUser(),
+                              created_on: now(),
+                              modified_by: loggedInUser(),
+                              modified_on: now()
+                            )
+                          )
+                        )
+                      },
+                      /*End*/
+                      {
+                        a!save(
+                          ri!processControllerConfig,
+                          'type!{urn:com:appian:types:eap}EAP_T_DwfProcessControllerConfig'(
+                            next_process_controller_id:0,
+                            /*is_system_driven:true(),*/
+                            is_active:true(),
+                            created_by: loggedInUser(),
+                            created_on: now(),
+                            modified_by: loggedInUser(),
+                            modified_on: now()
+                          )
+                        )
+                      },
+                      /*Custom Process*/
+                      {
+                        a!save(
+                          ri!processControllerConfig,
+                          'type!{urn:com:appian:types:eap}EAP_T_DwfProcessControllerConfig'(
+                            is_system_driven:true(),
+                            is_active:true(),
+                            created_by: loggedInUser(),
+                            created_on: now(),
+                            modified_by: loggedInUser(),
+                            modified_on: now()
+                          )
+                        )
+                      }
+                    )
+                   },
+                   showWhen:if(
+                     tointeger(ri!isEdit)=1,
+                     false(),
+                     true()
+                   )
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(),
+            #"SYSTEM_SYSRULES_columnLayout"()
+          }
+        ),
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!nextStep),
+          {},
+          /*Controller Config Grid*/
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365435"(
+            isReadOnly: ri!isReadOnly,
+            selectedNextStep: ri!nextStep,
+            processControllerConfig: ri!processControllerConfig,
+            /*parsingConfigDropdown:local!parsingConfigDropdown*/
+            manageWorkflowId: ri!manageWorkflowId
+          )
+        )
+      }
+    )
+  }
+)
+</definition>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextStep</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerConfig</name>
+            <type>
+                <name>EAP_T_DwfProcessControllerConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextStepDropDown</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>manageWorkflowId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isEdit</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>workflowName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runconfigName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>nextStep</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>processControllerConfig</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>nextStepDropDown</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>manageWorkflowId</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>isEdit</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>processControllerId</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>workflowName</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>runconfigName</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_413938"/>
+    </history>
+</contentHaul>

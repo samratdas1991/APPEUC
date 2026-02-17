@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_494452</versionUuid>
+    <rule>
+        <name>EAP_IsSpecificDataValidationDetailsFilled</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_381379</uuid>
+        <description>Rule to check all requied info filled or not in data validation.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>
+  #"SYSTEM_SYSRULES_forEach"(
+  items: ri!refProcessWfActionType,
+  expression: if(
+   #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+     wherecontains(
+      tostring(index(fv!item,"action_type",null)),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377632"
+    )
+    ),
+    false(),
+    if(
+    not(or(index(fv!item,"isactive",null))),
+    true(),
+    choose(
+    wherecontains(
+      tostring(index(fv!item,"action_type",null)),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377632"
+    ),
+
+    /*1. INPUT_COPY */
+    contains(
+      tointeger(index(ri!actionTypeInputCopy,"wf_action_id",null)),
+      tointeger(index(fv!item,"wf_action_id",null))
+    ),
+    /*2. REFRESH_PIVOT */
+    contains(
+      tointeger(index(ri!actionTypeRefreshPivot,"wf_action_id",null)),
+      tointeger(index(fv!item,"wf_action_id",null))
+    ),
+    /*3. INPUT_COPY_TRANSPOSE */
+    contains(
+      tointeger(index(ri!transposeConfig,"wf_action_id",null)),
+      tointeger(index(fv!item,"wf_action_id",null))
+    ),
+    /*4. SHEET_TO_SHEET_COPY */
+    contains(
+      tointeger(index(ri!sheetCopy,"wf_action_id",null)),
+      tointeger(index(fv!item,"wf_action_id",null))
+    ),
+    /*5. OUTPUT_COPY */
+    contains(
+      tointeger(index(ri!refProcessWfOutputCopy ,"wf_action_id",null)),
+      tointeger(index(fv!item,"wf_action_id",null))
+    ),
+    /*6. CUSTOM_ACTION */
+    contains(
+      tointeger(index(ri!customAction,"wf_action_id",null)),
+      tointeger(index(fv!item,"wf_action_id",null))
+    ),
+    /*7. SHEET_FILTERS */
+    contains(
+      tointeger(index(ri!sheetFilters ,"wf_action_id",null)),
+      tointeger(index(fv!item,"wf_action_id",null))
+    ),
+    /*8. DB_FIXED_COPY */
+    contains(
+      tointeger(index(ri!fixedCells,"wf_action_id",null)),
+      tointeger(index(fv!item,"wf_action_id",null))
+    ),
+    /*9. RUNTIME_FIXED_COPY */
+    contains(
+      tointeger(index(ri!runTimeFixedCell,"wfActionId",null)),
+      tointeger(index(fv!item,"wf_action_id",null))
+    ),
+    /*10 Pivot filter*/
+    contains(
+      tointeger(index(ri!pivotFilter,"wf_action_id",null)),
+      tointeger(index(fv!item,"wf_action_id",null))
+    ),
+    /*11 Macro Execution */
+    contains(
+      tointeger(index(ri!macroExecution,"wf_action_id",null)),
+      tointeger(index(fv!item,"wf_action_id",null))
+    )
+  )
+  )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>refProcessWfActionType</name>
+            <type>
+                <name>EAP_T_DVActions?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionTypeInputCopy</name>
+            <type>
+                <name>EAP_T_DVInputCopy?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionTypeRefreshPivot</name>
+            <type>
+                <name>EAP_T_DVRefreshPivot?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetCopy</name>
+            <type>
+                <name>EAP_T_DVSheetCopy?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessWfOutputCopy</name>
+            <type>
+                <name>EAP_T_DVOutputCopy?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>customAction</name>
+            <type>
+                <name>EAP_T_DVCustomAction?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetFilters</name>
+            <type>
+                <name>EAP_T_DVSheetFilters?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fixedCells</name>
+            <type>
+                <name>EAP_T_DVFixedCells?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runTimeFixedCell</name>
+            <type>
+                <name>EAP_T_DVRuntimeFixedCells?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>inputCopyEntityMapping</name>
+            <type>
+                <name>EAP_T_DVEntitySheetMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>inputCopyEntitySheetFilters</name>
+            <type>
+                <name>EAP_T_DVEntitySheetFilters?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetCopyMapping</name>
+            <type>
+                <name>EAP_T_DVSheetCopyMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetEntityMapping</name>
+            <type>
+                <name>EAP_T_DVSheetEntityMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>customActionMapping</name>
+            <type>
+                <name>EAP_T_DVCustomActionMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pivotFilter</name>
+            <type>
+                <name>EAP_T_DVPivotFilter?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>transposeConfig</name>
+            <type>
+                <name>EAP_T_DVTransposeConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>macroExecution</name>
+            <type>
+                <name>EAP_T_DVMacroExecution?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_381383"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_397584"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_408405"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_494452"/>
+    </history>
+</contentHaul>

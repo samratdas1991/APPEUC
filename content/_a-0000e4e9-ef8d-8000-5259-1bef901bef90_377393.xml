@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_408506</versionUuid>
+    <rule>
+        <name>EAP_DataValidation_ActionTypeTransposeConfigGridRowLayout</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377393</uuid>
+        <description>Holds gridRowLayout for TransposeConfig</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>  #"SYSTEM_SYSRULES_gridRowLayout"(
+    id: ri!index,
+    contents: {
+      /* Sheet Name*/
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        label: "Sheet Name" &amp; ri!index,
+        placeholder: " Enter Sheet Name ",
+        value: index(
+          ri!actionTypeTransposeConfig[ri!index],
+          "sheet_name"
+        ),
+        saveInto: {
+          ri!actionTypeTransposeConfig[ri!index].sheet_name ,
+          a!save(
+            ri!actionTypeTransposeConfig[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!actionTypeTransposeConfig[ri!index].modified_on,
+            now()
+          )
+        },
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value: index(
+                ri!actionTypeTransposeConfig[ri!index],
+                "sheet_name"
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          )
+        },
+        readOnly: ri!isReadOnly,
+        required: not(or(ri!isReadOnly))
+      ),
+      /* Entity Name*/
+      if(
+        ri!isReadOnly,
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          label: "Entity Name" &amp; ri!index,
+          value: index(
+            ri!actionTypeTransposeConfig[ri!index],
+            "entity_name"
+          ),
+          readOnly: true()
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+          label: "Entity Name" &amp; ri!index,
+          placeholderLabel: "--Select Entity Name--",
+
+          choiceValues: ri!entityNames,
+          choiceLabels: ri!entityNames,
+          value: if(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+              value: index(
+                ri!actionTypeTransposeConfig[ri!index],
+                "entity_name"
+              ),
+              choiceValue: ri!entityNames,
+            ),
+            index(
+              ri!actionTypeTransposeConfig[ri!index],
+              "entity_name"
+            ),
+            null
+          ),
+          saveInto: {
+            ri!actionTypeTransposeConfig[ri!index].entity_name ,
+            a!save(
+              ri!actionTypeTransposeConfig[ri!index].modified_by,
+              loggedInUser()
+            ),
+            a!save(
+              ri!actionTypeTransposeConfig[ri!index].modified_on,
+              now()
+            )
+          },
+          validations: {
+            if(
+              ri!isReadOnly,
+              {},
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+                value: index(
+                  ri!actionTypeTransposeConfig[ri!index],
+                  "entity_name"
+                ),
+                ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+              )
+            )
+          },
+          required: not(or(ri!isReadOnly))
+        ),
+
+      ),
+
+      /* Is Active */
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        align: "CENTER",
+        value: {
+          if(
+            or(
+              tointeger(
+                index(
+                  ri!actionTypeTransposeConfig[ri!index],
+                  "is_active",
+                  {}
+                )
+              ) = 1
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-on",
+              caption: "Yes",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: 1,
+
+                saveInto: {
+                  a!save(
+                    ri!actionTypeTransposeConfig[ri!index].is_active,
+                    0
+                  ),
+                  a!save(
+                    ri!actionTypeTransposeConfig[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!actionTypeTransposeConfig[ri!index].modified_on,
+                    now()
+                  )
+                },
+                showWhen:  not(or(ri!isReadOnly))
+              ),
+              size: "MEDIUM_PLUS",
+              color: "ACCENT"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-off",
+              caption: "No",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: 0,
+                saveInto: {
+                  a!save(
+                    ri!actionTypeTransposeConfig[ri!index].is_active,
+                    1
+                  ),
+                  a!save(
+                    ri!actionTypeTransposeConfig[ri!index].modified_by,
+                    loggedInUser()
+                  ),
+                  a!save(
+                    ri!actionTypeTransposeConfig[ri!index].modified_on,
+                    now()
+                  )
+                },
+                showWhen:  not(or(ri!isReadOnly))
+              ),
+              size: "MEDIUM_PLUS",
+              color: "ACCENT"
+            )
+          )
+        }
+      ),
+
+      /* Remove/Delete */
+   
+    }
+  )</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionTypeTransposeConfig</name>
+            <type>
+                <name>EAP_T_DVTransposeConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>allTables</name>
+            <type>
+                <name>EAP_V_AllTables?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityNames</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377397"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_394799"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_408506"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e9e9-0626-8000-9bb3-011c48011c48_33531</versionUuid>
+    <dataStore>
+        <uuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_612709</uuid>
+        <name>EAP Historical Data DS</name>
+        <description>Data Store For Historical Data</description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>24a51f33-69c8-4133-a651-3ee84cf1da58</uuid>
+                <name>EAP_T_RefProcessHistSheetFieldMapping</name>
+                <type>{urn:com:appian:types:eap}EAP_T_RefProcessHistSheetFieldMapping</type>
+            </entity>
+            <entity>
+                <uuid>6db3f16a-c02d-478b-b458-476c7d9031ed</uuid>
+                <name>EAP_T_RefProcessHistEntityMapping</name>
+                <type>{urn:com:appian:types:eap}EAP_T_RefProcessHistEntityMapping</type>
+            </entity>
+            <entity>
+                <uuid>9de7648b-5450-4bb8-bc3f-d45196fe6ce8</uuid>
+                <name>EAP_T_RefProcessHistTrans</name>
+                <type>{urn:com:appian:types:eap}EAP_T_RefProcessHistTrans</type>
+            </entity>
+            <entity>
+                <uuid>e05ee08e-3765-4978-bf11-477c5a09784d</uuid>
+                <name>EAP_T_RefProcessHistDetailTrans</name>
+                <type>{urn:com:appian:types:eap}EAP_T_RefProcessHistDetailTrans</type>
+            </entity>
+            <entity>
+                <uuid>e4bc3e77-6f2e-4a57-8b12-c5a6e93eabee</uuid>
+                <name>EAP_T_BulkConfUploadTrans</name>
+                <type>{urn:com:appian:types:eap}EAP_T_BulkConfUploadTrans</type>
+            </entity>
+            <entity>
+                <uuid>fc4b26fc-6812-4334-b26d-db6c90b95bc1</uuid>
+                <name>EAP_T_BulkUsersUpldRawTrans</name>
+                <type>{urn:com:appian:types:eap}EAP_T_BulkUsersUpldRawTrans</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_625454"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_678004"/>
+        <historyInfo versionUuid="_a-0000e9e9-0626-8000-9bb3-011c48011c48_33531"/>
+    </history>
+</dataStoreHaul>

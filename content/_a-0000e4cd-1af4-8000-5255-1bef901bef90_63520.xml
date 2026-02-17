@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_343294</versionUuid>
+    <rule>
+        <name>EAP_CountryNonWorkingDaysGridRowLayout</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_63520</uuid>
+        <description>Holds gridRowLayout for non working days</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!weekDays: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    type: {
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[2]
+    },
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: - 1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "type",
+        ascending: true()
+      )
+    )
+  ),
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    contents: {
+      /* Day */
+      if(
+        contains(
+          ri!isReadOnly,
+          true()
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          value: index(
+            ri!nonWorkingDay[ri!index],
+            "non_working_day",
+            {}
+          ),
+          readOnly: ri!isReadOnly
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+          placeholderLabel: "--Select Day--",
+          required: true(),
+          choiceLabels: touniformstring(index(
+            local!weekDays,
+            "label",
+            {}
+          )),
+          choiceValues: tointeger(index(
+            local!weekDays,
+            "code",
+            {}
+          )),
+          value: index(
+            ri!nonWorkingDay[ri!index],
+            "non_working_day",
+            null
+          ),
+          saveInto: ri!nonWorkingDay[ri!index].non_working_day,
+          validations: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!nonWorkingDay[ri!index].non_working_day
+            ),
+            {},
+            {
+            if(
+              contains(
+                {
+                  touniformstring(
+                    index(
+                      remove(
+                        ri!nonWorkingDay,
+                        ri!index
+                      ),
+                      "non_working_day",
+                      {}
+                    )
+                  )
+                },
+                touniformstring(
+                  index(
+                    ri!nonWorkingDay[ri!index],
+                    "non_working_day",
+                    {}
+                  )
+                )
+              ),
+              "Duplicate values found",
+              {}
+            ),
+            if(tointeger(index(ri!nonWorkingDay[ri!index],"is_active",{}))=0,{},
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_341727"(
+              calendarId: index(ri!nonWorkingDay,"calendar_id",{}),
+              nonWorkingDay: index(ri!nonWorkingDay[ri!index],"non_working_day",{})
+            ))
+            }
+          )
+        )
+      ),
+      /* Is Active */
+      if(
+        contains(
+          ri!isReadOnly,
+          true()
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: " ",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "STATUS_OK"
+            )
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          value: {
+            if(
+              or(
+                tointeger(
+                  index(
+                    ri!nonWorkingDay[ri!index],
+                    "is_active",
+                    {}
+                  )
+                ) = 1
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "toggle-on",
+                caption: "Active",
+                linkStyle: "STANDALONE",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  value: 1,
+                  saveInto: a!save(
+                    ri!nonWorkingDay[ri!index].is_active,
+                    0
+                  )
+                ),
+                size: "MEDIUM_PLUS"
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "toggle-off",
+                caption: "In-active",
+                linkStyle: "STANDALONE",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  value: 0,
+                  saveInto: a!save(
+                    ri!nonWorkingDay[ri!index].is_active,
+                    1
+                  )
+                ),
+                size: "MEDIUM_PLUS"
+              )
+            )
+          }
+        )
+      ),
+      /* Remove/Delete */
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        label: "Remove",
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            "REMOVE"
+          ),
+          altText: "Remove",
+          caption: "Remove",
+          link: #"SYSTEM_SYSRULES_dynamicLink"(
+            value: ri!index,
+            saveInto: {
+              a!save(
+                ri!nonWorkingDay,
+                remove(
+                  ri!nonWorkingDay,
+                  save!value
+                )
+              ),
+              
+            }
+          ),
+          showWhen: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!nonWorkingDay[ri!index].calendar_nonworkingday_id
+          )
+        ),
+        size: "ICON",
+        showWhen: if(
+          contains(
+            ri!isReadOnly,
+            true()
+          ),
+          false(),
+          true()
+        )
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nonWorkingDay</name>
+            <type>
+                <name>EAP_T_RefCalendarNonWorkingDay?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_63772"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_92188"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_131994"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_343294"/>
+    </history>
+</contentHaul>

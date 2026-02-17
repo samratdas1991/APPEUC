@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_181033</versionUuid>
+    <constant>
+        <name>EAP_MINUTES</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_71671</uuid>
+        <description>Holds minutes</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>00</el>
+                <el>01</el>
+                <el>02</el>
+                <el>03</el>
+                <el>04</el>
+                <el>05</el>
+                <el>06</el>
+                <el>07</el>
+                <el>08</el>
+                <el>09</el>
+                <el>10</el>
+                <el>11</el>
+                <el>12</el>
+                <el>13</el>
+                <el>14</el>
+                <el>15</el>
+                <el>16</el>
+                <el>17</el>
+                <el>18</el>
+                <el>19</el>
+                <el>20</el>
+                <el>21</el>
+                <el>22</el>
+                <el>23</el>
+                <el>24</el>
+                <el>25</el>
+                <el>26</el>
+                <el>27</el>
+                <el>28</el>
+                <el>29</el>
+                <el>30</el>
+                <el>31</el>
+                <el>32</el>
+                <el>33</el>
+                <el>34</el>
+                <el>35</el>
+                <el>36</el>
+                <el>37</el>
+                <el>38</el>
+                <el>39</el>
+                <el>40</el>
+                <el>41</el>
+                <el>42</el>
+                <el>43</el>
+                <el>44</el>
+                <el>45</el>
+                <el>46</el>
+                <el>47</el>
+                <el>48</el>
+                <el>49</el>
+                <el>50</el>
+                <el>51</el>
+                <el>52</el>
+                <el>53</el>
+                <el>54</el>
+                <el>55</el>
+                <el>56</el>
+                <el>57</el>
+                <el>58</el>
+                <el>59</el>
+                <el>60</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_71801"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_108762"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_181033"/>
+    </history>
+</contentHaul>

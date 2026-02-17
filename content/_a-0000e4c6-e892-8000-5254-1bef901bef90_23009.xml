@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_456319</versionUuid>
+    <interface>
+        <name>EAP_ActionTypeOutputCopySheetEntityMappingGrid</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_23009</uuid>
+        <description>Holds action type sheet entity mapping editable grid.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!allTablesColumns: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!entityName
+    ),
+    {},
+    index(
+     index(ri!allTableColumns,wherecontains(touniformstring(ri!entityName)
+     ,touniformstring(index(ri!allTableColumns,"tableName",{}))),{}),"columnName",{}
+      )
+  ),
+  local!columnsName: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      local!allTablesColumns
+    ),
+    {},
+    union(
+      touniformstring(
+        local!allTablesColumns
+      ),
+      touniformstring(
+        local!allTablesColumns
+      )
+    )
+  ),
+  local!generatorTypeLabel:touniformstring(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+      MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+        masterLookUpData: ri!masterLookUpData,
+        categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+      ),
+      UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[13],
+      Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+    )
+  ),
+  local!generatorTypeValue:touniformstring(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+      MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+        masterLookUpData: ri!masterLookUpData,
+        categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+      ),
+      UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[13],
+      Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+    )
+  ),
+  {
+    #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: "Map All Columns",
+        showWhen: not(
+          contains(
+            tointeger(index(
+              index(
+                ri!refProcessWfSheetEntityMapping,
+                wherecontains(
+                  true(),
+                  toboolean(
+                    index(ri!refProcessWfSheetEntityMapping,"isactive",null)
+                  )
+                ),
+                {}),
+                "output_copy_id",null
+            )),
+            ri!outputCopyId
+          )
+        ),
+        style: "LINK",
+        saveInto: {
+          if(
+            and(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(ri!refProcessWfSheetEntityMapping)),
+              a!save(
+                ri!refProcessWfSheetEntityMapping,
+                #"SYSTEM_SYSRULES_forEach"(
+                  items: difference(
+                    local!columnsName,
+                    #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256265"),
+                    expression: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10567"(                        isActive: 1,
+                    outputCopyId : ri!outputCopyId,
+                    createdBy: loggedInUser(),
+                    createdOn: now(),
+                    entityColumnName: fv!item
+
+                    ) 
+                )
+
+              ),
+              a!save(
+                ri!refProcessWfSheetEntityMapping,
+                append(
+                  ri!refProcessWfSheetEntityMapping,
+                  #"SYSTEM_SYSRULES_forEach"(
+                    items: difference(
+                      local!columnsName,
+                      #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256265"),
+                      expression: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10567"(                        isActive: 1,
+                      outputCopyId : ri!outputCopyId,
+                        createdBy: loggedInUser(),
+                        createdOn: now(),
+                        entityColumnName: fv!item
+
+                      ) 
+                  )
+                )
+
+              )
+          )
+        }
+
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayout"(
+      headerCells: {
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "Sheet Column Name",
+          align: "LEFT"
+        ),
+       /* a!gridLayoutHeaderCell(
+          label: "Sheet Numeric Column Name",
+          align: "LEFT"
+        ),*/
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+            helpToolTip: "List of Column Names from Selected Entity Name"
+          ),
+          label: "Entity Column Name",
+          align: "LEFT"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+            categoryGroup : #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] ,
+            uniqueKey : #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[13]
+          ),
+          label: "Generation Type",
+          align: "LEFT"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          helpTooltip : #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+            uniqueKey : " The value selected for Generation Type"
+          ),
+          label: "Generation Format",
+          align: "LEFT"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "Terminating Value"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "Terminating Position"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "Is Active",
+          align: "CENTER"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "",
+          align: "CENTER",
+          showWhen: if(
+            or(
+              ri!isReadonly = true(),
+              length(
+                wherecontains(
+                  tointeger(
+                    ri!outputCopyId
+                  ),
+                  tointeger(
+                    index(
+                      ri!refProcessWfSheetEntityMapping,
+                      "output_copy_id",
+                      null
+                    )
+                  )
+                )
+              )  &lt; 2
+            ),
+            false(),
+            true()
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "",
+          align: "CENTER",
+          showWhen: if(
+            or(
+              ri!isReadonly = true(),
+              length(
+                wherecontains(
+                  tointeger(
+                    ri!outputCopyId
+                  ),
+                  tointeger(
+                    index(
+                      ri!refProcessWfSheetEntityMapping,
+                      "output_copy_id",
+                      null
+                    )
+                  )
+                )
+              )  &lt; 2
+            ),
+            false(),
+            true()
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+          label: "",
+          align: "CENTER",
+          showWhen: if(
+            ri!isReadOnly = true,
+            false,
+            true
+          )
+        ),
+        
+      },
+      columnConfigs: {
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "DISTRIBUTE"
+        ),
+        /*a!gridLayoutColumnConfig(
+          width: "DISTRIBUTE"
+        ),*/
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "DISTRIBUTE"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "DISTRIBUTE"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "DISTRIBUTE"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "DISTRIBUTE"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "DISTRIBUTE"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "ICON"
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "ICON",
+          showWhen: if(
+            or(
+              ri!isReadonly = true(),
+              length(
+                wherecontains(
+                  tointeger(
+                    ri!outputCopyId
+                  ),
+                  tointeger(
+                    index(
+                      ri!refProcessWfSheetEntityMapping,
+                      "output_copy_id",
+                      null
+                    )
+                  )
+                )
+              )  &lt; 2
+            ),
+            false(),
+            true()
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "ICON",
+          showWhen: if(
+            or(
+              ri!isReadonly = true(),
+              length(
+                wherecontains(
+                  tointeger(
+                    ri!outputCopyId
+                  ),
+                  tointeger(
+                    index(
+                      ri!refProcessWfSheetEntityMapping,
+                      "output_copy_id",
+                      null
+                    )
+                  )
+                )
+              )  &lt; 2
+            ),
+            false(),
+            true()
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+          width: "ICON",
+          showWhen: if(
+            ri!isReadOnly = true(),
+            false(),
+            true()
+          )
+        )
+      },
+      rows: {
+        #"SYSTEM_SYSRULES_applyComponents"(
+          function: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22637"(
+            index: _,
+            refProcessWfSheetEntityMapping: ri!refProcessWfSheetEntityMapping,
+            masterLookUpData: ri!masterLookUpData,
+            isReadOnly: ri!isReadOnly,
+            tablesColumns: local!columnsName,
+            outputCopyId : ri!outputCopyId,
+            generationTypeValue:local!generatorTypeValue, 
+            generationTypeLabel:local!generatorTypeLabel
+          ),
+          array: if(
+            or(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!refProcessWfSheetEntityMapping
+              ),
+              count(
+                ri!refProcessWfSheetEntityMapping
+              ) = 0
+            ),
+            null,
+            wherecontains(
+              tointeger(
+                ri!outputCopyId
+              ),
+              tointeger(
+                index(
+                  ri!refProcessWfSheetEntityMapping,
+                  "output_copy_id",
+                  null
+                )
+              )
+            )
+          )
+        )
+      },
+      addRowLink: if(
+        or(ri!isReadOnly
+       /*   length(
+            wherecontains(
+              tointeger(
+                ri!outputCopyId
+              ),
+              tointeger(
+                index(
+                  ri!refProcessWfSheetEntityMapping,
+                  "output_copy_id",
+                  null
+                )
+              )
+            )
+          ) &gt;= 1 */
+        ),
+        {},
+        #"SYSTEM_SYSRULES_dynamicLink"(
+          label: "Add line items",
+          value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10567"(
+            outputCopyId: ri!outputCopyId,
+            isActive: 1,
+            createdBy: loggedInUser(),
+            createdOn: now(),
+            modifiedBy: loggedInUser(),
+            modifiedOn: now()
+          ),
+          saveInto: a!save(
+            ri!refProcessWfSheetEntityMapping,
+            append(
+              ri!refProcessWfSheetEntityMapping,
+              save!value
+            )
+          )
+        )
+      )
+    ),
+   
+    
+  }
+)</definition>
+        <namedTypedValue>
+            <name>refProcessWfSheetEntityMapping</name>
+            <type>
+                <name>EAP_T_RefProcessWfSheetEntityMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outputCopyId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>allTableColumns</name>
+            <type>
+                <name>EAP_V_AllTablesColumns?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>refProcessWfSheetEntityMapping</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+  isActive: 1
+)</a:value>
+                    <a:nameRef>masterLookUpData</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>outputCopyId</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">"AL_PIVOT_DATA_TRANS"</a:value>
+                    <a:nameRef>entityName</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4c6-e892-8000-5254-1bef901bef90_25128"(
+  id: null
+)</a:value>
+                    <a:nameRef>allTableColumns</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_77819"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_90273"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_97689"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_132317"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_232314"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_315614"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_456319"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e595-3324-8000-5263-1bef901bef90_728944</versionUuid>
+    <interface>
+        <name>EAP_CreateNewProcess</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_57021</uuid>
+        <description>holds the form to manage process</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!manageLabel: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!refProcess.process_id
+    ),
+    {},
+    concat(
+      "Manage Process",
+      "|",
+      ri!refProcess.name
+    )
+  ),
+  local!createLabel: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!refProcess.name
+    ),
+    "Create New Process",
+    concat(
+      "Create Process",
+      "|",
+      ri!refProcess.name
+    )
+  ),
+  local!isInvalid:1,
+
+
+  local!validusers:reject(fn!isnull,#"SYSTEM_SYSRULES_forEach"(
+    items: index(ri!tempUsers,"userSoeId",{}),
+    expression: if(
+      #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(fv!item)=true(),
+      fv!item,
+      null
+    )
+  )),
+  local!inValidUsers:reject(fn!isnull,#"SYSTEM_SYSRULES_forEach"(
+    items:index(ri!tempUsers,"userSoeId",{}),
+    expression: if(
+      #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(fv!item)=true(),
+      null,
+      fv!item
+    )
+  )),
+  local!InvalidUserData:index(ri!tempUsers,wherecontains(
+    touniformstring(local!inValidUsers),touniformstring(index(ri!tempUsers,"userSoeId",{}))
+  ),{}),
+  local!validuserData:index(ri!tempUsers,wherecontains(
+    touniformstring(local!validusers),touniformstring(index(ri!tempUsers,"userSoeId",{}))
+  ),{}),
+
+
+  local!verifyValidUserData:reject(fn!isnull,#"SYSTEM_SYSRULES_forEach"(
+    items: local!validuserData,
+    expression: if(
+      and(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(fv!item,"isExpectedMaker",{}))=true(),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(fv!item,"isExpectedChecker",{}))=true(),
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(fv!item,"isExpectedPowerUser",{}))=true()
+      ),
+      fv!item,
+      null
+    )
+  )),
+
+  local!verifyValidUserGroupData:reject(fn!isnull,#"SYSTEM_SYSRULES_forEach"(
+    items:local!validuserData,
+    expression: if(
+      and(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(fv!item,"isExpectedMaker",{}))=true(),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(fv!item,"isExpectedChecker",{}))=true(),
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(fv!item,"isExpectedPowerUser",{}))=true()
+      ),
+      null,
+      fv!item
+
+    )
+  )),
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      contents: {
+        #"_a-0000e518-940a-8000-525e-1bef901bef90_524783"(
+          label:  if(
+            ri!isReadOnly = true(),
+            {},
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!refProcess.process_id
+              ),
+              local!createLabel,
+              local!manageLabel
+            )
+          ),
+          icon: "edit"
+        )
+      },
+      divider: "BELOW",
+      showWhen: ri!isReadOnly= false()
+    ),
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10573"(
+      steps: {
+        "Process Details",
+        "Process Group Details",
+        "Process Users Details"
+      },
+      activeStep: ri!relatedAction,
+      isHideNextStepsLink: true(),
+      showWhen: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!refProcess.process_id
+      )
+    ),
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124402"(
+      refProcess: ri!refProcess,
+      relatedAction: ri!relatedAction,
+      buttonAction: ri!buttonAction,
+      isReadOnly: ri!isReadOnly,
+      isInactive: ri!isInactive,
+      isActive: ri!isActive,
+      isProductionSupport:ri!isProductionSupport
+    ),
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_125174"(
+      refProcessGroup: ri!refProcessGroup,
+      relatedAction: ri!relatedAction,
+      isReadOnly: ri!isReadOnly
+    ),
+   
+    if(
+      or(ri!relatedAction=1,ri!isReadOnly=true(),and(ri!relatedAction=3,ri!isInvalid&lt;&gt;1)),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_63904"(
+        refProcessUser: ri!refProcessUser,
+        relatedAction: ri!relatedAction,
+        refProcessGroup: ri!refProcessGroup,
+        isReadOnly: ri!isReadOnly,
+        processId: index(ri!refProcess,"process_id",{})
+      ),
+      if(
+      and(ri!isInvalid=1,ri!relatedAction=3),
+      #"_a-0000e58b-f438-8000-5262-1bef901bef90_717505"(
+        refProcessGroup:ri!refProcessGroup,
+        processId:index(ri!refProcess,"process_id",null),
+        refProcessUser:ri!refProcessUser,
+        validGroupAndUser:local!verifyValidUserData,
+        invalidUsers:local!InvalidUserData,
+        validUser:local!verifyValidUserGroupData,
+        isInvalid:local!isInvalid
+      ),
+        {},
+        
+        
+
+      )
+
+    )
+    ,
+    #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: {
+        if(
+          or(
+            ri!isReadOnly = true()
+          ),
+          {},
+          #"SYSTEM_SYSRULES_ButtonWidget"(
+            label: "Submit",
+            value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[1],
+            saveInto: {
+              ri!buttonAction,
+              a!save(
+                ri!refProcessGroup,
+                #"_a-0000e4c6-4628-8000-5253-1bef901bef90_18064"(
+                  modifiedBy: loggedInUser(),
+                  modifiedOn: now(),
+                  refProcessGroup: ri!refProcessGroup
+                )
+              ),
+              a!save(ri!refProcessUser,
+             append(append(
+                append(local!verifyValidUserData,local!InvalidUserData),#"SYSTEM_SYSRULES_forEach"(
+                  items: local!verifyValidUserGroupData,
+                  expression: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_85189"(
+                    processUserId:fv!item.processUserId,
+                    processId:fv!item.ProcessId,
+
+                    userSoeId:fv!item.userSoeId,
+                    isPrimaryMaker:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedMaker),
+                    fv!item.isPrimaryMaker,
+                    fv!item.isExpectedMaker
+                    ), 
+                    isSecondaryMaker:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedMaker),
+                    fv!item.isSecondaryMaker,
+                    fv!item.isExpectedMaker
+                    ),
+                    isPrimaryChecker:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedChecker),
+                    fv!item.isPrimaryChecker,
+                    fv!item.isExpectedChecker
+                    ),
+                    isSecondaryChecker:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedChecker),
+                    fv!item.isSecondaryChecker,
+                    fv!item.isExpectedChecker
+                    ),
+                    isAuditor:fv!item.isAuditor, 
+                    isPowerUser:fv!item.isPowerUser, 
+                    isViewer:fv!item.isViewer, 
+                    createdBy:fv!item.createdBy,
+                    updatedBy:fv!item.updatedBy, 
+                    updatedOn:fv!item.updatedOn, 
+                    isActive:fv!item.isActive, 
+                    createdOn:fv!item.createdOn,
+                    isDoa:if(
+                      and(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedChecker),
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedMaker)
+                      ),
+                      fv!item.isDoa,
+                      if(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedChecker) ,
+                        fv!item.isExpectedMaker,
+                        fv!item.isExpectedChecker
+                      )
+
+                    )
+                  )
+                )),ri!refProcessUser)),
+              a!save(
+                ri!refProcess,
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11833"(
+                  modifiedBy: loggedInUser(),
+                  modifiedOn: now(),
+                  refProcess: ri!refProcess
+                )
+              )
+            },
+            submit: true(),
+            style: "PRIMARY",
+            validate: true(),
+            showWhen: or(
+              and(
+                ri!isReadOnly = false(),
+                ri!relatedAction = 3
+              ),
+              not(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!refProcess,
+                    "process_id",
+                    {}
+                  )
+                )
+              )
+            ),
+            
+            disabled:  if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                    inputUUID: index(ri!refProcessGroup,"maker_group",{})
+                  )
+
+                ),
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                    inputUUID:index(ri!refProcessGroup,"checker_group",{})
+                  )
+
+                ),
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                    inputUUID:index(ri!refProcessGroup,"operations_team_group",{})
+                  )),
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                      inputUUID: index(ri!refProcessGroup,"technical_support_group",{})
+                    )),
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                        inputUUID:index(ri!refProcessGroup,"escalation_group",{})
+                      )
+                    )
+              ),
+              true(),
+              false()
+            )
+          )
+        ),
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Save &amp; Next",
+          value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3],
+          saveInto: {
+            a!save(
+              ri!buttonAction,
+              save!value
+            ),
+            a!save(
+              ri!relatedAction,
+              ri!relatedAction + 1
+            )
+            
+          },
+          submit: false(),
+          style: "NORMAL",
+          validate: true(),
+          showWhen: not(
+            or(
+              ri!relatedAction = 3,
+              ri!isReadOnly = true(),
+              not(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    ri!refProcess,
+                    "process_id",
+                    {}
+                  )
+                )
+              )
+            )
+          )
+        ),
+        
+      },
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Cancel",
+          value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+          saveInto: ri!buttonAction,
+          submit: true(),
+          style: "NORMAL",
+          validate: false(),
+          showWhen: ri!isReadOnly = false()
+        ),
+        
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>refProcess</name>
+            <type>
+                <name>EAP_T_RefProcess</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessGroup</name>
+            <type>
+                <name>EAP_T_RefProcessGroup</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessUser</name>
+            <type>
+                <name>EAP_T_RefProcessUsers?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>relatedAction</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isInactive</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isProductionSupport</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>tempUsers</name>
+            <type>
+                <name>EAP_Temp_ProcessUsers?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isInvalid</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:eap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:EAP_T_RefProcess"/>
+                    <a:nameRef>refProcess</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonAction</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:eap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:EAP_T_RefProcessGroup"/>
+                    <a:nameRef>refProcessGroup</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>refProcessUser</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">1</a:value>
+                    <a:nameRef>relatedAction</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isInactive</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isActive</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isProductionSupport</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>tempUsers</a:nameRef>
+                    <a:id>10</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>isInvalid</a:nameRef>
+                    <a:id>11</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_74075"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_94307"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_98499"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_172241"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_176443"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_187907"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_289695"/>
+        <historyInfo versionUuid="_a-0000e53a-854b-8000-d91e-a7ef90a7ef90_3746032"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_650078"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_720117"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_722970"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_724485"/>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_728944"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_99818</versionUuid>
+    <rule>
+        <name>EAP_SetValueForRefProcessGroup</name>
+        <uuid>_a-0000e4c6-4628-8000-5253-1bef901bef90_18064</uuid>
+        <description>Rule to set to data into ref process group</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  and(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processGroupId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!makerGroup
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!checkerGroup
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!operationsTeamGroup
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!technicalSupportGroup
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!escalationGroup
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!adminMaintenanceGroup
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!createdBy
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!createdOn
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!modifiedBy
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!modifiedOn
+    )
+  ),
+  ri!refProcessGroup,
+  'type!{urn:com:appian:types:eap}EAP_T_RefProcessGroup'(
+    process_group_id :
+    if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processGroupId),index(ri!refProcessGroup,"process_group_id",{}),ri!processGroupId),
+    process_id : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),index(ri!refProcessGroup,"process_id",{}),ri!processId),
+    maker_group:  if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!makerGroup),index(ri!refProcessGroup,"maker_group",{}),ri!makerGroup),
+    checker_group: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!checkerGroup),index(ri!refProcessGroup,"checker_group",{}),ri!checkerGroup),
+    operations_team_group  : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!operationsTeamGroup),index(ri!refProcessGroup,"operations_team_group",{}),ri!operationsTeamGroup),
+    technical_support_group : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!technicalSupportGroup),index(ri!refProcessGroup,"technical_support_group",{}),ri!technicalSupportGroup),
+    escalation_group : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!escalationGroup),index(ri!refProcessGroup,"escalation_group",{}),ri!escalationGroup),
+    admin_maintenance_group : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!adminMaintenanceGroup),index(ri!refProcessGroup,"admin_maintenance_group",{}),ri!adminMaintenanceGroup),
+    created_by : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdBy),index(ri!refProcessGroup,"created_by",{}),ri!createdBy),
+    created_on : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdOn),index(ri!refProcessGroup,"created_on",{}),ri!createdOn),
+    modified_by : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedBy),index(ri!refProcessGroup,"modified_by",{}),ri!modifiedBy),
+    modified_on : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedOn),index(ri!refProcessGroup,"modified_on",{}),ri!modifiedOn),
+  )
+)
+
+
+</definition>
+        <namedTypedValue>
+            <name>processGroupId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>makerGroup</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>checkerGroup</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>operationsTeamGroup</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>technicalSupportGroup</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>escalationGroup</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>adminMaintenanceGroup</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessGroup</name>
+            <type>
+                <name>EAP_T_RefProcessGroup?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_85160"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_99818"/>
+    </history>
+</contentHaul>

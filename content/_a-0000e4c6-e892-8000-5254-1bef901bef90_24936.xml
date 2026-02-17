@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_34672</versionUuid>
+    <rule>
+        <name>EAP_RunConfigurationPagingGridRowLayout</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_24936</uuid>
+        <description>Holds Grid Row Layout for run configuration paging grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  contents: {
+    if(
+      or(ri!activeStep=ri!index),
+      #"SYSTEM_SYSRULES_dropdownField"(
+        placeholderLabel: "--Select processing month--",
+        required: true(),
+        choiceLabels: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_18824",
+        choiceValues: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_18824",
+        value: index(ri!runConfig[ri!index],"processing_month",
+        {}),
+        saveInto: ri!runConfig[ri!index].processing_month
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!runConfig[ri!index],
+          "processing_month",
+          {}
+        ),
+        readOnly: true()
+      ),
+ ),
+      if(
+        or(ri!activeStep=ri!index),
+  
+        #"SYSTEM_SYSRULES_dropdownField"(
+          placeholderLabel: "--Select processing Week day--",
+          required: true(),
+          choiceLabels: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_21023",
+          choiceValues: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_21023",
+          value: index(ri!runConfig[ri!index],"processing_weekdays",
+          {}),
+          saveInto: ri!runConfig[ri!index].processing_weekdays
+        ),
+        #"SYSTEM_SYSRULES_textField"(
+          value: index(
+            ri!runConfig[ri!index],
+            "processing_weekdays",
+            {}
+          ),
+          readOnly: true()
+        )),
+        if(
+          or(ri!activeStep=ri!index),
+          
+          #"SYSTEM_SYSRULES_dropdownField"(
+            placeholderLabel: "--Select recurrence type--",
+            required: true(),
+            choiceLabels: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735",
+            choiceValues: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735",
+            value: index(ri!runConfig[ri!index],"recurrrence_type",
+            {}),
+            saveInto: ri!runConfig[ri!index].recurrrence_type
+          ),
+          #"SYSTEM_SYSRULES_textField"(
+            value: index(
+              ri!runConfig[ri!index],
+              "recurrrence_type",
+              {}
+            ),
+            readOnly: true()
+          )),
+          #"SYSTEM_SYSRULES_integerField"(
+            label: "Recurrence Frequency",
+            readOnly: if(or(ri!activeStep=ri!index),false(),
+            true()),
+            value: index(
+              ri!runConfig[ri!index],
+              "recurrence_frequency",
+              {}
+            ),
+            required: true(),
+            saveInto: a!save(
+              ri!runConfig[ri!index].recurrence_frequency,
+              save!value
+            ),
+            align: "RIGHT"
+          ),
+          if(
+            or(ri!activeStep=ri!index),
+        
+            #"SYSTEM_SYSRULES_dateTimeField"(
+              required: true(),
+              value: index(
+                ri!runConfig[ri!index],
+                "trigger_time",
+                {}
+              ),
+              saveInto: a!save(
+                ri!runConfig[ri!index].trigger_time,
+                save!value
+              ),
+              align: "RIGHT"
+            ),
+            #"SYSTEM_SYSRULES_richTextDisplayField"(
+              value: #"SYSTEM_SYSRULES_richTextItem_v1"(text: 
+              concat(todate(index(
+                ri!runConfig[ri!index],
+                "trigger_time",
+                {}
+              ))," ",totime(index(
+                ri!runConfig[ri!index],
+                "trigger_time",
+                {}
+              )))),
+            )),
+            if(
+              or(ri!activeStep=ri!index),
+             
+              #"SYSTEM_SYSRULES_dateTimeField"(
+                required: true(),
+                value: index(
+                  ri!runConfig[ri!index],
+                  "next_trigger_datetime",
+                  {}
+                ),
+                validations: if(ri!runConfig[ri!index].next_trigger_datetime&lt;=ri!runConfig[ri!index].trigger_time,
+                "Invalid Date",
+                {}),
+                saveInto: a!save(
+                  ri!runConfig[ri!index].next_trigger_datetime,
+                  save!value
+                ),
+                align: "RIGHT"
+              ),
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value: #"SYSTEM_SYSRULES_richTextItem_v1"(text: 
+                concat(todate(index(
+                  ri!runConfig[ri!index],
+                  "next_trigger_datetime",
+                  {}
+                ))," ",totime(index(
+                  ri!runConfig[ri!index],
+                  "next_trigger_datetime",
+                  {}
+                ))
+                )),
+              )),
+              if(
+                or(ri!activeStep=ri!index),
+               
+                #"SYSTEM_SYSRULES_radioButtonField"(
+                  choiceLayout: "COMPACT",
+                  choiceLabels: {
+                    "Active",
+                    "Inactive"
+                  },
+                  choiceValues: {
+                    true(),
+                    false()
+                  },
+
+                  value: index(
+                    ri!runConfig[ri!index],
+                    "is_active",
+                    {}
+                  ),
+                  saveInto: ri!runConfig[ri!index].is_active,
+
+                ),
+                #"SYSTEM_SYSRULES_imageField_v1"(
+                  images: {
+                    #"SYSTEM_SYSRULES_documentImage"(
+                      document: #"SYSTEM_SYSRULES_iconIndicator"(
+                        icon: if(
+                          contains(
+                            toboolean(
+                              index(ri!runConfig[ri!index], "is_active", {})
+                            ),
+                            true()
+                          ),
+                          "STATUS_OK",
+                          "STATUS_NOTDONE"
+                        )
+                      ),
+                      caption: if(
+                        contains(
+                          toboolean(
+                            index(ri!runConfig[ri!index], "is_active", {})
+                          ),
+                          true()
+                        ),
+                        "Active",
+                        "In-Active"
+                      )
+                    )
+                  }
+                )
+              ),
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                  text:if(or(ri!activeStep=ri!index),
+                  "Save Configuration",
+                  "Manage Configuration"),
+link: if(not(ri!activeStep=ri!index),
+#"SYSTEM_SYSRULES_dynamicLink"(
+  value: ri!index,
+  saveInto: ri!activeStep
+),
+#"SYSTEM_SYSRULES_dynamicLink"(
+  value: 0,
+  saveInto: {ri!activeStep,
+  #"SYSTEM_SYSRULES_writeToDataStoreEntity"(
+    dataStoreEntity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11813",
+    valueToStore: 'type!{urn:com:appian:types:eap}EAP_T_RefRunConfig'(
+      run_config_id: ri!index,
+      process_id: ri!processId,
+      recurrence_frequency:  index(
+        ri!runConfig[ri!index],
+        "recurrence_frequency",
+        {}
+      ),
+      recurrrence_type:  index(
+        ri!runConfig[ri!index],
+        "recurrrence_type",
+        {}
+      ),
+      processing_month:  index(
+        ri!runConfig[ri!index],
+        "processing_month",
+        {}
+      ),
+      processing_weekdays: 
+      index(
+        ri!runConfig[ri!index],
+        "processing_weekdays",
+        {}
+      ),
+      trigger_time:  
+      index(
+        ri!runConfig[ri!index],
+        "trigger_time",
+        {}
+      ),
+      next_trigger_datetime: 
+      index(
+        ri!runConfig[ri!index],
+        "next_trigger_datetime",
+        {}
+      ),
+      is_active: 
+      index(
+        ri!runConfig[ri!index],
+        "is_active",
+        {}
+      ),
+    ),
+  
+  )
+  }
+))
+                )
+              )
+              /*a!imageField(*/
+                /*label: "Remove",*/
+                /*images: a!documentImage(*/
+                  /*document: a!iconIndicator(*/
+                    /*"REMOVE"*/
+                  /*),*/
+                  /*altText: "Remove",*/
+                  /*caption: "Remove",*/
+                  /*link: a!dynamicLink(*/
+                    /*value: ri!index,*/
+                    /*saveInto: {*/
+                      /*a!save(*/
+                        /*ri!runConfig,*/
+                        /*remove(*/
+                          /*ri!runConfig,*/
+                          /*save!value*/
+                        /*)*/
+                      /*),*/
+/**/
+                    /*}*/
+                  /*)*/
+                /*),*/
+                /*size: "ICON",*/
+                /*showWhen: if(*/
+                  /*contains(*/
+                    /*ri!isReadOnly,*/
+                    /*true()*/
+                  /*),*/
+                  /*false(),*/
+                  /*true()*/
+                /*)*/
+              /*)*/
+  }
+)
+</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfig</name>
+            <type>
+                <name>EAP_T_RefRunConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>activeStep</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_34672"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_762124</versionUuid>
+    <interface>
+        <name>EAP_uiDisplayNoEntitiesConfigured</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_420471</uuid>
+        <description>Interface to display if no entities are configured to displayed on UI View Config</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_boxLayout"(
+  label :"Information",
+  contents: {
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      value: {
+        #"SYSTEM_SYSRULES_richTextIcon"(
+          icon :"hand-o-right",
+          color: "ACCENT",
+          size: "MEDIUM"
+        ),
+        #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text :" Please download the file(s) from the link(s) above to view the data.",
+          color: "ACCENT",
+          size: "STANDARD",
+          style:"EMPHASIS"
+        ),
+      }
+    )
+  },
+  style: "WARN"
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_420482"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_762124"/>
+    </history>
+</contentHaul>

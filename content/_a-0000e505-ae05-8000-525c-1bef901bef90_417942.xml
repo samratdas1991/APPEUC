@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_418059</versionUuid>
+    <interface>
+        <name>EAP_LinkEucMappingSaction</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_417942</uuid>
+        <description>Holds interface to show existing link euc mappings</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!processData: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+    isActive: 1
+  ),
+  local!runConfigData:a!refreshVariable(
+    value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+      processId:index(ri!linkEucMapping,"process_id",{}),
+      isActive: true()
+    ),
+    refreshOnReferencedVarChange: true()
+  ),
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: "Add EUC ",
+      contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_dropdownField"(
+                  label: "Process Name",
+                  labelPosition: "ABOVE",
+                  placeholderLabel: "--- Select a Process ---",
+                  value: index(
+                    ri!linkEucMapping,"process_id",{}
+                  ),
+                  choiceLabels: {
+                    index(
+                      local!processData,
+                      "name",
+                      {}
+                    )
+                  },
+                  choiceValues: {
+                    index(
+                      local!processData,
+                      "process_id",
+                      {}
+                    )
+                  },
+                  saveInto: {ri!linkEucMapping.process_id,
+                  a!save(
+                    ri!linkEucMapping.run_config_id,null
+                  )
+                  },
+                  validations: {}
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_dropdownField"(
+                  label: "Process Display Name",
+                  labelPosition: "ABOVE",
+                  placeholderLabel: "--- Select Process Display Name ---",
+                  choiceLabels: {
+                    index(
+                      local!runConfigData,
+                      "process_display_name",
+                      {}
+                    )
+                  },
+                  choiceValues: {
+                    index(
+                      local!runConfigData,
+                      "run_config_id",
+                      {}
+                    )
+                  },
+                  disabled: if(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      ri!linkEucMapping.process_id
+                    ),
+                    true(),
+                    false()
+                  ),
+                  value: index(ri!linkEucMapping,"run_config_id",{}),
+                  saveInto: ri!linkEucMapping.run_config_id,
+                  validations: {}
+                )
+              }
+            )
+          }
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Save",
+          value: "",
+          saveInto: {
+            a!save(
+              ri!buttonAction,
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[4]
+            )
+          },
+          submit: true(),
+          size: "SMALL",
+          style: "STANDARD",
+          showWhen: not(
+            or(
+              ri!isReadOnly
+            )
+          ),
+          validate: true()
+        )/*a!buttonWidget(*/
+        /*label: "Submit",*/
+        /*value: cons!EAP_BUTTON_ACTION[1],*/
+        /*submit: true(),*/
+        /*saveInto: {*/
+        /*ri!buttonAction*/
+        /*},*/
+        /*size: "SMALL",*/
+        /*style: "PRIMARY",*/
+        /*showWhen: {},*/
+        /*validate: true()*/
+        /*)*/
+        
+      },
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Cancel",
+          value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+          saveInto: {
+            ri!buttonAction
+          },
+          submit: true(),
+          size: "SMALL",
+          style: "SECONDARY",
+          validate: false()
+        )
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>linkEucMapping</name>
+            <type>
+                <name>EAP_T_LinkEucMapping</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_418059"/>
+    </history>
+</contentHaul>

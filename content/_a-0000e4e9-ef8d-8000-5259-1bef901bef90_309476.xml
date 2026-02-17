@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_364937</versionUuid>
+    <rule>
+        <name>EAP_generateOutputConfigJsonRequest</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_309476</uuid>
+        <description>Rule to generate request Json with the documents for the Output Config</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>/*Incomplete Rule*/
+
+with(
+  local!transAttachments: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_29621"(
+    requestId: ri!requestDetails.requestId
+  ),
+  local!transData: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_314020"(
+    requestId: ri!requestDetails.requestId
+  ),
+  local!getRefFileTypeList: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_207034"(
+    processId: ri!requestDetails.processId,
+    configId: index(
+      local!transData,
+      "configId",
+      null
+    )
+  ),
+  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9930"(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!transAttachments,
+      expression: with(
+        local!indexedTransData: index(
+          local!transData,
+          wherecontains(
+            tointeger(
+              fv!item.transaction_id
+            ),
+            tointeger(
+              index(
+                local!transData,
+                "transactionId",
+                null
+              )
+            )
+          ),
+          null
+        ),
+        local!indexFileTypeId: index(
+          index(
+            local!getRefFileTypeList,
+            wherecontains(
+              tointeger(
+                index(
+                  local!indexedTransData,
+                  "configId",
+                  null
+                )
+              ),
+              tointeger(
+                index(
+                  local!getRefFileTypeList,
+                  "config_id",
+                  null
+                )
+              )
+            ),
+            null
+          ),
+          "out_file_type_config_id",
+          null
+        ),
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              local!indexedTransData
+            ),
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              local!indexFileTypeId
+            )
+          ),
+          null,
+          'type!{urn:com:appian:types:eap}EAP_U_OutputConfigRequest'(
+            requestId: ri!requestDetails.requestId,
+            processId: ri!requestDetails.processId,
+            OutFileTypeConfigId: local!indexFileTypeId
+          )
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>requestDetails</name>
+            <type>
+                <name>EAP_T_ProcessRequest</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name>RequestId - 34</a:name>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">{
+  processId:9,
+  requestId:34
+}</a:value>
+                    <a:nameRef>requestDetails</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+            <el>
+                <a:name>Valid Case</a:name>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+  requestId: 34
+)</a:value>
+                    <a:nameRef>requestDetails</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_364937"/>
+    </history>
+</contentHaul>

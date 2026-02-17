@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e54a-56dc-8000-d92f-a7ef90a7ef90_4317543</versionUuid>
+    <rule>
+        <name>EAP_dwfGetAuditId</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_403531</uuid>
+        <description>Rule to get audit id </description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!Audit: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_383490"(
+    requestId: ri!requestId,
+    isActive: 1,
+    isCompleted: 0
+  ),
+  local!processId: index(
+    local!Audit,
+    "process_id",
+    null
+  ),
+  local!processControllerId: index(
+    local!Audit,
+    "process_controller_id",
+    null
+  ),
+  local!processControllerConfigId: index(#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_360910"(
+    processControllerId: local!processControllerId,
+    ioConfigId: ri!configId,
+    parsingId: ri!inFileTypeconfigId,
+    transformationId: ri!templateConfigId,
+    outputGenerationId: ri!outputFileTypeConfigId,
+    isActive: 1
+  ),"process_controller_config_id",{}),
+ 
+      index(
+        local!Audit,
+        wherecontains(
+          tointeger(
+            local!processControllerConfigId
+          ),
+          tointeger(
+            index(
+              local!Audit,
+              "process_controller_config_id",
+              {}
+            )
+          )
+        ),
+        {}
+      )
+)</definition>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>configId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>inFileTypeconfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>templateConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outputFileTypeConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_403744"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_422158"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_519500"/>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_563187"/>
+        <historyInfo versionUuid="_a-0000e54a-56dc-8000-d92f-a7ef90a7ef90_4317543"/>
+    </history>
+</contentHaul>

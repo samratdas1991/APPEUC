@@ -1,0 +1,1128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>4838673f-baed-4592-b022-7240b3f7dc0b</versionUuid>
+  <recordType a:uuid="e033978c-d1a9-4322-baad-54554c014242" name="EAP">
+    <a:pluralName>EAPs</a:pluralName>
+    <a:description>Hold all types of EAP</a:description>
+    <a:urlStub>YclMMQ</a:urlStub>
+    <a:source
+      a:uuid="975dc06f-39f7-4741-b6e6-d2f60ec267ea@_a-0000e4c3-ab68-8000-5250-1bef901bef90_7363" xsi:type="a:DataStoreEntity"/>
+    <a:listViewTemplateExpr>#"SYSTEM_SYSRULES_recordGridLayoutColumns"(
+  columns: {
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "EUC Reference Number",
+      width: "DISTRIBUTE",
+      field: "euc_reference_number",
+      align: "RIGHT",
+      component: #"SYSTEM_SYSRULES_recordGrid_linkField"(
+        links: {
+          #"SYSTEM_SYSRULES_recordLink"(
+            label: rf!euc_reference_number,
+            recordtype: rp!type,
+            identifier: rp!id
+          )
+        },
+        align: "RIGHT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Process Id",
+      width: "DISTRIBUTE",
+      field: "process_id",
+      align: "RIGHT",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!process_id,
+        align: "RIGHT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Process Name",
+      width: "DISTRIBUTE",
+      field: "process_name",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!process_name
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Sub Cluster Name",
+      width: "DISTRIBUTE",
+      field: "sub_cluster_name",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!sub_cluster_name
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Cluster Name",
+      width: "DISTRIBUTE",
+      field: "cluster_name",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!cluster_name
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Region",
+      width: "DISTRIBUTE",
+      field: "region_name",
+      align: "LEFT",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!region_name,
+        align: "LEFT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Country",
+      width: "DISTRIBUTE",
+      field: "country_name",
+      align: "LEFT",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!country_name,
+        align: "LEFT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Calendar",
+      width: "DISTRIBUTE",
+      field: "calendar_name",
+      align: "LEFT",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!calendar_name,
+        align: "LEFT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Is Active",
+      width: "DISTRIBUTE",
+      align: "CENTER",
+      component: #"SYSTEM_SYSRULES_recordGrid_imageField_v1"(
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            icon: if(
+              contains(
+                toboolean(
+                  rf!is_active
+                ),
+                true()
+              ),
+              "STATUS_OK",
+              "STATUS_NOTDONE"
+            )
+          ),
+          caption: if(
+            contains(
+              toboolean(
+                rf!is_active
+              ),
+              true()
+            ),
+            "Active",
+            "In-Active"
+          )
+        ),
+        size: "ICON",
+        isThumbnail: false,
+        style: "STANDARD",
+        align: "CENTER"
+      )
+    )
+  },
+  pageSize: 50,
+  defaultSort: #"SYSTEM_SYSRULES_sortInfo"(),
+  shadeAlternateRows: true
+)</a:listViewTemplateExpr>
+    <a:fieldCfg name="Sub Cluster">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>a!localVariables(
+  local!subClusterData1:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_27579"(
+
+       pagingInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex:1,
+      batchSize:-1,
+      sort:#"SYSTEM_SYSRULES_sortInfo"(
+        field:"sub_cluster_name",
+        ascending:true()
+      )
+    ) 
+  ),
+  local!subClusterData:union(
+    index(local!subClusterData1,"sub_cluster_name","def_sub_cluster_name"),
+    index(local!subClusterData1,"sub_cluster_name","def_sub_cluster_name"),
+  ),
+
+  #"SYSTEM_SYSRULES_recordFilterList"(
+    name:"Sub Cluster",
+    options:#"SYSTEM_SYSRULES_forEach"(
+      items:local!subClusterData  ,
+      expression:#"SYSTEM_SYSRULES_recordFilterListOption"(
+        id:fv!index,
+        name:fv!item,
+        filter:#"SYSTEM_SYSRULES_queryFilter"(
+          field:"sub_cluster_name",
+          operator:"=",
+          value:fv!item
+        )
+      )
+    )
+  )
+)</a:facetExpr>
+      <a:sortOrderIndex>0</a:sortOrderIndex>
+      <a:facetOrderIndex>0</a:facetOrderIndex>
+      <a:visibilityExpr/>
+      <a:defaultOptionExpr/>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:fieldCfg name="Cluster">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>a!localVariables(
+  local!clusterData1:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_27579"(
+    
+    pagingInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex:1,
+      batchSize:-1,
+      sort:#"SYSTEM_SYSRULES_sortInfo"(
+        field:"cluster_name",
+        ascending:true()
+      )
+  )
+  ),
+  local!clusterData:union(
+    local!clusterData1.cluster_name,
+    local!clusterData1.cluster_name
+  ),
+#"SYSTEM_SYSRULES_recordFilterList"(
+  name:"Cluster",
+  options:#"SYSTEM_SYSRULES_forEach"(
+    items:local!clusterData,
+    expression:#"SYSTEM_SYSRULES_recordFilterListOption"(
+      id:fv!index,
+      name:fv!item,
+      filter:#"SYSTEM_SYSRULES_queryFilter"(
+        field:"cluster_name",
+        operator:"=",
+        value:fv!item
+      )
+    )
+  )
+)
+)</a:facetExpr>
+      <a:sortOrderIndex>1</a:sortOrderIndex>
+      <a:facetOrderIndex>1</a:facetOrderIndex>
+      <a:visibilityExpr/>
+      <a:defaultOptionExpr/>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:fieldCfg name="Calendar">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>a!localVariables(
+  local!calendarData1:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_27579"(
+
+    pagingInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex:1,
+      batchSize:-1,
+      sort:#"SYSTEM_SYSRULES_sortInfo"(
+        field:"calendar_name",
+        ascending:true()
+      )
+    )
+  ),
+  local!calendarrData:union(
+    local!calendarData1.calendar_name,
+    local!calendarData1.calendar_name
+  ),
+  #"SYSTEM_SYSRULES_recordFilterList"(
+    name:"Calendar",
+    options:#"SYSTEM_SYSRULES_forEach"(
+      items:local!calendarrData,
+      expression:#"SYSTEM_SYSRULES_recordFilterListOption"(
+        id:fv!index,
+        name:fv!item,
+        filter:#"SYSTEM_SYSRULES_queryFilter"(
+          field:"calendar_name",
+          operator:"=",
+          value:fv!item
+        )
+      )
+    )
+  )
+)</a:facetExpr>
+      <a:sortOrderIndex>2</a:sortOrderIndex>
+      <a:facetOrderIndex>2</a:facetOrderIndex>
+      <a:visibilityExpr/>
+      <a:defaultOptionExpr/>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:fieldCfg name="Status">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>a!localVariables(
+  local!isActive1:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_27579"(
+
+    pagingInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex:1,
+      batchSize:-1,
+      sort:#"SYSTEM_SYSRULES_sortInfo"(
+        field:"is_active",
+        ascending:false()
+      )
+    )
+  ),
+  local!isActive:union(
+    local!isActive1.is_active,
+    local!isActive1.is_active
+  ),
+
+  #"SYSTEM_SYSRULES_recordFilterList"(
+    name:"Status",
+    options:#"SYSTEM_SYSRULES_forEach"(
+      items:local!isActive,
+      expression:#"SYSTEM_SYSRULES_recordFilterListOption"(
+        id:fv!index,
+        name:if(
+          fv!item=0,
+          "Inactive",
+          "Active"
+        ),
+        filter:#"SYSTEM_SYSRULES_queryFilter"(
+          field:"is_active",
+          operator:"=",
+          value:fv!item
+        )
+      )
+    )
+  )
+)
+
+
+
+</a:facetExpr>
+      <a:sortOrderIndex>3</a:sortOrderIndex>
+      <a:facetOrderIndex>3</a:facetOrderIndex>
+      <a:visibilityExpr/>
+      <a:defaultOptionExpr/>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>#"SYSTEM_SYSRULES_rtd_getDefaultSummaryViewName"()</a:nameExpr>
+      <a:uiExpr>#"_a-0000eab6-dc46-8000-9be9-011c48011c48_254542"(
+  processId: rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>summary</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Run Configuration"</a:nameExpr>
+      <a:uiExpr>/*rule!EAP_RunConfigAdditionalDashboard(*/
+  /*processId: rf!process_id*/
+/*)*/
+#"5c30e311-c6b9-4297-abca-62efab8e6a0c"(
+  processId: rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_kbSgmA</a:urlStub>
+      <a:headerExpr/>
+      <a:relatedActionCfg>6fd40b83-910e-43b1-9e59-da6715bafeaf</a:relatedActionCfg>
+      <a:relatedActionCfg>356a17d3-e04c-45c5-bf4b-f62030a4b64f</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"IO Configuration"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_192914"(
+  processId: rf!process_id,
+  isProductionSite:false()
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_6gelXA</a:urlStub>
+      <a:headerExpr/>
+      <a:relatedActionCfg>6289fad7-1dbf-4e10-b34f-fd62d185578e</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Parsing"</a:nameExpr>
+      <a:uiExpr>/*rule!EAP_ParsingSummaryDashboard(*/
+  /*processId:rf!process_id*/
+/*)*/
+#"_a-0000eab6-dc46-8000-9be9-011c48011c48_254899"(
+  processId:rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>not(or(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7456"(
+      processId: 
+      rf!process_id
+    )
+  )
+ 
+))</a:visibilityExpr>
+      <a:urlStub>_DpxtgA</a:urlStub>
+      <a:headerExpr/>
+      <a:relatedActionCfg>0779e6b1-3ae9-4a49-a6d4-f26a7d5bfce6</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Transformation"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e4c6-4628-8000-5253-1bef901bef90_21123"(
+  processId : rf!process_id,
+  referenceNumber:rf!euc_reference_number
+ 
+)</a:uiExpr>
+      <a:visibilityExpr>not(or(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7456"(
+      processId: 
+      rf!process_id
+    )
+  )
+
+))</a:visibilityExpr>
+      <a:urlStub>_n-62gA</a:urlStub>
+      <a:headerExpr/>
+      <a:relatedActionCfg>ede59d86-3d14-4d11-a8c3-0689fc74d99e</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Output Configuration"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_208249"(
+  processId: rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_JEsLvw</a:urlStub>
+      <a:headerExpr/>
+      <a:relatedActionCfg>aee4d5ed-af76-4c22-8183-96fc0841965f</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Scheduler Details"</a:nameExpr>
+      <a:uiExpr>#"_a-0000eab6-dc46-8000-9be9-011c48011c48_254500"(
+  processId: rf!process_id,
+  isDashboard: true()
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_S0piww</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Calendar Details"</a:nameExpr>
+      <a:uiExpr>#"_a-0000eab6-dc46-8000-9be9-011c48011c48_255146"(
+  processId: rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_5asjbw</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Email Whitelist"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_164968"(
+  processId: rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>__imEOQ</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"UI View Configuration"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_329224"(
+  isReadOnly: true(),
+  processId: rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_9_J0bQ</a:urlStub>
+      <a:headerExpr/>
+      <a:relatedActionCfg>d94dd2aa-df1f-4328-a090-4569c7475a01</a:relatedActionCfg>
+      <a:relatedActionCfg>6729a60f-fa7c-4493-b348-562961ee9c72</a:relatedActionCfg>
+      <a:relatedActionCfg>bce05713-818a-457f-90ae-49caadeaf68f</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Dynamic Workflow"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e505-ae05-8000-525c-1bef901bef90_389704"(
+  isReadOnly: true(),
+  processId: rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_vVfRBw</a:urlStub>
+      <a:headerExpr/>
+      <a:relatedActionCfg>c06c2f17-c52a-4904-a42d-4e03a6963ca0</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Data Validation"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_376972"(
+  processId :rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_XtRk3w</a:urlStub>
+      <a:headerExpr/>
+      <a:relatedActionCfg>cfd77a2f-fca5-4d15-b482-97335716da68</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"EUC Escalation"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e518-940a-8000-525e-1bef901bef90_473086"(
+  processId :rf!process_id,
+  isReadOnly :true()
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_JwW9lw</a:urlStub>
+      <a:headerExpr/>
+      <a:relatedActionCfg>011927c8-5b41-494b-a2f7-b18e46883623</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Process Extension"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e56b-0831-8000-5261-1bef901bef90_664659"(
+  procesId:rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_W-rvtQ</a:urlStub>
+      <a:headerExpr/>
+      <a:relatedActionCfg>774020cc-7dd8-4c0c-adc8-7184504b40e8</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Process Parameter"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e5ac-f704-8000-5264-1bef901bef90_747112"(
+  isReadOnly:true,
+  processParamConfig:#"_a-0000e5c3-a65f-8000-5268-1bef901bef90_759635"(
+    processId: rf!process_id
+  )
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_DNA-FQ</a:urlStub>
+      <a:headerExpr/>
+      <a:relatedActionCfg>0b7ed926-3896-4d9d-8181-b00607d3c02f</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Process Parameters Page"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e5c3-a65f-8000-5268-1bef901bef90_762785"(
+  processId: rf!process_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_Sq999g</a:urlStub>
+      <a:headerExpr/>
+      <a:relatedActionCfg>88ce4530-8401-468e-ac39-e514a8f64602</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:defaultFilter>
+      <a:field>process_id</a:field>
+      <a:operator>in</a:operator>
+      <a:valueExpression>tointeger(
+  index(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9887"(
+      /*userSoeId: loggedInUser(),*/
+      isActive: true()
+    ),
+    "processId",
+    {}
+  )
+)</a:valueExpression>
+    </a:defaultFilter>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4cd-1015-8000-5869-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id, /* Number (Integer) */
+  relatedAction: 2 /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>/*a!localVariables(*/
+  /*local!group: index(*/
+    /*rule!EAP_QE_RefProcessUsers(*/
+      /*isActive: true()*/
+    /*),*/
+    /*"isPowerUser",*/
+    /*{}*/
+  /*),*/
+  /*if(*/
+    /*isusermemberofgroup(*/
+      /*loggedInUser(),*/
+      /*local!group*/
+    /*),*/
+    /*true(),*/
+    /*false()*/
+  /*)*/
+/*)*/
+true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>0ab3f066-4737-4ccb-ac05-703a9252eef9</a:refId>
+      <a:staticTitleString>Manage Process Group</a:staticTitleString>
+      <a:staticDescriptionString>Click to manage process group</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4cd-1015-8000-5869-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id, /* Number (Integer) */
+  relatedAction: 3,/* Number (Integer) */
+  isInvalid:1
+}</a:contextExpr>
+      <a:visibilityExpr>/*a!localVariables(*/
+  /*local!group: index(*/
+    /*rule!EAP_QE_RefProcessUsers(*/
+      /*isActive: true()*/
+    /*),*/
+    /*"isPowerUser",*/
+    /*{}*/
+  /*),*/
+  /*if(*/
+    /*isusermemberofgroup(*/
+      /*loggedInUser(),*/
+      /*local!group*/
+    /*),*/
+    /*true(),*/
+    /*false()*/
+  /*)*/
+/*)*/
+true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>76f405d3-b0e5-445b-b349-0b6ab8b421e9</a:refId>
+      <a:staticTitleString>Manage Process Users</a:staticTitleString>
+      <a:staticDescriptionString>Click to manage process users</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4cd-1015-8000-5869-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id, /* Number (Integer) */
+  relatedAction: 1 /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>/*a!localVariables(*/
+  /*local!group: index(*/
+    /*rule!EAP_QE_RefProcessUsers(*/
+      /*isActive: true()*/
+    /*),*/
+    /*"isPowerUser",*/
+    /*{}*/
+  /*),*/
+  /*if(*/
+    /*isusermemberofgroup(*/
+      /*loggedInUser(),*/
+      /*local!group*/
+    /*),*/
+    /*true(),*/
+    /*false()*/
+  /*)*/
+/*)*/
+true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>2fcc6a38-77e7-475c-9814-7e9072c478c9</a:refId>
+      <a:staticTitleString>Manage Process</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage process</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4c9-0ecd-8000-5624-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id, /* Number (Integer) */
+  runConfigId: null /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>6fd40b83-910e-43b1-9e59-da6715bafeaf</a:refId>
+      <a:staticTitleString>Manage Run Configuration</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage run configuration.</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0014e4d9-2b11-8000-5e90-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id, /* Number (Integer) */
+  configId: null
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>6289fad7-1dbf-4e10-b34f-fd62d185578e</a:refId>
+      <a:staticTitleString>Create New IO Configuration</a:staticTitleString>
+      <a:staticDescriptionString>Click here to Manage IO Configuration</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0009e4d9-13f8-8000-5e7f-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>3b014515-24d0-4c12-b5ff-39ba90f1e85f</a:refId>
+      <a:staticTitleString>Manage Runtime Filter Key</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage runtime filter key.</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e5d7-6b1f-8000-7513-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>3d722579-c5e1-49c8-a38f-9f3b9ab796ac</a:refId>
+      <a:staticTitleString>Manage Custom Runtime Filters</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage custom runtime filter key</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4d2-7cde-8000-5af5-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>7a19f0d3-89bc-4a15-9072-146cdf18bcad</a:refId>
+      <a:staticTitleString>Manage Entity Name</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage the entity names.</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4c5-573f-8000-541f-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  /* config_id: 1,  Number (Integer) */
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>0779e6b1-3ae9-4a49-a6d4-f26a7d5bfce6</a:refId>
+      <a:staticTitleString>Manage Parsing Configuration</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage parsing configuration.</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0014e4d8-c32f-8000-5e68-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  isReadOnly: false(), /* Boolean */
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>1b402372-0798-4d35-be7b-cdac15bef1e3</a:refId>
+      <a:staticTitleString>Manage Custom Action</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage custom action.</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4c7-ab88-8000-556a-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id, /* Number (Integer) */
+ 
+  referenceNumber:rf!euc_reference_number
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>ede59d86-3d14-4d11-a8c3-0689fc74d99e</a:refId>
+      <a:staticTitleString>Create Transformation Configurations</a:staticTitleString>
+      <a:staticDescriptionString>Click here to create transformation configurations.</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4db-60a9-8000-5eb4-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>if(rf!is_active=0,
+false(),
+true())</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>356a17d3-e04c-45c5-bf4b-f62030a4b64f</a:refId>
+      <a:staticTitleString>Run Adhoc Configuration</a:staticTitleString>
+      <a:staticDescriptionString>Click here to run adhoc configuration</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4df-a33c-8000-60ae-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  
+  processId:rf!process_id
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>aee4d5ed-af76-4c22-8183-96fc0841965f</a:refId>
+      <a:staticTitleString>Create New Output Configuration</a:staticTitleString>
+      <a:staticDescriptionString>Click here to create new output configuration</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4d7-99ef-8000-5d7b-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>fc00f1fd-6c87-4790-b225-889ad3fe666c</a:refId>
+      <a:staticTitleString>Manage Email Whitelist</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage email whitelist.</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4db-a482-8000-5eda-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>93c99e07-bdd4-48a5-9acc-6c08fef36fe9</a:refId>
+      <a:staticTitleString>Manage Checklist Configuration</a:staticTitleString>
+      <a:staticDescriptionString>Manage Checklist Configuration</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4f8-baaf-8000-6376-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  isReadOnly: false(),
+  processId: rf!process_id
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>d94dd2aa-df1f-4328-a090-4569c7475a01</a:refId>
+      <a:staticTitleString>Manage Input UI View Configuration</a:staticTitleString>
+      <a:staticDescriptionString> Click here to manage Input UI View Configurations</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="000de4fc-6352-8000-63dc-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  isReadOnly: false(), /* Boolean */
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>6729a60f-fa7c-4493-b348-562961ee9c72</a:refId>
+      <a:staticTitleString>Manage Output UI View Configuration</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage Output UI View Configurations</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="000de4fc-8870-8000-63e4-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  isReadOnly: false(), /* Boolean */
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>bce05713-818a-457f-90ae-49caadeaf68f</a:refId>
+      <a:staticTitleString>Manage Adjustment UI View Configuration</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage Adjustment UI View Configurations</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="000ae502-f60d-8000-6468-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id, /* Number (Integer) */
+  isReadOnly: false()
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>c06c2f17-c52a-4904-a42d-4e03a6963ca0</a:refId>
+      <a:staticTitleString>Manage Dynamic Workflow Config</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage dynamic workflow configuration.</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0015e504-737a-8000-64ba-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+
+  processId: rf!process_id, /* Number (Integer) */
+ 
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>cfd77a2f-fca5-4d15-b482-97335716da68</a:refId>
+      <a:staticTitleString>Manage Data Validation Configuration</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage data validation</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="000be509-8582-8000-668b-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  isReadOnly: null, /* Boolean */
+  processId:rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>1404fb6d-9115-4db8-815d-0083156df672</a:refId>
+      <a:staticTitleString>Manage Data Validation Custom Action</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage data validation custom action</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0007e51e-e03e-8000-69d6-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id,/* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>011927c8-5b41-494b-a2f7-b18e46883623</a:refId>
+      <a:staticTitleString>Manage Process Escalation Recipient</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage process escalation recipient.</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e573-1b32-8000-6ed5-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId :rf!process_id
+  
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>774020cc-7dd8-4c0c-adc8-7184504b40e8</a:refId>
+      <a:staticTitleString>Manage Process Extension</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage process Extension.</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e5c6-4521-8000-7426-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  isReadOnly: false, /* Boolean */
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>0b7ed926-3896-4d9d-8181-b00607d3c02f</a:refId>
+      <a:staticTitleString>Manage Process Param Configs</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage process parameter configuration</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e5cb-40ca-8000-746a-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>88ce4530-8401-468e-ac39-e514a8f64602</a:refId>
+      <a:staticTitleString>Manage Process Parameters Page Configs</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage Process Param Page Configs and Details.</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e5f5-a0bf-8000-75a8-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  processId: rf!process_id /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>ac4f4345-f722-4ad4-8089-f4f13095b0a5</a:refId>
+      <a:staticTitleString>Manage NAS Configuration</a:staticTitleString>
+      <a:staticDescriptionString>Click here to configure NAS based file sharing mechanism</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:isSystem>false</a:isSystem>
+    <a:dataSrcExpr/>
+    <a:facetsListExpr/>
+    <a:titleExpr>"EUC|"&amp;rf!euc_reference_number</a:titleExpr>
+    <a:defaultFiltersExpr/>
+    <a:layoutType>GRID</a:layoutType>
+    <a:security>16383</a:security>
+    <a:hideLatestNews>false</a:hideLatestNews>
+    <a:hideNewsView>false</a:hideNewsView>
+    <a:hideRelatedActionsView>false</a:hideRelatedActionsView>
+    <a:isExportable>true</a:isExportable>
+    <a:listViewSrcExpr/>
+    <a:recordViewSrcExpr/>
+    <a:recordListActionCfg>
+      <a:staticTitle>Create New Process</a:staticTitle>
+      <a:staticDescription/>
+      <a:iconId>f0e7</a:iconId>
+      <a:target a:uuid="0002e4cd-1015-8000-5869-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>true</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:recordListActionCfg>
+    <a:recordTypeSearchCfg>
+      <searchFieldsSrc>DEFAULT</searchFieldsSrc>
+      <placeholderSrc>DEFAULT</placeholderSrc>
+      <placeholder/>
+    </a:recordTypeSearchCfg>
+    <a:iconId/>
+    <a:listAutoRefreshInterval>0.0</a:listAutoRefreshInterval>
+    <a:enabledFeatures>32</a:enabledFeatures>
+    <a:isVisibleInRecordTypeList>true</a:isVisibleInRecordTypeList>
+    <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+    <a:showSearchBox>true</a:showSearchBox>
+    <a:isVisibleInDataFabric>true</a:isVisibleInDataFabric>
+    <a:usesRollingSyncLimit>false</a:usesRollingSyncLimit>
+    <a:usesRecoverySync>false</a:usesRecoverySync>
+    <a:isScheduledIndexingEnabled>false</a:isScheduledIndexingEnabled>
+    <a:smartSearchAcceptableFailureRate>0.0</a:smartSearchAcceptableFailureRate>
+    <a:skipFailedSmartServicesSync>false</a:skipFailedSmartServicesSync>
+  </recordType>
+  <roleMap>
+    <role name="record_type_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+      </groups>
+    </role>
+    <role name="record_type_viewer">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="6411dddf-8dc8-4c2b-ac7e-1237c9d93535"/>
+    <historyInfo versionUuid="6af4cdf3-4e3d-42c8-b139-7b1b15fbfbc8"/>
+    <historyInfo versionUuid="9c70bcbf-f5ab-442d-9fac-3afad94e5f60"/>
+    <historyInfo versionUuid="58aa1add-dc81-4b74-8edf-1a3e5ceee734"/>
+    <historyInfo versionUuid="b51c2eb9-cc50-4ce3-8784-bfa795cf2a9a"/>
+    <historyInfo versionUuid="115cce61-5015-4547-be96-a659c7e25454"/>
+    <historyInfo versionUuid="494238a0-5ace-4754-980b-0d9b03e57482"/>
+    <historyInfo versionUuid="8da6e176-73a4-4f49-8728-fc736a19dbb6"/>
+    <historyInfo versionUuid="1158c41f-d124-42fb-89b4-d1ac61bc6b34"/>
+    <historyInfo versionUuid="06aec979-2b0c-436c-952d-e481127cc1d1"/>
+    <historyInfo versionUuid="a5aee9a3-5960-4ec5-9f90-dc01abfdb178"/>
+    <historyInfo versionUuid="43edf63c-60f3-4b27-b709-456770b6e503"/>
+    <historyInfo versionUuid="dfe31a3e-937f-464e-9473-9cc379aa1688"/>
+    <historyInfo versionUuid="f5fc2f05-e148-4c8b-8910-836d07af0a5a"/>
+    <historyInfo versionUuid="e744da2e-1487-409b-b6eb-2e342c47dde5"/>
+    <historyInfo versionUuid="1575c38b-4ea3-4121-9abd-0728fec65330"/>
+    <historyInfo versionUuid="07581e8b-89b2-4cab-8602-30059c7e3137"/>
+    <historyInfo versionUuid="bf9828a8-273b-4131-83ba-e4ed3abdb343"/>
+    <historyInfo versionUuid="1c93a06a-9967-4faf-9953-a4fc733219f4"/>
+    <historyInfo versionUuid="4838673f-baed-4592-b022-7240b3f7dc0b"/>
+  </history>
+  <migrationVersion>1</migrationVersion>
+</recordTypeHaul>

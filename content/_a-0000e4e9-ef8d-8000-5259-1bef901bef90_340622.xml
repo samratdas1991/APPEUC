@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_360487</versionUuid>
+    <interface>
+        <name>EAP_ManageRelatedActionSecurity</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_340622</uuid>
+        <description>Contains editable grid to manage related action security</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  
+  local!getProcess: a!refreshVariable(
+    
+    value:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_27579"(
+   isActive: 1
+  ),
+  refreshAlways:true(),
+  refreshOnVarChange:ri!processId
+  ),
+  
+  local!processId:union(index(local!getProcess,"process_id",{}),
+  index(local!getProcess,"process_id",{})
+  ),
+  local!processName:union(index(local!getProcess,"process_name",{}),
+  index(local!getProcess,"process_name",{})),
+
+  {
+    if(
+      ri!isRelatedAction=true(),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_192927"(
+        ri!processId
+      ),
+      {}
+    )
+    ,
+    #"SYSTEM_SYSRULES_richTextDisplayField"(),
+   
+   #"SYSTEM_SYSRULES_sectionLayout_v1"(
+     label:"Manage Related Action Security",
+     contents:{
+       #"SYSTEM_SYSRULES_richTextDisplayField"(),
+       if(
+         ri!isRelatedAction=true(),
+         {},
+         #"SYSTEM_SYSRULES_columnsLayout"(
+           columns: {
+             #"SYSTEM_SYSRULES_columnLayout"(
+               contents: {
+
+                 #"SYSTEM_SYSRULES_dropdownField"(
+                   label: "Process Name",
+                   placeholderLabel: "--Select Process Name--",
+                   required: if(
+                     or(
+                       ri!isReadOnly
+                     ),
+                     false(),
+                     true()
+                   ),
+                   choiceLabels: if(
+                     #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!processName),
+                     null,
+                     touniformstring(local!processName)
+                   ),
+                   choiceValues: if(
+                     #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!processId),
+                     null,
+                     tointeger(local!processId)
+                   )
+                   ,
+                   value: if(
+                     #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                       value:ri!processId,
+                       choiceValue:if(
+                         #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!processId),
+                         null,
+                         tointeger(local!processId)
+                       )
+                     ),
+                     ri!processId,
+                     null
+                   ),
+
+                   saveInto: {
+                     ri!processId,
+                     a!save(ri!relatedActionSecurity,#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_352014"(
+                       processId:ri!processId
+                     ))
+                   },
+                   readOnly: ri!isReadOnly
+                 )
+               }
+             ),
+             #"SYSTEM_SYSRULES_columnLayout"()
+           }
+         )
+       )
+     ,
+      {
+        #"SYSTEM_SYSRULES_gridLayout"(
+          label: "",
+          shadeAlternateRows: false(),
+          headerCells: {
+
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "Related Action Name",
+              align: "LEFT"
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "User",
+              align: "LEFT"
+            ),
+
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "Is Acitve",
+              align: "CENTER"
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "",
+              align: "CENTER",
+              showWhen:ri!isReadOnly&lt;&gt;true()
+            )
+
+          },
+          columnConfigs: {
+
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE",
+
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE",
+
+            ),
+
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "ICON"
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "ICON"
+            )
+          },
+          rows: {
+            #"SYSTEM_SYSRULES_applyComponents"(
+              function: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_340616"(
+                isReadOnly: ri!isReadOnly,
+                index: _,
+                processId:ri!processId,
+
+                relatedActionSecurity:ri!relatedActionSecurity
+
+              ),
+              array: if(
+                or(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!relatedActionSecurity
+                  ),
+                  count(
+                    ri!relatedActionSecurity
+                  ) = 0
+                ),
+                null,
+                wherecontains(
+                  tointeger(ri!processId),
+                  tointeger(index(ri!relatedActionSecurity,"process_id",{}))
+                )
+              )
+            )
+          },
+          addRowLink:   if(
+            ri!isReadOnly,
+            {},
+            #"SYSTEM_SYSRULES_dynamicLink"(
+              /*showWhen:false(),*/
+              label: "Add line items",
+              value: 'type!{urn:com:appian:types:eap}EAP_T_ManageRelatedActionSecurity'(
+                is_active:1,
+                created_by:loggedInUser(),
+                created_on:now(),
+                process_id:ri!processId
+              ),
+              saveInto: {
+                a!save(
+                  ri!relatedActionSecurity,
+                  append(
+                    ri!relatedActionSecurity,
+                    save!value
+                  )
+                )
+              }
+            )
+          )
+        ),
+        if(
+          ri!isReadOnly=true(),
+          {},
+          #"SYSTEM_SYSRULES_ButtonLayout"(
+            primaryButtons:{
+              #"SYSTEM_SYSRULES_ButtonWidget"(
+                label:"Submit",
+                submit:true(),
+                validate:true(),
+                value:"Submit",
+                saveInto:{ri!buttonAction,
+               
+                },
+                style:"PRIMARY"
+              )
+            }, 
+            secondaryButtons:{
+              #"SYSTEM_SYSRULES_ButtonWidget"(
+                label:"Cancel",
+                submit:true(),
+                validate:false(),
+                value:"Cancel",
+                saveInto:ri!buttonAction,
+                style:"DESTRUCTIVE"
+              )
+            }
+          )
+        )
+      }
+       
+       
+     },
+     isCollapsible:false()
+     
+   ),
+  
+
+    })</definition>
+        <namedTypedValue>
+            <name>relatedActionSecurity</name>
+            <type>
+                <name>EAP_T_ManageRelatedActionSecurity?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isRelatedAction</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_360487"/>
+    </history>
+</contentHaul>

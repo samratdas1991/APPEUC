@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_745630</versionUuid>
+    <rule>
+        <name>EAP_setValueForOutEmailContact</name>
+        <uuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_745560</uuid>
+        <description>Hold set value rule for EAP_T_OutEmailContact</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!outEmailContacts),
+  null,
+  #"SYSTEM_SYSRULES_forEach"(
+    items: ri!outEmailContacts,
+    expression: #"_a-0000e5ac-f704-8000-5264-1bef901bef90_742568"(
+      outEmailProcessTemplateMappingId:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!outEmailProcessTemplateMappingId),
+        ri!outEmailContacts[fv!index].out_email_process_template_mapping_id,
+        ri!outEmailProcessTemplateMappingId
+      ),
+      outEmailTemplateConfigId:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!outEmailTemplateConfigId),
+        ri!outEmailContacts[fv!index].out_email_template_config_id,
+        ri!outEmailTemplateConfigId
+      ),
+      outEmailContactId:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!outEmailContactId),
+        ri!outEmailContacts[fv!index].out_email_contact_id,
+        ri!outEmailContactId
+      ),
+      sendAs:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!sendAs),
+        ri!outEmailContacts[fv!index].send_as,
+        ri!sendAs
+      ), 
+      recipientType:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!recipientType),
+        ri!outEmailContacts[fv!index].recipient_type,
+        ri!recipientType
+      ), 
+      recipient:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!recipient),
+        ri!outEmailContacts[fv!index].recipient,
+        ri!recipient
+      ),
+      isActive:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isActive),
+        ri!outEmailContacts[fv!index].is_active,
+        ri!isActive
+      ),
+      createdBy:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdBy),
+        ri!outEmailContacts[fv!index].created_by,
+        ri!createdBy
+      ),
+      createdOn:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdOn),
+        ri!outEmailContacts[fv!index].created_on,
+        ri!createdOn
+      ),
+      modifiedBy:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedBy),
+        ri!outEmailContacts[fv!index].modified_by,
+        ri!modifiedBy
+      ),
+      modifiedOn:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedOn),
+        ri!outEmailContacts[fv!index].modified_on,
+        ri!modifiedOn
+      )
+    )
+  )
+)
+
+
+
+
+</definition>
+        <namedTypedValue>
+            <name>outEmailProcessTemplateMappingId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sendAs</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outEmailTemplateConfigId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>recipientType</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>recipient</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outEmailContactId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outEmailContacts</name>
+            <type>
+                <name>EAP_T_OutEmailContact?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_745630"/>
+    </history>
+</contentHaul>

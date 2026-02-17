@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tempoReportHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>bc3d2afa-aa78-4135-bdbb-756b666ad0c8</versionUuid>
+    <tempoReport a:uuid="f87e06c0-3957-4b28-8c5a-60bd772b48c8" name="EAP_OpsDashboardStatusSummaryReport">
+        <a:description>Holds interface for Status summary report of Ops dashboard</a:description>
+        <a:uiExpr>=#"_a-0000e56b-0831-8000-5261-1bef901bef90_637371"()</a:uiExpr>
+        <a:urlStub>epR0PQ</a:urlStub>
+    </tempoReport>
+    <roleMap>
+        <role name="report_administrator">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+                <groupUuid>_e-0000e56b-0831-8000-5261-1b1e941b1e94_351</groupUuid>
+            </groups>
+        </role>
+        <role name="report_viewer">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="bc3d2afa-aa78-4135-bdbb-756b666ad0c8"/>
+    </history>
+</tempoReportHaul>

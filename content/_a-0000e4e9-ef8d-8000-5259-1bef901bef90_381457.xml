@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ea-27a1-8000-5269-1bef901bef90_773869</versionUuid>
+    <rule>
+        <name>EAP_QE_DwfProcessControllerConfigView</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_381457</uuid>
+        <description>Hold qe for dwf process controller config view</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  and(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!id
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processControllerMasterName
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!runConfigId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!milestoneId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isParallel
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processControllerConfigId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processControllerId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!nextProcessControllerId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processModelUUID
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!ioConfigId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!parsingId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!transformationId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!outputGenerationId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!isSystemDriven
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!assignee
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!action
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!milestoneName
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!milestoneIsParallel
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!linkMappingId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!dataValidationId
+    ),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!stepId
+    )
+  ),
+  null,
+  #"SYSTEM_SYSRULES_queryEntity_v1"(
+    entity: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_381451",
+    query: #"SYSTEM_SYSRULES_query"(
+      logicalExpression: if(
+        and(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!id
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!processControllerMasterName
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!processId
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!runConfigId
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!milestoneId
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!isParallel
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!processControllerConfigId
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!processControllerId
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!nextProcessControllerId
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!processModelUUID
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!ioConfigId
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!parsingId
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!transformationId
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!outputGenerationId
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!isSystemDriven
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!assignee
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!action
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!milestoneName
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!milestoneIsParallel
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!linkMappingId
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!dataValidationId
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!stepId
+          )
+        ),
+        null,
+        #"SYSTEM_SYSRULES_queryLogicalExpression"(
+          operator: "AND",
+          filters: {
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!id
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "id",
+                operator: "IN",
+                value: {
+                  ri!id
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!processControllerMasterName
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "process_controller_master_name",
+                operator: "IN",
+                value: {
+                  ri!processControllerMasterName
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!processId
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "process_id",
+                operator: "IN",
+                value: {
+                  ri!processId
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!runConfigId
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "run_config_id",
+                operator: "IN",
+                value: {
+                  ri!runConfigId
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!milestoneId
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "milestone_id",
+                operator: "IN",
+                value: {
+                  ri!milestoneId
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!isParallel
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "is_parallel",
+                operator: "IN",
+                value: {
+                  ri!isParallel
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!processControllerConfigId
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "process_controller_config_id",
+                operator: "IN",
+                value: {
+                  ri!processControllerConfigId
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!nextProcessControllerId
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "next_process_controller_id",
+                operator: "IN",
+                value: {
+                  ri!nextProcessControllerId
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!processControllerId
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "process_controller_id",
+                operator: "IN",
+                value: {
+                  ri!processControllerId
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!processModelUUID
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "process_model_uuid",
+                operator: "IN",
+                value: {
+                  ri!processModelUUID
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!ioConfigId
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "io_config_id",
+                operator: "IN",
+                value: {
+                  ri!ioConfigId
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!parsingId
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "parsing_id",
+                operator: "IN",
+                value: {
+                  ri!parsingId
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!transformationId
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "transformation_id",
+                operator: "IN",
+                value: {
+                  ri!transformationId
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!outputGenerationId
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "output_generation_id",
+                operator: "IN",
+                value: {
+                  ri!outputGenerationId
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!isSystemDriven
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "is_system_driven",
+                operator: "=",
+                value: ri!isSystemDriven
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!assignee
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "assignee",
+                operator: "IN",
+                value: {
+                  ri!assignee
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!action
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "action",
+                operator: "IN",
+                value: {
+                  ri!action
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!milestoneName
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "milestone_name",
+                operator: "IN",
+                value: {
+                  ri!milestoneName
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!milestoneIsParallel
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "milestone_is_parallel",
+                operator: "IN",
+                value: {
+                  ri!milestoneIsParallel
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!linkMappingId
+              ),
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "link_mapping_id",
+                operator: "is null"
+              ),
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "link_mapping_id",
+                operator: "IN",
+                value: {
+                  ri!linkMappingId
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!dataValidationId
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "data_validation_id",
+                operator: "IN",
+                value: {
+                  ri!dataValidationId
+                }
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!stepId
+              ),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "step_id",
+                operator: "IN",
+                value: {
+                  ri!stepId
+                }
+              )
+            )
+          }
+        )
+      ),
+      pagingInfo: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!pagingInfo
+        ),
+        #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: 1,
+          batchSize: - 1
+        ),
+        ri!pagingInfo
+      )
+    )
+  ).data
+)</definition>
+        <namedTypedValue>
+            <name>id</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerMasterName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>milestoneId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isParallel</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerConfigId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextProcessControllerId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processModelUUID</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ioConfigId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>parsingId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>transformationId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outputGenerationId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isSystemDriven</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assignee</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>action</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>milestoneName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>milestoneIsParallel</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>linkMappingId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dataValidationId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>stepId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_381720"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_399573"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_424256"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_558115"/>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_573496"/>
+        <historyInfo versionUuid="_a-0000e5ea-27a1-8000-5269-1bef901bef90_773869"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_568903</versionUuid>
+    <rule>
+        <name>EAP_SetValueForPrDynamicConfDetail</name>
+        <uuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_568434</uuid>
+        <description>Rule to Set Value to PR DYNAMIC CONF DETAIL</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!prDynamicConfDetail),
+  null,
+  #"SYSTEM_SYSRULES_forEach"(
+    items:ri!prDynamicConfDetail,
+    expression: #"_a-0000e54c-ce50-8000-5260-1bef901bef90_568422"(
+      eapPrDynamicConfDetailId:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!eapPrDynamicConfDetailId
+        ),
+        ri!prDynamicConfDetail[fv!index].eap_pr_dynamic_conf_detail_id,
+        ri!eapPrDynamicConfDetailId
+      ),
+      eapPrDynamicConfId:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!eapPrDynamicConfId
+        ),
+        ri!prDynamicConfDetail[fv!index].eap_pr_dynamic_conf_id,
+        ri!eapPrDynamicConfId
+      ),
+      attributeName:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!attributeName
+        ),
+        ri!prDynamicConfDetail[fv!index].attribute_name,
+        ri!attributeName
+      ),
+      attributeValue:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!attributeValue
+        ),
+        ri!prDynamicConfDetail[fv!index].attribute_value,
+        ri!attributeValue
+      ),
+
+
+ 
+
+    )
+  )
+
+)
+
+
+</definition>
+        <namedTypedValue>
+            <name>eapPrDynamicConfDetailId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>eapPrDynamicConfId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>attributeName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>attributeValue</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>prDynamicConfDetail</name>
+            <type>
+                <name>EAP_T_PR_DYNAMIC_CONF_DETAIL?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_568903"/>
+    </history>
+</contentHaul>

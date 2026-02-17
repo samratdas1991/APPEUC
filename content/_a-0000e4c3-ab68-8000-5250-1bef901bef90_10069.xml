@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56f-428b-8000-d94e-a7ef90a7ef90_6195720</versionUuid>
+    <rule>
+        <name>EAP_generateInputParsingJsonRequest</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_10069</uuid>
+        <description>Rule to generate request Json with the documents for the input parsing.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!transAttachments: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!requestDetails),
+    null,
+    #"_a-0000e4c6-e892-8000-5254-1bef901bef90_29621"(
+      requestId: ri!requestDetails.requestId
+    )
+  ),
+  local!transData: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!requestDetails),
+    null,
+    #"_a-0000e4c6-e892-8000-5254-1bef901bef90_23096"(
+      requestId: ri!requestDetails.requestId
+    )
+  ),
+  local!getRefFileTypeList: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!requestDetails),
+    null,
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7456"(
+      processId: ri!requestDetails.processId,
+      configId: index(
+      local!transData,
+      "configId",
+      null
+    )
+    )
+  ),
+  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9930"(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!transAttachments,
+      expression: with(
+        local!indexedTransData: index(
+          local!transData,
+          wherecontains(
+            tointeger(
+              fv!item.transaction_id
+            ),
+            tointeger(
+              index(
+                local!transData,
+                "transactionId",
+                null
+              )
+            )
+          ),
+          null
+        ),
+        local!indexFileTypeId: index(
+          index(
+            local!getRefFileTypeList,
+            wherecontains(
+              tointeger(
+                index(
+                  local!indexedTransData,
+                  "configId",
+                  null
+                )
+              ),
+              tointeger(
+                index(
+                  local!getRefFileTypeList,
+                  "config_id",
+                  null
+                )
+              )
+            ),
+            null
+          ),
+          "in_file_type_config_id",
+          null
+        ),
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              local!indexedTransData
+            ),
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              local!indexFileTypeId
+            )
+          ),
+          null,
+          'type!{urn:com:appian:types:eap}EAP_U_InputParsingRequest'(
+            requestId: ri!requestDetails.requestId,
+            processId: ri!requestDetails.processId,
+            appianDocumentId: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.appian_document_id),
+              "N/A",
+              fv!item.appian_document_id
+            ),
+            inFileTypeConfigId: local!indexFileTypeId
+          )
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>requestDetails</name>
+            <type>
+                <name>EAP_T_ProcessRequest</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name>RequestId - 34</a:name>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">{
+  processId:9,
+  requestId:34
+}</a:value>
+                    <a:nameRef>requestDetails</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+            <el>
+                <a:name>Valid Case</a:name>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+  requestId: 34
+)</a:value>
+                    <a:nameRef>requestDetails</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_85614"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_90027"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_192063"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_511554"/>
+        <historyInfo versionUuid="_a-0000e53a-854b-8000-d91e-a7ef90a7ef90_3733240"/>
+        <historyInfo versionUuid="_a-0000e56f-428b-8000-d94e-a7ef90a7ef90_6195720"/>
+    </history>
+</contentHaul>

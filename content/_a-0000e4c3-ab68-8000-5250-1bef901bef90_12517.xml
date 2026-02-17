@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5f4-e010-8000-526a-1bef901bef90_775568</versionUuid>
+    <rule>
+        <name>EAP_RefProcessTemplateConfigGridRowLayout</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_12517</uuid>
+        <description>Hold grid row layout rule for ref process template config grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  contents: {
+    if(
+      ri!isReadonly = true(),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        label: "Process Display Name",
+        readOnly: true(),
+        value: index(
+          ri!refProcessTempConfig[ri!index],
+          "run_config_id",
+          {}
+        )
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        label: "Run Config Id",
+        placeholderLabel: "--Select Process Name--",
+        choiceLabels: ri!runConfigLabel,
+        choiceValues: ri!runConfigId,
+        required: true(),
+        value: if(
+          #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+            value: index(
+              ri!refProcessTempConfig[ri!index],
+              "run_config_id",
+              {}
+            ),
+            choiceValue: ri!runConfigId
+          ),
+          index(
+            ri!refProcessTempConfig[ri!index],
+            "run_config_id",
+            {}
+          ),
+          null
+        ),
+        saveInto: {
+          ri!refProcessTempConfig[ri!index].run_config_id,
+          a!save(
+            ri!refProcessTempConfig[ri!index].sequence_order,
+            length(
+              {
+                ri!refProcessTempConfig
+              }
+            )
+          )
+        }
+      )
+    ),
+    if(
+      ri!isReadonly = true(),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        label: "Document Version Id",
+        value: index(
+          ri!refProcessTempConfig[ri!index],
+          "document_version_id",
+          {}
+        ),
+        readOnly: true()
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        label: "Document Version Id",
+        placeholderLabel: "--Select Document Version Id--",
+        choiceLabels: ri!documentLabel,
+        choiceValues: ri!documentVersionId,
+        required: true(),
+        value: if(
+          #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+            value: index(
+              ri!refProcessTempConfig[ri!index],
+              "document_version_id",
+              {}
+            ),
+            choiceValue: ri!documentVersionId
+          ),
+          index(
+            ri!refProcessTempConfig[ri!index],
+            "document_version_id",
+            {}
+          ),
+          null
+        ),
+        saveInto: {
+          ri!refProcessTempConfig[ri!index].document_version_id,
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!refProcessTempConfig[ri!index].sequence_order
+            ),
+            a!save(
+              ri!refProcessTempConfig[ri!index].sequence_order,
+              length(
+                {
+                  ri!refProcessTempConfig
+                }
+              ),
+              
+            ),
+            ri!refProcessTempConfig[ri!index].sequence_order
+          )
+        }
+      )
+    ),
+    if(
+      or(
+        ri!isReadOnly = true()
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        required: true(),
+        value: if(
+          index(
+            ri!refProcessTempConfig[ri!index],
+            "isactive",
+            {}
+          ) = 1,
+          "Yes",
+          "No"
+        )
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        align: "CENTER",
+        value: {
+          if(
+            or(
+              tointeger(
+                index(
+                  ri!refProcessTempConfig[ri!index],
+                  "isactive",
+                  {}
+                )
+              ) = 1
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-on",
+              caption: "Yes",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: 1,
+                saveInto: a!save(
+                  ri!refProcessTempConfig[ri!index].isactive,
+                  0
+                )
+              ),
+              size: "MEDIUM_PLUS"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              linkStyle: "STANDALONE",
+              icon: "toggle-off",
+              caption: "No",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: 0,
+                saveInto: a!save(
+                  ri!refProcessTempConfig[ri!index].isactive,
+                  1
+                )
+              ),
+              size: "MEDIUM_PLUS"
+            )
+          )
+        }
+      )
+    ),
+    if(
+      or(
+        ri!isReadonly = true(),
+        count(
+          ri!refProcessTempConfig
+        ) = 1
+      ),
+      {},
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        label: "delete ",
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            "REMOVE"
+          ),
+          altText: "Remove Document",
+          caption: "Remove",
+          link: #"SYSTEM_SYSRULES_dynamicLink"(
+            value: ri!index,
+            saveInto: {
+              a!save(
+                ri!refProcessTempConfig,
+                remove(
+                  ri!refProcessTempConfig,
+                  ri!index
+                )
+              )
+            }
+          )
+        ),
+        size: "ICON"
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>refProcessTempConfig</name>
+            <type>
+                <name>EAP_T_RefProcessWfTemplateConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadonly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>documentLabel</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>documentVersionId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigLabel</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_82809"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_141088"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_199240"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_332884"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_773022"/>
+        <historyInfo versionUuid="_a-0000e5f4-e010-8000-526a-1bef901bef90_775568"/>
+    </history>
+</contentHaul>

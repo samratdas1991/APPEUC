@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_767686</versionUuid>
+    <rule>
+        <name>EAP_setValuesToRequestParamValues</name>
+        <uuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_763299</uuid>
+        <description>Holds expression rule to set value to request param value.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+
+
+  local!pageConfigData: #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_761075"(
+    processParamPgId: ri!processParamPgId,
+
+  ),
+  local!pageDetail: #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_761028"(
+    processParamPgId: ri!processParamPgId,
+    active: 1
+  ),
+  local!processConfigData: #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_759635"(
+    processId: ri!processId,
+    active: 1
+  ),
+
+ 
+  local!tempProcessParams:#"SYSTEM_SYSRULES_forEach"(
+    items: local!pageDetail,
+    expression: 'type!{urn:com:appian:types:eap}EAP_Temp_ProcessParamValues'(
+      process_id: ri!processId,
+      request_id: ri!requestId,
+      process_param_key: index(
+        index(
+          local!processConfigData,
+          wherecontains(
+            tointeger(
+              fv!item.process_param_id
+            ),
+            tointeger(
+              index(
+                local!processConfigData,
+                "process_param_id",
+                {}
+              )
+            )
+          ),
+
+          {}
+        ),
+        "param_name",{}
+      ),
+      param_display_name:index(
+        index(
+          local!processConfigData,
+          wherecontains(
+            tointeger(
+              fv!item.process_param_id
+            ),
+            tointeger(
+              index(
+                local!processConfigData,
+                "process_param_id",
+                {}
+              )
+            )
+          ),
+
+          {}
+        ),
+        "param_display_name",{}
+      ),
+      process_param_type: index(
+        index(
+          local!processConfigData,
+          wherecontains(
+            tointeger(
+              fv!item.process_param_id
+            ),
+            tointeger(
+              index(
+                local!processConfigData,
+                "process_param_id",
+                {}
+              )
+            )
+          ),{},),
+          "param_type",
+          {}
+
+      ),
+      active: fv!item.active,
+      created_by: loggedInUser(),
+      created_on: now(),
+      modified_by: loggedInUser(),
+      modified_on: now()
+    )
+  ),
+  local!output: {
+    
+    pageDisplayName: index(
+      local!pageConfigData,
+      "page_display_name",
+      {}
+    ),
+    tempprocessParamData:local!tempProcessParams
+  },
+  local!output
+)</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processParamPgId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_767686"/>
+    </history>
+</contentHaul>

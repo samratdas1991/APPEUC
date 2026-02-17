@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ed19-51a4-8000-9c01-011c48011c48_373302</versionUuid>
+    <dataStore>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_7357</uuid>
+        <name>EAP Global DS</name>
+        <description>Primary Data Store for Global EAP Tables</description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>c7496798-174c-4525-b37c-5a9e1a233a52</uuid>
+                <name>EAP_T_RefMaster</name>
+                <type>{urn:com:appian:types:eap}EAP_T_RefMaster</type>
+            </entity>
+            <entity>
+                <uuid>13c840c2-7749-42c8-8119-ec6e9e3cd3e7</uuid>
+                <name>EAP_T_ProcessRequest</name>
+                <type>{urn:com:appian:types:EAP}EAP_T_ProcessRequest</type>
+            </entity>
+            <entity>
+                <uuid>aff3380c-b737-44c3-81b2-679c25549cab</uuid>
+                <name>EAP_T_ChecklistTrans</name>
+                <type>{urn:com:appian:types:EAP}EAP_T_ChecklistTrans</type>
+            </entity>
+            <entity>
+                <uuid>6434d5de-2331-455d-89e4-9a0e4d41b20e</uuid>
+                <name>EAP_T_RefChecklist</name>
+                <type>{urn:com:appian:types:EAP}EAP_T_RefChecklist</type>
+            </entity>
+            <entity>
+                <uuid>c83da816-c866-484f-8712-5b161000446d</uuid>
+                <name>EAP_T_RefAuditTrail</name>
+                <type>{urn:com:appian:types:EAP}EAP_T_RefAuditTrail</type>
+            </entity>
+            <entity>
+                <uuid>3ddecf92-3ddc-4e3e-8945-772d7a7e93dd</uuid>
+                <name>EAP_T_RefProcessRuntimeConfig</name>
+                <type>{urn:com:appian:types:EAP}EAP_T_RefProcessRuntimeConfig</type>
+            </entity>
+            <entity>
+                <uuid>90287037-f5a6-40db-9aa7-de63515ea57d</uuid>
+                <name>EAP_T_RequestRtValue</name>
+                <type>{urn:com:appian:types:EAP}EAP_T_RequestRtValue</type>
+            </entity>
+            <entity>
+                <uuid>fd695480-eb49-4d04-8a45-1e84188fa136</uuid>
+                <name>EAP_T_ProcessRequestAudit</name>
+                <type>{urn:com:appian:types:EAP}EAP_T_ProcessRequestAudit</type>
+            </entity>
+            <entity>
+                <uuid>474cfed7-4d16-48bb-8b3d-f252202f4757</uuid>
+                <name>EAP_T_ManageRelatedActionSecurity</name>
+                <type>{urn:com:appian:types:eap}EAP_T_ManageRelatedActionSecurity</type>
+            </entity>
+            <entity>
+                <uuid>4c947e1c-508e-4159-808f-d347d4d57ee1</uuid>
+                <name>EAP_VIEW_PROCESS_REQUEST_AUDIT</name>
+                <type>{urn:com:appian:types:EAP}EAP_VIEW_PROCESS_REQUEST_AUDIT</type>
+            </entity>
+            <entity>
+                <uuid>095b4f01-0b2b-4ff9-b44f-8aaa8c955f8b</uuid>
+                <name>EAP_T_ProcessMilestoneStepTrans</name>
+                <type>{urn:com:appian:types:eap}EAP_T_ProcessMilestoneStepTrans</type>
+            </entity>
+            <entity>
+                <uuid>5bd301dd-62c1-4fa0-809e-0e9f9bd3faec</uuid>
+                <name>EAP_T_OutEmailTemplateConfig</name>
+                <type>{urn:com:appian:types:eap}EAP_T_OutEmailTemplateConfig</type>
+            </entity>
+            <entity>
+                <uuid>bf9aa89f-124d-4896-a276-4e3a5ed1ba00</uuid>
+                <name>EAP_T_OutEmailAttributeConfig</name>
+                <type>{urn:com:appian:types:eap}EAP_T_OutEmailAttributeConfig</type>
+            </entity>
+            <entity>
+                <uuid>48e0cff1-b1c6-4849-8364-80152ce60aab</uuid>
+                <name>EAP_T_OutEmailProcessTemplateMapping</name>
+                <type>{urn:com:appian:types:eap}EAP_T_OutEmailProcessTemplateMapping</type>
+            </entity>
+            <entity>
+                <uuid>be92cd0b-dfb8-465b-a202-45f26fda29e7</uuid>
+                <name>EAP_T_OutEmailContact</name>
+                <type>{urn:com:appian:types:eap}EAP_T_OutEmailContact</type>
+            </entity>
+            <entity>
+                <uuid>3ea58ffb-ff67-4dba-9c88-0f971123bce4</uuid>
+                <name>EAP_T_OutEmailAttributeMapping</name>
+                <type>{urn:com:appian:types}EAP_T_OutEmailAttributeMapping</type>
+            </entity>
+            <entity>
+                <uuid>ca643f56-c045-42c5-87a2-8e46cfb03ee3</uuid>
+                <name>EAP_T_ProcessParamConfig</name>
+                <type>{urn:com:appian:types:eap}EAP_T_ProcessParamConfig</type>
+            </entity>
+            <entity>
+                <uuid>39df2e03-a11d-4556-b357-975da03700cc</uuid>
+                <name>EAP_T_UiProcessParamPgConfig</name>
+                <type>{urn:com:appian:types:eap}EAP_T_UiProcessParamPgConfig</type>
+            </entity>
+            <entity>
+                <uuid>95413d90-a720-43e8-9c8d-74ad4ef2c56d</uuid>
+                <name>EAP_T_UiProcessParamPgDetail</name>
+                <type>{urn:com:appian:types:eap}EAP_T_UiProcessParamPgDetail</type>
+            </entity>
+            <entity>
+                <uuid>30f4d069-2abe-42e9-8507-d5a4a2797858</uuid>
+                <name>EAP_T_RequestParamValue</name>
+                <type>{urn:com:appian:types:eap}EAP_T_RequestParamValue</type>
+            </entity>
+            <entity>
+                <uuid>34f1ab85-1fba-4c34-8a6e-0823ba841e57</uuid>
+                <name>EAP_T_ProcessCustomRTConfig</name>
+                <type>{urn:com:appian:types:eap}EAP_T_ProcessCustomRTConfig</type>
+            </entity>
+            <entity>
+                <uuid>4f6efcae-77ba-4b4f-9d58-85b52fbe82ed</uuid>
+                <name>EAP_T_ProcessRequestCustomRTValue</name>
+                <type>{urn:com:appian:types:eap}EAP_T_ProcessRequestCustomRTValue</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_85220"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_86522"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_93868"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_143886"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_207637"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_337286"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_411421"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_471065"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_487100"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_488453"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_526909"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_627473"/>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_748378"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_759460"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_768924"/>
+        <historyInfo versionUuid="_a-0000e9e9-0626-8000-9bb3-011c48011c48_33538"/>
+        <historyInfo versionUuid="_a-0000ed19-51a4-8000-9c01-011c48011c48_373302"/>
+    </history>
+</dataStoreHaul>

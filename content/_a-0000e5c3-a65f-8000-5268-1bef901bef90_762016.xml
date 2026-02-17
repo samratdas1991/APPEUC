@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_765257</versionUuid>
+    <interface>
+        <name>EAP_masterInterfacetoMapProcessParams</name>
+        <uuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_762016</uuid>
+        <description>Holds Master Interface which contains processParamPg and ProcessParamConfig grids.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!Steps:{
+    "Page Config",
+    "Page Detail"
+  },
+ 
+  local!processParamPgConfigData:#"_a-0000e5c3-a65f-8000-5268-1bef901bef90_761075"(
+    processId: ri!processId,
+    active: 1
+  ),
+  local!processParamConfigData: #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_759635"(
+    processId: ri!processId,
+    active: 1,
+   
+  ),
+  local!IsDetailsFilled: a!refreshVariable(
+    value: #"SYSTEM_SYSRULES_forEach"(
+      items: index(
+        index(ri!processParamPgConfig,
+        wherecontains(
+          true(),
+          toboolean( index(
+            ri!processParamPgConfig,
+            "active",
+            null
+          ))
+        ),
+        null),
+        "process_param_pg_id",
+        null
+      ),
+      expression: and(
+        contains(
+          tointeger(index(ri!processParamPgDetail,"process_param_pg_id",null)),
+          tointeger(fv!item)
+        ),
+        not(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!processParamPgDetail,
+              wherecontains(
+                tointeger(
+                  fv!item
+                ),
+                tointeger(
+                  index(
+                    ri!processParamPgDetail,
+                    "process_param_pg_id",
+                    null
+                  )
+                )
+              ),
+              null
+            )
+          )
+        ),
+
+      )
+    ),
+    refreshOnReferencedVarChange: true(),
+    refreshOnVarChange: {
+      ri!processParamPgDetail
+    }
+
+  ),
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    label: upper("Manage Process Param"),
+    contents: {
+      #"_a-0000e4c6-e892-8000-5254-1bef901bef90_30016"(
+        processId:ri!processId
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(),
+      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11158"(
+        style: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[5],
+        contents: { 
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10573"(
+          steps: local!steps,
+          activeStep:ri!uniqueIdentifiers.active_step,
+          isHideNextStepsLink:if(
+            ri!isReadOnly,
+            true,false),
+            buttonAction:ri!buttonAction,
+            IsValidate: true(),
+     
+          saveInto: if(
+            and(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+                index(
+                  ri!processParamPgConfig,
+                  "process_param_pg_id",
+                  null
+                )
+              )
+            ),
+            null,
+            a!save(
+              ri!uniqueIdentifiers.selected_card,
+              index(
+                index(
+                  index(
+                    ri!processParamPgConfig,
+                    wherecontains(
+                      toboolean(
+                        true()
+                      ),
+                      toboolean(
+                        index(
+                          ri!processParamPgConfig,
+                          "active",
+                          {}
+                        )
+                      )
+                    ),
+                    {}
+                  ),
+                  1,
+                  {}
+                ),
+                "process_param_pg_id",
+                null
+              )
+            )
+          ),
+        ),
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!uniqueIdentifiers.active_step
+          ),
+          {},
+        choose(
+          ri!uniqueIdentifiers.active_step,
+          {#"_a-0000e5ac-f704-8000-5264-1bef901bef90_747076"(
+            isReadOnly: ri!isReadOnly,
+            processParamPGConfig: ri!processParamPgConfig,
+            processId: ri!processId
+          )},
+          
+            {
+              #"SYSTEM_SYSRULES_columnsLayout"(
+                columns: {
+                  #"SYSTEM_SYSRULES_columnLayout"(
+                    showWhen:not(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processParamPgConfig)),
+                    contents: {
+                      #"SYSTEM_SYSRULES_forEach"(
+                        items: index(
+                          ri!processParamPgConfig,
+                          wherecontains(
+                            toboolean(
+                              true()
+                            ),
+                            toboolean(
+                              index(
+                                ri!processParamPgConfig,
+                                "active",
+                                {}
+                              )
+                            )
+                          ),
+                          {}
+                        ),
+                        expression: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10595"(
+                          input: fv!item,
+
+                          selectedCard: ri!uniqueIdentifiers.selected_card,
+                          fieldToShow: "page_name",
+                          fieldToSave: "process_param_pg_id",
+                          selectedCardStyle: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[1],
+                          unselectedCardStyle: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[2],
+                          isShowDescription: false(),
+                          description: "page_description",
+                          linkSaveInto: {
+                            a!save(
+                              ri!uniqueIdentifiers.selected_entity_card,
+                              1
+                            )
+
+                          },
+                          
+                          isShowLabelValue: false(),
+                          isValidate: true(),
+                          buttonAction: ri!buttonAction
+
+                        )
+                      )
+                    },
+                    width: "NARROW"
+                  ),
+                  #"SYSTEM_SYSRULES_columnLayout"(
+                    width: "",
+                    contents: {
+
+                      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11158"(
+                        contents: {
+                          #"_a-0000e5ac-f704-8000-5264-1bef901bef90_747160"(
+                            processParamDetail: ri!processParamPgDetail,
+                            isReadOnly: ri!isReadOnly,
+                            processParamPgId:ri!uniqueIdentifiers.selected_card,
+                            
+                            processParamConfigData:local!processParamConfigData
+                              
+                            
+                             
+                          ),
+                          #"SYSTEM_SYSRULES_columnsLayout"(
+                            columns: {   
+                              /*Validation message*/
+                              #"SYSTEM_SYSRULES_columnLayout"(
+                                showWhen:and(
+                                  ri!isReadOnly&lt;&gt;true(),if(
+                                    contains(
+                                      toboolean(
+                                        local!IsDetailsFilled
+                                      ),
+                                      false()
+                                    ),
+                                    true(),
+                                    false()
+
+                                  )),
+                                  contents: {
+                                    #"SYSTEM_SYSRULES_forEach"(
+                                      items: ri!processParamPgConfig,
+                                      expression: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                        showWhen: not(or(index(local!IsDetailsFilled,fv!index,null))),
+                                        value:if(
+                                          not(
+                                            or(
+                                              index(
+                                                fv!item,
+                                                "active",
+                                                null
+                                              )
+                                            )
+                                          ),
+                                          null,
+                                          {
+                                            /*a!richTextIcon(*/
+                                            /*icon: if(or(index(local!IsDetailsFilled,fv!index,null)),"check-circle","times-circle"),*/
+                                            /*color: if(or(index(local!IsDetailsFilled,fv!index,null)),"POSITIVE","NEGATIVE")*/
+                                            /*),*/
+
+                                            #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                              text:
+                                              if(or(index(local!IsDetailsFilled,fv!index,null)),"Details succesfully added.","Please add missing details in "),
+                                              color: if(or(index(local!IsDetailsFilled,fv!index,null)),#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[1],"NEGATIVE"),
+                                              size: "SMALL"
+                                            ),
+                                            #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                              text:  tostring(index(fv!item,"page_name",null)),
+                                              style: "STRONG",
+                                              color: if(or(index(local!IsDetailsFilled,fv!index,null)),#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[1],"NEGATIVE")
+                                            )
+
+                                          }
+                                        ) 
+                                      )
+                                    )
+                                  }
+
+                              ),
+                              #"SYSTEM_SYSRULES_columnLayout"(
+                                contents: {
+                                  #"SYSTEM_SYSRULES_ButtonLayout"(
+                                    showWhen:ri!isReadOnly&lt;&gt;true(),
+                                    primaryButtons:#"SYSTEM_SYSRULES_ButtonWidget"(
+                                      label:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[4],
+                                      value:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[4],
+                                      saveInto: {
+                                        ri!buttonAction,
+
+                                      },
+                                      disabled: if(
+                                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                          index(
+                                            ri!processParamPgDetail,
+                                            wherecontains(
+                                              tointeger(
+                                                ri!uniqueIdentifiers.selected_card
+                                              ),
+                                              tointeger(
+                                                index(
+                                                  ri!processParamPgConfig,
+                                                  "process_param_pg_id",
+                                                  null
+                                                )
+                                              )
+                                            ),
+                                            null
+                                          )
+                                        ),
+                                        true(),
+                                        false()
+                                      ),
+                                      validate:true(),
+                                      submit: true(),
+
+                                    ),
+
+                                  )
+                                }
+                              )
+                            })
+                        },
+                        showBorder: false(),
+                        style: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[9]
+                      )
+                    }
+                  )
+                }
+              )
+            }
+          
+        )
+        
+        )
+      
+         
+        }
+      ),  
+      #"SYSTEM_SYSRULES_richTextDisplayField"(),
+      #"SYSTEM_SYSRULES_ButtonLayout"(
+        primaryButtons:if(ri!uniqueIdentifiers.active_step=2,
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[1],
+          value:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[1],
+          saveInto: {
+            ri!buttonAction
+          },
+          validate:true(),
+          submit: true(),
+          style: "PRIMARY",
+
+          showWhen: if(
+            ri!uniqueIdentifiers.active_step=2,
+            if(
+              contains(
+                toboolean(
+                  #"SYSTEM_SYSRULES_forEach"(
+                    items: index(
+                      index(ri!processParamPgConfig,
+                      wherecontains(
+                        true(),
+                        toboolean( index(
+                          ri!processParamPgConfig,
+                          "active",
+                          null
+                        ))
+                      ),
+                      null),
+                      "process_param_pg_id",
+                      null
+                    ),
+                    expression:  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                      index(
+                        ri!processParamPgDetail,
+                        wherecontains(
+                          tointeger(
+                            fv!item
+                          ),
+                          tointeger(
+                            index(
+                              ri!processParamPgDetail,
+                              "process_param_pg_id",
+                              null
+                            )
+                          )
+                        ),
+                        null
+                      )
+                    ),
+                  )
+                ),
+                true()
+              ),
+              false(),
+              true()
+            ),
+
+            false()
+
+          )
+
+
+        ),
+        if(
+          ri!isReadOnly=true(),
+          {},
+          #"SYSTEM_SYSRULES_ButtonWidget"(
+            label:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3],
+            value:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3],
+            saveInto: {
+              ri!buttonAction,
+              if(
+                or(
+                  ri!uniqueIdentifiers.active_step &gt; 1
+                ),
+                {},
+                a!save(
+                  ri!uniqueIdentifiers.active_step,
+                  ri!uniqueIdentifiers.active_step + 1
+                )
+              ),
+              if(
+                or(
+                  index(
+                    index(
+                      ri!processParamPgDetail,
+                      wherecontains(
+                        tointeger(
+                          ri!uniqueIdentifiers.selected_card
+                        ),
+                        tointeger(
+                          index(
+                            ri!processParamPgDetail,
+                            "process_param_pg_id",
+                            null
+                          )
+                        )
+                      ),
+                      {}
+                    ),
+                    "active",
+                    null
+                  )
+                ),
+                {
+                  a!save(
+                    ri!uniqueIdentifiers.selected_card,
+                    index(
+                      index(
+                        index(
+                          ri!processParamPgConfig,
+                          wherecontains(
+                            toboolean(
+                              true()
+                            ),
+                            toboolean(
+                              index(
+                                ri!processParamPgConfig,
+                                "active",
+                                {}
+                              )
+                            )
+                          ),
+                          {}
+                        ),
+                        1,
+                        {}
+                      ),
+                      "process_param_pg_id",
+                      null
+                    )
+                  )
+                },
+                {}
+              ),
+            },
+            validate:true(),
+            submit: true(),
+            style: "PRIMARY",
+            disabled: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processParamPgConfig)
+
+          )
+        )
+
+
+        ),
+        secondaryButtons:#"SYSTEM_SYSRULES_ButtonWidget"(
+          label:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[6],
+          value:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+          saveInto: {
+            ri!buttonAction,
+
+          },
+          validate:false(),
+          submit: true(),
+          style: "NORMAL"
+        ),
+      )
+    }
+  ),
+  }
+  
+
+)</definition>
+        <namedTypedValue>
+            <name>processParamPgConfig</name>
+            <type>
+                <name>EAP_T_UiProcessParamPgConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processParamPgDetail</name>
+            <type>
+                <name>EAP_T_UiProcessParamPgDetail?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>uniqueIdentifiers</name>
+            <type>
+                <name>EAP_Temp_ProcessParamsUniqueIdentifiers</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>processParamPgConfig</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>processParamPgDetail</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">151</a:value>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonAction</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">{
+  active_step:1
+}</a:value>
+                    <a:nameRef>uniqueIdentifiers</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_765257"/>
+    </history>
+</contentHaul>

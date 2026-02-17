@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e553-9305-8000-d939-a7ef90a7ef90_4895011</versionUuid>
+    <rule>
+        <name>EAP_getPreviousMonthRequestID</name>
+        <uuid>_a-0000e4eb-4158-8000-d8ef-a7ef90a7ef90_1572444</uuid>
+        <description>Dummy logic to get the Previous Month Request ID</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  /* Code for fetching previous month request Id for only last month */
+  local!processRequests: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+    processId: ri!processId,
+    requestStatus: {"POS_COMP","TSK_COMP"},
+    requestMonth: if(
+      ri!requestMonth = 1,
+      12,
+      ri!requestMonth - 1
+    ),
+    requestYear: if(
+      ri!requestMonth = 1,
+      ri!requestYear - 1,
+      ri!requestYear
+    )
+  ),
+  if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      local!processRequests
+    ),
+    null,
+    local!processRequests[length(
+      local!processRequests
+    )].requestId
+  )
+)</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestMonth</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestYear</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4eb-4158-8000-d8ef-a7ef90a7ef90_1572647"/>
+        <historyInfo versionUuid="_a-0000e503-3bb4-8000-d8f9-a7ef90a7ef90_2012875"/>
+        <historyInfo versionUuid="_a-0000e505-88c1-8000-d8fb-a7ef90a7ef90_2065872"/>
+        <historyInfo versionUuid="_a-0000e50c-1dd1-8000-d900-a7ef90a7ef90_2187946"/>
+        <historyInfo versionUuid="_a-0000e553-9305-8000-d939-a7ef90a7ef90_4895011"/>
+        <historyInfo versionUuid="_a-0000e566-07b3-8000-d949-a7ef90a7ef90_5925296"/>
+        <historyInfo versionUuid="_a-0000e56f-428b-8000-d94e-a7ef90a7ef90_6204988"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_472918</versionUuid>
+    <rule>
+        <name>EAP_SetValue_ProcessEscalationRecipient</name>
+        <uuid>_a-0000e518-940a-8000-525e-1bef901bef90_472863</uuid>
+        <description>Holds Set Value for EAP_T_ProcessEscalationRecipient</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  and(
+    and(
+
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processEscalationRecipientId),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!escalationType),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!soeId),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!escalationRecipientGroup),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!escalationRecipient),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdBy),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdOn),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedBy),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedOn),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isActive),
+
+    ),
+  ),
+  ri!processEscalationRecipient,
+  'type!{urn:com:appian:types:eap}EAP_T_ProcessEscalationRecipient'(
+   
+    process_escalation_recipient_id : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processEscalationRecipientId),index(ri!processEscalationRecipient,"process_escalation_recipient_id",{}),ri!processEscalationRecipientId),
+    process_id:  if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),index(ri!processEscalationRecipient,"process_id",{}),ri!processId),
+    escalation_type: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!escalationType),index(ri!processEscalationRecipient,"escalation_type",{}),ri!escalationType),
+    soe_id  : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!soeId),index(ri!processEscalationRecipient,"soe_id",{}),ri!soeId),
+    recipient_group : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!escalationRecipientGroup),index(ri!processEscalationRecipient,"recipient_group",{}),ri!escalationRecipientGroup),
+    recipient : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!escalationRecipient),index(ri!processEscalationRecipient,"recipient",{}),ri!escalationRecipient),
+    created_by : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdBy),index(ri!processEscalationRecipient,"created_by",{}),ri!createdBy),
+    created_on : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdOn),index(ri!processEscalationRecipient,"created_on",{}),ri!createdOn),
+    modified_by : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedBy),index(ri!processEscalationRecipient,"modified_by",{}),ri!modifiedBy),
+    modified_on : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedOn),index(ri!processEscalationRecipient,"modified_on",{}),ri!modifiedOn),
+    is_active : if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isActive),index(ri!processEscalationRecipient,"is_active",{}),ri!isActive),
+   
+  )
+)
+
+
+</definition>
+        <namedTypedValue>
+            <name>processEscalationRecipientId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>escalationType</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>soeId</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>escalationRecipientGroup</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>escalationRecipient</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processEscalationRecipient</name>
+            <type>
+                <name>EAP_T_ProcessEscalationRecipient?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_472918"/>
+    </history>
+</contentHaul>

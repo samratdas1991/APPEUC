@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_747313</versionUuid>
+    <constant>
+        <name>EAP_DWF_MILESTONE_NAMES</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_400268</uuid>
+        <description>1) Run Configuration |
+2)  IO Config |
+3) Parsing |
+4) Transformation |
+5) Maker |
+6) Checker |
+7) Additional Approvers |
+8) Output Generation |
+9) End |
+10) Custom Process  |
+11) Data Validation   |
+12) IO Target   |
+13) UI View Config   |
+14) Process Parameters   |</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>Run Configuration</el>
+                <el>IO Source</el>
+                <el>Parsing</el>
+                <el>Transformation</el>
+                <el>Maker</el>
+                <el>Checker</el>
+                <el>Additional Approvers</el>
+                <el>Output Generation</el>
+                <el>End</el>
+                <el>Custom Process</el>
+                <el>Data Validation</el>
+                <el>IO Target</el>
+                <el>UI View Config</el>
+                <el>Process Parameters</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_406243"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_443757"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_559016"/>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_747313"/>
+    </history>
+</contentHaul>

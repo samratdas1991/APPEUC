@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_289117</versionUuid>
+    <interface>
+        <name>EAP_ParserTypeConfigScreen</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_93639</uuid>
+        <description>Contains parser type configuration screen </description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  /*local!parserConfig:rule!EAP_QE_ParserType(*/
+    /*isActive: true()*/
+  /*),*/
+  
+  local!masterLookUpData:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    isActive: true()
+  ),
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: "Manage Parsing Type",
+      divider: "ABOVE",
+      contents: {
+        #"SYSTEM_SYSRULES_gridLayout"(
+          headerCells: {
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "Parser Type"
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "Description"
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "File Type"
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "Is Active",
+              align: "CENTER"
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: ""
+            )
+          },
+          columnConfigs: {
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE",
+              weight: 5
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE",
+              weight: 6
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE",
+              weight: 5
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE",
+              weight: 1
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "ICON",
+              
+            )
+          },
+          rows: #"SYSTEM_SYSRULES_applyComponents"(
+            function: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_93714"(
+              index: _,
+              parsingConfig: ri!parsingConfig,
+              masterLookUpData:local!masterLookUpData,
+              isReadOnly: ri!isReadOnly
+            ),
+            array: if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!parsingConfig
+                ),
+                count(
+                  ri!parsingConfig
+                ) = 0
+              ),
+              null,
+              tointeger(
+                enumerate(
+                  count(
+                    ri!parsingConfig
+                  )
+                ) + 1
+              )
+            )
+          ),
+          addRowLink: #"SYSTEM_SYSRULES_dynamicLink"(
+            label: "Add Parser Type",
+            value: 'type!{urn:com:appian:types:eap}EAP_T_ParserType'(
+              is_active:1,
+              created_by:loggedInUser(),
+              created_on:now(),
+              modified_by:loggedInUser(),
+              modified_on:now()
+            ),
+            saveInto: a!save(
+              ri!parsingConfig,
+              append(
+                ri!parsingConfig,
+                save!value
+              )
+            )
+          )
+        ),
+        #"SYSTEM_SYSRULES_ButtonLayout"(
+          primaryButtons: {
+            #"SYSTEM_SYSRULES_ButtonWidget"(
+              label:"SUBMIT",
+              style:"PRIMARY",
+              submit: true(),
+              validate: true(),
+              saveInto: {
+                a!save(
+                  ri!buttonAction,
+                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[1]
+                )
+              }
+            )
+          },
+          secondaryButtons: {
+            #"SYSTEM_SYSRULES_ButtonWidget"(
+              label:"CANCEL",
+              submit: true(),
+              validate: false(),
+              saveInto:{
+                a!save(
+                  ri!buttonAction,
+                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2]
+                  
+                )
+              }
+            )
+          }
+        )
+      },
+      showBorder: false()
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>parsingConfig</name>
+            <type>
+                <name>EAP_T_ParserType?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>parsingConfig</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonAction</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_161031"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_289117"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_254346</versionUuid>
+    <interface>
+        <name>EAP_CommonPaginationForGridLayout</name>
+        <uuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_254335</uuid>
+        <description>CommonPaginationForGridLayout</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_richTextDisplayField"(
+  value: {
+    #"SYSTEM_SYSRULES_richTextIcon"(
+      icon: "angle-double-left",
+      size: "MEDIUM",
+      link: #"SYSTEM_SYSRULES_dynamicLink"(
+        saveInto: {
+          a!save(ri!pagingInfo.startIndex, 1),
+          ri!save
+        }
+      ),
+      showWhen: ri!pagingInfo.startIndex &gt; 1
+    ),
+    " ",
+    #"SYSTEM_SYSRULES_richTextIcon"(
+      icon: "angle-left",
+      size: "MEDIUM",
+      link: #"SYSTEM_SYSRULES_dynamicLink"(
+        saveInto: {
+          a!save(
+            ri!pagingInfo.startIndex,
+            ri!pagingInfo.startIndex - ri!pagingInfo.batchSize
+          ),
+          ri!save
+        }
+      ),
+      showWhen: not(ri!pagingInfo.startIndex &lt;= 1)
+    ),
+    " ",
+    #"SYSTEM_SYSRULES_richTextItem_v1"(
+      style: "STRONG",
+      text: if(
+        ri!totalCount &gt; 0,
+        { ri!pagingInfo.startIndex, " - " },
+        ""
+      ),
+      
+    ),
+    #"SYSTEM_SYSRULES_richTextItem_v1"(
+      style: "STRONG",
+      text: if(
+        ri!pagingInfo.startIndex + ri!pagingInfo.batchSize - 1 &gt; ri!totalCount,
+        ri!totalCount,
+        ri!pagingInfo.startIndex + ri!pagingInfo.batchSize - 1
+      )
+    ),
+    if(ri!totalCount &gt; 0, " of ", ""),
+    #"SYSTEM_SYSRULES_richTextItem_v1"(style: "STRONG", text: ri!totalCount),
+    #"SYSTEM_SYSRULES_richTextIcon"(
+      icon: "angle-right",
+      size: "MEDIUM",
+      link: #"SYSTEM_SYSRULES_dynamicLink"(
+        saveInto: {
+          a!save(
+            ri!pagingInfo.startIndex,
+            ri!pagingInfo.startIndex + ri!pagingInfo.batchSize
+          ),
+          ri!save
+        }
+      ),
+      showWhen: ri!totalCount &gt;= ri!pagingInfo.startIndex + ri!pagingInfo.batchSize
+    ),
+    " ",
+    #"SYSTEM_SYSRULES_richTextIcon"(
+      icon: "angle-double-right",
+      size: "MEDIUM",
+      link: #"SYSTEM_SYSRULES_dynamicLink"(
+        saveInto: {
+          a!save(
+            ri!pagingInfo.startIndex,
+            if(
+              mod(ri!totalCount, ri!pagingInfo.batchSize) = 0,
+              ri!totalCount - ri!pagingInfo.batchSize + 1,
+              ri!totalCount - mod(ri!totalCount, ri!pagingInfo.batchSize) + 1
+            )
+          ),
+          ri!save
+        }
+      ),
+      showWhen: not(
+        ri!pagingInfo.startIndex + ri!pagingInfo.batchSize &gt;= ri!totalCount
+      )
+    ),
+    
+  },
+  align: "RIGHT"
+)</definition>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>totalCount</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>save</name>
+            <type>
+                <name>Save</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_254346"/>
+    </history>
+</contentHaul>

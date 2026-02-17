@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>adeac61a-9001-4396-9d9b-58c9397d60d7</versionUuid>
+  <recordType a:uuid="f8857a93-995a-454d-a123-bde055768691" name="EAP Bulk Upload Record">
+    <a:pluralName>EAP Bulk Upload Records</a:pluralName>
+    <a:description>Holds Record for bulk upload Data</a:description>
+    <a:urlStub>Pubv4w</a:urlStub>
+    <a:source
+      a:uuid="e4bc3e77-6f2e-4a57-8b12-c5a6e93eabee@_a-0000e54c-ce50-8000-5260-1bef901bef90_612709" xsi:type="a:DataStoreEntity"/>
+    <a:listViewTemplateExpr>#"SYSTEM_SYSRULES_recordGridLayoutColumns"(
+  columns: {
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Bulk Upload Request #",
+      width: "DISTRIBUTE",
+      field: "bulk_upload_trans_id",
+      align: "RIGHT",
+      component: #"SYSTEM_SYSRULES_recordGrid_linkField"(
+        links: {
+          #"SYSTEM_SYSRULES_recordLink"(
+            label: rf!bulk_upload_trans_id,
+            recordtype: rp!type,
+            identifier: rp!id
+          )
+        },
+        align: "RIGHT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Upload Type",
+      width: "DISTRIBUTE",
+      field: "bulk_upload_type",
+      align: "LEFT",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!bulk_upload_type,
+        align: "LEFT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Transaction Status",
+      width: "DISTRIBUTE",
+      field: "tran_status",
+      align: "LEFT",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!tran_status,
+        align: "LEFT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "File Name",
+      width: "DISTRIBUTE",
+      field: "uploaded_filename",
+      align: "LEFT",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: rf!uploaded_filename
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Created By",
+      width: "DISTRIBUTE",
+      field: "created_by",
+      align: "LEFT",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: #"_a-0000e520-265e-8000-d90f-a7ef90a7ef90_2776401"(rf!created_by)
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Created On",
+      width: "DISTRIBUTE",
+      field: "created_on",
+      align: "LEFT",
+      component: #"SYSTEM_SYSRULES_recordGrid_dateTimeField"(
+        displayvalue: todatetime(rf!created_on)
+      )
+    )
+  },
+  pageSize: 50,
+  defaultSort: #"SYSTEM_SYSRULES_sortInfo"(
+    field: "bulk_upload_trans_id",
+    ascending: false
+  ),
+  shadeAlternateRows: true
+)</a:listViewTemplateExpr>
+    <a:fieldCfg name="Status">
+      <a:sourceRef>tran_status</a:sourceRef>
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>CUSTOM_BUCKETS_CLOSED</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetLabelExpr>"Status"</a:facetLabelExpr>
+      <a:facetOption>
+        <a:labelExpr>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[1]</a:labelExpr>
+        <a:facetOperator>IN</a:facetOperator>
+        <a:values>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[1]</a:values>
+      </a:facetOption>
+      <a:facetOption>
+        <a:labelExpr>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[2]</a:labelExpr>
+        <a:facetOperator>IN</a:facetOperator>
+        <a:values>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[2]</a:values>
+      </a:facetOption>
+      <a:facetOption>
+        <a:labelExpr>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[3]</a:labelExpr>
+        <a:facetOperator>IN</a:facetOperator>
+        <a:values>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[3]</a:values>
+      </a:facetOption>
+      <a:facetOption>
+        <a:labelExpr>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[4]</a:labelExpr>
+        <a:facetOperator>IN</a:facetOperator>
+        <a:values>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[4]</a:values>
+      </a:facetOption>
+      <a:facetOption>
+        <a:labelExpr>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[5]</a:labelExpr>
+        <a:facetOperator>IN</a:facetOperator>
+        <a:values>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[5]</a:values>
+      </a:facetOption>
+      <a:facetOption>
+        <a:labelExpr>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[6]</a:labelExpr>
+        <a:facetOperator>IN</a:facetOperator>
+        <a:values>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[6]</a:values>
+      </a:facetOption>
+      <a:facetOption>
+        <a:labelExpr>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[7]</a:labelExpr>
+        <a:facetOperator>IN</a:facetOperator>
+        <a:values>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[7]</a:values>
+      </a:facetOption>
+      <a:facetOption>
+        <a:labelExpr>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[8]</a:labelExpr>
+        <a:facetOperator>IN</a:facetOperator>
+        <a:values>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[8]</a:values>
+      </a:facetOption>
+      <a:facetOption>
+        <a:labelExpr>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[9]</a:labelExpr>
+        <a:facetOperator>IN</a:facetOperator>
+        <a:values>#"_a-0000e56b-0831-8000-5261-1bef901bef90_712747"[9]</a:values>
+      </a:facetOption>
+      <a:sortOrderIndex>0</a:sortOrderIndex>
+      <a:facetOrderIndex>0</a:facetOrderIndex>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>#"SYSTEM_SYSRULES_rtd_getDefaultSummaryViewName"()</a:nameExpr>
+      <a:uiExpr>#"_a-0000e56b-0831-8000-5261-1bef901bef90_683767"(
+  rf!bulk_upload_trans_id
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>summary</a:urlStub>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:isSystem>false</a:isSystem>
+    <a:titleExpr>"Bulk Upload Request# "&amp;rf!bulk_upload_trans_id</a:titleExpr>
+    <a:layoutType>GRID</a:layoutType>
+    <a:security>16383</a:security>
+    <a:hideLatestNews>false</a:hideLatestNews>
+    <a:hideNewsView>false</a:hideNewsView>
+    <a:hideRelatedActionsView>false</a:hideRelatedActionsView>
+    <a:isExportable>false</a:isExportable>
+    <a:recordListActionCfg>
+      <a:staticTitle>Upload Bulk Users</a:staticTitle>
+      <a:iconId>f052</a:iconId>
+      <a:target a:uuid="0002e57e-d187-8000-7005-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>true</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:recordListActionCfg>
+    <a:listAutoRefreshInterval>0.0</a:listAutoRefreshInterval>
+    <a:enabledFeatures>32</a:enabledFeatures>
+    <a:isVisibleInRecordTypeList>true</a:isVisibleInRecordTypeList>
+    <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+    <a:showSearchBox>true</a:showSearchBox>
+    <a:isVisibleInDataFabric>true</a:isVisibleInDataFabric>
+    <a:usesRollingSyncLimit>false</a:usesRollingSyncLimit>
+    <a:usesRecoverySync>false</a:usesRecoverySync>
+    <a:isScheduledIndexingEnabled>false</a:isScheduledIndexingEnabled>
+    <a:smartSearchAcceptableFailureRate>0.0</a:smartSearchAcceptableFailureRate>
+    <a:skipFailedSmartServicesSync>false</a:skipFailedSmartServicesSync>
+  </recordType>
+  <roleMap>
+    <role name="record_type_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+      </groups>
+    </role>
+    <role name="record_type_viewer">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="7e9eb0ff-adc9-42a5-9067-9991bd3d382d"/>
+    <historyInfo versionUuid="5501bc0d-32a7-4d8d-bdb8-6c38d52d9b20"/>
+    <historyInfo versionUuid="1a8cae72-2b71-414c-a752-04af57e39aa5"/>
+    <historyInfo versionUuid="b5bc3748-d566-4e4e-b1c2-ca72f75e3814"/>
+    <historyInfo versionUuid="adeac61a-9001-4396-9d9b-58c9397d60d7"/>
+  </history>
+  <migrationVersion>1</migrationVersion>
+</recordTypeHaul>

@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_666301</versionUuid>
+    <interface>
+        <name>EAP_UploadHistoricalDataMasterInterface</name>
+        <uuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_614167</uuid>
+        <description>Master Interface for upload historical data</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  a!localVariables(
+    local!allprocess: if(
+      or(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!requestId
+        ),
+        ri!requestId = 0
+      ),
+      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+        isActive: true(),
+        pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: 1,
+          batchSize: - 1,
+          sort: #"SYSTEM_SYSRULES_sortInfo"(
+            field: "name",
+            ascending: true()
+          )
+        )
+      ),
+      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+        requestId: ri!requestId
+      )
+    ),
+    local!yearRange: #"SYSTEM_SYSRULES_forEach"(
+      items: {
+        enumerate(
+          year(today())-2014
+        ) 
+      },
+      expression: 2014+fv!index
+     
+    ),
+    with(
+      {
+        #"SYSTEM_SYSRULES_sectionLayout_v1"(
+          contents: {
+            if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!requestId
+                ),
+                tointeger(
+                  ri!requestId
+                ) = 0
+              ),
+              #"_a-0000e518-940a-8000-525e-1bef901bef90_524783"(
+                icon: "cloud-upload",
+                label: "Upload Historical Data",
+                color: "ACCENT"
+              ),
+              #"_a-0000e518-940a-8000-525e-1bef901bef90_524783"(
+                icon: "cloud-upload",
+                label: "Upload Historical Data For Request " &amp; ri!requestId,
+                color: "ACCENT"
+              )
+            )
+          },
+          divider: "BELOW"
+        ),
+        #"SYSTEM_SYSRULES_sectionLayout_v1"(
+          contents: {
+            #"SYSTEM_SYSRULES_columnsLayout"(
+              columns: {
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: if(
+                    or(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        ri!requestId
+                      ),
+                      ri!requestId = 0
+                    ),
+                    #"SYSTEM_SYSRULES_dropdownField"(
+                      label: "Process Name",
+                      placeholderLabel: "Select process name",
+                      choiceLabels: touniformstring(
+                        index(
+                          local!allprocess,
+                          "name",
+                          {}
+                        )
+                      ),
+                      choiceValues: tointeger(
+                        index(
+                          local!allprocess,
+                          "process_id",
+                          {}
+                        )
+                      ),
+                      value: if(
+                        #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                          value: index(
+                            ri!requestDetails,
+                            "processId",
+                            {}
+                          ),
+                          choiceValue: tointeger(
+                            index(
+                              local!allprocess,
+                              "process_id",
+                              {}
+                            )
+                          )
+                        ),
+                        index(
+                          ri!requestDetails,
+                          "processId",
+                          {}
+                        ),
+                        null
+                      ),
+                      saveInto: {
+                        a!save(
+                          ri!requestDetails.processId,
+                          save!value
+                        ),
+                        a!save(
+                          ri!requestDetails.createdBy,
+                          loggedInUser()
+                        ),
+                        a!save(
+                          ri!requestDetails.createdOn,
+                          now()
+                        ),
+                        a!save(
+                          ri!requestDetails.updatedBy,
+                          loggedInUser()
+                        ),
+                        a!save(
+                          ri!requestDetails.updatedOn,
+                          now()
+                        )
+                      },
+                      required: true()
+                    ),
+                    #"SYSTEM_SYSRULES_textField"(
+                      label: "Process Name",
+                      value: index(
+                        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+                          processId: index(
+                            local!allprocess,
+                            "processId",
+                            {}
+                          )
+                        ),
+                        "name",
+                        {}
+                      ),
+                      readOnly: true()
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: if(
+                    or(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        ri!requestId
+                      ),
+                      ri!requestId = 0
+                    ),
+                    #"SYSTEM_SYSRULES_dropdownField"(
+                      label: "Year",
+                      placeholderLabel: "--Select Year--",
+                      choiceLabels: local!yearRange,
+                      choiceValues: local!yearRange,
+                      value: if(
+                        #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                          value: index(
+                            ri!requestDetails,
+                            "requestYear",
+                            {}
+                          ),
+                          choiceValue: local!yearRange
+                        ),
+                        index(
+                          ri!requestDetails,
+                          "requestYear",
+                          {}
+                        ),
+                        null
+                      ),
+                      saveInto: ri!requestDetails.requestYear,
+                      required: true()
+                    ),
+                    #"SYSTEM_SYSRULES_textField"(
+                      label: "Year",
+                      value: index(
+                        local!allprocess,
+                        "requestYear",
+                        {}
+                      ),
+                      readOnly: true()
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: {
+                    if(
+                      or(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          ri!requestId
+                        ),
+                        ri!requestId = 0
+                      ),
+                      #"SYSTEM_SYSRULES_dropdownField"(
+                        label: "Month",
+                        placeholderLabel: "--Select Month--",
+                        choiceLabels: touniformstring(
+                          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                            MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                              masterLookUpData: ri!masterLookUpData,
+                              categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[3]
+                             
+                            ),
+                            UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[1],
+                            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                          )
+                        ),
+                        choiceValues: tointeger(
+                          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                            MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                              masterLookUpData: ri!masterLookUpData,
+                              categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[3]
+                            ),
+                            UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[1],
+                            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                          )
+                        ),
+                        value: if(
+                          #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                            value: index(
+                              ri!requestDetails,
+                              "requestMonth",
+                              {}
+                            ),
+                            choiceValue: tointeger(
+                              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                                MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                                  masterLookUpData: ri!masterLookUpData,
+                                  categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[3]
+                                ),
+                                UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[1],
+                                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+                              )
+                            )
+                          ),
+                          index(
+                            ri!requestDetails,
+                            "requestMonth",
+                            {}
+                          ),
+                          null
+                        ),
+                        saveInto: {
+                          ri!requestDetails.requestMonth,
+                          
+                        },
+                        required: true(),
+                        validations: {}
+                      ),
+                      #"SYSTEM_SYSRULES_textField"(
+                        label: "Month",
+                        value: index(
+                          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+                            code: index(
+                              local!allprocess,
+                              "requestMonth",
+                              {}
+                            ),
+                            categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[3],
+                            type: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[1]
+                          ),
+                          "label",
+                          {}
+                        ),
+                        readOnly: true()
+                      )
+                    )
+                  }
+                )
+              }
+            ),
+            /*a!paragraphField(value:ri!requestId),*/
+            if(
+              ri!requestId = 0,
+              {
+                if(
+                  or(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                      ri!requestDetails,
+                      "processId",
+                      {}
+                    )),
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                      ri!requestDetails,
+                      "requestMonth",
+                      {}
+                    )),
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                      ri!requestDetails,
+                      "requestYear",
+                      {}
+                    ))
+                  ),
+                  {},
+                  if(
+                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+                      processId: index(
+                        ri!requestDetails,
+                        "processId",
+                        {}
+                      ),
+                      requestMonth: index(
+                        ri!requestDetails,
+                        "requestMonth",
+                        {}
+                      ),
+                      requestYear: index(
+                        ri!requestDetails,
+                        "requestYear",
+                        {}
+                      )
+                    )),
+                    #"_a-0000e54c-ce50-8000-5260-1bef901bef90_617999"(
+                      tempHistoricData: ri!tempHistoricData,
+                      processId: index(
+                        ri!requestDetails,
+                        "processId",
+                        {}
+                      ),
+                      isreadOnly: ri!isReadOnly,
+                      requestId: ri!requestId
+                    ),
+                    {
+                      #"SYSTEM_SYSRULES_columnsLayout"(),
+                      #"SYSTEM_SYSRULES_cardLayout"(
+                        style:"INFO",
+                        showBorder: false,
+                        contents: {
+                          #"SYSTEM_SYSRULES_richTextDisplayField"(
+                            value:{
+                              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                text:"We are already having a request for the selected data  "
+                              ),
+                              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                text:"Click here to visit the record for RequestId - " &amp; index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+                                  processId: index(
+                                    ri!requestDetails,
+                                    "processId",
+                                    {}
+                                  ),
+                                  requestMonth: index(
+                                    ri!requestDetails,
+                                    "requestMonth",
+                                    {}
+                                  ),
+                                  requestYear: index(
+                                    ri!requestDetails,
+                                    "requestYear",
+                                    {}
+                                  )
+                                ),"requestId",{})  ,
+                                link: #"SYSTEM_SYSRULES_recordLink"(
+                                  label:"",
+                                  identifier: index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+                                    processId: index(
+                                      ri!requestDetails,
+                                      "processId",
+                                      {}
+                                    ),
+                                    requestMonth: index(
+                                      ri!requestDetails,
+                                      "requestMonth",
+                                      {}
+                                    ),
+                                    requestYear: index(
+                                      ri!requestDetails,
+                                      "requestYear",
+                                      {}
+                                    )
+                                  ),"requestId",{}),
+                                  recordType: #"_a-0000e56b-0831-8000-5261-1bef901bef90_624818"
+                                )
+                              )
+                            }
+                          )
+                        },
+                        marginBelow:"STANDARD"
+                      )
+                    }
+                  )
+
+                )
+              },
+              #"_a-0000e54c-ce50-8000-5260-1bef901bef90_617999"(
+                tempHistoricData: ri!tempHistoricData,
+                processId: index(
+                  ri!requestDetails,
+                  "processId",
+                  {}
+                ),
+                isreadOnly: ri!isReadOnly,
+                requestId: ri!requestId
+              )
+            )
+            
+            ,
+            #"SYSTEM_SYSRULES_ButtonLayout"(
+              primaryButtons: {
+                #"SYSTEM_SYSRULES_ButtonWidget"(
+                  label: "Submit",
+                  value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[1],
+                  saveInto: {
+                    ri!buttonAction
+                  },
+                  submit: true(),
+                  size: "SMALL",
+                  style: "STANDARD",
+                  validate: true,
+                  showWhen:if(
+                    or(
+                      if(
+                        or(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                            ri!requestDetails,
+                            "processId",
+                            {}
+                          )),
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            index(
+                              ri!requestDetails,
+                              "requestMonth",
+                              {}
+                            )),
+                            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                              index(
+                                ri!requestDetails,
+                                "requestYear",
+                                {}
+                              ))
+                        ),
+                        {},
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+                          processId: index(
+                            ri!requestDetails,
+                            "processId",
+                            {}
+                          ),
+                          requestMonth: index(
+                            ri!requestDetails,
+                            "requestMonth",
+                            {}
+                          ),
+                          requestYear: index(
+                            ri!requestDetails,
+                            "requestYear",
+                            {}
+                          )
+                        ))
+                      
+                      ),
+                      if(ri!requestId=0,false,true())
+                    ),
+                    true(),
+                    false()
+                  ) 
+                
+                )
+              },
+              secondaryButtons: {
+                #"SYSTEM_SYSRULES_ButtonWidget"(
+                  label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+                  value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+                  saveInto: ri!buttonAction,
+                  submit: true(),
+                  style: "DESTRUCTIVE",
+                  validate: false()
+                )
+              },
+              showWhen: if(
+                ri!isReadOnly = true,
+                false,
+                true
+              )
+            )
+          }
+        )
+      }
+    )
+  )
+}</definition>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestDetails</name>
+            <type>
+                <name>EAP_T_ProcessRequest?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>tempHistoricData</name>
+            <type>
+                <name>EAP_Temp_HistoricalDataUpload?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(isActive: 1)</a:value>
+                    <a:nameRef>masterLookUpData</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonAction</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>requestDetails</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>requestId</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>tempHistoricData</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_623608"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_626113"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_666301"/>
+    </history>
+</contentHaul>

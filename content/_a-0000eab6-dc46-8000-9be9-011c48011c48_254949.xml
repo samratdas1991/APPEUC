@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eda1-5e46-8000-9c0e-011c48011c48_740542</versionUuid>
+    <interface>
+        <name>EAP_MyRequest_V2</name>
+        <uuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_254949</uuid>
+        <description></description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!Masterlookup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    type: "WORKFLOW_STATUS",
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      1,-1,
+      #"SYSTEM_SYSRULES_sortInfo"(
+        "label",
+        true()
+      )
+      
+    )
+  ),
+  local!RequestStatus: null,
+  local!TaskGroup: null,
+  local!TaskName:null,
+  local!Data: #"_a-0000e518-940a-8000-525e-1bef901bef90_518672"(
+    TaskGroup: local!TaskGroup,
+    TaskName: local!TaskName,
+    RequestStatus: local!RequestStatus,
+    assignTo: loggedInUser()
+  ),
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: "Filters",
+      contents: {
+       #"SYSTEM_SYSRULES_columnsLayout"(
+         columns: {
+           #"SYSTEM_SYSRULES_columnLayout"(
+             contents:{
+               #"SYSTEM_SYSRULES_textField"(
+                 label: "Task Name",
+                 labelPosition: "JUSTIFIED",
+                 placeholder:"-- Search By Task Name --",
+                 value: local!TaskName,
+                 saveInto: local!TaskName
+               )
+             }
+           ),
+
+           #"SYSTEM_SYSRULES_columnLayout"(
+             contents:{
+               #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                 label: "Request Status",
+                 labelPosition: "JUSTIFIED",
+                 placeholderLabel: "-- Request Status --",
+                 choiceLabels: touniformstring(
+                   index(local!Masterlookup,"label",null)
+                 ),
+                 choiceValues:  touniformstring(
+                   index(local!Masterlookup,"code",null)
+                 ),
+                 value: local!RequestStatus,
+                 saveInto: local!RequestStatus
+               )
+             }
+           ),
+           #"SYSTEM_SYSRULES_columnLayout"(
+             contents:{
+               #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                 label: "Groups",
+                 labelPosition: "JUSTIFIED",
+                 placeholderLabel: "-- Group: ALL --",
+                 choiceLabels: {
+                   "Maker",
+                   "Checker"
+                 },
+                 choiceValues:  {
+                   "Maker",
+                   "Checker"
+                 },
+                 value: local!TaskGroup,
+                 saveInto: local!TaskGroup
+               )
+             }
+           )
+
+         }
+       )
+      }
+    ),
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: "My Task Report",
+      contents: {
+        {
+          #"SYSTEM_SYSRULES_gridField_v1"(
+            pageSize: 10,
+            data: local!Data.data,
+            columns: {
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Task Name",
+                sortfield: "c0",
+                value: #"SYSTEM_SYSRULES_linkField"(
+                  links: #"SYSTEM_SYSRULES_processTaskLink"(
+                    label: index(
+                      fv!row,
+                      "c0",
+                      {}
+                    ),
+                    task: index(
+                      fv!row,
+                      "c9",
+                      {}
+                    )
+                  )
+                ),
+                align: "START",
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Process Name",
+                sortfield: "c2",
+                value: index(
+                  fv!row,
+                  "c2",
+                  {}
+                ),
+                align: "START",
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Assigned Time",
+                value: text(
+                  index(
+                  fv!row,
+                  "c3",
+                  {}
+                ),
+                "DD MMM, YYYY HH:MM A")
+                
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Assignee",
+                sortfield: "c4",
+                value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: {
+                    #"SYSTEM_SYSRULES_richTextIcon"(
+                      icon: "group",
+                      color: "ACCENT"
+                    ),
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: " " &amp; 
+                    if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        index(
+                    fv!row,
+                    "c4",
+                    {}
+                  )),
+                  "Maker",
+                  "Checker"
+                  )
+                  )
+                  }
+                )
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Request Status",
+                sortfield: "c8",
+                value: index(index(
+                  local!Masterlookup,
+                  wherecontains(
+                    tostring(
+                      index(
+                  fv!row,
+                  "c8",
+                  {}
+                )
+                ),
+                touniformstring(
+                  local!Masterlookup.code
+                )
+                ),
+                {}
+                ),"label",{})
+                )
+            },
+            
+          ),
+          
+        }
+      }
+    )
+  }
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+        <customDisplayName></customDisplayName>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_254954"/>
+        <historyInfo versionUuid="_a-0000eda1-5e46-8000-9c0e-011c48011c48_740542"/>
+    </history>
+</contentHaul>

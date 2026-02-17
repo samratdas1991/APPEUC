@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5f4-e010-8000-526a-1bef901bef90_775445</versionUuid>
+    <constant>
+        <name>EAP_AUDIT_COMMENTS</name>
+        <uuid>_a-0000e5f4-e010-8000-526a-1bef901bef90_775434</uuid>
+        <description>1. Request Initiated |
+2. Manual Upload Task Assigned |
+3. Successfully Completed |
+4. Task Manually Abandoned |
+5. Task Abandoned By System |
+6. Stage Load In-Progress |
+7.  |
+8.  |
+9.  |
+10.  |
+11.  |
+12.  |
+13.  |
+14.  |
+</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>Request Initiated</el>
+                <el>Manual Upload Task Assigned</el>
+                <el>Successfully Completed</el>
+                <el>Task Manually Abandoned</el>
+                <el>Task Abandoned By System</el>
+                <el>Stage Load In-Progress</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5f4-e010-8000-526a-1bef901bef90_775445"/>
+    </history>
+</contentHaul>

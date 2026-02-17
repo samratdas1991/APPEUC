@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_649116</versionUuid>
+    <rule>
+        <name>EAP_QE_CenterSegmentMapping</name>
+        <uuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_618665</uuid>
+        <description>Hold QE for center segment mapping</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_queryEntity_v1"(
+  entity: #"_a-0000e54c-ce50-8000-5260-1bef901bef90_618671",
+  query: #"SYSTEM_SYSRULES_query"(
+    logicalExpression: if(
+      and(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!centerId
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!mgdSegmentL8Id
+        ),
+        
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!centerSegmentId
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!isActive
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!managerGroup
+        )
+ 
+      ),
+      null,
+      #"SYSTEM_SYSRULES_queryLogicalExpression"(
+        operator: "AND",
+        filters: {
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!centerId
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "center_id",
+              operator: "IN",
+              value: {
+                ri!centerId
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!mgdSegmentL8Id
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "mgd_seg_l8_id",
+              operator: "in",
+              value: {
+                ri!mgdSegmentL8Id}
+              
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!centerSegmentId
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "center_seg_mapping_id",
+              operator: "IN",
+              value: {
+                ri!centerSegmentId
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!isActive
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "is_active",
+              operator: "=",
+              value: ri!isActive
+              
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!managerGroup
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "manager_group",
+              operator: "IN",
+              value: {
+                ri!managerGroup
+              }
+            )
+          )
+          
+          
+
+        }
+      )
+    ),
+    pagingInfo: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!pagingInfo
+      ),
+      #"SYSTEM_SYSRULES_pagingInfo"(
+        startIndex: 1,
+        batchSize: - 1,
+        sort: #"SYSTEM_SYSRULES_sortInfo"(
+          field: "center_seg_mapping_id",
+          ascending: false()
+        )
+      ),
+      ri!pagingInfo
+    )
+  )
+).data</definition>
+        <namedTypedValue>
+            <name>centerId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>mgdSegmentL8Id</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>centerSegmentId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>managerGroup</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_649116"/>
+    </history>
+</contentHaul>

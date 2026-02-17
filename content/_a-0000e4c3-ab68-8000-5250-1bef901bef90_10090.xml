@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_333708</versionUuid>
+    <rule>
+        <name>EAP_EntityMappingGridRowLayout</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_10090</uuid>
+        <description>Holds gridRowLayout for Entity Mapping Editable grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  contents: {
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+      disabled: if(
+        or(
+          ri!isReadOnly = true()
+        ),
+        true(),
+        false()
+      ),
+      placeholderLabel: "--Select Entity Type--",
+      choiceLabels: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!masterLookUpData),
+        null,
+        touniformstring(
+          union( #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+              masterLookUpData: ri!masterLookUpData,
+              categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] 
+            ),
+            UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[12],
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          ),
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+              masterLookUpData: ri!masterLookUpData,
+              categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] 
+            ),
+            UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[12],
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          ))
+          )
+      ),
+      choiceValues: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!masterLookUpData),
+        null,
+        touniformstring(
+          union( #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+              masterLookUpData: ri!masterLookUpData,
+              categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] 
+            ),
+            UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[12],
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+          ),
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+              masterLookUpData: ri!masterLookUpData,
+              categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] 
+            ),
+            UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[12],
+            Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+          ))
+        )
+      ),
+      value: if(
+        #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+          value: index(
+            ri!entityMapping[ri!index],
+            "entity_type",
+            {}
+          ),
+          choiceValue: {
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!masterLookUpData),
+              null,
+              touniformstring(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                  masterLookUpData: ri!masterLookUpData,
+                  categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4] 
+                ),
+                UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[12],
+                Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+              ))
+            )
+          }
+        ),
+        index(
+          ri!entityMapping[ri!index],
+          "entity_type",
+          {}
+        ),
+        null
+      ),
+      saveInto: ri!entityMapping[ri!index].entity_type,
+      required: if(
+        or(
+          ri!isReadOnly = true()
+        ),
+        false(),
+        true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_pickerFieldCustom"(
+      label: "Entity Name",
+      labelPosition: "ABOVE",
+      maxSelections: 1,
+      suggestFunction: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_191639"(
+        list: ri!allTablesList,
+        search: _
+      ),
+      selectedLabels: #"SYSTEM_SYSRULES_forEach"(
+        items: index(
+          ri!entityMapping[ri!index],
+          "entity_name",
+          {}
+        ),
+        expression: index(
+          ri!entityMapping[ri!index],
+          "entity_name",
+          {}
+        )
+      ),
+      value: index(
+        ri!entityMapping[ri!index],
+        "entity_name",
+        {}
+      ),
+      required: if(
+        or(
+          ri!isReadOnly = true()
+        ),
+        false(),
+        true()
+      ),
+      saveInto: a!save(
+        ri!entityMapping[ri!index].entity_name,
+        save!value
+      ),
+      validations: {}
+    ),
+    #"SYSTEM_SYSRULES_paragraphField"(
+      readOnly: ri!isReadOnly,
+      value: index(ri!entityMapping[ri!index],"entity_desc",{}),
+      saveInto: {
+        a!save(
+          ri!entityMapping[ri!index].entity_desc,
+          save!value
+        )
+      },
+      required: if(
+        or(
+          ri!isReadOnly = true()
+        ),
+        false(),
+        true()
+      )
+    ),
+    /*  Is Active  */
+    if(
+      ri!isReadOnly,
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        images: {
+          #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(
+                contains(
+                  toboolean(
+                    index(
+                      ri!entityMapping[ri!index],
+                      "is_active",
+                      {}
+                    )
+                  ),
+                  true()
+                ),
+                "STATUS_OK",
+                "STATUS_NOTDONE"
+              )
+            )
+          )
+        },
+        align: "CENTER"
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: if(
+          or(
+            tointeger(
+              index(
+                ri!entityMapping[ri!index],
+                "is_active",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-on",
+            caption: "Yes",
+            linkStyle: "STANDALONE",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!entityMapping[ri!index].is_active,
+                  0
+                )
+              },
+              showWhen: not(
+                ri!isReadOnly
+              )
+            ),
+            size: "MEDIUM_PLUS"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-off",
+            caption: "No",
+            linkStyle: "STANDALONE",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!entityMapping[ri!index].is_active,
+                  1
+                )
+              },
+              showWhen: not(
+                ri!isReadOnly
+              )
+            ),
+            size: "MEDIUM_PLUS"
+          )
+        ),
+        align: "CENTER"
+      )
+    ),
+    /*  Delete  */
+    if(
+      ri!isReadOnly,
+      {},
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+          ri!entityMapping.[ri!index].process_entity_mapping_id
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!entityMapping,
+                  remove(
+                    ri!entityMapping,
+                    ri!index
+                  )
+                )
+              }
+            )
+          )
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          readOnly: true()
+        )
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityMapping</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>allTables</name>
+            <type>
+                <name>EAP_V_AllTables?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>allTablesList</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_80984"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_116001"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_192435"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_192569"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_198485"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_333708"/>
+    </history>
+</contentHaul>

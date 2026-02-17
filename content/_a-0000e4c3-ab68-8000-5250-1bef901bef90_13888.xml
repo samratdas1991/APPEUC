@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_653450</versionUuid>
+    <constant>
+        <name>EAP_BUTTON_ACTION</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888</uuid>
+        <description>Holds button actions for all the form
+1. Submit
+2. Cancel
+3. Save &amp; Next
+4. Save
+5. Add
+6. Close
+7. Back
+8. Edit
+9. Save &amp; Close
+10. Next
+11. Initiate
+12. Approve
+13. Reject
+14. Abort
+15. End</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>Submit</el>
+                <el>Cancel</el>
+                <el>Save &amp; Next</el>
+                <el>Save</el>
+                <el>Add</el>
+                <el>Close</el>
+                <el>Back</el>
+                <el>Edit</el>
+                <el>Save &amp; Close</el>
+                <el>Next</el>
+                <el>Initiate</el>
+                <el>Approve</el>
+                <el>Reject</el>
+                <el>Abort</el>
+                <el>End</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_65214"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_95515"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_158624"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_204586"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_401841"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_653450"/>
+    </history>
+</contentHaul>

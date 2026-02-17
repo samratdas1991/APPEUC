@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_107777</versionUuid>
+    <rule>
+        <name>EAP_RequestWfTransformTransGridRowLayout</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_104145</uuid>
+        <description>Hold grid row lauout rule for transform trans</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  id:ri!index,
+  contents: {
+    #"SYSTEM_SYSRULES_textField"(
+      label: "Transform Status",
+      value: index(ri!transformTrans[ri!index],"transform_status",{}),
+      saveInto: ri!transformTrans[ri!index].transform_status,
+      readOnly: ri!isReadOnly,
+      required: if(
+        ri!isReadOnly=true(),
+        false(),
+        true()
+      ),
+      placeholder: "--Enter Transform Status--"
+    ),
+    #"SYSTEM_SYSRULES_textField"(
+      label: "Exception Type",
+      placeholder: "--Enter Exception Type--",
+      value: index(ri!transformTrans[ri!index],"exception_code",{}),
+      saveInto: {
+        ri!transformTrans[ri!index].exception_code,
+        a!save(
+          ri!transformTrans[ri!index].exception_message,
+          null
+        )
+        },
+      readOnly: ri!isReadOnly,
+      required: if(
+        ri!isReadOnly=true(),
+        false(),
+        true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_textField"(
+      disabled : #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        index(ri!transformTrans[ri!index],"exception_code",{})
+      ),
+      label: "Exception Message",
+      placeholder: "--Enter Exception Message--",
+      value: index(ri!transformTrans[ri!index],"exception_message",{}),
+      saveInto: ri!transformTrans[ri!index].exception_message,
+      readOnly: ri!isReadOnly,
+      required: if(
+        ri!isReadOnly=true(),
+        false(),
+        true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_textField"(
+      label: "Started On",
+      placeholder: "--Enter Starting Time--",
+      value: index(ri!transformTrans[ri!index],"started_on",{}),
+      saveInto: ri!transformTrans[ri!index].started_on,
+      readOnly: ri!isReadOnly,
+      required: if(
+        ri!isReadOnly=true(),
+        false(),
+        true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_textField"(
+      label: "Status Time",
+      placeholder: "--Enter Status Time--",
+      value: index(ri!transformTrans[ri!index],"status_time",{}),
+      saveInto: ri!transformTrans[ri!index].status_time,
+      readOnly: ri!isReadOnly,
+      required: if(
+        ri!isReadOnly=true(),
+        false(),
+        true()
+      )
+    ),
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"( index(ri!transformTrans[ri!index],"transform_transaction_id",{})),
+      if(
+        ri!isReadOnly,
+        {},
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "Remove " &amp; ri!index,
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!transformTrans,
+                  remove(
+                    ri!transformTrans,
+                    ri!index
+                  )
+                ),
+              }
+            )
+          )
+        )
+      ),
+      if(
+        ri!isReadOnly=true(),
+        {},
+        #"SYSTEM_SYSRULES_richTextDisplayField"()
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>transformTrans</name>
+            <type>
+                <name>EAP_T_RequestWfTransformTrans?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_107777"/>
+    </history>
+</contentHaul>

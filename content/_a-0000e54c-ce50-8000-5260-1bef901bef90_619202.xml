@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_681191</versionUuid>
+    <interface>
+        <name>EAP_HistTransDataReadOnlyGrid</name>
+        <uuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_619202</uuid>
+        <description>Contains read only grid for historic trans data</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!masterLookup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    type: {
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[1] 
+    }   
+  ),
+  local!histTransData:if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!requestId),{},
+    #"_a-0000e54c-ce50-8000-5260-1bef901bef90_617663"(
+      requestId: ri!requestId
+    )
+  ),
+  local!histDetailsTrans: a!refreshVariable(
+    value:  if(
+      or(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!requestId),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!histTransId)
+      ),{},
+      #"_a-0000e54c-ce50-8000-5260-1bef901bef90_617732"(
+        requestId: ri!requestId,
+        parsingHistTransId:ri!histTransId
+      )
+    ),
+    refreshOnReferencedVarChange:true(),
+    refreshOnVarChange:{
+     
+      ri!histTransId
+    }
+  ),
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: "Historical Trans Data",
+      contents: {
+        #"SYSTEM_SYSRULES_gridField_v1"(
+          data: local!histTransData,
+          columns: {
+
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "Historic Request Status",
+              sortField: "hist_request_status",
+              value: fv!row.hist_request_status,
+
+            ),
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "Month of Run",
+              sortField: "month_of_run",
+              value: 
+              if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!row.month_of_run),
+                "N/A",
+                index(
+                  index(
+                    local!masterLookup,
+                    wherecontains(
+                      tostring(fv!row.month_of_run),
+                      touniformstring(index(local!masterLookup,"code",{}))
+                    ),{}
+                  ),"label",{}
+                )
+              )
+            ),
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "Year of Run",
+              sortField: "year_of_run",
+              value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!row.year_of_run),"N/A",fv!row.year_of_run) ,
+              align: "END"
+            ),
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "Date Of Run",
+              sortField: "date_of_run",
+              value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!row.date_of_run),"N/A", fv!row.date_of_run),
+              align: "END"
+            ),
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "Requested By",
+              sortField: "requested_by",
+              value: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251824"(
+                fv!row.requested_by
+              )
+              
+            ),
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "Requested On",
+              sortField: "requested_on",
+              value: 
+              if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!row.requested_on),
+                "N/A",
+                concat(
+                  datevalue(
+                    fv!row.requested_on
+                  )," ",
+                  timevalue(
+                    fv!row.requested_on
+                  )
+                )
+              ),
+              align: "END"
+            ),
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "Started On",
+              sortField: "started_on",
+              value: 
+              if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!row.started_on),
+                "N/A",
+                concat(
+                  datevalue(
+                    fv!row.started_on
+                  )," ",
+                  timevalue(
+                    fv!row.started_on
+                  )
+                )
+              ),
+              align: "END"
+            ),
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "Status Time",
+              sortField: "status_time",
+              value: if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!row.status_time),
+                "N/A",
+                concat(
+                  datevalue(
+                    fv!row.status_time
+                  )," ",
+                  timevalue(
+                    fv!row.status_time
+                  )
+                )
+              ),
+              align: "END"
+            ),
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "View",
+              value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                align: "CENTER",
+                value: {
+                  #"SYSTEM_SYSRULES_richTextIcon"(
+                    icon:  if(
+                      or(
+                        tointeger(
+                          ri!histTransId,
+                        ) = tointeger(
+                          index(
+                            fv!row,
+                            "parsing_hist_trans_id",
+                            {}
+                          )
+                        )
+                      ),
+                      "eye-slash",
+                      "eye"
+                    ),
+                    caption: "View",
+                    color: "ACCENT",
+                    linkStyle: "STANDALONE",
+                    link:  #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: 1,
+                      saveInto: {
+                        a!save(
+                          ri!histTransId,
+                          fv!row.parsing_hist_trans_id
+                        )
+                      }
+                    ),
+                    size: "MEDIUM"
+                  )
+                }
+              )
+            ),
+
+
+          },
+          pageSize: 10
+
+        )
+
+      },
+      divider: "ABOVE"
+    ),
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!histTransId),
+      {},
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        contents: {
+          #"SYSTEM_SYSRULES_gridField_v1"(
+            data: local!histDetailsTrans,
+            columns: {
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Entity Name",
+                sortField: "hist_entity_mapping_id",
+                value: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!row.hist_entity_mapping_id),
+                  "N/A",
+                  index(
+                    #"_a-0000e54c-ce50-8000-5260-1bef901bef90_612826"(
+                      histEntityMappingId: fv!row.hist_entity_mapping_id
+                    ),
+                    "entity_name",
+                    {}
+                  )
+                )
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "File Name",
+                sortField: "file_name",
+                value: fv!row.file_name
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Historic Parsing Status",
+                sortField: "hist_parsing_status",
+                value: fv!row.hist_parsing_status,
+
+              ),
+              
+              
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Uploaded Document",
+                sortField: "appian_doc_id",
+                value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: #"SYSTEM_SYSRULES_richTextIcon"(
+                    icon:"download",
+                    size: "MEDIUM",
+                    link: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!row.appian_doc_id),
+                      {},
+                      #"SYSTEM_SYSRULES_documentDownloadLink"(
+                        document: document(documentId:fv!row.appian_doc_id,property:"id")
+                      )
+                    )
+                    
+                  )
+                ),
+                align: "CENTER",
+                /*width:"NARROW_PLUS"*/
+              ),
+              
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Exception Type",
+                sortField: "exception_type",
+                value: fv!row.exception_type
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Exception Message",
+                sortField: "exception_message",
+                value: fv!row.exception_message
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Requested By",
+                sortField: "requested_by",
+                value:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251824"(
+                  fv!row.requested_by
+                )
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Requested On",
+                sortField: "requested_on",
+                value: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!row.requested_on),
+                  "N/A",
+                  concat(
+                    datevalue(
+                      fv!row.requested_on
+                    )," ",
+                    timevalue(
+                      fv!row.requested_on
+                    )
+                  )
+                ),
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Started On",
+                sortField: "started_on",
+                value:  if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!row.started_on),
+                  "N/A",
+                  concat(
+                    datevalue(
+                      fv!row.started_on
+                    )," ",
+                    timevalue(
+                      fv!row.started_on
+                    )
+                  )
+                ),
+                align: "END"
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Status Time",
+                sortField: "status_time",
+                value: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!row.status_time),
+                  "N/A",
+                  concat(
+                    datevalue(
+                      fv!row.status_time
+                    )," ",
+                    timevalue(
+                      fv!row.status_time
+                    )
+                  )
+                ),
+                align: "END"
+              )
+
+
+
+            },
+            pageSize: 10
+
+          ),
+
+        }
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>histTransId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_623252"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_625603"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_681191"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_707768</versionUuid>
+    <interface>
+        <name>EAP_IntegratedSystemAvailablity</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_671511</uuid>
+        <description>Holds Admin Interface for Integrated System Availablity</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!SystemTypeCode:index(#"_a-0000e4c6-e892-8000-5254-1bef901bef90_57368"(
+    isActive:1
+  ),"lookup_system_type_code",{}
+),
+local!selectedSystemTypeCode,
+
+{
+  
+ #"SYSTEM_SYSRULES_sectionLayout_v1"(
+   contents: { #"_a-0000e518-940a-8000-525e-1bef901bef90_524783"(
+     label: "Manage Integrated System Type Availablity",
+     size: "MEDIUM",
+     color: "ACCENT"
+   )
+   },
+   divider:"BELOW"
+ ),
+ #"SYSTEM_SYSRULES_sectionLayout_v1"(
+   contents: {
+     #"SYSTEM_SYSRULES_columnsLayout"(
+       columns: {
+         #"SYSTEM_SYSRULES_columnLayout"(
+           contents: {
+             #"SYSTEM_SYSRULES_dropdownField"(
+               label: "Look Up System Code",
+               placeholderLabel: "--Select Lookup System Code--",
+               choiceLabels: union(local!SystemTypeCode,local!SystemTypeCode),
+               choiceValues: union(local!SystemTypeCode,local!SystemTypeCode),
+               value: if(
+                 #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                   
+                  choiceValue:  union(local!SystemTypeCode,local!SystemTypeCode),
+                  value: local!selectedSystemTypeCode),local!selectedSystemTypeCode,null
+               ),
+               saveInto: {a!save(local!selectedSystemTypeCode,save!value),a!save(
+                 ri!refIntSys,#"_a-0000e4c6-e892-8000-5254-1bef901bef90_57368"(lookupSystemTypeCode:local!selectedSystemTypeCode)
+               )},
+               required: true()
+             )
+           }
+         ),
+         #"SYSTEM_SYSRULES_columnLayout"(),
+         #"SYSTEM_SYSRULES_columnLayout"()
+       }
+     )
+   }
+ ),
+ #"SYSTEM_SYSRULES_sectionLayout_v1"(
+   contents: {
+     #"SYSTEM_SYSRULES_gridLayout"(
+       headerCells: {
+         #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+           label: "System Type Code",
+           align: "LEFT"
+         ),
+         #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+           label: "Is Available",
+           align: "CENTER"
+         )
+       },
+       columnConfigs: {
+         #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+           width: "DISTRIBUTE",
+           weight: 3
+         ),
+         #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+           width: "NARROW",
+           
+         )
+       },
+       rows:{#"SYSTEM_SYSRULES_applyComponents"(
+         function: #"_a-0000e56b-0831-8000-5261-1bef901bef90_671936"(
+           index: _,
+           refIntSys: ri!refIntSys
+         ),
+         array:  if(
+           or(
+             #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+               ri!refIntSys
+             ),
+             count(
+               ri!refIntSys
+             ) = 0
+           ),
+           null,
+           tointeger(
+             enumerate(
+               count(
+                 ri!refIntSys
+               )
+             ) + 1
+           )
+         )
+       )
+         
+       }
+     )
+   }
+ ),
+ #"SYSTEM_SYSRULES_ButtonLayout"(
+   primaryButtons: {
+     #"SYSTEM_SYSRULES_ButtonWidget"(
+       label: "Submit",
+       value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[1],
+       saveInto: {
+         ri!buttonAction,
+
+       },
+       submit: true(),
+       size: "SMALL",
+       style: "STANDARD",
+       validate: true,
+
+     )
+   },
+   secondaryButtons: {
+     #"SYSTEM_SYSRULES_ButtonWidget"(
+       label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+       style: "DESTRUCTIVE",
+       value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+       saveInto: ri!buttonAction,
+       submit: true(),
+       validate: false()
+     )
+   },
+   
+ )
+}
+)</definition>
+        <namedTypedValue>
+            <name>refIntSys</name>
+            <type>
+                <name>EAP_T_IntSys?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_707768"/>
+    </history>
+</contentHaul>

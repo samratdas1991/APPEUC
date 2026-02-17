@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_763199</versionUuid>
+    <constant>
+        <name>EAP_CATEGORY_GROUP_GLOBAL</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148</uuid>
+        <description>1:DELIMITER
+2:EXCEL_COLUMN_TYPE
+3:FILTER_OPERATOR
+4:PASTE_FORMAT
+5:RUN_TIME_FILTER_VALUES
+6:FILE_TYPES
+7:GENERATOR_TYPE
+8.SORT_TYPE 
+9. PARSING_FORMAT
+10. IN_FILE_TYPE
+11. PARSING_TYPE
+12. ENTITY_TYPE,
+13. GENERATION_TYPE
+14. FILTER_CATEGORY
+15. FILTER_GENERATION
+16. DATE_FORMAT
+17. REGION
+18. ASIA
+19. NORTH AMERICA
+20. SOUTH AMERICA
+21. AFRICA
+22. OCEANIA
+23. EUROPE
+24. TIMEZONE
+25. TRANSPOSE_TYPE
+26. EMPTY_ROW_STRATEGY
+27.Text
+28.Number
+29. BUTTON_ACTION
+30.WORKFLOW_STATUS
+31. PARSABLE_TYPE
+33.SEND_AS
+34.ATTACHMENT_TYPE | 
+35. RECIPIENT_TYPE |
+36. SEND_AS |
+37.Param_Type |
+38.Parameter_Type|</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>DELIMITER</el>
+                <el>EXCEL_COLUMN_TYPE</el>
+                <el>FILTER_OPERATOR</el>
+                <el>PASTE_FORMAT</el>
+                <el>RUN_TIME_FILTER_VALUES</el>
+                <el>FILE_TYPES</el>
+                <el>GENERATOR_TYPE</el>
+                <el>SORT_TYPE</el>
+                <el>PARSING_FORMAT</el>
+                <el>IN_FILE_TYPE</el>
+                <el>PARSING_TYPE</el>
+                <el>ENTITY_TYPE</el>
+                <el>GENERATION_TYPE</el>
+                <el>SHEET_FILTER_CATEGORY</el>
+                <el>FILTER_GENERATION</el>
+                <el>DATE_FORMAT</el>
+                <el>REGION</el>
+                <el>ASIA</el>
+                <el>NORTH AMERICA</el>
+                <el>SOUTH AMERICA</el>
+                <el>AFRICA</el>
+                <el>OCEANIA</el>
+                <el>EUROPE</el>
+                <el>TIMEZONE</el>
+                <el>TRANSPOSE_TYPE</el>
+                <el>EMPTY_ROW_STRATEGY</el>
+                <el>Text</el>
+                <el>Number</el>
+                <el>BUTTON_ACTION</el>
+                <el>WORKFLOW_STATUS</el>
+                <el>PARSABLE_TYPE</el>
+                <el>Standard</el>
+                <el>SEND_AS</el>
+                <el>ATTACHMENT_TYPE</el>
+                <el>RECIPIENT_TYPE</el>
+                <el>SEND_AS</el>
+                <el>Param_Type</el>
+                <el>Parameter_Type</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_108160"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_226334"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_272187"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_375834"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_400886"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_415479"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_468053"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_498186"/>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_562909"/>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_745701"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_763199"/>
+    </history>
+</contentHaul>

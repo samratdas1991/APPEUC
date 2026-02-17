@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_663736</versionUuid>
+    <interface>
+        <name>EAP_ManageCenters</name>
+        <uuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_617726</uuid>
+        <description>Hold interface to manage centers</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!center:#"_a-0000e54c-ce50-8000-5260-1bef901bef90_617954"(
+    isActive: 1
+  ),
+  {
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    label:"",
+    contents:{
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Name",
+                placeholder:"--Enter Name--",
+                labelPosition: "ABOVE",
+                value:index(ri!centers,"name",{}),
+                saveInto:{a!save(ri!centers.name,save!value),
+                a!save(ri!centers.modified_by,loggedInUser()),
+                a!save(ri!centers.modified_on,now())
+                },
+                disabled: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!centers,"center_id",null)),
+                  false(),
+                  true()
+                ),
+                refreshAfter: "UNFOCUS",
+                required: if(
+                  or(ri!readOnly)=true(),
+                  false(),
+                  true()
+                ),
+                readOnly: if(
+                  or(ri!readOnly)=true(),
+                  true(),
+                  false()
+                ),
+                validations:if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(ri!centers,"center_id",null)
+                  ),
+                  if(
+                    contains(
+                      touniformstring(proper(index(local!center,"name",{}))),
+                      tostring(proper(index(ri!centers,"name",{})))
+                    ),
+                    "Duplicate Name Found",
+                    {}
+                  ),
+                  {}
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Display Name",
+                labelPosition: "ABOVE",
+                placeholder:"--Enter Display Name--",
+                value:index(ri!centers,"display_name",{}),
+                required: if(
+                  or(ri!readOnly)=true(),
+                  false(),
+                  true()
+                ),
+                readOnly: if(
+                  or(ri!readOnly)=true(),
+                  true(),
+                  false()
+                ),
+                saveInto: {a!save(ri!centers.display_name,save!value),
+                a!save(ri!centers.modified_by,loggedInUser()),
+                a!save(ri!centers.modified_on,now())
+                },
+                refreshAfter: "UNFOCUS",
+                validations: {}
+              )
+            }
+          ),
+        
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+         
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Description",
+                labelPosition: "ABOVE",
+                placeholder:"--Enter Description--",
+                value:index(ri!centers,"description",{}),
+                saveInto:{a!save(ri!centers.description,save!value),
+                a!save(ri!centers.modified_by,loggedInUser()),
+                a!save(ri!centers.modified_on,now())
+                },
+                required: if(
+                  or(ri!readOnly)=true(),
+                  false(),
+                  true()
+                ),
+                readOnly: if(
+                  or(ri!readOnly)=true(),
+                  true(),
+                  false()
+                ),
+                refreshAfter: "UNFOCUS",
+                validations: {}
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"()
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              if(
+                ri!readOnly=true(),
+                #"SYSTEM_SYSRULES_textField"(
+                  label: "Is-Active",
+                  value:if(
+                    index(ri!centers,"is_active",null),
+                    "Yes",
+                    "No"
+                  ),
+                  readOnly: true()
+                ),
+                #"SYSTEM_SYSRULES_radioButtonField"(
+                  label: "Status",
+                  labelPosition: "ABOVE",
+                  choiceLabels: {"Is-Active", "In-Active"},
+                  choiceValues: {1, 0},
+                  value:index(ri!centers,"is_active",null),
+                  saveInto: {a!save(ri!centers.is_active,save!value),
+                  a!save(ri!centers.modified_by,loggedInUser()),
+                  a!save(ri!centers.modified_on,now())
+                  },
+                  choiceLayout: "COMPACT",
+                  validations: {}
+                )
+              )
+              
+
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {}
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+
+            }
+          )
+        }
+      ),
+
+
+    }
+  )
+
+})</definition>
+        <namedTypedValue>
+            <name>centers</name>
+            <type>
+                <name>EAP_T_Center</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>readOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_663736"/>
+    </history>
+</contentHaul>

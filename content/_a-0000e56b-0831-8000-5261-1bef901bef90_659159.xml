@@ -1,0 +1,929 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e58b-f438-8000-5262-1bef901bef90_724420</versionUuid>
+    <interface>
+        <name>EAP_AllProcessUsersDetailsForValidAndInvalidUsers</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_659159</uuid>
+        <description>holds the UI for managing the process groups and users</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!processId,
+local!isInvalid:1,
+  local!allprocess:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+    isActive: 1,
+    pagingInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex:1,
+      batchSize:-1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "name",
+        ascending:true()
+      )
+    ),
+    processId:local!processId
+  ),
+
+  local!eucnumber:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+    isActive: 1,
+
+  ),
+  local!processDetails:a!refreshVariable(
+    value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),null,#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+
+      processId:ri!processId,
+      isActive: 1
+    )),
+    refreshOnReferencedVarChange:true(),
+    refreshOnVarChange:ri!processId
+  ),
+
+  local!validusers:reject(fn!isnull,#"SYSTEM_SYSRULES_forEach"(
+    items: index(ri!tempUsers,"userSoeId",{}),
+    expression: if(
+      #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(fv!item)=true(),
+      fv!item,
+      null
+    )
+  )),
+  local!inValidUsers:reject(fn!isnull,#"SYSTEM_SYSRULES_forEach"(
+    items:index(ri!tempUsers,"userSoeId",{}),
+    expression: if(
+      #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(fv!item)=true(),
+      null,
+      fv!item
+    )
+  )),
+  local!InvalidUserData:index(ri!tempUsers,wherecontains(
+    touniformstring(local!inValidUsers),touniformstring(index(ri!tempUsers,"userSoeId",{}))
+  ),{}),
+  local!validuserData:index(ri!tempUsers,wherecontains(
+    touniformstring(local!validusers),touniformstring(index(ri!tempUsers,"userSoeId",{}))
+  ),{}),
+  local!usergroup:a!refreshVariable(value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),
+  null,
+  #"_a-0000e4c6-4628-8000-5253-1bef901bef90_17287"(
+    processId:ri!processId
+  )),
+  refreshOnReferencedVarChange:true(),
+  refreshOnVarChange:ri!processId
+  ),
+    
+  local!verifyValidUserData:reject(fn!isnull,#"SYSTEM_SYSRULES_forEach"(
+    items: local!validuserData,
+    expression: if(
+      and(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(fv!item,"isExpectedMaker",{}))=true(),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(fv!item,"isExpectedChecker",{}))=true(),
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(fv!item,"isExpectedPowerUser",{}))=true()
+      ),
+      fv!item,
+      null
+    )
+  )),
+
+local!verifyValidUserGroupData:reject(fn!isnull,#"SYSTEM_SYSRULES_forEach"(
+  items:local!validuserData,
+  expression: if(
+    and(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        index(fv!item,"isExpectedMaker",{}))=true(),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(fv!item,"isExpectedChecker",{}))=true(),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(fv!item,"isExpectedPowerUser",{}))=true()
+    ),
+    null,
+    fv!item
+
+  )
+)),
+  {
+
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      contents: {
+        #"_a-0000e518-940a-8000-525e-1bef901bef90_524783"(
+          label: if(ri!isProductionSupport&lt;&gt;true(),
+          concat("Manage Process Users|",index(local!processDetails,"euc_reference_number",{})),
+          concat("Manage Process Users|",index(local!processDetails,"euc_reference_number",{}))
+          ),
+          icon: "user",
+          color:"ACCENT"
+        ),
+
+      },
+      divider: "BELOW"
+
+    ),
+
+
+
+if(
+  ri!isProductionSupport&lt;&gt;true(),
+  #"SYSTEM_SYSRULES_columnsLayout"(
+    columns:{
+      
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: {
+          #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_177515"(
+            pickerLabel : "EUC Refernce Number",
+
+            placeholder: "--Search EUC Reference Number--",
+            maxSelections: 1,
+            identifiers: union(touniformstring(index(local!eucnumber,"euc_reference_number",{})),
+            touniformstring(index(local!eucnumber,"euc_reference_number",{}))
+            ),
+            choiceLabels:union(index(local!eucnumber,"euc_reference_number",{}),
+            index(local!eucnumber,"euc_reference_number",{})), 
+            selectedValue:touniformstring(ri!eucReferenceNumber),
+            saveInto: {
+              a!save(ri!eucReferenceNumber,save!value),
+              a!save(local!processId,
+              index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+                eucReferenceNumber:ri!eucReferenceNumber
+              ),"process_id",{})),
+              a!save(
+                ri!processId,if(
+
+                  or(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!eucReferenceNumber),tointeger(ri!eucReferenceNumber)=0),
+
+                  null,
+                  index(index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+                    eucReferenceNumber:ri!eucReferenceNumber
+                  ),"process_id",{}),1,{})
+
+                )
+              ),
+              a!localVariables(
+                local!tempUser:#"_a-0000e56b-0831-8000-5261-1bef901bef90_711902"(
+                  processId:ri!processId
+                ),
+                a!save(ri!tempUsers, #"_a-0000e56b-0831-8000-5261-1bef901bef90_711929"(
+                  processId:ri!processId,
+                  tempRefProcessUsers: local!tempUser
+                ))
+              )
+              
+            }
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: {
+          #"SYSTEM_SYSRULES_dropdownField"(
+            label: "Process Name",
+            placeholderLabel:"Select process name",
+            choiceValues:tointeger(index(local!allprocess,"process_id",{})),
+            choiceLabels: touniformstring(index(local!allprocess,"name",{})),
+            value:if(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                value:ri!processId,
+                choiceValue:tointeger(index(local!allprocess,"process_id",{}))
+              ),
+              ri!processId,
+              null
+            ) ,
+            disabled: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!eucReferenceNumber),
+              true(),
+              false()
+            ),
+            saveInto: {
+              ri!processId,
+
+              a!save(ri!buttonAction,null),
+             a!localVariables(
+                local!tempUser:#"_a-0000e56b-0831-8000-5261-1bef901bef90_711902"(
+                  processId:ri!processId
+                ),
+                a!save(ri!tempUsers, #"_a-0000e56b-0831-8000-5261-1bef901bef90_711929"(
+                  processId:ri!processId,
+                  tempRefProcessUsers: local!tempUser
+                ))
+              ),
+              a!save(ri!refProcessUser,null)
+            }
+          )
+        }
+      )
+    }
+  ),
+  {}
+)
+    ,
+    if(
+      or(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),ri!processId=0),
+      {},
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_125174"(
+        refProcessGroup:local!usergroup,
+        relatedAction:2,
+        isReadOnly: true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_richTextDisplayField"(),
+    if(
+      or(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId).
+      tointeger(ri!processId)=0
+      ),
+      {},
+      if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+              inputUUID: index(local!usergroup,"maker_group",{})
+            )
+
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+              inputUUID:index(local!usergroup,"checker_group",{})
+            )
+
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+              inputUUID:index(local!usergroup,"operations_team_group",{})
+            )),
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                inputUUID: index(local!usergroup,"technical_support_group",{})
+              )),
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                  inputUUID:index(local!usergroup,"escalation_group",{})
+                )
+              )
+        ),
+
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align:"CENTER",
+          value:#"SYSTEM_SYSRULES_richTextItem_v1"(
+            text:"Invalid User Groups Entered",
+            style:"EMPHASIS",
+            color:"NEGATIVE"
+          )
+        ),
+        {
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!InvalidUserData),
+            {},
+            {
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value:{
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: "Invalid Users",
+                    color: "ACCENT",
+                    style:"STRONG",
+                    size:"MEDIUM"
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_gridLayout"(
+                label: "",
+                shadeAlternateRows: false(),
+                headerCells: {
+                  if(
+                    ri!isReadOnly=true(),
+                    {},
+                    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                      label: "Is Invalid User",
+                      align: "CENTER"
+                    )
+                  )
+                  ,
+
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "User Soe Id",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Primary Maker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Secondary Maker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Primary Checker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Secondary Checker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "DOA",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Power User",
+                    align: "CENTER"
+                  ),
+
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Auditor",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Viewer",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Status",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "",
+                    align: "CENTER"
+                  )
+                },
+                columnConfigs: {
+
+
+                  if(
+                    ri!isReadOnly=true(),
+                    {},
+                    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                      width: "DISTRIBUTE"
+                    )
+                  )
+                  ,
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "ICON"
+                  )
+                },
+                rows: {
+                  #"SYSTEM_SYSRULES_applyComponents"(
+                    function: #"_a-0000e56b-0831-8000-5261-1bef901bef90_659480"(
+                      refProcessUsers :local!InvalidUserData,
+                      index: _,
+                      refProcessGroup: local!usergroup,
+                      isReadOnly: false(),
+                      AllProcess : local!processDetails,
+                      buttonAction:ri!buttonAction,
+                      processId:ri!processId,
+                      isInvalidUser:local!isInvalid
+                    ),
+                    array: if(
+                      or(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          local!InvalidUserData
+                        ),
+                        count(
+                          local!InvalidUserData
+                        ) = 0
+                      ),
+                      null,
+                      tointeger(
+                        enumerate(
+                          count(
+                            local!InvalidUserData
+                          )
+                        ) + 1
+                      )
+                    )
+                  )
+                },
+                addRowLink:{}
+              )
+            }
+
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!verifyValidUserGroupData),
+            {},
+            {
+             
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value:{
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: "User(s) does not exist in relevant group(s)",
+                    color: "ACCENT",
+                    style:"STRONG",
+                    size:"MEDIUM"
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value:{
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: "Instructions : ",
+                    style:"EMPHASIS",
+                    color:"STANDARD"
+                  ),
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: "Yes/No values marked in red and green color represents the current value and expected value respectively",
+                    style:"EMPHASIS",
+                    color:"NEGATIVE"
+                  )
+                }
+              ),
+              #"_a-0000e56b-0831-8000-5261-1bef901bef90_711916"(
+                tempUsers:local!verifyValidUserGroupData
+              )}
+          )
+          ,
+
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!verifyValidUserData),
+            {},
+            {
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value:{
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: "Valid Users",
+                    color: "ACCENT",
+                    style:"STRONG",
+                    size:"MEDIUM"
+                  )
+                }
+              ), 
+              #"SYSTEM_SYSRULES_gridLayout"(
+                label: "",
+                shadeAlternateRows: false(),
+                headerCells: {
+
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "User Soe Id",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Primary Maker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Secondary Maker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Primary Checker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Secondary Checker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "DOA",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Power User",
+                    align: "CENTER"
+                  ),
+
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Auditor",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Viewer",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Status",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "",
+                    align: "CENTER"
+                  )
+                },
+                columnConfigs: {
+
+
+
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "ICON"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "ICON"
+                  )
+                },
+                rows: {
+                  #"SYSTEM_SYSRULES_applyComponents"(
+                    function: #"_a-0000e54c-ce50-8000-5260-1bef901bef90_605184"(
+                      refProcessUsers :local!verifyValidUserData,
+                      index: _,
+                      refProcessGroup: local!usergroup,
+                      isReadOnly: false(),
+                      AllProcess : local!processDetails,
+                      buttonAction:ri!buttonAction,
+                      processId:ri!processId
+                    ),
+                    array: if(
+                      or(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          local!verifyValidUserData
+                        ),
+                        count(
+                          local!verifyValidUserData
+                        ) = 0
+                      ),
+                      null,
+                      tointeger(
+                        enumerate(
+                          count(
+                            local!verifyValidUserData
+                          )
+                        ) + 1
+                      )
+                    )
+                  )
+                },
+                addRowLink: #"SYSTEM_SYSRULES_dynamicLink"(
+                  label: if(
+                    or(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),ri!processId=0),
+                    {},
+                    "Add User"
+                  ),
+                  value:'type!{urn:com:appian:types:eap}EAP_Temp_ProcessUsers'(
+                    processId:ri!processId,
+                    createdBy: loggedInUser(),
+                    createdOn: now(),
+                    updatedBy: loggedInUser(),
+                    updatedOn: now(),
+                    isAuditor: 1,
+                    isViewer: 1,
+                    isActive: 1
+                  ),
+                  saveInto: {
+                    a!save(local!verifyValidUserData,append(local!verifyValidUserData,save!value)),
+                    a!save(ri!buttonAction,null)
+                  }
+                )
+              ),
+
+            }
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!buttonAction),
+            #"SYSTEM_SYSRULES_richTextDisplayField"(
+              align:"CENTER",
+              value:#"SYSTEM_SYSRULES_richTextItem_v1"(
+                text:"Please click on Save button to save items",
+                style:"EMPHASIS",
+                color:"SECONDARY"
+              )
+            ),
+            #"SYSTEM_SYSRULES_richTextDisplayField"(
+              align:"CENTER",
+              value:#"SYSTEM_SYSRULES_richTextItem_v1"(
+                text:"Users have been added",
+                style:"EMPHASIS",
+                color:"POSITIVE"
+              )
+            )
+          )
+        }
+      )
+    )
+  ,
+   
+
+   
+    
+    #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[4],
+        value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[4],
+        saveInto: {
+          ri!buttonAction,
+          
+a!save(ri!refProcessUser,
+append(
+  append(local!verifyValidUserData,local!InvalidUserData),#"SYSTEM_SYSRULES_forEach"(
+    items: local!verifyValidUserGroupData,
+    expression: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_85189"(
+      processUserId:fv!item.processUserId,
+      processId:fv!item.ProcessId,
+      
+      userSoeId:fv!item.userSoeId,
+      isPrimaryMaker:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedMaker),
+      fv!item.isPrimaryMaker,
+      fv!item.isExpectedMaker
+      ), 
+      isSecondaryMaker:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedMaker),
+      fv!item.isSecondaryMaker,
+      fv!item.isExpectedMaker
+      ),
+      isPrimaryChecker:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedChecker),
+      fv!item.isPrimaryChecker,
+      fv!item.isExpectedChecker
+      ),
+      isSecondaryChecker:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedChecker),
+      fv!item.isSecondaryChecker,
+      fv!item.isExpectedChecker
+      ),
+      isAuditor:fv!item.isAuditor, 
+      isPowerUser:fv!item.isPowerUser, 
+      isViewer:fv!item.isViewer, 
+      createdBy:fv!item.createdBy,
+      updatedBy:fv!item.updatedBy, 
+      updatedOn:fv!item.updatedOn, 
+      isActive:fv!item.isActive, 
+      createdOn:fv!item.createdOn,
+      isDoa:if(
+       and(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedChecker),
+       #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedMaker)
+       ),
+      fv!item.isDoa,
+      if(
+         and(
+           fv!item.isExpectedChecker=0,
+           #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedMaker)
+         ),
+         fv!item.isPrimaryMaker,
+         if(
+           and(
+             fv!item.isExpectedMaker=0,
+             #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.isExpectedChecker)
+           ),
+           fv!item.isSecondaryChecker,
+           if(
+             and(
+               fv!item.isExpectedChecker=0,
+               fv!item.isExpectedMaker=0
+             ),
+             fv!item.isExpectedChecker,
+             fv!item.isDoa
+           )
+         )
+        
+      )
+      
+      )
+    )
+  )))
+        },
+        submit: true(),
+        disabled: or(if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!tempUsers),
+          true(),
+          false()
+        ),
+        if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                inputUUID: index(local!usergroup,"maker_group",{})
+              )
+
+            ),
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                inputUUID:index(local!usergroup,"checker_group",{})
+              )
+
+            ),
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                inputUUID:index(local!usergroup,"operations_team_group",{})
+              )),
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                  inputUUID: index(local!usergroup,"technical_support_group",{})
+                )),
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                    inputUUID:index(local!usergroup,"escalation_group",{})
+                  )
+                )
+          ),
+          true(),
+          false()
+        )
+        ),
+        style: "PRIMARY",
+        validate: true()
+      ),
+      secondaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[6],
+        value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[6],
+        saveInto: {
+          ri!buttonAction,
+
+        },
+        submit: true(),
+        style: "NORMAL",
+        validate: false()
+      )
+    )
+  },
+
+)</definition>
+        <namedTypedValue>
+            <name>refProcessUser</name>
+            <type>
+                <name>EAP_T_RefProcessUsers?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessGroup</name>
+            <type>
+                <name>EAP_T_RefProcessGroup</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>eucReferenceNumber</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isProductionSupport</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>tempUsers</name>
+            <type>
+                <name>EAP_Temp_ProcessUsers?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>refProcessUser</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:eap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:EAP_T_RefProcessGroup"/>
+                    <a:nameRef>refProcessGroup</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonAction</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>eucReferenceNumber</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isProductionSupport</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>tempUsers</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_693243"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_719093"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_723068"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_724420"/>
+    </history>
+</contentHaul>

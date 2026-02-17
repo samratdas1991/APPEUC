@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<aiSkillRemoteHaul xmlns:a="http://www.appian.com/ae/types/2009">
+  <versionUuid>91034e7d-07ac-4622-ae9c-bf71539cd9a5</versionUuid>
+  <remoteDesignObject>
+    <uuid>ae51801b-fb2a-4757-ba83-652af522fd59</uuid>
+    <name>Test_Email_Classifier</name>
+    <description>testing email classifier</description>
+    <content><![CDATA[{"id":"ae51801b-fb2a-4757-ba83-652af522fd59","ai_skill_type":"email_classification"}]]></content>
+    <parameterizedProperties></parameterizedProperties>
+    <exportVersion>1.0.0</exportVersion>
+    </remoteDesignObject>
+  <roleMap>
+    <role name="ADMINISTRATOR">
+      <users>
+        <userUuid>mohammed.uddin36@wipro.com</userUuid>
+        </users>
+      <groups></groups>
+      </role>
+    </roleMap>
+  <history>
+    <historyInfo versionUuid="91034e7d-07ac-4622-ae9c-bf71539cd9a5"></historyInfo>
+    <historyInfo versionUuid="e43340ec-c4e1-4919-b78b-c7f015affaec"></historyInfo>
+    </history>
+  </aiSkillRemoteHaul>

@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_773788</versionUuid>
+    <rule>
+        <name>EAP_ReturnDwfAuditDataByProcessControllerConfigView</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_426494</uuid>
+        <description>Used to generate dwf audit data</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!isSystemDrivenConfigView: index(
+    ri!dwfProcessControllerConfigView,
+    wherecontains(
+      tointeger(
+        1
+      ),
+      tointeger(
+        index(
+          ri!dwfProcessControllerConfigView,
+          "is_system_driven",
+          {}
+        )
+      )
+    ),
+    {}
+  ),
+  local!isSystemNotDrivenConfigView: index(
+    ri!dwfProcessControllerConfigView,
+    wherecontains(
+      tointeger(
+        0
+      ),
+      tointeger(
+        index(
+          ri!dwfProcessControllerConfigView,
+          "is_system_driven",
+          {}
+        )
+      )
+    ),
+    {}
+  ),
+  if(
+    or(
+      tointeger(
+        index(
+          index(
+            ri!dwfProcessControllerConfigView,
+            "milestone_id",
+            {}
+          ),
+          1,
+          {}
+        )
+      ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[2],
+      tointeger(
+        index(
+          index(
+            ri!dwfProcessControllerConfigView,
+            "milestone_id",
+            {}
+          ),
+          1,
+          {}
+        )
+      ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[12]
+    ),
+    {
+      #"SYSTEM_SYSRULES_forEach"(
+        items: index(
+          local!isSystemNotDrivenConfigView,
+          1,
+          {}
+        ),
+        expression: 'type!{urn:com:appian:types:EAP}EAP_Temp_DwfUniqueIdentifiers'(
+          process_id: index(
+            fv!item,
+            "process_id",
+            {}
+          ),
+          run_config_id: index(
+            fv!item,
+            "run_config_id",
+            {}
+          ),
+          process_controller_configId: index(
+            fv!item,
+            "process_controller_config_id",
+            {}
+          ),
+          process_controller_id: index(
+            fv!item,
+            "process_controller_id",
+            {}
+          ),
+          io_config_id: index(
+            local!isSystemNotDrivenConfigView,
+            "io_config_id",
+            {}
+          ),
+          step_id: index(
+            local!isSystemNotDrivenConfigView,
+            "step_id",
+            {}
+          ),
+          milestone_id: index(
+            local!isSystemNotDrivenConfigView,
+            "milestone_id",
+            {}
+          ),
+          rejection_comments: ri!rejectionComments
+        )
+      ),
+      #"SYSTEM_SYSRULES_forEach"(
+        items: local!isSystemDrivenConfigView,
+        expression: 'type!{urn:com:appian:types:EAP}EAP_Temp_DwfUniqueIdentifiers'(
+          process_id: index(
+            fv!item,
+            "process_id",
+            {}
+          ),
+          run_config_id: index(
+            fv!item,
+            "run_config_id",
+            {}
+          ),
+          process_controller_configId: index(
+            fv!item,
+            "process_controller_config_id",
+            {}
+          ),
+          process_controller_id: index(
+            fv!item,
+            "process_controller_id",
+            {}
+          ),
+          link_mapping_id: index(
+            fv!item,
+            "link_mapping_id",
+            {}
+          ),
+          parsing_id: index(
+            fv!item,
+            "parsing_id",
+            {}
+          ),
+          output_config_id: index(
+            fv!item,
+            "output_generation_id",
+            {}
+          ),
+          io_config_id: index(
+            fv!item,
+            "io_config_id",
+            {}
+          ),
+          transformation_id: index(
+            fv!item,
+            "transformation_id",
+            {}
+          ),
+          data_validation_id: index(
+            fv!item,
+            "data_validation_id",
+            {}
+          ),
+          step_id: index(
+            fv!item,
+            "step_id",
+            {}
+          ),
+          milestone_id: index(
+            fv!item,
+            "milestone_id",
+            {}
+          ),
+          rejection_comments: ri!rejectionComments,
+          process_param_pg_id: index(
+            fv!item,
+            "process_param_pg_id",
+            {}
+          )
+        )
+      )
+    },
+    {
+      #"SYSTEM_SYSRULES_forEach"(
+        items: ri!dwfProcessControllerConfigView,
+        expression: 'type!{urn:com:appian:types:EAP}EAP_Temp_DwfUniqueIdentifiers'(
+          process_id: index(
+            fv!item,
+            "process_id",
+            {}
+          ),
+          run_config_id: index(
+            fv!item,
+            "run_config_id",
+            {}
+          ),
+          process_controller_configId: index(
+            fv!item,
+            "process_controller_config_id",
+            {}
+          ),
+          process_controller_id: index(
+            fv!item,
+            "process_controller_id",
+            {}
+          ),
+          link_mapping_id: index(
+            fv!item,
+            "link_mapping_id",
+            {}
+          ),
+          parsing_id: index(
+            fv!item,
+            "parsing_id",
+            {}
+          ),
+          output_config_id: index(
+            fv!item,
+            "output_generation_id",
+            {}
+          ),
+          transformation_id: index(
+            fv!item,
+            "transformation_id",
+            {}
+          ),
+          io_config_id: index(
+            fv!item,
+            "io_config_id",
+            {}
+          ),
+          data_validation_id: index(
+            fv!item,
+            "data_validation_id",
+            {}
+          ),
+          step_id: index(
+            fv!item,
+            "step_id",
+            {}
+          ),
+          milestone_id: index(
+            fv!item,
+            "milestone_id",
+            {}
+          ),
+          rejection_comments: ri!rejectionComments,
+          process_param_pg_id: index(
+            fv!item,
+            "process_param_pg_id",
+            {}
+          )
+        )
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>dwfProcessControllerConfigView</name>
+            <type>
+                <name>EAP_V_ProcessControllerConfig?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>rejectionComments</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_426899"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_559185"/>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_739241"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_766570"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_773788"/>
+    </history>
+</contentHaul>

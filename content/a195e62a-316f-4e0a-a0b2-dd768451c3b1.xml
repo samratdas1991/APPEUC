@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e55f-7063-8000-d945-a7ef90a7ef90_5634215</versionUuid>
+    <rule>
+        <name>EAP_setRequestRtValues</name>
+        <uuid>a195e62a-316f-4e0a-a0b2-dd768451c3b1</uuid>
+        <description>Rule to set Request runtime value for each key in the given process</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!runtimeConfigKeyData: index(
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_143703"(
+      processId: ri!processId,
+      isActive: true,
+      pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+        startIndex: 1,
+        batchSize: - 1
+      )
+    ),
+    "configRtKey",
+    null
+  ),
+  local!runTimeFilterRequestValues: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_143813"(
+    processId: ri!processId,
+    requestId: ri!requestId
+  ),
+  if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      local!runtimeConfigKeyData
+    ),
+    {},
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        local!runTimeFilterRequestValues
+      ),
+      #"SYSTEM_SYSRULES_forEach"(
+        items: local!runtimeConfigKeyData,
+        expression: 'type!{urn:com:appian:types:EAP}EAP_T_RequestRtValue'(
+          processId: ri!processId,
+          requestId: ri!requestId,
+          runtimeKey: fv!item,
+          runtimeValue: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_157881"(
+            configRtKey: fv!item,
+            requestId: ri!requestId,
+            processId: ri!processId,
+            makerId: ri!makerId,
+            accountNumber: ri!accountNumber,
+            textFilter: ri!textFilter,
+            numberFilter: ri!numberFilter,
+            requestMonth: ri!requestMonth,
+            requestYear: ri!requestYear,
+            customRunTimeKeys: ri!customRunTimeKeys
+          ),
+          createdBy: loggedInUser(),
+          createdOn: now()
+        )
+      ),
+      #"SYSTEM_SYSRULES_forEach"(
+        items: local!runTimeFilterRequestValues,
+        expression: 'type!{urn:com:appian:types:EAP}EAP_T_RequestRtValue'(
+          rtValueId: fv!item.rtValueId,
+          processId: ri!processId,
+          requestId: ri!requestId,
+          runtimeKey: fv!item.runtimeKey,
+          runtimeValue: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_157881"(
+            configRtKey: fv!item.runtimeKey,
+            requestId: ri!requestId,
+            processId: ri!processId,
+            makerId: ri!makerId,
+            accountNumber: ri!accountNumber,
+            textFilter: ri!textFilter,
+            numberFilter: ri!numberFilter,
+            requestMonth: ri!requestMonth,
+            requestYear: ri!requestYear,
+            customRunTimeKeys: ri!customRunTimeKeys
+          ),
+          createdBy: loggedInUser(),
+          createdOn: now()
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>makerId</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>accountNumber</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>textFilter</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>numberFilter</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestMonth</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestYear</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>customRunTimeKeys</name>
+            <type>
+                <name>EAP_U_CustomRunTimeKeys?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_191995"/>
+        <historyInfo versionUuid="_a-0000e4e2-51bd-8000-d8ec-a7ef90a7ef90_1434782"/>
+        <historyInfo versionUuid="_a-0000e4fa-5365-8000-d8f6-a7ef90a7ef90_1837899"/>
+        <historyInfo versionUuid="_a-0000e503-3bb4-8000-d8f9-a7ef90a7ef90_2012856"/>
+        <historyInfo versionUuid="_a-0000e555-dc8f-8000-d93c-a7ef90a7ef90_4979911"/>
+        <historyInfo versionUuid="_a-0000e55f-7063-8000-d945-a7ef90a7ef90_5634215"/>
+    </history>
+</contentHaul>

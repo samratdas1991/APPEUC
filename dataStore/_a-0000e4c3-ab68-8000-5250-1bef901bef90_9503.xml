@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e9e9-0626-8000-9bb3-011c48011c48_33713</versionUuid>
+    <dataStore>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_9503</uuid>
+        <name>HD DS</name>
+        <description>Datastore to retrieve Hungary Depreication</description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>c0713acb-e850-40d3-9b19-55ef4528f2db</uuid>
+                <name>ASSET_LISTING_CORP_SRC</name>
+                <type>{urn:com:appian:types}HD_assetListingCorpSrc</type>
+            </entity>
+            <entity>
+                <uuid>410f6e87-394a-4b64-bb05-eb8aedb37fd3</uuid>
+                <name>ASSET_LISTING_USG_SRC</name>
+                <type>{urn:com:appian:types:HD}HD_assetListingUsgSrc</type>
+            </entity>
+            <entity>
+                <uuid>f9544248-bc91-4428-831d-ff0a5514d6f3</uuid>
+                <name>AL_PIVOT_DATA_TRANS</name>
+                <type>{urn:com:appian:types:HD}HD_alPivotDataTrans</type>
+            </entity>
+            <entity>
+                <uuid>6cfcb99b-c745-4879-92f3-62dd993bf921</uuid>
+                <name>RETIREMENT_CORP_SRC</name>
+                <type>{urn:com:appian:types}HD_retirementCropSrc</type>
+            </entity>
+            <entity>
+                <uuid>726e51c6-2d61-4f7e-aab2-e5a44867df96</uuid>
+                <name>RETIREMENT_USG_SRC</name>
+                <type>{urn:com:appian:types}HD_retirementUsgSrc</type>
+            </entity>
+            <entity>
+                <uuid>a0deb9fa-f570-4442-b503-cd284e7d40b9</uuid>
+                <name>INTERMEDIATE_PIVOT_AL</name>
+                <type>{urn:com:appian:types}INTERMEDIATE_PIVOT_AL</type>
+            </entity>
+            <entity>
+                <uuid>121d2aaf-f7ef-4467-9dbe-54f83379e4d8</uuid>
+                <name>INTERMEDIATE_PIVOT_RET</name>
+                <type>{urn:com:appian:types}INTERMEDIATE_PIVOT_RET</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_30</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_37</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_35</groupUuid>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_33</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_38195"/>
+        <historyInfo versionUuid="_a-0000e9e9-0626-8000-9bb3-011c48011c48_33713"/>
+    </history>
+</dataStoreHaul>

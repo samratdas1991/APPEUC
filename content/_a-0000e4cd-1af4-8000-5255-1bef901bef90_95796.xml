@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_323393</versionUuid>
+    <interface>
+        <name>EAP_RunConfig_HolidayGrid</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_95796</uuid>
+        <description>Rule to manage holiday grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition> load(
+   local!country,
+   local!type,
+   local!Region,
+   local!Year,
+   {
+     #"SYSTEM_SYSRULES_columnsLayout"(
+       columns: {
+         #"SYSTEM_SYSRULES_columnLayout"(
+           contents:   #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+             label: "Region",
+             placeholderLabel:"--Select Region--",
+             choiceLabels: {"Asia","Europe","North America","South America"},
+             choiceValues: {"Asia","Europe","North America","South America"},
+             value:ri!region,
+             saveInto: ri!region
+
+           )
+         ),
+         #"SYSTEM_SYSRULES_columnLayout"(
+           contents:   #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+             label: "Country",
+             placeholderLabel: "--Select Country--",
+             choiceLabels: {"India","Sri Lanka","China","United States of America","Japan","Russia"},
+             choiceValues: {"India","Sri Lanka","China","United States of America","Japan","Russia"},
+             value:ri!country,
+             saveInto:ri!country
+           ),
+         ),
+
+         
+       }
+     )
+     
+   }
+ )</definition>
+        <namedTypedValue>
+            <name>edit</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>eapHolidays</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>country</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>region</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_96407"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_323393"/>
+    </history>
+</contentHaul>

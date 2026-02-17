@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_746496</versionUuid>
+    <rule>
+        <name>EAP_setValueForOutEmailAttributeMapping</name>
+        <uuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_746340</uuid>
+        <description>Hold set value rule for EAP_T_OutEmailAttributeMapping</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!outEmailAttributeMapping),
+  null,
+  #"SYSTEM_SYSRULES_forEach"(
+    items: ri!outEmailAttributeMapping,
+    expression: #"_a-0000e5ac-f704-8000-5264-1bef901bef90_742594"(
+      outEmailProcessTemplateMappingId:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!outEmailProcessTemplateMappingId),
+        ri!outEmailAttributeMapping[fv!index].out_email_process_template_mapping_id,
+        ri!outEmailProcessTemplateMappingId
+      ),
+      outEmailAttributeMappingId:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!outEmailAttributeMappingId),
+        ri!outEmailAttributeMapping[fv!index].out_email_attribute_mapping_id,
+        ri!outEmailAttributeMappingId
+      ),
+      attributeName:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!attributeName),
+        ri!outEmailAttributeMapping[fv!index].attribute_name,
+        ri!attributeName
+      ), 
+      parameterType:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!ParameterType),
+        ri!outEmailAttributeMapping[fv!index].parameter_type,
+        ri!ParameterType
+      ), 
+      parameterValue:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!parameterValue),
+        ri!outEmailAttributeMapping[fv!index].parameter_value,
+        ri!parameterValue
+      ),
+      isActive:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isActive),
+        ri!outEmailAttributeMapping[fv!index].is_active,
+        ri!isActive
+      ),
+      createdBy:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdBy),
+        ri!outEmailAttributeMapping[fv!index].created_by,
+        ri!createdBy
+      ),
+      createdOn:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdOn),
+        ri!outEmailAttributeMapping[fv!index].created_on,
+        ri!createdOn
+      ),
+      modifiedBy:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedBy),
+        ri!outEmailAttributeMapping[fv!index].modified_by,
+        ri!modifiedBy
+      ),
+      modifiedOn:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedOn),
+        ri!outEmailAttributeMapping[fv!index].modified_on,
+        ri!modifiedOn
+      )
+    )
+  )
+)
+
+
+
+
+</definition>
+        <namedTypedValue>
+            <name>outEmailAttributeMappingId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>attributeName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ParameterType</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>parameterValue</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outEmailAttributeMapping</name>
+            <type>
+                <name>EAP_T_OutEmailAttributeMapping?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outEmailProcessTemplateMappingId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_746496"/>
+    </history>
+</contentHaul>

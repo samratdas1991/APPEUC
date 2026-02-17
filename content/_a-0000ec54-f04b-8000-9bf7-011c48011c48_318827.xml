@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ed19-51a4-8000-9c01-011c48011c48_366936</versionUuid>
+    <interface>
+        <name>EAP_MemoDocumentData</name>
+        <uuid>_a-0000ec54-f04b-8000-9bf7-011c48011c48_318827</uuid>
+        <description></description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_formLayout_v1"(
+  label: "M E M O R A N D U M",
+  contents: {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_textField"(
+              label: "Fund Name",
+              labelPosition: "JUSTIFIED",
+              value: ri!memoDocumentData.fundName,
+              saveInto: ri!memoDocumentData.fundName,
+              readOnly: true
+            ),
+            #"SYSTEM_SYSRULES_textField"(
+              label: "To",
+              labelPosition: "JUSTIFIED",
+              value: ri!memoDocumentData.to,
+              saveInto: ri!memoDocumentData.to,
+              readOnly: true
+            ),
+            #"SYSTEM_SYSRULES_textField"(
+              label: "From",
+              labelPosition: "JUSTIFIED",
+              value: ri!memoDocumentData.from,
+              saveInto: ri!memoDocumentData.from,
+              readOnly: true
+            ),
+            #"SYSTEM_SYSRULES_textField"(
+              label: "CC",
+              labelPosition: "JUSTIFIED",
+              value: ri!memoDocumentData.cc,
+              saveInto: ri!memoDocumentData.cc,
+              readOnly: true
+            ),
+            #"SYSTEM_SYSRULES_fileUploadField_v1"(
+              label: "Upload Memo",
+              helpTooltip: "Upload a pdf document which needs to first and second page of actual memo",
+              labelPosition: "JUSTIFIED",
+              maxSelections: 1,
+              target: #"_a-0000ec4d-50ec-8000-9bf5-011c48011c48_312636",
+              value: ri!userUploadedMemo,
+              saveInto: ri!userUploadedMemo,
+              placeholder: "--Upload a memo--",
+              validations: {
+                if(
+                  fv!files.extension = "pdf",
+                  {},
+                  "The document should be of file type PDF"
+                )
+              },
+              showWhen: #"_a-0000ed19-51a4-8000-9c01-011c48011c48_356326"
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_dateField"(
+              label: "Memo Date",
+              labelPosition: "JUSTIFIED",
+              value: ri!memoDocumentData.date,
+              saveInto: ri!memoDocumentData.date
+            ),
+            #"SYSTEM_SYSRULES_textField"(
+              label: "Subject",
+              labelPosition: "JUSTIFIED",
+              value: ri!memoDocumentData.subject,
+              saveInto: ri!memoDocumentData.subject
+            ),
+            #"SYSTEM_SYSRULES_dateField"(
+              label: "Quarter End Date",
+              labelPosition: "JUSTIFIED",
+              value: ri!memoDocumentData.quarterEndDate,
+              saveInto: ri!memoDocumentData.quarterEndDate
+            ),
+            #"SYSTEM_SYSRULES_dateField"(
+              label: "Wire Transfer Date",
+              labelPosition: "JUSTIFIED",
+              value: ri!memoDocumentData.wireTransferDate,
+              saveInto: ri!memoDocumentData.wireTransferDate
+            )
+          }
+        )
+      }
+    )
+  },
+  buttons: #"SYSTEM_SYSRULES_ButtonLayout"(
+    primaryButtons: {
+      #"SYSTEM_SYSRULES_buttonWidget_v1"(
+        label: "Submit",
+        submit: true,
+        style: "SOLID",
+        loadingIndicator: true
+      )
+    },
+    secondaryButtons: {
+      #"SYSTEM_SYSRULES_buttonWidget_v1"(
+        label: "Cancel",
+        value: true,
+        saveInto: ri!cancel,
+        submit: true,
+        style: "OUTLINE",
+        validate: false
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>memoDocumentData</name>
+            <type>
+                <name>EAP_MemoDocumentData</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>cancel</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>userUploadedMemo</name>
+            <type>
+                <name>CollaborationDocument</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>memoDocumentData</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>cancel</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="a:CollaborationDocument"/>
+                    <a:nameRef>userUploadedMemo</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000ed19-51a4-8000-9c01-011c48011c48_366936"/>
+    </history>
+</contentHaul>

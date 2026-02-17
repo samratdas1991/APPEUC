@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_771501</versionUuid>
+    <rule>
+        <name>EAP_persistProcessTransAttachment</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_116794</uuid>
+        <description>Expression rule to persist proces int trans Attachment</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!transData: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!processTransData,"processTransId",{})),
+    {},
+    #"_a-0000e4c6-e892-8000-5254-1bef901bef90_23096"(
+      transactionId: index(ri!processTransData,"processTransId",{})
+    )
+  ),     
+  
+  #"SYSTEM_SYSRULES_forEach"(
+    items: ri!processTransData,
+    expression: 'type!{urn:com:appian:types:eap}EAP_T_IntTransAttachments'(
+      request_id: ri!requestDetails.requestId,
+      transaction_id:fv!item.processTransId,
+      document_type: "INPUT",
+      appian_document_id:       
+      if(
+        and(
+          or(
+            tointeger(index(
+              index(
+                local!transData, 
+                wherecontains(
+                  fv!item.processTransId,
+                  index(
+                    local!transData,"transactionId",{})
+                ),{}
+              ),"usePriorData",{}
+            )) = 0,
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+              index(
+                local!transData, 
+                wherecontains(
+                  fv!item.processTransId,
+                  index(
+                    local!transData,"transactionId",{})
+                ),{}
+              ),"usePriorData",{}
+            ))
+          ),
+          fv!item.isOptional = 1,
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.appianDocumentId)
+        ),
+        "SKIP_PARSING",
+        fv!item.appianDocumentId
+      ),
+      updated_by:ri!requestDetails.updatedBy,
+      updated_on: ri!requestDetails.updatedOn,
+      document_name: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(fv!item.appianDocumentId),{},
+        document(fv!item.appianDocumentId,"name")
+      ),
+      is_active:1
+    )
+  )
+
+
+
+)</definition>
+        <namedTypedValue>
+            <name>processTransData</name>
+            <type>
+                <name>EAP_U_ManualUploadAttachmentData?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestDetails</name>
+            <type>
+                <name>EAP_T_ProcessRequest</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name>Valid</a:name>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">{{'type!{urn:com:appian:types:EAP}EAP_T_RefProcessInt'(
+  configId: 1,
+  processId: 1,
+  )},
+  {'type!{urn:com:appian:types:EAP}EAP_T_RefProcessInt'(
+    configId: 2,
+    processId: 1,
+  )},
+  {'type!{urn:com:appian:types:EAP}EAP_T_RefProcessInt'(
+    configId: 3,
+    processId: 1,
+  )}}</a:value>
+                    <a:nameRef>processTransData</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">'type!{urn:com:appian:types:EAP}EAP_T_ProcessRequest'(
+  requestId: 10,
+  processId: 1
+)</a:value>
+                    <a:nameRef>requestDetails</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_191945"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_498096"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_519102"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_769006"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_771501"/>
+    </history>
+</contentHaul>

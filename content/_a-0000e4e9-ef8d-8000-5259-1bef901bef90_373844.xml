@@ -1,0 +1,993 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_658890</versionUuid>
+    <interface>
+        <name>EAP_DynamicWorkflowMasterForm</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_373844</uuid>
+        <description>Interface for Dynamic workflow master form</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!steps: {
+    "Define Steps",
+    "Configure Steps"
+
+  },
+  local!next_process_controller_id: null,
+  local!runConfigDetails: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processId
+    ),
+    {},
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+      processId: ri!processId,
+      isActive: true()
+    )
+  ),
+  local!ProcessDetails: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_27579"(
+    processId: ri!processId
+  ),
+  local!milestoneDetails: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_350906"(
+    isActive: 1
+  ),
+  local!showWorkFlowGrid: true(),
+  local!nextStepConfigure: 0,
+  local!sgb: 0,
+  local!addNextStep: false(),
+  local!isEdit: 0,
+  local!stepName,
+  /*local!dwfProcessControllerMaster: if(*/
+  /*rule!EAP_Utils_CheckIsNull(ri!processId),*/
+  /*{},*/
+  local!processControllerMasterIds: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processId
+    ),
+    {},
+    index(
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_359325"(
+        processId: ri!processId
+      ),
+      "process_controller_master_id",
+      {}
+    )
+  ),
+  local!processControllerStepsView: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      local!processControllerMasterIds
+    ),
+    {},
+    #"_a-0000e518-940a-8000-525e-1bef901bef90_452870"(
+      processControllerMasterId: local!processControllerMasterIds
+    )
+  ),
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      contents: {
+        #"_a-0000e518-940a-8000-525e-1bef901bef90_524783"(
+          label: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!EUCName
+            ),
+            upper(
+              "Dynamic workflow configuration"
+            ),
+            concat(
+              upper(
+                "Dynamic workflow configuration"
+              ),
+              " ",
+              "- ",
+              ri!EUCName
+            )
+          ),
+          color:"ACCENT",
+          icon: "arrows-alt"
+        ),
+      },
+      divider: "BELOW"
+    ),
+    /*a!sectionLayout(*/
+    /*label: if(*/
+    /*rule!EAP_Utils_CheckIsNull(*/
+    /*ri!EUCName*/
+    /*),*/
+    /*upper(*/
+    /*"Dynamic workflow configuration"*/
+    /*),*/
+    /*concat(*/
+    /*upper(*/
+    /*"Dynamic workflow configuration"*/
+    /*),*/
+    /*" ",*/
+    /*"- ",*/
+    /*ri!EUCName*/
+    /*)*/
+    /*),*/
+    /*divider: "ABOVE",*/
+    /*marginBelow: "NONE"*/
+    /*),*/
+    /*Information Bar*/
+    /*a!cardLayout(*/
+    /*contents: {*/
+    /*a!columnsLayout(*/
+    /*columns: {*/
+    /*a!columnLayout(*/
+    /*contents: {*/
+    /*a!sideBySideLayout(*/
+    /*items: {*/
+    /*a!sideBySideItem(*/
+    /*item: a!richTextDisplayField(*/
+    /*value: {*/
+    /*a!richTextIcon(*/
+    /*icon: "list-alt",*/
+    /*color: cons!EAP_COLORS[1],*/
+    /*size: "LARGE"*/
+    /*)*/
+    /*}*/
+    /*),*/
+    /*width: "MINIMIZE"*/
+    /*),*/
+    /*a!sideBySideItem(*/
+    /*item: a!richTextDisplayField(*/
+    /*value: {*/
+    /*a!richTextItem(*/
+    /*text: "EUC Type" &amp; char(*/
+    /*10*/
+    /*),*/
+    /*color: cons!EAP_COLORS[1],*/
+    /*style: "STRONG"*/
+    /*),*/
+    /*a!richTextItem(*/
+    /*text: "File Parsing"*/
+    /*)*/
+    /*}*/
+    /*),*/
+    /*width: "AUTO"*/
+    /*)*/
+    /*},*/
+    /*alignVertical: "MIDDLE"*/
+    /*)*/
+    /*}*/
+    /*),*/
+    /*a!columnLayout(*/
+    /*contents: {*/
+    /*a!sideBySideLayout(*/
+    /*items: {*/
+    /*a!sideBySideItem(*/
+    /*item: a!richTextDisplayField(*/
+    /*value: {*/
+    /*a!richTextIcon(*/
+    /*icon: "language",*/
+    /*color: cons!EAP_COLORS[1],*/
+    /*size: "LARGE"*/
+    /*)*/
+    /*}*/
+    /*),*/
+    /*width: "MINIMIZE"*/
+    /*),*/
+    /*a!sideBySideItem(*/
+    /*item: a!richTextDisplayField(*/
+    /*value: {*/
+    /*a!richTextItem(*/
+    /*text: "Process Name",*/
+    /*color: cons!EAP_COLORS[1],*/
+    /*style: "STRONG"*/
+    /*),*/
+    /*char(*/
+    /*10*/
+    /*),*/
+    /*a!richTextItem(*/
+    /*text: index(*/
+    /*local!ProcessDetails,*/
+    /*"process_name",*/
+    /*{}*/
+    /*)*/
+    /*)*/
+    /*}*/
+    /*),*/
+    /*width: "AUTO"*/
+    /*)*/
+    /*},*/
+    /*alignVertical: "MIDDLE"*/
+    /*)*/
+    /*}*/
+    /*),*/
+    /*a!columnLayout(*/
+    /*contents: {*/
+    /*a!sideBySideLayout(*/
+    /*items: {*/
+    /*a!sideBySideItem(*/
+    /*item: a!richTextDisplayField(*/
+    /*value: {*/
+    /*a!richTextIcon(*/
+    /*icon: "sun-o",*/
+    /*color: cons!EAP_COLORS[1],*/
+    /*size: "LARGE"*/
+    /*)*/
+    /*}*/
+    /*),*/
+    /*width: "MINIMIZE"*/
+    /*),*/
+    /*a!sideBySideItem(*/
+    /*item: a!richTextDisplayField(*/
+    /*value: {*/
+    /*a!richTextItem(*/
+    /*text: "Cluster Name",*/
+    /*color: cons!EAP_COLORS[1],*/
+    /*style: "STRONG"*/
+    /*),*/
+    /*char(*/
+    /*10*/
+    /*),*/
+    /*a!richTextItem(*/
+    /*text: index(*/
+    /*local!ProcessDetails,*/
+    /*"cluster_name",*/
+    /*{}*/
+    /*)*/
+    /*)*/
+    /*}*/
+    /*),*/
+    /*width: "AUTO"*/
+    /*)*/
+    /*},*/
+    /*alignVertical: "MIDDLE"*/
+    /*)*/
+    /*}*/
+    /*),*/
+    /*a!columnLayout(*/
+    /*contents: {*/
+    /*a!sideBySideLayout(*/
+    /*items: {*/
+    /*a!sideBySideItem(*/
+    /*item: a!richTextDisplayField(*/
+    /*value: {*/
+    /*a!richTextIcon(*/
+    /*icon: "cogs",*/
+    /*color: cons!EAP_COLORS[1],*/
+    /*size: "LARGE"*/
+    /*)*/
+    /*}*/
+    /*),*/
+    /*width: "MINIMIZE"*/
+    /*),*/
+    /*a!sideBySideItem(*/
+    /*item: a!richTextDisplayField(*/
+    /*value: {*/
+    /*a!richTextItem(*/
+    /*text: "Sub Cluster",*/
+    /*color: cons!EAP_COLORS[1],*/
+    /*style: "STRONG"*/
+    /*),*/
+    /*char(*/
+    /*10*/
+    /*),*/
+    /*a!richTextItem(*/
+    /*text: index(*/
+    /*local!ProcessDetails,*/
+    /*"sub_cluster_name",*/
+    /*null*/
+    /*)*/
+    /*)*/
+    /*}*/
+    /*),*/
+    /*width: "AUTO"*/
+    /*)*/
+    /*},*/
+    /*alignVertical: "MIDDLE"*/
+    /*)*/
+    /*}*/
+    /*),*/
+    /*a!columnLayout(*/
+    /*contents: {*/
+    /*a!sideBySideLayout(*/
+    /*items: {*/
+    /*a!sideBySideItem(*/
+    /*item: a!richTextDisplayField(*/
+    /*value: {*/
+    /*a!richTextIcon(*/
+    /*icon: "user-circle-o",*/
+    /*color: cons!EAP_COLORS[1],*/
+    /*size: "LARGE"*/
+    /*)*/
+    /*}*/
+    /*),*/
+    /*width: "MINIMIZE"*/
+    /*),*/
+    /*a!sideBySideItem(*/
+    /*item: a!richTextDisplayField(*/
+    /*value: {*/
+    /*a!richTextItem(*/
+    /*text: "Assigned To",*/
+    /*color: cons!EAP_COLORS[1],*/
+    /*style: "STRONG"*/
+    /*),*/
+    /*char(*/
+    /*10*/
+    /*),*/
+    /*a!richTextItem(*/
+    /*text: rule!EAP_Utils_GetFullNameByUserName(*/
+    /*loggedInUser()*/
+    /*)*/
+    /*)*/
+    /*}*/
+    /*),*/
+    /*width: "AUTO"*/
+    /*)*/
+    /*},*/
+    /*alignVertical: "MIDDLE"*/
+    /*)*/
+    /*}*/
+    /*)*/
+    /*},*/
+    /*marginBelow: "STANDARD"*/
+    /*)*/
+    /*},*/
+    /*style: "#D6DBDF",*/
+    /*height: "AUTO",*/
+    /*marginBelow: "STANDARD",*/
+    /*showBorder: false()*/
+    /*),*/
+    /*Workflow Mapping Grid*/
+    if(
+      toboolean(
+        ri!showWorkFlowGrid
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365087"(
+        runConfigDetails: local!runConfigDetails,
+        dwfProcessControllerMaster: ri!dwfProcessControllerMaster,
+        isReadOnly: ri!isReadOnly,
+        processId: ri!processId,
+        manageWorkflowId: ri!processControllerMasterId,
+        showWorkFlowGrid: ri!showWorkFlowGrid,
+        sgb: local!sgb,
+        processControllerStepsView: local!processControllerStepsView,
+        processController: ri!processController,
+        isProductionSupport:ri!isProductionSupport
+      ),
+      {}
+    ),
+    if(
+      and(
+        toboolean(
+          ri!showWorkFlowGrid
+        )
+      ),
+      {},
+      {
+        /*
+         a!columnsLayout(
+          columns:{
+            a!columnLayout(
+              contents:{
+                a!richTextDisplayField(
+                  value:
+                  a!richTextItem(
+                    text:"&lt;&lt; GO BACK",
+                    style:{ "EMPHASIS","STRONG"}, 
+                    color:"ACCENT",
+                    link:a!dynamicLink(
+                      saveInto: {
+                        a!save(
+                          ri!showWorkFlowGrid,
+                          true()
+                        ),
+                        a!save(
+                          local!sgb,
+                          0
+                        )
+                      }
+                    )
+                  )
+                )
+              }
+            )
+          },
+          showWhen: if(
+            ri!isReadOnly,
+            if(
+              local!sgb=1,
+              true(),
+              false()
+            ),
+            {}
+          )
+        ),
+        */
+        /*Workflow Steps Readonly*/
+        {
+          if(
+            ri!isProductionSupport&lt;&gt;true(),
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10573"(
+              steps: local!steps,
+              activeStep: ri!activeStep,
+              showWhen: if(
+                ri!isReadOnly = false(),
+                true(),
+                false()
+              )
+            ),
+            {}
+          )
+          ,
+          if(
+            or(
+              ri!activeStep = 1
+            ),
+            #"_a-0000e505-ae05-8000-525c-1bef901bef90_427532"(
+              processController: ri!processController,
+              isReadOnly: ri!isReadOnly,
+              milestoneDetails: local!milestoneDetails,
+              processControllerMasterId: ri!processControllerMasterId,
+              dwfProcessControllerConfig: ri!dwfProcessControllerConfig,
+              runConfigDetails: local!runConfigDetails,
+              isProductionSupport:ri!isProductionSupport
+            ),
+            if(
+              ri!isProductionSupport&lt;&gt;true(),
+              #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_367220"(
+                nextStepConfigure: local!nextStepConfigure,
+                isReadOnly: ri!isReadOnly,
+                nextStep: ri!nextStep,
+                manageWorkflowId: ri!processControllerMasterId,
+                processControllerConfig: ri!dwfProcessControllerConfig,
+                sgb: local!sgb,
+                processControllerId: ri!processControllerId,
+                showWorkFlowGrid: ri!showWorkFlowGrid,
+                isViewConfig: ri!isViewConfig,
+                processId: ri!processId,
+                addNextStep: local!addNextStep,
+                isEdit: local!isEdit,
+                next_process_controller_id: local!next_process_controller_id,
+                stepName: local!stepName,
+                isProductionSupport:ri!isProductionSupport
+              ),
+              {}
+
+            )
+
+          ),
+
+        }
+      }
+    ),
+    /*Buttons*/
+    #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: {
+        if(
+          and(ri!isProductionSupport=true(),ri!activeStep=1),
+          #"SYSTEM_SYSRULES_ButtonWidget"(
+            label: "Submit",
+            value: "",
+            saveInto: {
+              a!save(
+                ri!buttonAction,
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3]
+              )
+            },
+            size: "SMALL",
+            style: "PRIMARY",
+
+            validate: true(),
+            submit: true(),
+            showWhen: if(
+              ri!showWorkFlowGrid=true(),
+              false(),
+              true()
+            )
+          ),
+          #"SYSTEM_SYSRULES_ButtonWidget"(
+            label: "Save",
+            value: "",
+            saveInto: {
+              a!save(
+                ri!buttonAction,
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[4]
+              )
+            },
+            size: "SMALL",
+            style: "STANDARD",
+            showWhen: if(
+              or(
+                ri!isReadOnly = true()
+              ),
+              false(),
+              if(
+                ri!showWorkFlowGrid = true(),
+                true(),
+                or(
+                  if(
+                    local!addNextStep = false(),
+                    false(),
+                    if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        ri!dwfProcessControllerConfig
+                      ),
+                      false(),
+                      true()
+                    )
+                  ),
+                  if(
+                    tointeger(
+                      local!isEdit
+                    ) = 1,
+                    if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        ri!dwfProcessControllerConfig
+                      ),
+                      false(),
+                      true()
+                    ),
+                    false()
+                  )
+                )
+              )
+            ),
+            validate: true(),
+            submit: true()
+          )
+        )
+        ,
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3],
+          value: "",
+          saveInto: {
+            a!save(
+              ri!buttonAction,
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3]
+            )
+          },
+          size: "SMALL",
+          style: "STANDARD",
+          showWhen:if(
+            ri!isProductionSupport=true(),
+            false(),
+            if(
+              ri!isReadOnly = true(),
+              false(),
+              if(
+                and(
+                  ri!showWorkFlowGrid = false(),
+                  ri!activeStep = 1
+                ),
+                true(),
+                false()
+              )
+            )
+          ) ,
+          validate: true(),
+          submit: true()
+        ),
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Submit",
+          value: "",
+          saveInto: {
+            a!save(
+              ri!buttonAction,
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2]
+            )
+          },
+          size: "SMALL",
+          style: "PRIMARY",
+          showWhen:    if(
+            ri!isReadOnly = false(),
+            if(
+              or(
+                ri!showWorkFlowGrid = true(),
+                tointeger(
+                  local!isEdit
+                ) = 1,
+                ri!activeStep = 1
+              ),
+              false(),
+              if(
+                local!addNextStep = true(),
+                false(),
+                true()
+              )
+            ),
+            false()
+          ) ,
+          validate: true(),
+          submit: true()
+        ),
+        /*a!buttonWidget(*/
+        /*label: "Submit",*/
+        /*value: cons!EAP_BUTTON_ACTION[1],*/
+        /*submit: true(),*/
+        /*saveInto: {*/
+        /*ri!buttonAction*/
+        /*},*/
+        /*size: "SMALL",*/
+        /*style: "PRIMARY",*/
+        /*showWhen: {},*/
+        /*validate: true()*/
+        /*)*/
+
+      },
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Cancel",
+          value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+          submit: true(),
+          saveInto: {
+            ri!buttonAction
+          },
+          size: "SMALL",
+          style: "DESTRUCTIVE",
+          showWhen: not(
+            or(
+              ri!isReadOnly
+            )
+          ),
+          validate: false()
+        ),
+        if(
+          and(
+            ri!activeStep = 1,
+            ri!isInitiatedFromLinkedEUC,
+            ri!isProductionSupport&lt;&gt;true(),
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isProductionSupport)
+
+          ),
+          #"SYSTEM_SYSRULES_ButtonWidget"(
+            label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[7],
+            value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[7],
+            submit: true(),
+            validate: false(),
+            saveInto: {
+              ri!buttonAction
+            },
+            size: "SMALL",
+            style: "SECONDARY"
+          ),
+          {}
+        ),
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Back",
+          value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[7],
+          saveInto: {
+            ri!buttonAction,
+            a!save(
+              ri!showWorkFlowGrid,
+              true()
+            ),
+            a!save(
+              ri!isViewConfig,
+              false()
+            ),
+            a!save(
+              local!sgb,
+              0
+            ),
+            a!save(
+              ri!nextStep,
+              null
+            ),
+            a!save(
+              ri!isViewConfig,
+              null
+            ),
+            a!save(
+              ri!processControllerId,
+              null
+            ),
+            a!save(
+              ri!processControllerMasterId,
+              null
+            ),
+            a!save(
+              local!nextStepConfigure,
+              0
+            ),
+            a!save(
+              local!isEdit,
+              0
+            ),
+            a!save(
+              ri!dwfProcessControllerConfig,
+              null
+            ),
+            a!save(
+              ri!processController,
+              null
+            ),
+            a!save(
+              local!stepName,
+              null
+            ),
+            a!save(ri!linkMappingId,null)
+          },
+          size: "SMALL",
+          style: "SECONDARY",
+          showWhen:if(
+            ri!isReadOnly = true,
+            if(
+              or(
+                ri!showWorkFlowGrid = false(),
+                ri!isViewConfig = true(),
+
+              ),
+              true(),
+              false()
+            ),
+            false()
+          ),
+          validate: false()
+        )
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dwfProcessControllerMaster</name>
+            <type>
+                <name>EAP_T_DwfProcessControllerMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dwfProcessControllerConfig</name>
+            <type>
+                <name>EAP_T_DwfProcessControllerConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextStep</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerMasterId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showWorkFlowGrid</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isViewConfig</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>activeStep</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processController</name>
+            <type>
+                <name>EAP_T_DwfProcessController?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>stepName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isInitiatedFromLinkedEUC</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EUCName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>linkMappingId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isProductionSupport</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">120
+</a:value>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonAction</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_359325"(
+ 
+  processId: 120
+)</a:value>
+                    <a:nameRef>dwfProcessControllerMaster</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>dwfProcessControllerConfig</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>nextStep</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>processControllerId</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>processControllerMasterId</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">true</a:value>
+                    <a:nameRef>showWorkFlowGrid</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isViewConfig</a:nameRef>
+                    <a:id>10</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>activeStep</a:nameRef>
+                    <a:id>11</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>processController</a:nameRef>
+                    <a:id>12</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>stepName</a:nameRef>
+                    <a:id>13</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isInitiatedFromLinkedEUC</a:nameRef>
+                    <a:id>14</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>EUCName</a:nameRef>
+                    <a:id>15</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>linkMappingId</a:nameRef>
+                    <a:id>16</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isProductionSupport</a:nameRef>
+                    <a:id>17</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_383889"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_407253"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_470623"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_490492"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_526140"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_546718"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_658890"/>
+    </history>
+</contentHaul>

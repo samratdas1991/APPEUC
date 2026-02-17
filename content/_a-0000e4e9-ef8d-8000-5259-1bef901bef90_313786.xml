@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_353695</versionUuid>
+    <rule>
+        <name>EAP_UIVConfig_InViewFiltersGridRowLayout</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_313786</uuid>
+        <description>Holds the grid row layout rule for In View Filters editable grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  contents: {
+    /*Filter Name*/
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+      value: index(
+        ri!input[ri!index],
+        "filterName",
+        {}
+      ),
+      saveInto: a!save(
+        ri!input[ri!index].filterName,
+        save!value
+      ),
+      align: "LEFT",
+      isReadOnly: ri!isReadOnly,
+      required: if(
+        ri!isReadOnly,
+        false,
+        true
+      ),
+      choiceLabels : ri!entityColumnNames ,
+      choiceValues : ri!entityColumnNames
+
+    )     ,
+    /*Filter Type*/
+    /*rule!EAP_SA_GenericTextField(*/
+      /*value: index(*/
+        /*ri!input[ri!index],*/
+        /*"filterType",*/
+        /*{}*/
+      /*),*/
+      /*saveInto: a!save(*/
+        /*ri!input[ri!index].filterType,*/
+        /*save!value*/
+      /*),*/
+      /*align: "LEFT",*/
+      /*readOnly: ri!isReadOnly,*/
+      /*required: if(*/
+        /*ri!isReadOnly,*/
+        /*false,*/
+        /*true*/
+      /*)*/
+    /*),*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!input[ri!index],
+          "filterType",
+          {}
+        )
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select Filter Type--",
+        choiceLabels: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+          MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+            masterLookUpData: ri!masterLookUpData,
+            categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[7]
+          ),
+          UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_328718"[2],
+          /*cons!EAP_REF_MASTER_TYPE[21],*/
+          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+        ),
+        choiceValues: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+          MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+            masterLookUpData: ri!masterLookUpData,
+            categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[7]
+          ),
+          UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_328718"[2],
+          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+        ),
+        value: if(
+          contains(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[7]
+              ),
+              UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_328718"[2],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            ),
+            index(
+              ri!input[ri!index],
+              "filterType",
+              {}
+            )
+          ),
+          index(
+            ri!input[ri!index],
+            "filterType",
+            {}
+          ),
+          null
+        ),
+        saveInto: a!save(
+          ri!input[ri!index].filterType,
+          save!value
+        ),
+        required: true()
+      )
+    ),
+    /*Is Active*/
+    if(
+      ri!isReadOnly,
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        images: {
+          #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(
+                contains(
+                  toboolean(
+                    index(
+                      ri!input[ri!index],
+                      "isActive",
+                      {}
+                    )
+                  ),
+                  true()
+                ),
+                "STATUS_OK",
+                "STATUS_NOTDONE"
+              )
+            )
+          )
+        },
+        align: "CENTER"
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: if(
+          or(
+            tointeger(
+              index(
+                ri!input[ri!index],
+                "isActive",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-on",
+            caption: "Yes",
+            linkStyle: "STANDALONE",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!input[ri!index].isActive,
+                  0
+                )
+              },
+              showWhen: not(
+                ri!isReadOnly
+              )
+            ),
+            size: "MEDIUM_PLUS"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-off",
+            caption: "No",
+            linkStyle: "STANDALONE",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!input[ri!index].isActive,
+                  1
+                )
+              },
+              showWhen: not(
+                ri!isReadOnly
+              )
+            ),
+            size: "MEDIUM_PLUS"
+          )
+        ),
+        align: "CENTER"
+      )
+    ),
+    /*Delete*/
+    if(
+      ri!isReadOnly,
+      {},
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!input[ri!index].uiViewFilterId
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!input,
+                  remove(
+                    ri!input,
+                    ri!index
+                  )
+                )
+              }
+            )
+          )
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          readOnly: true()
+        )
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>input</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityColumnNames</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_353695"/>
+    </history>
+</contentHaul>

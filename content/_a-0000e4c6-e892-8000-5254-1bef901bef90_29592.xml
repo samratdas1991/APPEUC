@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_29709</versionUuid>
+    <rule>
+        <name>EAP_ProcessAuditTrailGridRowLayout</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_29592</uuid>
+        <description>holds grid row layout for process audit trail editable grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  contents: {
+    if(
+      contains(
+        ri!isReadOnly,
+        true()
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!auditTrail[ri!index],
+          "table_name",
+          {}
+        ),
+        readOnly: ri!isReadOnly
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!auditTrail[ri!index],
+          "table_name",
+          {}
+        ),
+        saveInto: ri!auditTrail[ri!index].table_name
+      )
+    ),
+    if(
+      contains(
+        ri!isReadOnly,
+        true()
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!auditTrail[ri!index],
+          "field_type",
+          {}
+        ),
+        readOnly: ri!isReadOnly
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!auditTrail[ri!index],
+          "field_type",
+          {}
+        ),
+        saveInto: ri!auditTrail[ri!index].field_type
+      )
+    ),
+    if(
+      contains(
+        ri!isReadOnly,
+        true()
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!auditTrail[ri!index],
+          "field_name",
+          {}
+        ),
+        readOnly: ri!isReadOnly
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!auditTrail[ri!index],
+          "field_name",
+          {}
+        ),
+        saveInto: ri!auditTrail[ri!index].field_name
+      )
+    ),
+    if(
+      contains(
+        ri!isReadOnly,
+        true()
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!auditTrail[ri!index],
+          "previous_value",
+          {}
+        ),
+        readOnly: ri!isReadOnly
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!auditTrail[ri!index],
+          "previous_value",
+          {}
+        ),
+        saveInto: ri!auditTrail[ri!index].previous_value
+      )
+    ),
+    if(
+      contains(
+        ri!isReadOnly,
+        true()
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!auditTrail[ri!index],
+          "current_value",
+          {}
+        ),
+        readOnly: ri!isReadOnly
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        value: index(
+          ri!auditTrail[ri!index],
+          "current_value",
+          {}
+        ),
+        saveInto: ri!auditTrail[ri!index].current_value
+      )
+    ),
+    #"SYSTEM_SYSRULES_imageField_v1"(
+      label: "Remove",
+      images: #"SYSTEM_SYSRULES_documentImage"(
+        document: #"SYSTEM_SYSRULES_iconIndicator"(
+          "REMOVE"
+        ),
+        altText: "Remove",
+        caption: "Remove",
+        link: #"SYSTEM_SYSRULES_dynamicLink"(
+          value: ri!index,
+          saveInto: {
+            a!save(
+              ri!auditTrail,
+              remove(
+                ri!auditTrail,
+                save!value
+              )
+            ),
+            
+          }
+        )
+      ),
+      size: "ICON",
+      showWhen: if(
+        contains(
+          ri!isReadOnly,
+          true()
+        ),
+        false(),
+        true()
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>auditTrail</name>
+            <type>
+                <name>EAP_T_RefAuditTrail?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_29709"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:com:appian:types:EAP"
+  xmlns:tns="urn:com:appian:types:EAP" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="EAP_Temp_ParsingUniqueIdentifiers">
+    <xsd:annotation>
+      <xsd:appinfo source="http://www.appian.com/ae/types/2009">
+        <ns2:Metadata xmlns:ns2="http://www.appian.com/ae/types/2009">
+          <ns2:versionUuid>0000e55f-170f-8000-6d11-1b4d981b4d98</ns2:versionUuid>
+          <ns2:history>
+            <ns2:historyInfo versionUuid="0000e4c6-3e8f-8000-545f-1b4d981b4d98"/>
+            <ns2:historyInfo versionUuid="0000e55f-170f-8000-6d11-1b4d981b4d98"/>
+          </ns2:history>
+        </ns2:Metadata>
+      </xsd:appinfo>
+      <xsd:documentation><![CDATA[Holds unique identifiers (Primary Keys) for all the associated tables]]></xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="process_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="config_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="in_file_type_config_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="in_file_entity_mapping_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="sheet_entity_field_mapping_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="activeStep" nillable="true" type="xsd:int"/>
+      <xsd:element name="entityActiveStep" nillable="true" type="xsd:int"/>
+      <xsd:element name="selectedCard" nillable="true" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(length=255)</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="selectedEntityCard" nillable="true" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(length=255)</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="dynamicConfigId" nillable="true" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

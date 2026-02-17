@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_761322</versionUuid>
+    <rule>
+        <name>EAP_getUserAssignmentMappingByProcessId</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_9924</uuid>
+        <description>Rule to fetch the logical user group based on the process id</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!getLoggedInUserProcess: if(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9906"(
+      ri!processId
+    ),
+    cast(
+      typeof(
+        {
+          'type!{urn:com:appian:types:EAP}EAP_T_RefProcessUsers'()
+        }
+      ),
+      {
+        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9887"(
+          processId: ri!processId
+        )
+      }
+    ),
+    {}
+  ),
+  local!makerUsers: {
+    index(
+      index(
+        local!getLoggedInUserProcess,
+        wherecontains(
+          toboolean(
+            true()
+          ),
+          toboolean(
+            index(
+              local!getLoggedInUserProcess,
+              "isPrimaryMaker",
+              null
+            )
+          )
+        ),
+        null
+      ),
+      "userSoeId",
+      null
+    ),
+    index(
+      index(
+        local!getLoggedInUserProcess,
+        wherecontains(
+          toboolean(
+            true()
+          ),
+          toboolean(
+            index(
+              local!getLoggedInUserProcess,
+              "isSecondaryMaker",
+              null
+            )
+          )
+        ),
+        null
+      ),
+      "userSoeId",
+      null
+    )
+  },
+  local!checkerUsers: {
+    index(
+      index(
+        local!getLoggedInUserProcess,
+        wherecontains(
+          toboolean(
+            true()
+          ),
+          toboolean(
+            index(
+              local!getLoggedInUserProcess,
+              "isPrimaryChecker",
+              null
+            )
+          )
+        ),
+        null
+      ),
+      "userSoeId",
+      null
+    ),
+    index(
+      index(
+        local!getLoggedInUserProcess,
+        wherecontains(
+          toboolean(
+            true()
+          ),
+          toboolean(
+            index(
+              local!getLoggedInUserProcess,
+              "isSecondaryChecker",
+              null
+            )
+          )
+        ),
+        null
+      ),
+      null,
+      "userSoeId",
+      null
+    )
+  },
+  local!doaUsers: index(
+    index(
+      local!getLoggedInUserProcess,
+      wherecontains(
+        toboolean(
+          true()
+        ),
+        toboolean(
+          index(
+            local!getLoggedInUserProcess,
+            "isDOA",
+            null
+          )
+        )
+      ),
+      null
+    ),
+    "userSoeId",
+    null
+  ),
+  local!auditorUsers: index(
+    index(
+      local!getLoggedInUserProcess,
+      wherecontains(
+        toboolean(
+          true()
+        ),
+        toboolean(
+          index(
+            local!getLoggedInUserProcess,
+            "isAuditor",
+            null
+          )
+        )
+      ),
+      null
+    ),
+    "userSoeId",
+    null
+  ),
+  local!powerUsers: index(
+    index(
+      local!getLoggedInUserProcess,
+      wherecontains(
+        toboolean(
+          true()
+        ),
+        toboolean(
+          index(
+            local!getLoggedInUserProcess,
+            "isPowerUser",
+            null
+          )
+        )
+      ),
+      null
+    ),
+    "userSoeId",
+    null
+  ),
+  local!viewerUsers: index(
+    index(
+      local!getLoggedInUserProcess,
+      wherecontains(
+        toboolean(
+          true()
+        ),
+        toboolean(
+          index(
+            local!getLoggedInUserProcess,
+            "isViewer",
+            null
+          )
+        )
+      ),
+      null
+    ),
+    "userSoeId",
+    null
+  ),
+  local!activeMakerUsers: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9930"(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!makerUsers,
+      expression: if(
+        isusernametaken(
+          fv!item
+        ),
+        fv!item,
+        null
+      )
+    )
+  ),
+  local!activeCheckerUsers: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9930"(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!checkerUsers,
+      expression: if(
+        isusernametaken(
+          fv!item
+        ),
+        fv!item,
+        null
+      )
+    )
+  ),
+  local!activeDOAUsers: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9930"(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!doaUsers,
+      expression: if(
+        isusernametaken(
+          fv!item
+        ),
+        fv!item,
+        null
+      )
+    )
+  ),
+  local!activeAuditorUsers: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9930"(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!auditorUsers,
+      expression: if(
+        isusernametaken(
+          fv!item
+        ),
+        fv!item,
+        null
+      )
+    )
+  ),
+  local!activePowerUsers: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9930"(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!powerUsers,
+      expression: if(
+        isusernametaken(
+          fv!item
+        ),
+        fv!item,
+        null
+      )
+    )
+  ),
+  local!activeViewer: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9930"(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!viewerUsers,
+      expression: if(
+        isusernametaken(
+          fv!item
+        ),
+        fv!item,
+        null
+      )
+    )
+  ),
+  {
+    processId: ri!processId,
+    makers: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9942"(
+      local!activeMakerUsers
+    ),
+    checkers: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9942"(
+      local!activeCheckerUsers
+    ),
+    doaUsers: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9942"(
+      local!activeDOAUsers
+    ),
+    auditors: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9942"(
+      local!activeAuditorUsers
+    ),
+    powerUsers: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9942"(
+      local!activePowerUsers
+    ),
+    viewers: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9942"(
+      local!activeViewer
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_48313"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_761322"/>
+    </history>
+</contentHaul>

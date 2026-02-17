@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e58b-f438-8000-5262-1bef901bef90_727476</versionUuid>
+    <rule>
+        <name>EAP_validateUserExistInEnvironment</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_684862</uuid>
+        <description>Rule to check user exist in environment</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!updatedData: #"SYSTEM_SYSRULES_forEach"(
+    items: ri!bulkConfUpldRawTrans,
+    expression: 'type!{urn:com:appian:types:eap}EAP_T_BulkUsersUpldRawTrans'(
+      bulk_upload_line_item_id: fv!item.bulk_upload_line_item_id,
+      bulk_upload_trans_id: fv!item.bulk_upload_trans_id,
+      euc_reference_txt: fv!item.euc_reference_txt,
+      process_id_txt: fv!item.process_id_txt,
+      user_soe_id_txt: fv!item.user_soe_id_txt,
+      is_primary_maker_txt: fv!item.is_primary_maker_txt,
+      is_secondary_maker_txt: fv!item.is_secondary_maker_txt,
+      is_primary_checker_txt: fv!item.is_primary_checker_txt,
+      is_secondary_checker_txt: fv!item.is_secondary_checker_txt,
+      is_doa_txt: fv!item.is_doa_txt,
+      is_power_user_txt: fv!item.is_power_user_txt,
+      is_auditor_txt: fv!item.is_auditor_txt,
+      is_viewer_txt: fv!item.is_viewer_txt,
+      is_active_txt: fv!item.is_active_txt,
+      validataion_status: if(
+        #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(
+          userSOEID: fv!item.user_soe_id_txt
+        ),
+        /*rule!EAP_Utils_CheckIsNull(*/
+          /*rule!EAP_Utils_GetValidUserOrGroupFromText(*/
+            /*fv!item.user_soe_id_txt*/
+          /*)*/
+        /*),*/
+        fv!item.validataion_status,
+        "Failed"
+      ),
+      validation_remarks: if(
+        #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(
+          userSOEID: fv!item.user_soe_id_txt
+        ),
+        /*rule!EAP_Utils_CheckIsNull(*/
+          /*rule!EAP_Utils_GetValidUserOrGroupFromText(*/
+            /*fv!item.user_soe_id_txt*/
+          /*)*/
+        /*),*/
+        fv!item.validation_remarks,
+        "User is not Valid. "
+        
+      ),
+      
+    ),
+    
+  ),
+  local!updatedData
+)</definition>
+        <namedTypedValue>
+            <name>bulkConfUpldRawTrans</name>
+            <type>
+                <name>EAP_T_BulkUsersUpldRawTrans?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_694183"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_711566"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_722809"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_727476"/>
+    </history>
+</contentHaul>

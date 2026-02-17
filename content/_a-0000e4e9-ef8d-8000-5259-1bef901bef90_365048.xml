@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365061</versionUuid>
+    <interface>
+        <name>EAP_ProcessControllerConfigEditableGrid</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365048</uuid>
+        <description>Contains editable grid for process controller config</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  #"SYSTEM_SYSRULES_gridLayout"(
+    label: "",
+    shadeAlternateRows: false(),
+    spacing: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_40702",
+    headerCells: {
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Sequence Order",
+        align: "RIGHT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Entity Name",
+        align: "LEFT",
+        helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+          helpToolTip: "Coming from the Manage Entity Name related action where EntityType: Input"
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Sheet Name",
+        align: "LEFT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Sheet Index",
+        align: "RIGHT"
+      ),
+      /*a!gridLayoutHeaderCell(
+      label: "Named Range",
+      align: "LEFT"
+    ),*/
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Start Row",
+        align: "RIGHT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Start Row Value",
+        align: "LEFT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "End Row",
+        align: "RIGHT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "End Row Value",
+        align: "LEFT"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Parser Type",
+        align: "LEFT",
+        helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+          helpToolTip: "Active Parser Types Coming from Admin Console: Manage Parsing Type"
+        ),
+        
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Include Fixed Copy",
+        align: "LEFT"/*showWhen: toboolean(cons!EAP_SHOW_INPUT_FIXED_CELL)*/
+        
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        label: "Is Active",
+        align: if(
+          contains(
+            ri!isReadOnly,
+            true()
+          ),
+          "CENTER",
+          "CENTER"
+        )
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+        align: if(
+          contains(
+            ri!isReadOnly,
+            true()
+          ),
+          "CENTER",
+          "LEFT"
+        ),
+        showWhen: if(
+          contains(
+            ri!isReadOnly,
+            true()
+          ),
+          false(),
+          true()
+        )
+      )
+    },
+    columnConfigs: {
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 2
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 5
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 5
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 5
+      ),
+      /*a!gridLayoutColumnConfig(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),*/
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 5
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 5
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 5
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 5
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 5
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE",
+        weight: 5,
+        /*showWhen: toboolean(cons!EAP_SHOW_INPUT_FIXED_CELL)*/
+        
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "ICON"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "ICON",
+        showWhen: if(
+          contains(
+            ri!isReadOnly,
+            true()
+          ),
+          false(),
+          true()
+        )
+      )
+    },
+    rows: {
+      #"SYSTEM_SYSRULES_applyComponents"(
+        function: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10494"(
+          index: _,
+          masterLookUpData: ri!masterLookUpData,
+          isReadOnly: ri!isReadOnly,
+          processControllerConfig: ri!processControllerConfig
+        ),
+        array: if(
+          or(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!processControllerConfig
+            ),
+            count(
+              ri!processControllerConfig
+            ) = 0
+          ),
+          null,
+          tointeger(
+            enumerate(
+              count(
+                ri!processControllerConfig
+              )
+            ) + 1
+          )
+        )
+      )
+    },
+    selectionSaveInto: {},
+    addRowLink: if(
+      ri!isReadOnly,
+      {},
+      #"SYSTEM_SYSRULES_dynamicLink"(
+        label: "Add line items",
+        value: 'type!{urn:com:appian:types:eap}EAP_T_DwfProcessControllerConfig'(
+          is_active: 1,
+          created_by: loggedInUser(),
+          created_on: now(),
+          modified_by: loggedInUser(),
+          modified_on: now()
+        ),
+        saveInto: a!save(
+          ri!processControllerConfig,
+          append(
+            ri!processControllerConfig,
+            save!value
+          )
+        )
+      )
+    )
+  )
+}</definition>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerConfig</name>
+            <type>
+                <name>EAP_T_DwfProcessControllerConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+  isActive: true(),
+  categoryGroup: "Parsing"
+)</a:value>
+                    <a:nameRef>masterLookUpData</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>processControllerConfig</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365061"/>
+    </history>
+</contentHaul>

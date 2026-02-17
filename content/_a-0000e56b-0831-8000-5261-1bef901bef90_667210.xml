@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_701957</versionUuid>
+    <interface>
+        <name>EAP_HistoricalDataForDailyBasisEditableGrid</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_667210</uuid>
+        <description>Hold grid for historical data yearly basis</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+
+{
+
+  #"SYSTEM_SYSRULES_richTextDisplayField"(
+    value:#"SYSTEM_SYSRULES_richTextItem_v1"(
+      text:"Daily Data Setup",
+      style:"STRONG",
+      color:"ACCENT"
+    )
+  ),
+  #"SYSTEM_SYSRULES_gridLayout"(
+    label: "",
+    labelPosition: "COLLAPSED",
+    headerCells: {
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Daily"),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Existing Request",
+      align:"CENTER"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Record Link",
+      align:"CENTER"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "")
+    },
+    columnConfigs: {
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "DISTRIBUTE"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "ICON"
+      ),
+    },
+    rows: {
+      #"SYSTEM_SYSRULES_applyComponents"(
+        function: #"_a-0000e56b-0831-8000-5261-1bef901bef90_662229"(
+          index: _,
+          
+          tempHistoricalDataFrequency:ri!tempHistoricalDataFrequency,
+          
+          frequency:#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[1]
+        ),
+        array: if(
+          or(
+            count(
+              ri!tempHistoricalDataFrequency
+            ) = 0,
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!tempHistoricalDataFrequency
+            )
+           
+          ),
+          null,
+          enumerate(
+            count(
+              ri!tempHistoricalDataFrequency
+            )
+          )+1
+        )
+      )
+    },
+    addRowLink:if(
+      ri!readOnly,
+      {},
+      #"SYSTEM_SYSRULES_dynamicLink"(
+        label: "Add line items",
+        value:'type!{urn:com:appian:types:eap}EAP_temp_HistoricalDataFrequency'(
+          frequency: ri!frequency,
+          processId: ri!processId,
+          runConfigId:ri!runConfigId,
+         Id:length({ri!tempHistoricalDataFrequency})+1
+        ),
+        saveInto: a!save(
+          ri!tempHistoricalDataFrequency,
+          append(
+            ri!tempHistoricalDataFrequency,
+            save!value
+          )
+        )
+      )
+    ),
+    selectionSaveInto: {},
+    validations: {},
+    shadeAlternateRows: true
+  )
+})</definition>
+        <namedTypedValue>
+            <name>readOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>frequency</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>tempHistoricalDataFrequency</name>
+            <type>
+                <name>EAP_temp_HistoricalDataFrequency?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_701957"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e9e9-0626-8000-9bb3-011c48011c48_33720</versionUuid>
+    <rule>
+        <name>EAP_QueryAnalyticsForNextTime</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_312946</uuid>
+        <description>Fetching  data from EAP Next Trigger Time Process report</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!addDateTime(
+  startDateTime: 
+    todatetime(index(
+    index(
+      a!queryProcessAnalytics(
+        report:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_313615",
+        contextProcessModels:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_314078"[1],
+        query:#"SYSTEM_SYSRULES_query"(
+          pagingInfo :#"SYSTEM_SYSRULES_pagingInfo"(
+            startIndex: 1,
+            batchSize: -1,
+            sort :#"SYSTEM_SYSRULES_sortInfo"(
+              field:  "c2",
+              ascending :false()
+            )
+
+          )
+        )
+      ).data,
+      1,
+      {}
+    ),
+    "c2",
+    {}
+  )),
+  minutes: tointeger(#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_198179")
+)
+
+ 
+ 
+ 
+ 
+ </definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_316231"/>
+        <historyInfo versionUuid="_a-0000e9e9-0626-8000-9bb3-011c48011c48_33720"/>
+    </history>
+</contentHaul>

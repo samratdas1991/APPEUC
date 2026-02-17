@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_254450</versionUuid>
+    <interface>
+        <name>EAP_SummaryDashboard_V2</name>
+        <uuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_254109</uuid>
+        <description>Interface to show summary dashboard of EAP.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!process: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(processId: ri!processId),
+  local!processGroups: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_17287"(processId: ri!processId),
+  local!processUsers: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9887"(processId: ri!processId),
+  #"SYSTEM_SYSRULES_headerContentLayout"(
+    contents: {
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_cardLayout"(
+                contents: {
+                  #"_a-0000eab6-dc46-8000-9be9-011c48011c48_254240"(
+                    refProcess: local!process,
+                    relatedAction: 4,
+                    isReadOnly: true()
+                  )
+                },
+                height: "AUTO",
+                style: "TRANSPARENT",
+                marginBelow: "STANDARD"
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_cardLayout"(
+                contents: {
+                  #"_a-0000eab6-dc46-8000-9be9-011c48011c48_254248"(
+                    refProcessGroup: local!processGroups,
+                    relatedAction: 4,
+                    isReadOnly: true()
+                  )
+                },
+                height: "AUTO",
+                style: "TRANSPARENT",
+                marginBelow: "STANDARD"
+              )
+            }
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_cardLayout"(
+        contents: {
+          #"_a-0000eab6-dc46-8000-9be9-011c48011c48_254327"(
+            refProcessUser: local!processUsers,
+            relatedAction: 4,
+            refProcessGroup: local!processGroups,
+            isReadOnly: true,
+            processId: index(local!processUsers, "process_id", {})
+          )
+        },
+        height: "AUTO",
+        style: "TRANSPARENT",
+        marginBelow: "STANDARD"
+      )
+    },
+    backgroundColor: "TRANSPARENT"
+  )
+)</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">60</a:value>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_254450"/>
+    </history>
+</contentHaul>

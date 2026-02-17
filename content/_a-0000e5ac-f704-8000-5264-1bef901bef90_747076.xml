@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_767186</versionUuid>
+    <interface>
+        <name>EAP_processParamPGConfigGrid</name>
+        <uuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_747076</uuid>
+        <description>Hold interface to show process param pg grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition> #"SYSTEM_SYSRULES_gridLayout"(
+   
+validations: {
+  if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processParamPGConfig),
+  "Please add values to the grid",
+  {}
+)
+
+},
+   headerCells: {
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       label: "Process Display Name",
+       align:"LEFT"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       label: "Page Name",
+       align: "LEFT",
+
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       label: "Page Display Name",
+       align: "LEFT",
+
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       label: "Page Desc",
+       align: "LEFT",
+
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       label: "Is Active",
+       align: "CENTER",
+    
+
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+       label: "",
+       align: "CENTER",
+       showWhen: if(ri!isReadOnly=true,false,true)
+
+     )
+
+   },
+   columnConfigs: { 
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       weight: 3,
+       width: "DISTRIBUTE"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       weight: 3,
+       width: "DISTRIBUTE"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       weight: 3,
+       width: "DISTRIBUTE"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+       weight:3,
+       width: "DISTRIBUTE"
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+
+       width: "ICON",
+    
+     ),
+     #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+
+       width: "ICON",
+       showWhen:if(ri!isReadOnly=true,false,true)
+     )
+   },
+   rows:#"SYSTEM_SYSRULES_applyComponents"(
+     function:#"_a-0000e5ac-f704-8000-5264-1bef901bef90_747082"(
+       index: _,
+       processParamPGConfig: ri!processParamPGConfig,
+       processId: ri!processId,
+       isReadOnly: ri!isReadOnly
+     ),
+     array: if(
+       or(
+         #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+           ri!processParamPGConfig
+         ),
+         count(ri!processParamPGConfig)=0
+       ),
+       null,
+       enumerate(
+         count(ri!processParamPGConfig)
+       )+1
+     )
+   ),
+   addRowLink:#"SYSTEM_SYSRULES_dynamicLink"(
+     label:"Add Line Items",
+     value: 'type!{urn:com:appian:types:eap}EAP_T_UiProcessParamPgConfig'(
+       active:1,
+       created_by: loggedInUser(),
+       created_on: now(),
+       modified_by: loggedInUser(),
+       modified_on: now()
+     ),
+     saveInto: a!save(ri!processParamPGConfig,append(ri!processParamPGConfig,save!Value))
+   )
+ )</definition>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processParamPGConfig</name>
+            <type>
+                <name>EAP_T_UiProcessParamPgConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_767186"/>
+    </history>
+</contentHaul>

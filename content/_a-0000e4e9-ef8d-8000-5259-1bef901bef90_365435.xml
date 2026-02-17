@@ -1,0 +1,909 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_765824</versionUuid>
+    <interface>
+        <name>EAP_DwfProcessControllerConfigEditableGrid</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365435</uuid>
+        <description>Holds grid rules for Process control configuration</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!refInt: {
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65407"(
+      runConfigId: index(
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_359325"(
+          processControllerMasterId: ri!manageWorkflowId
+        ),
+        "run_config_id",
+        {}
+      )
+    )
+  },
+  local!intSys: #"_a-0000e518-940a-8000-525e-1bef901bef90_490667"(
+    lookupSystemCode: index(
+      local!refInt,
+      "system_type_code",
+      {}
+    )
+  ),
+  local!sourceSystemTypeCode: touniformstring(index(
+    index(local!intSys, "lookup_system_type_code", {}),
+    wherecontains(
+      #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_214256"[1],
+      touniformstring(
+        index(
+          local!intSys,
+          "system_type",
+          {}
+        )
+      )
+    ),
+    {}
+  )),
+  local!targetSystemTypeCode: index(
+    index(local!intSys, "lookup_system_type_code", {}),
+    wherecontains(
+      #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_214256"[2],
+      touniformstring(
+        index(
+          local!intSys,
+          "system_type",
+          {}
+        )
+      )
+    ),
+    {}
+  ),
+  local!sourceConfigDetail: index(
+    local!refInt,
+    wherecontains(
+      touniformstring(
+        local!sourceSystemTypeCode
+      ),
+      touniformstring(
+        index(
+          local!refInt,
+          "system_type_code",
+          {}
+        )
+      )
+    ),
+    {}
+  ),
+  local!targetConfigDetail: index(
+    local!refInt,
+    wherecontains(
+      touniformstring(
+        local!targetSystemTypeCode
+      ),
+      touniformstring(
+        index(
+          local!refInt,
+          "system_type_code",
+          {}
+        )
+      )
+    ),
+    {}
+  ),
+  local!processControllerData: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!manageWorkflowId
+    ),
+    {},
+    #"_a-0000e518-940a-8000-525e-1bef901bef90_452870"(
+      isActive: true(),
+      processControllerMasterId: ri!manageWorkflowId
+    )
+  ),
+  local!nextStep:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_378381"(
+    milestoneId:ri!selectedNextStep
+  ),
+  
+  local!NextStepData: 
+  index(
+    local!processControllerData,
+    wherecontains(
+      tointeger(index(local!nextStep,"milestone_id",{})),
+      tointeger(index(local!processControllerData,"milestone_id",{}))
+    ),
+    {}
+  ),
+  
+  local!milestoneName: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_350906"(
+    isActive: 1
+  ),
+  
+  local!isEnableCustomProcessUuid:
+   index(
+     index(
+       local!milestoneName,
+       wherecontains(
+         tointeger(ri!selectedNextStep),
+         tointeger(index(local!milestoneName,"milestone_id",{}))
+       ),
+       {}
+     ),
+     "is_enable_custom_process_uuid",{}
+   ),
+  
+  
+  /*index(*/
+    /*local!milestoneName,*/
+    /*"is_enable_custom_process_uuid",*/
+    /*{}*/
+  /*),*/
+  
+ 
+  
+  local!masterLookup: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    type: {
+      "BUTTON_ACTION"   
+    }
+  ),
+  local!outputGenerationDropdown:if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!targetConfigDetail,
+        "config_id",
+        {}
+      )
+    ),
+    {},
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_207034"(
+      configId: index(
+        local!targetConfigDetail,
+        "config_id",
+        {}
+      )
+    )
+  ),  
+  local!isIoConfigured:index(
+    index(
+      ri!processControllerStepsView,
+      wherecontains(
+        tointeger(ri!processControllerId-1),
+        tointeger(index(ri!processControllerStepsView,"process_controller_id",{}))
+      ),{}
+    ),"is_configured",{}
+  )
+  ,
+  local!processParameterData: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),
+    {},
+    #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_761075"(
+      processId: ri!processId
+    )
+  ),
+  {
+    /*a!paragraphField(*/
+      /*value: count(ri!processControllerConfig),*/
+      /*showWhen: if(*/
+        /*loggedInUser()="MU41725",*/
+        /*true,false*/
+      /*)*/
+    /*),*/
+       
+    
+    if(
+      or(
+        tointeger(ri!selectedNextStep)&lt;2,
+        tointeger(ri!selectedNextStep) = tointeger(
+          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[9]
+        )
+      ),
+      {},
+      #"SYSTEM_SYSRULES_gridLayout"(
+        label: "",
+        shadeAlternateRows: false(),
+        headerCells: {
+          /*a!gridLayoutHeaderCell(label: ""),*/
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "IO Config Name",
+            align: "LEFT",
+            helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+              helpToolTip: "List of Config Names Coming from IO Config"
+            ),
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[2],
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[3],
+                /*tointeger(*/
+                  /*ri!selectedNextStep*/
+                /*) = cons!EAP_DWF_PROCESSCONTROLLER_STEPS[8],*/
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[12]
+                
+              ),
+              true(),
+              false()
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Process Parameter",
+            align: "LEFT",
+            helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+              helpToolTip: "List of Page Names Coming from Process Parameter"
+            ),
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[14]
+
+              ),
+              true(),
+              false()
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Parsing",
+            align: "LEFT",
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[3]
+              ),
+              true(),
+              false()
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Transformation",
+            align: "LEFT",
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[4]
+              ),
+              true(),
+              false()
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Data Validation",
+            align: "LEFT",
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[11]
+              ),
+              true(),
+              false()
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Output Generation",
+            align: "LEFT",
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[8]
+              ),
+              true(),
+              false()
+            )
+          ),
+          
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Use Generic Process Model",
+            align: "LEFT",
+            showWhen: if(
+              tointeger( index(
+                index(
+                  local!milestoneName,
+                  wherecontains(
+                    tointeger(ri!selectedNextStep),
+                    tointeger(index(local!milestoneName,"milestone_id",{}))
+                  ),
+                  {}
+                ),
+                "is_enable_custom_process_uuid",{}
+              )) = 1,
+              true(),
+              false()
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Process Model UUID",
+            align: "LEFT",
+            showWhen: if(
+              tointeger( index(
+                index(
+                  local!milestoneName,
+                  wherecontains(
+                    tointeger(ri!selectedNextStep),
+                    tointeger(index(local!milestoneName,"milestone_id",{}))
+                  ),
+                  {}
+                ),
+                "is_enable_custom_process_uuid",{}
+              )) = 1,
+              true(),
+              false()
+            ),
+            
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Button Action",
+            align: "LEFT",
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[5],
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[6],
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[7],
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[10]
+              ),
+              true(),
+              false()
+            ),
+            
+            helpTooltip:"It is mandatory to provide button actions for more than one entry"
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Next Step",
+            align: "LEFT",
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[5],
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[6],
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[7],
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[10]
+              ),
+              true(),
+              false()
+            ),
+            helpTooltip: if(
+              tointeger(ri!selectedNextStep) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[10],
+              "Define next step based on button action" ,
+              {}
+            )
+          ),
+          
+          
+          
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "System Task",
+            align: "LEFT",
+            helpTooltip: "User will be assigned seperate tasks if System Task is active",
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[2],
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[12]
+              ),
+              true(),
+              false()
+            )
+          ),
+
+          /*a!gridLayoutHeaderCell(*/
+          /*label: "Assignee",*/
+          /*align: "LEFT"*/
+          /*),*/
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Is Active",
+            align: "CENTER"
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "",
+            align: "LEFT",
+            showWhen: if(
+              toboolean(ri!isReadOnly),
+              false(),true()
+            )
+          )
+        },
+        columnConfigs: {
+         
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[2],
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[3],
+                /*tointeger(*/
+                  /*ri!selectedNextStep*/
+                /*) = cons!EAP_DWF_PROCESSCONTROLLER_STEPS[8],*/
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[12]
+              ),
+              true(),
+              false()
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[14]
+              ),
+              true(),
+              false()
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[3]
+              ),
+              true(),
+              false()
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[4]
+              ),
+              true(),
+              false()
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[11]
+              ),
+              true(),
+              false()
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[8]
+              ),
+              true(),
+              false()
+            )
+          ),
+          
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            weight: 1,
+            showWhen: if(
+              tointeger( index(
+                index(
+                  local!milestoneName,
+                  wherecontains(
+                    tointeger(ri!selectedNextStep),
+                    tointeger(index(local!milestoneName,"milestone_id",{}))
+                  ),
+                  {}
+                ),
+                "is_enable_custom_process_uuid",{}
+              )) = 1,
+              true(),
+              false()
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            weight: 3,
+            showWhen: if(
+              tointeger( index(
+                index(
+                  local!milestoneName,
+                  wherecontains(
+                    tointeger(ri!selectedNextStep),
+                    tointeger(index(local!milestoneName,"milestone_id",{}))
+                  ),
+                  {}
+                ),
+                "is_enable_custom_process_uuid",{}
+              )) = 1,
+              true(),
+              false()
+            )
+
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            showWhen: if(
+              or(false()
+              tointeger(
+                ri!selectedNextStep
+              ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[5],
+              tointeger(
+                ri!selectedNextStep
+              ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[6],
+              tointeger(
+                ri!selectedNextStep
+              ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[7]
+              ),
+              true(),
+              false()
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            weight: 2,
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[5],
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[6],
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[7],
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[10]
+              ),
+              true(),
+              false()
+            )
+          ),
+          
+          
+          
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "NARROW",
+            showWhen: if(
+              or(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[2],
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[12]
+              ),
+              true(),
+              false()
+            )
+          ),
+          /*a!gridLayoutColumnConfig(*/
+          /*width: "DISTRIBUTE"*/
+          /*),*/
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "NARROW"
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "ICON",
+            showWhen: if(
+              toboolean(ri!isReadOnly),
+              false(),true()
+            )
+          )
+        },
+        rows: {
+          #"SYSTEM_SYSRULES_applyComponents"(
+            function: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365752"(
+              index: _,
+              processControllerConfig: ri!processControllerConfig,
+              masterLookUpData: {},
+              isReadOnly: ri!isReadOnly,
+              selectedNextStep: tostring(ri!selectedNextStep),
+              manageWorkflowId: ri!manageWorkflowId,
+              processControllerData: local!NextStepData,
+              milestoneName: local!milestoneName,
+              masterLookup: local!masterLookup,
+              sourceConfigDetail:local!sourceConfigDetail,
+              targetConfigDetail: local!targetConfigDetail,
+              outputGenerationDropdown: local!outputGenerationDropdown,
+              processParamData: local!processParameterData
+            ),
+            array: if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!processControllerConfig
+                ),
+                count(
+                  ri!processControllerConfig
+                ) = 0
+              ),
+              null,
+              tointeger(
+                enumerate(
+                  count(
+                    ri!processControllerConfig
+                  )
+                ) + 1
+              )
+            )
+          )
+        },
+        selectionSaveInto: {},
+        addRowLink: if(
+          ri!isReadOnly,
+          {},
+          if(
+            or(
+              tointeger(
+                ri!selectedNextStep
+              ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[2],
+              tointeger(
+                ri!selectedNextStep
+              ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[5],
+              tointeger(
+                ri!selectedNextStep
+              ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[6],
+              tointeger(
+                ri!selectedNextStep
+              ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[7],
+              tointeger(
+                ri!selectedNextStep
+              ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[10],
+              tointeger(
+                ri!selectedNextStep
+              ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[12],
+              tointeger(
+                ri!selectedNextStep
+              ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[8],
+              if(
+                tointeger(
+                  ri!selectedNextStep
+                ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[14],
+                if(
+                  count(ri!processControllerConfig) &gt; 0,
+                  false,
+                  true
+                ),
+                true
+              )
+            ),
+            #"SYSTEM_SYSRULES_dynamicLink"(
+              label: "Add line items",
+              value:  'type!{urn:com:appian:types:eap}EAP_T_DwfProcessControllerConfig'(
+                is_system_driven:if(
+                  or(
+                    tointeger(
+                      ri!selectedNextStep
+                    ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[12],
+                  ),
+                  false(),true()
+                ),
+                is_active:true(),
+                process_controller_id:ri!processControllerId,
+                next_process_controller_id:ri!next_process_controller_id,
+                is_generic_process_model: false(),
+                created_by: loggedInUser(),
+                created_on: now(),
+                modified_by: loggedInUser(),
+                modified_on: now()
+              ),
+              saveInto: a!save(
+                ri!processControllerConfig,
+                append(
+                  ri!processControllerConfig,
+                  save!value
+                )
+              )
+            ),
+            {}
+          )
+        ),
+        validations:{
+          if(
+            and(
+              tointeger(
+                ri!selectedNextStep
+              ) = #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[3],
+              tointeger(local!isIoConfigured) = 0
+            ),
+            "Please Configure IO first for this Parsing",
+            {}
+          )
+          
+        },
+        spacing: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_40702"
+      )
+    )
+  }
+)
+</definition>
+        <namedTypedValue>
+            <name>selectedNextStep</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerConfig</name>
+            <type>
+                <name>EAP_T_DwfProcessControllerConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>manageWorkflowId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>next_process_controller_id</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processControllerStepsView</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365703"[1]</a:value>
+                    <a:nameRef>selectedNextStep</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>processControllerConfig</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>manageWorkflowId</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>next_process_controller_id</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>processControllerId</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>processControllerStepsView</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365721"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_384127"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_406603"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_475168"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_486798"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_519980"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_548114"/>
+        <historyInfo versionUuid="_a-0000e53d-835a-8000-d928-a7ef90a7ef90_3843701"/>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_563944"/>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_565313"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_655088"/>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_737724"/>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_747924"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_765824"/>
+    </history>
+</contentHaul>

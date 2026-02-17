@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_701275</versionUuid>
+    <rule>
+        <name>EAP_populateRequestData</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_9776</uuid>
+        <description>Expression rule to populate new request data </description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!processControllerMasterId: index(
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_359325"(
+      processId: ri!processId,
+      runConfigId: if(
+        isnull(
+          index(
+            ri!requestData,
+            "runConfigId",
+            null
+          )
+        ),
+        ri!runConfigId,
+        index(
+          ri!requestData,
+          "runConfigId",
+          null
+        )
+      ),
+      isActive: 1
+    ),
+    "process_controller_master_id",
+    {}
+  ),
+  local!schedulerPagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+    startIndex: 1,
+    batchSize: 1,
+    sort: #"SYSTEM_SYSRULES_sortInfo"(
+      field: "run_time_scheduler_detail_id",
+      ascending: false()
+    )
+  ),
+  local!matchingSchedulerDetails: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_192921"(
+    processId: ri!processId,
+    runConfigId: if(
+      isnull(
+        index(
+          ri!requestData,
+          "runConfigId",
+          null
+        )
+      ),
+      ri!runConfigId,
+      index(
+        ri!requestData,
+        "runConfigId",
+        null
+      )
+    ),
+    isActive: 0,
+    pagingInfo: local!schedulerPagingInfo
+  ),
+  local!schedulerDetailId: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!schedulerDetailId),
+    tointeger(index(local!matchingSchedulerDetails,"run_time_scheduler_detail_id",0)),
+    ri!schedulerDetailId
+  ),
+  cast(
+    typeof(
+      'type!{urn:com:appian:types:EAP}EAP_T_ProcessRequest'()
+    ),
+    {
+      requestId: index(
+        ri!requestData,
+        "requestId",
+        null
+      ),
+      processId: ri!processId,
+      runConfigId: if(
+        isnull(
+          index(
+            ri!requestData,
+            "runConfigId",
+            null
+          )
+        ),
+        ri!runConfigId,
+        index(
+          ri!requestData,
+          "runConfigId",
+          null
+        )
+      ),
+      processControllerMasterId: local!processControllerMasterId,
+      requestCurrStatus: index(
+        ri!requestData,
+        "requestCurrStatus",
+        null
+      ),
+      requestMonth: month(
+        today()
+      ),
+      requestYear: year(
+        today()
+      ),
+      makerId: index(
+        ri!requestData,
+        "makerId",
+        null
+      ),
+      checkerId: index(
+        ri!requestData,
+        "checkerId",
+        null
+      ),
+      appianProcessInstanceId: ri!processInstanceId,
+      runTimeSchedulerDetailId: local!schedulerDetailId,
+      isAdhocTrigger: if(
+        isNull(
+          ri!isAdhocTrigger
+        ),
+        false(),
+        ri!isAdhocTrigger
+      ),
+      createdBy: if(
+        isnull(
+          index(
+            ri!requestData,
+            "createdBy",
+            null
+          )
+        ),
+        ri!loggedInUser,
+        index(
+          ri!requestData,
+          "createdBy",
+          null
+        )
+      ),
+      createdOn: if(
+        isnull(
+          index(
+            ri!requestData,
+            "createdOn",
+            null
+          )
+        ),
+        now(),
+        index(
+          ri!requestData,
+          "createdOn",
+          null
+        )
+      ),
+      updatedBy: if(
+        isnull(
+          ri!loggedInUser
+        ),
+        loggedInUser(),
+        ri!loggedInUser
+      ),
+      updatedOn: now()
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>requestData</name>
+            <type>
+                <name>EAP_T_ProcessRequest</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>loggedInUser</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isAdhocTrigger</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processInstanceId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runconfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>schedulerDetailId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_46953"/>
+        <historyInfo versionUuid="_a-0000e520-265e-8000-d90f-a7ef90a7ef90_2764304"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_701275"/>
+    </history>
+</contentHaul>

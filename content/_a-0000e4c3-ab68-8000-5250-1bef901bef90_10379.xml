@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_773770</versionUuid>
+    <constant>
+        <name>EAP_REF_MASTER_TYPE</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379</uuid>
+        <description>Constant for EAP Reference Master TYPE
+1) ACTION_TYPE |
+2) INPUT |
+3) ADJUSTMENTS |
+4) LOOKUP |
+5) PASTE_OPTIONS |
+6) FILTER_OPERATOR |
+7) FILTER_GENERATION |
+8) PASTE_FORMAT |
+9) FILTER_CATEGORY |
+10) ENTITY_NAME |
+11) EXCEL_COLUMN_TYPE |
+12) PARSER_TYPE |
+13) Input_Copy Milestone Steps |
+14) REFRESH_PIVOT_MIESTONE_STEPS|
+15) OUTPUT_COPY_MILESTONE_STEPS
+16) SHEET_TO_SHEET_COPY_MILESTONE_STEPS
+17) GENERATION_TYPE
+18) GENERATION_FORMAT
+19) PARSING_TYPE
+20) DELIMITER
+21) FILE_TYPE
+22) TRANSPOSE_TYPE
+23) SYSTEM_TYPE_CODE
+24) LOOKUP_SYSTEM_TYPE_CODE
+25) SYSTEM_TYPE
+26) INTEGRATION_PATTERN_DESC
+27) CUSTOM_ACTION_MILESTONE_STEPS
+28) ESCALATION_TYPE
+29) TRANSFORM_ENTITY_TYPE
+30) ENTITY_NAME
+31) SHEET_FILTERS_MILESTONE_STEPS
+32) DB_FIXED_COPY_MILESTONE_STEPS
+33) ENTITY_TYPE
+34) RUN_TIME_FILTER_VALUES
+35) RUNTIME_FIXED_COPY_MILESTONE_STEPS | 
+36) PARAMETER_TYPE |
+37) MESSAGING_TYPE |
+38) MASTER_REF_DATA_TYPE |
+39) SLA_Timer_Type |
+40)WORKFLOW_STATUS |
+41)INTEGRATION_DESCRIPTION |</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>ACTION_TYPE</el>
+                <el>INPUT</el>
+                <el>ADJUSTMENTS</el>
+                <el>LOOKUP</el>
+                <el>PASTE_OPTIONS</el>
+                <el>FILTER_OPERATOR</el>
+                <el>FILTER_GENERATION</el>
+                <el>PASTE_FORMAT</el>
+                <el>FILTER_CATEGORY</el>
+                <el>ENTITY_NAME</el>
+                <el>EXCEL_COLUMN_TYPE</el>
+                <el>PARSER_TYPE</el>
+                <el>Input_Copy Milestone Steps</el>
+                <el>REFRESH_PIVOT_MIESTONE_STEPS</el>
+                <el>OUTPUT_COPY_MILESTONE_STEPS</el>
+                <el>SHEET_TO_SHEET_COPY_MILESTONE_STEPS</el>
+                <el>GENERATION_TYPE</el>
+                <el>GENERATION_FORMAT</el>
+                <el>PARSING_TYPE</el>
+                <el>Delimiter</el>
+                <el>FIILE_TYPE</el>
+                <el>TRANSPOSE_TYPE</el>
+                <el>SYSTEM_TYPE_CODE</el>
+                <el>LOOKUP_SYSTEM_TYPE_CODE</el>
+                <el>SYSTEM_TYPE</el>
+                <el>INTEGRATION_PATTERN_DESC</el>
+                <el>CUSTOM_ACTION_MILESTONE_STEPS</el>
+                <el>ESCALATION_TYPE</el>
+                <el>TRANSFORM_ENTITY_TYPE</el>
+                <el>ENTITY_NAME</el>
+                <el>SHEET_FILTERS_MILESTONE_STEPS</el>
+                <el>DB_FIXED_COPY_MILESTONE_STEPS</el>
+                <el>ENTITY_TYPE</el>
+                <el>RUN_TIME_FILTER_VALUES</el>
+                <el>RUNTIME_FIXED_COPY_MILESTONE_STEPS</el>
+                <el>PARAMETER_TYPE</el>
+                <el>MESSAGING_TYPE</el>
+                <el>MASTER_REF_DATA_TYPE</el>
+                <el>SLA_TIMER_TYPE</el>
+                <el>WORKFLOW_STATUS</el>
+                <el>INTEGRATION_DESCRIPTION</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_85009"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_100206"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_163809"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_182821"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_197975"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_370922"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_773770"/>
+    </history>
+</contentHaul>

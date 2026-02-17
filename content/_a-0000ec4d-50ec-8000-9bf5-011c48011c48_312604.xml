@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ec54-f04b-8000-9bf7-011c48011c48_322477</versionUuid>
+    <rule>
+        <name>EAP_RULE_GenerateScheduledDataXML</name>
+        <uuid>_a-0000ec4d-50ec-8000-9bf5-011c48011c48_312604</uuid>
+        <description>This rule will fetch the scheduled data and generate the XML</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!data : #"_a-0000ec54-f04b-8000-9bf7-011c48011c48_317868"(
+    requestId : ri!requestId,
+    procedureName: ri!procedureName
+  ),
+  if(
+    local!data.success = true(),
+    a!localVariables(
+      local!results : a!flatten(
+        local!data.results
+      ),
+      local!xmlList : reject(
+        a!isNullOrEmpty,
+        {
+          index(local!results,"STR",null),
+          index(local!results,"scheduledA",null),
+          index(local!results,"scheduledATotalDistribution",null),
+          index(local!results,"scheduledA2",null),
+          index(local!results,"scheduledA2TotalDistribution",null),
+          index(local!results,"scheduledA3",null),
+          index(local!results,"scheduledA3TotalDistribution",null),
+          index(local!results,"footNote1",null),
+          index(local!results,"footNote2",null),
+        }
+      ),
+      "&lt;?xml version='1.0' encoding='UTF-8'?&gt;"&amp;
+      "&lt;DocFromDynTemp&gt;"&amp;
+      if(
+        a!isNullOrEmpty(local!xmlList),
+        null,
+        joinarray(
+          local!xmlList,
+          char(13)
+        )
+      )
+      &amp;
+      "&lt;/DocFromDynTemp&gt;"
+    ),
+    null
+  )
+)</definition>
+        <namedTypedValue>
+            <name>requestId</name>
+            <description>id to fetch the details</description>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>procedureName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name>10087</a:name>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">10087</a:value>
+                    <a:nameRef>requestId</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>procedureName</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                <a:isDefault>false</a:isDefault>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000ec54-f04b-8000-9bf7-011c48011c48_322477"/>
+    </history>
+</contentHaul>

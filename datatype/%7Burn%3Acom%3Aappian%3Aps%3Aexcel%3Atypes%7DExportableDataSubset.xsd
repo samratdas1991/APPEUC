@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:com:appian:ps:excel:types"
+  xmlns:_20091="http://www.appian.com/ae/types/2009"
+  xmlns:tns="urn:com:appian:ps:excel:types" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:include schemaLocation="%7Burn%3Acom%3Aappian%3Aps%3Aexcel%3Atypes%7DExcelDataSubset.xsd"/>
+  <xsd:complexType name="ExportableDataSubset">
+    <xsd:annotation>
+      <xsd:appinfo source="http://www.appian.com/ae/types/2009">
+        <ns2:Metadata xmlns:ns2="http://www.appian.com/ae/types/2009">
+          <ns2:versionUuid>0000e594-11eb-8000-7242-1b4d981b4d98</ns2:versionUuid>
+          <ns2:history>
+            <ns2:historyInfo versionUuid="0000e5f4-26ff-8000-fb14-7f0000014e7a"/>
+            <ns2:historyInfo versionUuid="0000e594-11eb-8000-7242-1b4d981b4d98"/>
+          </ns2:history>
+        </ns2:Metadata>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="fieldNames"
+        nillable="true" type="xsd:string"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0"
+        name="fieldLabels" nillable="true" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="datasubset" type="tns:ExcelDataSubset"/>
+      <xsd:element minOccurs="0" name="filename" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

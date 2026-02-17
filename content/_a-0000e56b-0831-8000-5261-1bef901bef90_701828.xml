@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e60e-dc30-8000-526b-1bef901bef90_777125</versionUuid>
+    <constant>
+        <name>EAP_UPDATE_MILESTONE_REQUEST_STATUS</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_701828</uuid>
+        <description>Holds the Request Status where Milestone Update needed
+1. REQ_ARRV|
+2. SRC_INT_FAIL|
+3. SRC_INT_COMP|
+4. TGT_FAIL|
+5. TGT_COMP|
+6. CNCL_MAKE|
+7. SUB_MAKE|
+8. REJ_CHCK|
+9. APP_CHCK|
+10. REJ_DOA|
+11. APP_DOA|
+12. VLDN_FAIL|
+13. VLDN_COMP|
+14. OUT_GEN_FAIL|
+15. OUT_GEN_COMP|
+16. POS_FAIL|
+17. POS_COMP|
+18. STG_FAIL |
+</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>REQ_ARRV</el>
+                <el>SRC_INT_FAIL</el>
+                <el>SRC_INT_COMP</el>
+                <el>TGT_FAIL</el>
+                <el>TGT_COMP</el>
+                <el>CNCL_MAKE</el>
+                <el>SUB_MAKE</el>
+                <el>REJ_CHCK</el>
+                <el>APP_CHCK</el>
+                <el>REJ_DOA</el>
+                <el>APP_DOA</el>
+                <el>VLDN_FAIL</el>
+                <el>VLDN_COMP</el>
+                <el>OUT_GEN_FAIL</el>
+                <el>OUT_GEN_COMP</el>
+                <el>POS_FAIL</el>
+                <el>POS_COMP</el>
+                <el>STG_FAIL</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_701852"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_773809"/>
+        <historyInfo versionUuid="_a-0000e60e-dc30-8000-526b-1bef901bef90_777125"/>
+    </history>
+</contentHaul>

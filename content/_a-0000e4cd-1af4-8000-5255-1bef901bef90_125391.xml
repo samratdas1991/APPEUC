@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_602852</versionUuid>
+    <interface>
+        <name>EAP_RunConfiguration_CreateNewSubCluster</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_125391</uuid>
+        <description>Contains form to create new sub cluster</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!clusterData:#"_a-0000e4c6-4628-8000-5253-1bef901bef90_16958"(
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1, 
+      batchSize: -1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "name",
+        ascending: true()
+      )
+    )
+  ), 
+  local!activeClusters: index(
+    local!clusterData,
+    wherecontains(
+      1,
+      tointeger(index(local!clusterData,"is_active",{}))
+    ),{}
+  ),
+  local!refSubCluster: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_17680"(
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: -1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "name",
+        ascending: true()
+      )
+    )
+  ),
+  local!cluster: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!refSubCluster,"cluster_id",{})),
+  {},
+  #"_a-0000e4c6-4628-8000-5253-1bef901bef90_16958"(
+    clusterId:  index(ri!refSubCluster,"cluster_id",{})
+  )),
+  local!process: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!refSubCluster,"sub_cluster_id",{})),
+  {},
+  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+    subClusterId:  index(ri!refSubCluster,"sub_cluster_id",{})
+  )),
+  local!selectedSubCluster:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!subClusterId),
+  {},
+  index(local!refSubCluster,
+  wherecontains(
+    tointeger(ri!subClusterId),
+    tointeger(index(local!refSubCluster,"sub_cluster_id",{}))
+  ),{})),
+  {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents:{
+            if(or(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!subClusterId),tointeger(ri!subClusterId)=0),
+            
+            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+              label: "Cluster",
+              helpTooltip: "Value from admin console",
+              placeholderLabel: "--Select Cluster--",
+              required: true(),
+              choiceLabels: index(local!activeClusters,"name",{}),
+              choiceValues: index(local!activeClusters,"cluster_id",{}),
+              value: index(ri!refSubCluster,"cluster_id",{}),
+              saveInto: ri!refSubCluster.cluster_id
+            ),
+            #"SYSTEM_SYSRULES_richTextDisplayField"(
+              label: "Cluster",
+              value:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(ri!refSubCluster,"cluster_id",{})),
+                "N/A",
+                index(
+                  index(
+                    local!clusterData,
+                    wherecontains(
+                      tointeger(index(ri!refSubCluster,"cluster_id",{})),
+                      tointeger(index(local!clusterData,"cluster_id",{}))
+                    ),
+                    {}
+                  ),
+                  "name",
+                  {}
+                )
+
+
+              )
+               
+            ))
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            label: "Name",
+            value: index(ri!refSubCluster,"name",{}),
+            required: true(),
+            saveInto: a!save(ri!refSubCluster.name,
+          trim(save!value)),
+          validations: if(or(
+            proper(touniformstring(index(local!selectedSubCluster,"name",{})))=
+            proper(touniformstring(index(ri!refSubCluster,"name",{})))
+          ),{},
+          if(
+            contains(
+              proper(touniformstring(index(local!refSubCluster,"name",{}))),
+              proper(touniformstring(index(ri!refSubCluster,"name",{}))),
+            ),
+            "Duplicate Name found",
+            {}
+          ))
+          )
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+            label: "Description",
+            required: true(),
+            value: index(ri!refSubCluster,"description",{}),
+            saveInto: a!save(ri!refSubCluster.description,
+            trim(save!value))
+          )
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288522"(
+            label: "Status",
+            choiceLabels: {
+              "Active",
+              "Inactive"
+            },
+            choiceValues: {
+              1,
+              0
+            },
+            value: index(
+              ri!refSubCluster,
+              "is_active",
+              {}
+            ),
+            saveInto: {ri!refSubCluster.is_active,
+            a!save(ri!isInactive,
+            null),
+            a!save(ri!isActive,
+            null)            
+            },
+            required: true(),
+            choiceLayout: "COMPACT",
+            validations:
+            {
+              if(
+                or(toboolean(ri!isInactive)=true(),tointeger(index(local!selectedSubCluster,"is_active",{}))=0),
+                {},
+                if(or(tointeger(index(ri!refSubCluster,"is_active",{}))=0),
+                if(
+                  contains(
+                    tointeger(index(local!process,"is_active",{})),
+                    1
+                  ),
+
+                  "Sub Cluster can not be inactivated as there are processes and scheduler run configurations related to it. Please select the checkbox to inactive the dependent processes and run configurations.",
+
+
+
+                  {}),
+                  {})),
+                  if(
+                    or(toboolean(ri!isActive)=true(),tointeger(index(local!selectedSubCluster,"is_active",{}))=1),
+                    {},
+                    if(or(tointeger(index(ri!refSubCluster,"is_active",{}))=1),
+                    if(
+                      or(contains(
+                        tointeger(index(local!process,"is_active",{})),
+                        0
+                      )
+                      
+                      ),
+
+                      "Cluster can not be activated as there are processes and scheduler run configurations related to it. Please select the checkbox to active the dependent processes and schedulers.",
+
+
+                      {}),
+
+                      {}))
+            }
+          )
+        ),
+
+        #"SYSTEM_SYSRULES_columnLayout"()}),
+        if(
+          and(or(tointeger( index(
+            ri!refSubCluster,
+            "is_active",
+            {}
+          ))=0, tointeger( index(
+            ri!refSubCluster,
+            "is_active",
+            {}
+          ))=1),
+          not(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              index(
+                ri!refSubCluster,"sub_cluster_id",{}
+              )
+            )
+          )),
+          { 
+            #"SYSTEM_SYSRULES_sideBySideLayout"(
+            items: {
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+                item: #"SYSTEM_SYSRULES_checkboxField"(
+                  choiceLabels:"Inactive all Processes and scheduler run configurations",
+                  choiceValues: true(),
+                  value:ri!isInactive,
+                  saveInto: ri!isInactive,
+                  showWhen:  and(contains(
+                    tointeger(index(local!process,"is_active",{})),
+                    1
+                  ), contains(
+                    tointeger(index(local!selectedSubCluster,"is_active",{})),
+                    1
+                  ))
+                ),
+                showWhen:   tointeger( index(
+                  ri!refSubCluster,
+                  "is_active",
+                  {}
+                ))=0,
+                width: "MINIMIZE"
+              ),
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+                item: #"SYSTEM_SYSRULES_checkboxField"(
+                  choiceLabels:"active all Processes and scheduler run configurations",
+                  choiceValues: true(),
+                  value:ri!isActive,
+                  saveInto: ri!isActive,
+                  showWhen:  and(
+                    contains(
+                      tointeger(index(local!process,"is_active",{})),
+                      0
+                    ),
+                    contains(
+                      tointeger(index(local!selectedSubCluster,"is_active",{})),
+                      0
+                    )
+
+                  )
+                ),
+                showWhen: tointeger( index(
+                  ri!refSubCluster,
+                  "is_active",
+                  {}
+                ))=1,
+                width: "MINIMIZE"
+              )
+            }
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              local!process
+            ),
+            #"SYSTEM_SYSRULES_richTextDisplayField"(
+              align: "CENTER",
+              value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                text: "No Related Process",
+                color: "SECONDARY",
+                size: "MEDIUM_PLUS",
+                style: "EMPHASIS"
+              ),
+
+            ), 
+            {
+
+              #"SYSTEM_SYSRULES_sideBySideLayout"(
+                items: {
+                  #"SYSTEM_SYSRULES_sideBySideItem"(
+                    item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                        text: "Related Processes",
+                        color: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[1],
+                        size: "MEDIUM",
+                        style: "STRONG"
+                      )
+                    )
+                  )
+                }
+              ),  
+
+              #"SYSTEM_SYSRULES_gridField_v1"(
+                data: local!process,
+                pageSize: 5,
+                columns:{
+                  #"SYSTEM_SYSRULES_gridColumn"(
+                    label: "Name",
+                    value: index(fv!row,"name",{})
+                  ),
+                  #"SYSTEM_SYSRULES_gridColumn"(
+                    label: "Description",
+                    value: index(fv!row,"description",{})
+                  ),
+                  #"SYSTEM_SYSRULES_gridColumn"(
+                    label: "Reference Number",
+                    value: index(fv!row,"euc_reference_number",{})
+                  ),
+                  #"SYSTEM_SYSRULES_gridColumn"(
+                    label: "Is Active",
+                    value:  #"SYSTEM_SYSRULES_imageField_v1"(
+                      images: {
+                        #"SYSTEM_SYSRULES_documentImage"(
+                          document: #"SYSTEM_SYSRULES_iconIndicator"(
+                            icon: if(
+                              contains(
+                                toboolean(
+                                  index(fv!row, "is_active", {})
+                                ),
+                                true()
+                              ),
+                              "STATUS_OK",
+                              "STATUS_NOTDONE"
+                            )
+                          ),
+                          caption: if(
+                            contains(
+                              toboolean(
+                                index(fv!row, "is_active", {})
+                              ),
+                              true()
+                            ),
+                            "Active",
+                            "In-Active"
+                          )
+                        )
+                      }
+                    ),
+                    align: "CENTER"
+                  )
+                }
+              )}),
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            local!cluster
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            align: "CENTER",
+            value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "No Related Cluster",
+              color: "SECONDARY",
+              size: "MEDIUM_PLUS",
+              style: "EMPHASIS"
+            ),
+
+          ), 
+          {
+            
+            
+            #"SYSTEM_SYSRULES_sideBySideLayout"(
+              items: {
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: "Related Cluster",
+                      color: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[1],
+                      size: "MEDIUM",
+                      style: "STRONG"
+                    )
+                  ),
+                ),
+                /*
+                a!sideBySideItem(
+                  item: a!checkboxField(
+                    choiceLabels:"Inactive Cluster",
+                    choiceValues: true(),
+                    value:ri!isInactive,
+                    saveInto: ri!isInactive,
+                    showWhen:  contains(
+                      tointeger(index(local!cluster,"is_active",{})),
+                      1
+                    )
+                  ),
+                  width: "MINIMIZE"
+                )
+                */
+              }
+            ),  
+
+            #"SYSTEM_SYSRULES_gridField_v1"(
+              data: local!cluster,
+              pageSize: 5,
+              columns:{
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Name",
+                  value: index(fv!row,"name",{})
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Description",
+                  value: index(fv!row,"description",{})
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: "Is Active",
+                  value:  #"SYSTEM_SYSRULES_imageField_v1"(
+                    images: {
+                      #"SYSTEM_SYSRULES_documentImage"(
+                        document: #"SYSTEM_SYSRULES_iconIndicator"(
+                          icon: if(
+                            contains(
+                              toboolean(
+                                index(fv!row, "is_active", {})
+                              ),
+                              true()
+                            ),
+                            "STATUS_OK",
+                            "STATUS_NOTDONE"
+                          )
+                        ),
+                        caption: if(
+                          contains(
+                            toboolean(
+                              index(fv!row, "is_active", {})
+                            ),
+                            true()
+                          ),
+                          "Active",
+                          "In-Active"
+                        )
+                      )
+                    }
+                  ),
+                  align: "CENTER"
+                )
+              }
+            )})},
+            {}),
+        #"SYSTEM_SYSRULES_ButtonLayout"(
+          primaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+            label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[4],
+            value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[4],
+            saveInto: {
+              ri!buttonAction,
+              a!save(ri!subClusterId,
+              null),
+              a!save(
+                ri!refSubCluster,
+                #"_a-0000e4c6-4628-8000-5253-1bef901bef90_17865"(
+                  modifiedBy: loggedInUser(),
+                  modifiedOn: now(),
+                  refSubCluster: ri!refSubCluster
+                )
+              )
+            },
+            submit: true(),
+            style: "PRIMARY",
+            validate: true()
+          ),
+          secondaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+            label: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[7],
+            value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[7],
+            saveInto: {
+              ri!buttonAction,
+              a!save(ri!subClusterId,
+              null),
+              a!save(
+                ri!refSubCluster.name,
+                null
+              ),
+              a!save(ri!isInactive,
+              null),
+              a!save(
+                ri!refSubCluster.description,
+                null
+              ),
+              a!save(
+                ri!refSubCluster.cluster_id,
+                null
+              )
+            },
+            submit: true(),
+            validate: false()
+          )
+        )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>activeStep</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refSubCluster</name>
+            <type>
+                <name>EAP_T_RefSubCluster</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>subClusterId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isInactive</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_174765"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_188511"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_218197"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_364607"/>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_602852"/>
+    </history>
+</contentHaul>

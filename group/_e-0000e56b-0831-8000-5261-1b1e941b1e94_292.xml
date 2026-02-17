@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_e-0000e56b-0831-8000-5261-1b1e941b1e94_293</versionUuid>
+    <group>
+        <name>EAP Preeti Test Group </name>
+        <securityMap>SECURITYMAP_TEAM</securityMap>
+        <uuid>_e-0000e56b-0831-8000-5261-1b1e941b1e94_292</uuid>
+        <groupTypeUuid>SYSTEM_GROUP_TYPE_CUSTOM</groupTypeUuid>
+        <description>Hold test group</description>
+        <delegatedCreation>false</delegatedCreation>
+        <memberPolicy>MEMBERPOLICY_CLOSED</memberPolicy>
+        <viewingPolicy>VIEWINGPOLICY_LOW</viewingPolicy>
+        <attributes/>
+    </group>
+    <members>
+        <users/>
+        <groups/>
+    </members>
+    <admins>
+        <users/>
+        <groups/>
+    </admins>
+    <ruleSet/>
+    <history>
+        <historyInfo versionUuid="_e-0000e56b-0831-8000-5261-1b1e941b1e94_293"/>
+    </history>
+</groupHaul>

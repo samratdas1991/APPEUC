@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_746698</versionUuid>
+    <rule>
+        <name>EAP_setValueForOutEmailAttributeConfig</name>
+        <uuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_746687</uuid>
+        <description>Hold set value rule for EAP_T_OutEmailAttributeConfig</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!outEmailAttributeConfig),
+  null,
+  #"SYSTEM_SYSRULES_forEach"(
+    items: ri!outEmailAttributeConfig,
+    expression: #"_a-0000e5ac-f704-8000-5264-1bef901bef90_742544"(
+      outEmailTemplateConfigId:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!outEmailTemplateConfigId),
+        ri!outEmailAttributeConfig[fv!index].out_email_template_config_id,
+        ri!outEmailTemplateConfigId
+      ),
+      outEmailAttributeConfigId:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!outEmailAttributeConfigId),
+        ri!outEmailAttributeConfig[fv!index].out_email_attribute_config_id,
+        ri!outEmailAttributeConfigId
+      ),
+      attributeName:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!attributeName),
+        ri!outEmailAttributeConfig[fv!index].attribute_name,
+        ri!attributeName
+      ), 
+      isActive:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isActive),
+        ri!outEmailAttributeConfig[fv!index].is_active,
+        ri!isActive
+      ),
+      createdBy:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdBy),
+        ri!outEmailAttributeConfig[fv!index].created_by,
+        ri!createdBy
+      ),
+      createdOn:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdOn),
+        ri!outEmailAttributeConfig[fv!index].created_on,
+        ri!createdOn
+      ),
+      modifiedBy:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedBy),
+        ri!outEmailAttributeConfig[fv!index].modified_by,
+        ri!modifiedBy
+      ),
+      modifiedOn:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedOn),
+        ri!outEmailAttributeConfig[fv!index].modified_on,
+        ri!modifiedOn
+      )
+    )
+  )
+)
+
+
+
+
+</definition>
+        <namedTypedValue>
+            <name>outEmailAttributeConfigId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>attributeName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outEmailAttributeConfig</name>
+            <type>
+                <name>EAP_T_OutEmailAttributeConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outEmailTemplateConfigId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_746698"/>
+    </history>
+</contentHaul>

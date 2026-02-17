@@ -1,0 +1,56 @@
+AddDocumentsToZip
+Add Documents to Zip
+1.0.1
+
+documentFromDynamicTemplate
+Advanced Document Templating
+3.0.0
+
+com.appiancorp.ps.base64expressions
+Base64 Expressions
+1.2.0
+
+com.appiancorp.ps.plugins.contenttools
+Content Tools
+1.11.1
+
+com.appiancorp.solutionsconsulting.dateAndTimeUtilities
+Date and Time Utilities
+1.3.0
+
+com.appiancorp.cdtmanipulation
+Dictionary Manipulation
+2.0.1
+
+com.appiancorp.ps.plugins.excelasposeutility
+Excel Aspose Utility
+1.0.4
+
+com.appiancorp.ps.exceltools
+Excel Tools
+2.8.2
+
+executestoredprocedure
+Execute Stored Procedure
+1.5.7
+
+pdftools
+PDF Tools
+2.8.2
+
+com.wipro.plugins.euc
+Parser Smart Service Module
+1.0
+
+psshared.peoplefunctions
+People Functions
+1.15.0
+
+com.appcino.as.sqltoexcel
+SQL To Excel Smart Service
+2.0.0
+
+com.wipro.plugins.euc.transform
+Transformation Smart Service Module
+1.0
+

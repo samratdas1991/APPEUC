@@ -1,0 +1,2104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_562450</versionUuid>
+    <interface>
+        <name>EAP_DataValidationConfigContents</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377355</uuid>
+        <description>Rule to generate Data Validation config contents.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  
+  local!processId: index(
+    ri!refProcessWfTemplateConfig,
+    "process_id",
+    {}
+  ),
+  local!entityNames: index(
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_97641"(
+      process_id: tointeger(
+        local!processId
+      ),
+      isActive: true()
+    ),
+    "entity_name",
+    {}
+  ),
+  local!allEntityNames: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      local!entityNames
+    ),
+    local!entityNames,
+    touniformstring(
+      union(
+        local!entityNames,
+        local!entityNames
+      )
+    )
+  ),
+  local!allTableColumns: if(
+    and(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+        local!allEntityNames
+      )
+    ),
+    null,
+    #"_a-0000e4c6-e892-8000-5254-1bef901bef90_25128"(
+      id: null,
+      tableName: local!allEntityNames
+    )
+  ),
+  local!masterLookUp: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    categoryGroup: {
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[1],
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4]
+    },
+    isActive: 1,
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: - 1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "reference_data_id",
+        ascending: true()
+      )
+    )
+  ),
+  local!runtimeConfigs: if(
+    and(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+       index( ri!uniqueIdentifiers,"process_id",{})
+      )
+    ),
+    null,  
+  
+  touniformstring(
+    index(
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_143703"(
+        isActive: true(),
+        processId: ri!uniqueIdentifiers.process_id
+      ),
+      "configRtKey",
+      null
+    )
+  )
+  
+  ),
+  local!customMethodNameList:  if(
+    and(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+        local!processId
+      )
+    ),
+    null,    
+  index(
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377522"(
+      processId: tointeger(
+        local!processId
+      )
+    ),
+    "custom_method_name",
+    {}
+  )
+  ),
+  {
+  
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: upper(
+        concat(
+          if(
+            or(
+              ri!isReadOnly
+            ),
+            "Data Validation Configuration",
+            "Manage Data Validation Configuration "
+          ),
+          ": ",
+          index(
+            index(
+              ri!refProcessWfTemplateConfig,
+              1,
+              {}
+            ),
+            "version_description",
+            null
+          )
+        )
+      ),
+      marginBelow: "NONE"
+    ),
+    if(
+      or(
+        ri!isSummaryDashboard = true()
+      ),
+      {},
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377387"(
+        processId:local!processId
+      )
+    ),
+   
+    #"SYSTEM_SYSRULES_richTextDisplayField"(),
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11158"(
+      style: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[5],
+      showBorder: false(),
+      contents: {
+        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10573"(
+          steps: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377985",
+          activeStep: ri!uniqueIdentifiers.activeStep,
+          isHideNextStepsLink: if(
+            or(
+              ri!isReadOnly
+            ),
+            false(),
+            true()
+          ),
+          saveInto: if(
+            and(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+                index(
+                  ri!refProcessWfActionType,
+                  "wf_action_id",
+                  null
+                ),
+                
+              )
+            ),
+            null,
+            a!save(
+              ri!uniqueIdentifiers.selectedCard,
+              index(
+                index(
+                  index(
+                    ri!refProcessWfActionType,
+                    wherecontains(
+                      toboolean(
+                        true()
+                      ),
+                      toboolean(
+                        index(
+                          ri!refProcessWfActionType,
+                          "isactive",
+                          {}
+                        )
+                      )
+                    ),
+                    {}
+                  ),
+                  1,
+                  {}
+                ),
+                "wf_action_id",
+                null
+              )
+            )
+          ),
+          IsValidate: true(),
+          ButtonAction: ri!buttonAction
+        ),
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!uniqueIdentifiers.activeStep
+          ),
+          {},
+          choose(
+            ri!uniqueIdentifiers.activeStep,
+            {
+              #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377991"(
+                masterLookUpData: local!masterLookUp,
+                isReadonly: ri!isReadOnly,
+                refProcessWfActionType: ri!refProcessWfActionType,
+                templateConfigId: tointeger(
+                  ri!uniqueIdentifiers.selectedTemplateType
+                )
+              )
+            },
+            {
+              if(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!refProcessWfActionType
+                ),
+                #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  align: "CENTER",
+                  value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: "No data available",
+                    size: "STANDARD",
+                    
+                  )
+                ),
+                #"SYSTEM_SYSRULES_columnsLayout"(
+                  columns: {
+                    #"SYSTEM_SYSRULES_columnLayout"(
+                      contents: {
+                        #"SYSTEM_SYSRULES_forEach"(
+                          items: index(
+                            ri!refProcessWfActionType,
+                            wherecontains(
+                              toboolean(
+                                true()
+                              ),
+                              toboolean(
+                                index(
+                                  ri!refProcessWfActionType,
+                                  "isactive",
+                                  {}
+                                )
+                              )
+                            ),
+                            {}
+                          ),
+                          expression: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10595"(
+                            input: fv!item,
+                            description: "action_type",
+                            isShowDescription: true(),
+                            linkSaveInto: {
+                              a!save(
+                                ri!uniqueIdentifiers.actionTypeActiveStep,
+                                1
+                              )
+                            },
+                            selectedCard: ri!uniqueIdentifiers.selectedCard,
+                            fieldToShow: "action_name",
+                            masterLookup: local!masterLookUp,
+                            isShowLabelValue: true(),
+                            fieldToSave: "wf_action_id",
+                            selectedCardStyle: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[1],
+                            unselectedCardStyle: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[2],
+                            isValidate: true(),
+                            buttonAction: ri!buttonAction
+                          )
+                        )
+                      },
+                      width: "NARROW"
+                    ),
+                    #"SYSTEM_SYSRULES_columnLayout"(
+                      width: "",
+                      contents: {
+                        #"SYSTEM_SYSRULES_cardLayout"(
+                          showBorder: false(),
+                          style: "NONE",
+                          contents: {
+                            /*Inner MilestoneField*/
+                            if(
+                              count(
+                                if(
+                                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                    local!masterLookUp
+                                  ),
+                                  null,
+                                  touniformstring(
+                                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                                      MasterLookup: local!masterLookUp,
+                                      UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_378031"(
+                                        selectedActionTypeId: ri!uniqueIdentifiers.selectedCard,
+                                        refProcessWfActionType: ri!refProcessWfActionType,
+                                        categories: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377632"
+                                      ),
+                                      Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                                    )
+                                  )
+                                )
+                              ) &gt; 1,
+                              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10573"(
+                                steps: if(
+                                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                    local!masterLookUp
+                                  ),
+                                  null,
+                                  touniformstring(
+                                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                                      MasterLookup: local!masterLookUp,
+                                      UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_378031"(
+                                        selectedActionTypeId: ri!uniqueIdentifiers.selectedCard,
+                                        refProcessWfActionType: ri!refProcessWfActionType,
+                                        categories: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377632"
+                                      ),
+                                      Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                                    )
+                                  )
+                                ),
+                                activeStep: ri!uniqueIdentifiers.actionTypeActiveStep,
+                                /*selectedStep: */
+                                /*ri!uniqueIdentifiers.actionTypeSelectedStep,*/
+                                isHideNextStepsLink: if(
+                                  or(
+                                    ri!isReadOnly
+                                  ),
+                                  false(),
+                                  true()
+                                ),
+                                IsValidate: true(),
+                                ButtonAction: ri!buttonAction
+                              ),
+                              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                  text: "   " &amp; if(
+                                    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                      local!masterLookUp
+                                    ),
+                                    null,
+                                    touniformstring(
+                                      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                                        MasterLookup: local!masterLookUp,
+                                        UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_378031"(
+                                          selectedActionTypeId: ri!uniqueIdentifiers.selectedCard,
+                                          refProcessWfActionType: ri!refProcessWfActionType,
+                                          categories: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377632"
+                                        ),
+                                        Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                                      )
+                                    )
+                                  ),
+                                  style: "STRONG"
+                                )
+                              )
+                            ),
+                            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11158"(
+                              contents: {
+                                if(
+                                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                    wherecontains(
+                                      index(
+                                        touniformstring(
+                                          index(
+                                            ri!refProcessWfActionType,
+                                            "action_type",
+                                            null
+                                          )
+                                        ),
+                                        wherecontains(
+                                          tointeger(
+                                            ri!uniqueIdentifiers.selectedCard
+                                          ),
+                                          tointeger(
+                                            index(
+                                              ri!refProcessWfActionType,
+                                              "wf_action_id",
+                                              null
+                                            )
+                                          )
+                                        ),
+                                        null
+                                      ),
+                                      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377632"
+                                    )
+                                  ),
+                                  {},
+                                  {
+                                    choose(
+                                      /*Fetching action type*/
+                                      wherecontains(
+                                        index(
+                                          touniformstring(
+                                            index(
+                                              ri!refProcessWfActionType,
+                                              "action_type",
+                                              null
+                                            )
+                                          ),
+                                          wherecontains(
+                                            tointeger(
+                                              ri!uniqueIdentifiers.selectedCard
+                                            ),
+                                            tointeger(
+                                              index(
+                                                ri!refProcessWfActionType,
+                                                "wf_action_id",
+                                                null
+                                              )
+                                            )
+                                          ),
+                                          null
+                                        ),
+                                        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377632"
+                                      ),
+                                      /*INPUT_COPY*/
+                                      choose(
+                                        ri!uniqueIdentifiers.actionTypeActiveStep,
+                                        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_378997"(
+                                          actionTypeInputCopy: ri!actionTypeInputCopy,
+                                          masterLookUp: local!masterLookUp,
+                                          isReadOnly: ri!isReadOnly,
+                                          actionTypeId: ri!uniqueIdentifiers.selectedCard,
+                                          allEntityNames: local!allEntityNames
+                                        ),
+                                        {
+                                          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10595"(
+                                            input: index(
+                                              ri!actionTypeInputCopy,
+                                              wherecontains(
+                                                tointeger(
+                                                  ri!uniqueIdentifiers.selectedCard
+                                                ),
+                                                tointeger(
+                                                  index(
+                                                    ri!actionTypeInputCopy,
+                                                    "wf_action_id",
+                                                    null
+                                                  )
+                                                )
+                                              ),
+                                              {}
+                                            ),
+                                            concatField: "sheet_name",
+                                            concatText: "to",
+                                            iconFirst: "database",
+                                            iconLast: "file-text-o",
+                                            fieldToShow: "table_name",
+                                            isRichText: true()
+                                          ),
+                                          {
+                                          
+                                            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377081"(
+                                            inputCopyId: tointeger(
+                                              index(
+                                                index(
+                                                  ri!actionTypeInputCopy,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      ri!uniqueIdentifiers.selectedCard
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!actionTypeInputCopy,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                "input_copy_id",
+                                                {}
+                                              )
+                                            ),
+                                            actionTypeInputCopyEntityMapping: ri!actionTypeInputCopyEntityMapping,
+                                            masterLookUpData: local!masterLookUp,
+                                            isReadOnly: ri!isReadOnly,
+                                            entityName: tostring(
+                                              index(
+                                                index(
+                                                  ri!actionTypeInputCopy,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      ri!uniqueIdentifiers.selectedCard
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!actionTypeInputCopy,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                "table_name",
+                                                {}
+                                              )
+                                            ),
+                                            allTableColumns: local!allTableColumns
+                                          )}
+                                        },
+                                        {
+                                          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10595"(
+                                            input: index(
+                                              ri!actionTypeInputCopy,
+                                              wherecontains(
+                                                tointeger(
+                                                  ri!uniqueIdentifiers.selectedCard
+                                                ),
+                                                tointeger(
+                                                  index(
+                                                    ri!actionTypeInputCopy,
+                                                    "wf_action_id",
+                                                    null
+                                                  )
+                                                )
+                                              ),
+                                              {}
+                                            ),
+                                            iconFirst: "file-text-o",
+                                            iconLast: "filter",
+                                            fieldToShow: "sheet_name",
+                                            isRichText: true()
+                                          ),
+                                          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377061"(
+                                            inputCopySheetFilters: ri!inputCopyEntitySheetFilters,
+                                            masterLookUpData: local!masterLookUp,
+                                            isReadOnly: ri!isReadOnly,
+                                            inputCopyId: tointeger(
+                                              index(
+                                                index(
+                                                  ri!actionTypeInputCopy,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      ri!uniqueIdentifiers.selectedCard
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!actionTypeInputCopy,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                "input_copy_id",
+                                                {}
+                                              )
+                                            ),
+                                            entityName: tostring(
+                                              index(
+                                                index(
+                                                  ri!actionTypeInputCopy,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      ri!uniqueIdentifiers.selectedCard
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!actionTypeInputCopy,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                "table_name",
+                                                {}
+                                              )
+                                            ),
+                                            allTableColumns: local!allTableColumns,
+                                            runtimeConfigs: local!runtimeConfigs
+                                          )
+                                        }
+                                      ),
+                                      /*REFRESH_PIVOT*/
+                                      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377164"(
+                                        actionTypeRefreshPivot: ri!actionTypeRefreshPivot,
+                                        isReadOnly: ri!isReadOnly,
+                                        actionId: ri!uniqueIdentifiers.selectedCard
+                                      ),
+                                      /*INPUT_COPY_TRANSPOSE*/
+                                      choose(
+                                        ri!uniqueIdentifiers.actionTypeActiveStep,
+                                        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377429"(
+                                          actionTypeTransposeConfig: ri!transposeConfig,
+                                    
+                                          isReadOnly: ri!isReadOnly,
+                                          actionId: ri!uniqueIdentifiers.selectedCard,
+                                          allEntityNames: local!allEntityNames
+                                        ),
+                                        {
+                                          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10595"(
+                                            input: index(
+                                              ri!transposeConfig,
+                                              wherecontains(
+                                                tointeger(
+                                                  ri!uniqueIdentifiers.selectedCard
+                                                ),
+                                                tointeger(
+                                                  index(
+                                                    ri!transposeConfig,
+                                                    "wf_action_id",
+                                                    null
+                                                  )
+                                                )
+                                              ),
+                                              {}
+                                            ),
+                                            concatField: "sheet_name",
+                                            concatText: "to",
+                                            iconFirst: "database",
+                                            iconLast: "file-text-o",
+                                            fieldToShow: "entity_name",
+                                            isRichText: true()
+                                          ),
+                                          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_381321"(
+                                            tranposeConfigId: tointeger(
+                                              index(
+                                                index(
+                                                  ri!transposeConfig,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      ri!uniqueIdentifiers.selectedCard
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!transposeConfig,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                "transpose_config_id",
+                                                {}
+                                              )
+                                            ),
+                                            transposeConfigMapping:ri!transposeConfigMapping,
+                                            masterLookUpData: local!masterLookUp,
+                                            isReadOnly: ri!isReadOnly,
+                                            entityName: tostring(
+                                              index(
+                                                index(
+                                                  ri!transposeConfig,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      ri!uniqueIdentifiers.selectedCard
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!transposeConfig,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                "entity_name",
+                                                {}
+                                              )
+                                            ),
+                                            allTableColumns: local!allTableColumns
+                                          )
+                                        },
+                                        {
+                                          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10595"(
+                                            input: index(
+                                              ri!transposeConfig,
+                                              wherecontains(
+                                                tointeger(
+                                                  ri!uniqueIdentifiers.selectedCard
+                                                ),
+                                                tointeger(
+                                                  index(
+                                                    ri!transposeConfig,
+                                                    "wf_action_id",
+                                                    null
+                                                  )
+                                                )
+                                              ),
+                                              {}
+                                            ),
+                                            iconFirst: "file-text-o",
+                                            iconLast: "filter",
+                                            fieldToShow: "sheet_name",
+                                            isRichText: true()
+                                          ),
+                                          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377472"(
+                                            transposeFilters: ri!transposeConfigFilter,
+                                            masterLookUpData: local!masterLookUp,
+                                            isReadOnly: ri!isReadOnly,
+                                            transposeConfigId: tointeger(
+                                              index(
+                                                index(
+                                                  ri!transposeConfig,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      ri!uniqueIdentifiers.selectedCard
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!transposeConfig,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                "transpose_config_id",
+                                                {}
+                                              )
+                                            ),
+                                            entityName: tostring(
+                                              index(
+                                                index(
+                                                  ri!transposeConfig,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      ri!uniqueIdentifiers.selectedCard
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!transposeConfig,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                "entity_name",
+                                                {}
+                                              )
+                                            ),
+                                            allTableColumns: local!allTableColumns,
+                                            runtimeConfigs: local!runtimeConfigs
+                                          )
+                                        }
+                                      ),
+                                      /*SHEET_TO_SHEET_COPY*/
+                                      choose(
+                                        ri!uniqueIdentifiers.actionTypeActiveStep,
+                                        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377214"(
+                                          sheetCopy: ri!sheetCopy,
+                                          masterLookUpData: local!masterLookUp,
+                                          isReadOnly: ri!isReadOnly,
+                                          actionId: ri!uniqueIdentifiers.selectedCard
+                                        ),
+                                        {
+                                          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10595"(
+                                            input: index(
+                                              ri!sheetCopy,
+                                              wherecontains(
+                                                tointeger(
+                                                  ri!uniqueIdentifiers.selectedCard
+                                                ),
+                                                tointeger(
+                                                  index(
+                                                    ri!sheetCopy,
+                                                    "wf_action_id",
+                                                    null
+                                                  )
+                                                )
+                                              ),
+                                              {}
+                                            ),
+                                            concatField: "to_sheet_name",
+                                            concatText: "to",
+                                            iconFirst: "file-text-o",
+                                            iconLast: "file-text-o",
+                                            fieldToShow: "from_sheet_name",
+                                            fieldToSave: "sheet_copy_id",
+                                            isRichText: true()
+                                          ),
+                                          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377227"(
+                                            isReadOnly: ri!isReadOnly,
+                                            sheetCopyMapping: ri!sheetCopyMapping,
+                                            sheetCopyid: tointeger(
+                                              index(
+                                                index(
+                                                  ri!sheetCopy,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      ri!uniqueIdentifiers.selectedCard
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!sheetCopy,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                "sheet_copy_id",
+                                                {}
+                                              )
+                                            )
+                                          )
+                                        }
+                                      ),
+                                      /*OUTPUT_COPY*/
+                                      choose(
+                                        ri!uniqueIdentifiers.actionTypeActiveStep,
+                                        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377265"(
+                                          actionId: ri!uniqueIdentifiers.selectedCard,
+                                          isReadOnly: ri!isReadOnly,
+                                          masterLookUp: local!masterLookUp,
+                                          refProcessWfOutputCopy: ri!refProcessWfOutputCopy,
+                                          allEntityNames: local!allEntityNames
+                                        ),
+                                      
+                                        {
+                                   
+                                          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10595"(
+                                            input: index(
+                                              ri!refProcessWfOutputCopy,
+                                              wherecontains(
+                                                tointeger(
+                                                  ri!uniqueIdentifiers.selectedCard
+                                                ),
+                                                tointeger(
+                                                  index(
+                                                    ri!refProcessWfOutputCopy,
+                                                    "wf_action_id",
+                                                    null
+                                                  )
+                                                )
+                                              ),
+                                              {}
+                                            ),
+                                            concatField: "sheet_name",
+                                            concatText: "to",
+                                            fieldToShow: "entity_name",
+                                            fieldToSave: "output_copy_id",
+                                            iconFirst: "file-text-o",
+                                            iconLast: "database",
+                                            isRichText: true()
+                                          ),
+                                          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377251"(
+                                            masterLookUpData: local!masterLookUp,
+                                            isReadOnly: ri!isReadOnly,
+                                            refProcessWfSheetEntityMapping: ri!refProcessWfSheetEntityMapping,
+                                            outputCopyId: tointeger(
+                                              index(
+                                                index(
+                                                  ri!refProcessWfOutputCopy,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      ri!uniqueIdentifiers.selectedCard
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!refProcessWfOutputCopy,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                "output_copy_id",
+                                                {}
+                                              )
+                                            ),
+                                            entityName: tostring(
+                                              index(
+                                                index(
+                                                  ri!refProcessWfOutputCopy,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      ri!uniqueIdentifiers.selectedCard
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!refProcessWfOutputCopy,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                "entity_name",
+                                                {}
+                                              )
+                                            ),
+                                            allTableColumns: local!allTableColumns
+                                          )
+                                        },
+                                       
+                                      ),
+                                      /*CUSTOM_ACTION*/
+                                      choose(
+                                        ri!uniqueIdentifiers.actionTypeActiveStep,
+                                        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377368"(
+                                          actionTypeId: ri!uniqueIdentifiers.selectedCard,
+                                          isReadOnly: ri!isReadOnly,
+                                          customAction: ri!customAction,
+                                          customMethodNameList: local!customMethodNameList
+                                        ),
+                                        {
+                                          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10595"(
+                                            input: index(
+                                              ri!customAction,
+                                              wherecontains(
+                                                tointeger(
+                                                  ri!uniqueIdentifiers.selectedCard
+                                                ),
+                                                tointeger(
+                                                  index(
+                                                    ri!customAction,
+                                                    "wf_action_id",
+                                                    null
+                                                  )
+                                                )
+                                              ),
+                                              {}
+                                            ),
+                                            fieldToShow: "custom_method_name",
+                                            fieldToSave: "custom_action_id",
+                                            iconFirst: "flash",
+                                            isRichText: true()
+                                          ),
+                                          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_379712"(
+                                            masterLookUp: local!masterLookUp,
+                                            isReadOnly: ri!isReadOnly,
+                                            processId: ri!uniqueIdentifiers.process_id,
+                                            customActionMapping: ri!customActionMapping,
+                                            customActionId: tointeger(
+                                              index(
+                                                index(
+                                                  ri!customAction,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      ri!uniqueIdentifiers.selectedCard
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!customAction,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                "custom_action_id",
+                                                null
+                                              )
+                                            )
+                                          )
+                                        }
+                                      ),
+                                      /*SHEET_FILTERS*/
+                                      {
+                                        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_379692"(
+                                          actionId: ri!uniqueIdentifiers.selectedCard,
+                                          actionTypeSheetFilters: ri!sheetFilters,
+                                          isReadOnly: ri!isReadOnly,
+                                          masterLookUpData: local!masterLookUp,
+                                          runtimeConfigs: local!runtimeConfigs
+                                        )
+                                      },
+                                      /*DB_FIXED_COPY*/
+                                      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377116"(
+                                        actionTypeFixedCells: ri!fixedCells,
+                                        isReadOnly: ri!isReadOnly,
+                                        masterLookUpData: local!masterLookUp,
+                                        actionId: ri!uniqueIdentifiers.selectedCard,
+                                        allEntityNames: local!allEntityNames,
+                                        allTableColumns: local!allTableColumns,
+                                        runtimeConfigs: local!runtimeConfigs
+                                      ),
+                                      /*RUNTIME_FIXED_CELL*/
+                                      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377138"(
+                                        runtimeFixedCell: ri!runTimeFixedCell,
+                                        isReadOnly: ri!isReadOnly,
+                                        actionId: ri!uniqueIdentifiers.selectedCard
+                                      ),
+                                
+                                      choose(
+                                        ri!uniqueIdentifiers.actionTypeActiveStep,
+                                        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377485"(
+                                          actionId: ri!uniqueIdentifiers.selectedCard,
+                                          isReadOnly: ri!isReadOnly,
+                                          masterLookUp: local!masterLookUp,
+                                          pivotFilter: ri!pivotFilter
+                                        
+                                        ),
+                                        {
+                                     
+                                        
+                                          #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_379719"(
+                                            masterLookUpData: local!masterLookUp,
+                                            isReadOnly: ri!isReadOnly,
+                                            pivotFilterMapping: ri!pivotFilterMapping,
+                                            pivotFilterId: index(index(ri!pivotFilter,
+                                            wherecontains(
+                                              tointeger(ri!uniqueIdentifiers.selectedCard),
+                                              tointeger(index(ri!pivotFilter,"wf_action_id",null))
+                                            ),null),
+                                            "pivot_filter_id",null),
+                                            entityName: tostring(
+                                              index(
+                                                index(
+                                                  ri!refProcessWfOutputCopy,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      ri!uniqueIdentifiers.selectedCard
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!refProcessWfOutputCopy,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                "entity_name",
+                                                {}
+                                              )
+                                            ),
+                                            allTableColumns: local!allTableColumns,
+                                            runtimeConfigs:local!runtimeConfigs
+                                          )
+   }
+                                      ),
+                                      /*MACRO_EXECUTION*/
+                                      #"_a-0000e518-940a-8000-525e-1bef901bef90_491046"(
+                                        macroExecution: ri!macroExecution,
+                                        isReadOnly:ri!isReadOnly,
+                                        actionId: ri!uniqueIdentifiers.selectedCard
+                                      )
+                                    ),
+                                    /*Entity Buttons*/
+                                 
+                                    #"SYSTEM_SYSRULES_ButtonLayout"(
+                                      showWhen: not(
+                                        or(
+                                          ri!isReadOnly
+                                        )
+                                      ),
+                                      primaryButtons: {
+                                        #"SYSTEM_SYSRULES_ButtonWidget"(
+                                          label: if(
+                                            or(
+                                              ri!isReadOnly
+                                            ),
+                                            "Next",
+                                            "Save &amp; Next"
+                                          ),
+                                          saveInto: {
+                                            if(
+                                              count(
+                                                if(
+                                                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                                    local!masterLookUp
+                                                  ),
+                                                  null,
+                                                  touniformstring(
+                                                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                                                      MasterLookup: local!masterLookUp,
+                                                      UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_378031"(
+                                                        selectedActionTypeId: ri!uniqueIdentifiers.selectedCard,
+                                                        refProcessWfActionType: ri!refProcessWfActionType,
+                                                        categories: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377632"
+                                                      ),
+                                                      Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                                                    )
+                                                  )
+                                                )
+                                              ) &lt; 2,
+                                              {},
+                                              {
+                                                a!save(
+                                                  ri!uniqueIdentifiers.actionTypeActiveStep,
+                                                  ri!uniqueIdentifiers.actionTypeActiveStep + 1
+                                                )
+                                              }
+                                            ),
+                                            saveInto: {
+                                              a!save(
+                                                ri!buttonAction,
+                                                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3]
+                                              )
+                                            }
+                                          },
+                                          size: "SMALL",
+                                          style: "STANDARD",
+                                          showWhen: and(
+                                            ri!uniqueIdentifiers.actionTypeActiveStep &lt;&gt; length(
+                                              if(
+                                                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                                  local!masterLookUp
+                                                ),
+                                                null,
+                                                touniformstring(
+                                                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                                                    MasterLookup: local!masterLookUp,
+                                                    UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_378031"(
+                                                      selectedActionTypeId: ri!uniqueIdentifiers.selectedCard,
+                                                      refProcessWfActionType: ri!refProcessWfActionType,
+                                                      categories: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377632"
+                                                    ),
+                                                    Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                                                  )
+                                                )
+                                              )
+                                            ),
+                                            if(
+                                              tointeger(
+                                                ri!uniqueIdentifiers.actionTypeActiveStep
+                                              ) = 1,
+                                              #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_381379"(
+                                                macroExecution:ri!macroExecution,
+                                                refProcessWfActionType: index(
+                                                  ri!refProcessWfActionType,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      index(
+                                                        ri!uniqueIdentifiers,
+                                                        "selectedCard",
+                                                        null
+                                                      )
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!refProcessWfActionType,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                actionTypeInputCopy: ri!actionTypeInputCopy,
+                                                actionTypeRefreshPivot: ri!actionTypeRefreshPivot,
+                                                sheetCopy: ri!sheetCopy,
+                                                refProcessWfOutputCopy: ri!refProcessWfOutputCopy,
+                                                customAction: ri!customAction,
+                                                sheetFilters: ri!sheetFilters,
+                                                fixedCells: ri!fixedCells,
+                                                runTimeFixedCell: ri!runTimeFixedCell,
+                                                inputCopyEntityMapping: ri!actionTypeInputCopyEntityMapping,
+                                                inputCopyEntitySheetFilters: ri!inputCopyEntitySheetFilters,
+                                                sheetCopyMapping: ri!sheetCopyMapping,
+                                                sheetEntityMapping: ri!refProcessWfSheetEntityMapping,
+                                                customActionMapping: ri!customActionMapping,
+                                                pivotFilter:ri!pivotFilter,
+                                                transposeConfig:ri!transposeConfig
+                                              ),
+                                              #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_381373"(
+                                                refProcessWfActionType: index(
+                                                  ri!refProcessWfActionType,
+                                                  wherecontains(
+                                                    tointeger(
+                                                      index(
+                                                        ri!uniqueIdentifiers,
+                                                        "selectedCard",
+                                                        null
+                                                      )
+                                                    ),
+                                                    tointeger(
+                                                      index(
+                                                        ri!refProcessWfActionType,
+                                                        "wf_action_id",
+                                                        null
+                                                      )
+                                                    )
+                                                  ),
+                                                  {}
+                                                ),
+                                                macroExecution:ri!macroExecution,
+                                                actionTypeInputCopy: ri!actionTypeInputCopy,
+                                                actionTypeRefreshPivot: ri!actionTypeRefreshPivot,
+                                                sheetCopy: ri!sheetCopy,
+                                                refProcessWfOutputCopy: ri!refProcessWfOutputCopy,
+                                                customAction: ri!customAction,
+                                                sheetFilters: ri!sheetFilters,
+                                                fixedCells: ri!fixedCells,
+                                                runTimeFixedCell: ri!runTimeFixedCell,
+                                                inputCopyEntityMapping: ri!actionTypeInputCopyEntityMapping,
+                                                inputCopyEntitySheetFilters: ri!inputCopyEntitySheetFilters,
+                                                sheetCopyMapping: ri!sheetCopyMapping,
+                                                sheetEntityMapping: ri!refProcessWfSheetEntityMapping,
+                                                customActionMapping: ri!customActionMapping,
+                                                pivotFilter:ri!pivotFilter,
+                                                pivotFilterMapping:ri!pivotFilterMapping,
+                                                transposeConfig:ri!transposeConfig, 
+                                                transposeMapping:ri!transposeConfigMapping
+                                              )
+                                            )
+                                          ),
+                                          validate: true,
+                                          submit: if(
+                                            or(
+                                              ri!isReadOnly
+                                            ),
+                                            false(),
+                                            true()
+                                          )
+                                        ),
+                                        #"SYSTEM_SYSRULES_ButtonWidget"(
+                                          label: if(
+                                            or(
+                                              ri!isReadOnly
+                                            ),
+                                            "Next",
+                                            "Save"
+                                          ),
+                                          size: "SMALL",
+                                          style: "STANDARD",
+                                          showWhen: and(
+                                            ri!uniqueIdentifiers.actionTypeActiveStep = length(
+                                              if(
+                                                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                                  local!masterLookUp
+                                                ),
+                                                null,
+                                                touniformstring(
+                                                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                                                    MasterLookup: local!masterLookUp,
+                                                    UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_378031"(
+                                                      selectedActionTypeId: ri!uniqueIdentifiers.selectedCard,
+                                                      refProcessWfActionType: ri!refProcessWfActionType,
+                                                      categories: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377632"
+                                                    ),
+                                                    Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                                                  )
+                                                )
+                                              )
+                                            ),
+                                            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_381373"(
+                                              refProcessWfActionType: index(
+                                                ri!refProcessWfActionType,
+                                                wherecontains(
+                                                  tointeger(
+                                                    index(
+                                                      ri!uniqueIdentifiers,
+                                                      "selectedCard",
+                                                      null
+                                                    )
+                                                  ),
+                                                  tointeger(
+                                                    index(
+                                                      ri!refProcessWfActionType,
+                                                      "wf_action_id",
+                                                      null
+                                                    )
+                                                  )
+                                                ),
+                                                {}
+                                              ),
+                                              macroExecution:ri!macroExecution,
+                                              actionTypeInputCopy: ri!actionTypeInputCopy,
+                                              actionTypeRefreshPivot: ri!actionTypeRefreshPivot,
+                                              sheetCopy: ri!sheetCopy,
+                                              refProcessWfOutputCopy: ri!refProcessWfOutputCopy,
+                                              customAction: ri!customAction,
+                                              sheetFilters: ri!sheetFilters,
+                                              fixedCells: ri!fixedCells,
+                                              runTimeFixedCell: ri!runTimeFixedCell,
+                                              inputCopyEntityMapping: ri!actionTypeInputCopyEntityMapping,
+                                              inputCopyEntitySheetFilters: ri!inputCopyEntitySheetFilters,
+                                              sheetCopyMapping: ri!sheetCopyMapping,
+                                              sheetEntityMapping: ri!refProcessWfSheetEntityMapping,
+                                              customActionMapping: ri!customActionMapping,
+                                              pivotFilter:ri!pivotFilter,
+                                              pivotFilterMapping:ri!pivotFilterMapping,
+                                              transposeConfig:ri!transposeConfig, 
+                                              transposeMapping:ri!transposeConfigMapping
+                                            )
+                                          ),
+                                          submit: if(
+                                            or(
+                                              ri!isReadOnly
+                                            ),
+                                            false(),
+                                            true()
+                                          ),
+                                          saveInto: {
+                                            a!save(
+                                              ri!buttonAction,
+                                              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3]
+                                            )
+                                          }
+                                        ),
+                                        #"SYSTEM_SYSRULES_ButtonWidget"(
+                                          label: if(
+                                            or(
+                                              ri!isReadOnly
+                                            ),
+                                            "Next",
+                                            "Save &amp; Next"
+                                          ),
+                                          size: "SMALL",
+                                          style: "STANDARD",
+                                          showWhen: and(
+                                            not(
+                                              or(
+                                                ri!isReadOnly
+                                              )
+                                            ),
+                                            ri!uniqueIdentifiers.actionTypeActiveStep = length(
+                                              if(
+                                                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                                  local!masterLookUp
+                                                ),
+                                                null,
+                                                touniformstring(
+                                                  #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+                                                    MasterLookup: local!masterLookUp,
+                                                    UniqueKey: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_378031"(
+                                                      selectedActionTypeId: ri!uniqueIdentifiers.selectedCard,
+                                                      refProcessWfActionType: ri!refProcessWfActionType,
+                                                      categories: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377632"
+                                                    ),
+                                                    Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+                                                  )
+                                                )
+                                              )
+                                            ),
+                                            #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_381373"(
+                                              refProcessWfActionType: index(
+                                                ri!refProcessWfActionType,
+                                                wherecontains(
+                                                  tointeger(
+                                                    index(
+                                                      ri!uniqueIdentifiers,
+                                                      "selectedCard",
+                                                      null
+                                                    )
+                                                  ),
+                                                  tointeger(
+                                                    index(
+                                                      ri!refProcessWfActionType,
+                                                      "wf_action_id",
+                                                      null
+                                                    )
+                                                  )
+                                                ),
+                                                {}
+                                              ),
+                                              actionTypeInputCopy: ri!actionTypeInputCopy,
+                                              actionTypeRefreshPivot: ri!actionTypeRefreshPivot,
+                                              sheetCopy: ri!sheetCopy,
+                                              refProcessWfOutputCopy: ri!refProcessWfOutputCopy,
+                                              customAction: ri!customAction,
+                                              sheetFilters: ri!sheetFilters,
+                                              fixedCells: ri!fixedCells,
+                                              runTimeFixedCell: ri!runTimeFixedCell,
+                                              inputCopyEntityMapping: ri!actionTypeInputCopyEntityMapping,
+                                              inputCopyEntitySheetFilters: ri!inputCopyEntitySheetFilters,
+                                              sheetCopyMapping: ri!sheetCopyMapping,
+                                              sheetEntityMapping: ri!refProcessWfSheetEntityMapping,
+                                              customActionMapping: ri!customActionMapping,
+                                              pivotFilter:ri!pivotFilter,
+                                              pivotFilterMapping:ri!pivotFilterMapping,
+                                              transposeConfig:ri!transposeConfig, 
+                                              transposeMapping:ri!transposeConfigMapping,
+                                              macroExecution:ri!macroExecution
+                                            )
+                                          ),
+                                          submit: if(
+                                            or(
+                                              ri!isReadOnly
+                                            ),
+                                            false(),
+                                            true()
+                                          ),
+                                          saveInto: {
+                                            a!save(
+                                              ri!buttonAction,
+                                              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3]
+                                            ),
+                                            a!save(
+                                              ri!uniqueIdentifiers.actionTypeActiveStep,
+                                              1
+                                            ),
+                                            /*Switching to next tab*/
+                                            a!save(
+                                              ri!uniqueIdentifiers.selectedCard,
+                                              index(
+                                                index(
+                                                  index(
+                                                    ri!refProcessWfActionType,
+                                                    wherecontains(
+                                                      toboolean(
+                                                        true()
+                                                      ),
+                                                      toboolean(
+                                                        index(
+                                                          ri!refProcessWfActionType,
+                                                          "isactive",
+                                                          null
+                                                        )
+                                                      )
+                                                    ),
+                                                    {}
+                                                  ),
+                                                  "wf_action_id",
+                                                  null
+                                                ),
+                                                wherecontains(
+                                                  tointeger(
+                                                    ri!uniqueIdentifiers.selectedCard
+                                                  ),
+                                                  tointeger(
+                                                    index(
+                                                      index(
+                                                        ri!refProcessWfActionType,
+                                                        wherecontains(
+                                                          toboolean(
+                                                            true()
+                                                          ),
+                                                          toboolean(
+                                                            index(
+                                                              ri!refProcessWfActionType,
+                                                              "isactive",
+                                                              null
+                                                            )
+                                                          )
+                                                        ),
+                                                        {}
+                                                      ),
+                                                      "wf_action_id",
+                                                      null
+                                                    )
+                                                  )
+                                                ) + 1,
+                                                null
+                                              )
+                                            ),
+                                            if(
+                                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                                ri!uniqueIdentifiers.selectedCard
+                                              ),
+                                              a!save(
+                                                ri!uniqueIdentifiers.selectedCard,
+                                                index(
+                                                  index(
+                                                    index(
+                                                      ri!refProcessWfActionType,
+                                                      wherecontains(
+                                                        toboolean(
+                                                          true()
+                                                        ),
+                                                        toboolean(
+                                                          index(
+                                                            ri!refProcessWfActionType,
+                                                            "isactive",
+                                                            null
+                                                          )
+                                                        )
+                                                      ),
+                                                      {}
+                                                    ),
+                                                    "wf_action_id",
+                                                    null
+                                                  ),
+                                                  1,
+                                                  null
+                                                )
+                                              ),
+                                              {}
+                                            )
+                                          }
+                                        )
+                                      },
+                                      secondaryButtons: {}
+                                    ),
+                                    if(
+                                      or(
+                                        and(
+                                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+                                            ri!refProcessWfActionType
+                                          )
+                                        ),
+                                        or(
+                                          ri!isReadOnly
+                                        )
+                                      ),
+                                      {},
+                                      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_378453"(
+                                        masterLookup: local!masterLookUp,
+                                        refProcessWfActionType: ri!refProcessWfActionType,
+                                        actionTypeInputCopy: ri!actionTypeInputCopy,
+                                        actionTypeRefreshPivot: ri!actionTypeRefreshPivot,
+                                        sheetCopy: ri!sheetCopy,
+                                        refProcessWfOutputCopy: ri!refProcessWfOutputCopy,
+                                        customAction: ri!customAction,
+                                        sheetFilters: ri!sheetFilters,
+                                        fixedCells: ri!fixedCells,
+                                        runTimeFixedCell: ri!runTimeFixedCell,
+                                        inputCopyEntityMapping: ri!actionTypeInputCopyEntityMapping,
+                                        inputCopyEntitySheetFilters: ri!inputCopyEntitySheetFilters,
+                                        sheetCopyMapping: ri!sheetCopyMapping,
+                                        sheetEntityMapping: ri!refProcessWfSheetEntityMapping,
+                                        customActionMapping: ri!customActionMapping,
+                                        pivotFilter:ri!pivotFilter,
+                                        pivotFilterMapping:ri!pivotFilterMapping,
+                                        transposeConfig:ri!transposeConfig,
+                                        transposeMapping:ri!transposeConfigMapping,
+                                        macroExecution:ri!macroExecution
+                                      )
+                                    )
+                                  }
+                                )
+                              },
+                              showBorder: false(),
+                              style: "NONE"
+                            )
+                          }
+                        )
+                      }
+                    )
+                  }
+                )
+              )
+            }
+          )
+        ),
+        /*Buttons*/
+        #"SYSTEM_SYSRULES_ButtonLayout"(
+          showWhen: not(
+            or(
+              ri!isReadOnly
+            )
+          ),
+          primaryButtons: {
+            #"SYSTEM_SYSRULES_ButtonWidget"(
+              label: if(
+                or(
+                  ri!isReadOnly
+                ),
+                "Next",
+                "Save &amp; Next"
+              ),
+              value: "",
+              saveInto: {
+                if(
+                  or(
+                    ri!uniqueIdentifiers.activeStep &gt; 1
+                  ),
+                  {},
+                  a!save(
+                    ri!uniqueIdentifiers.activeStep,
+                    ri!uniqueIdentifiers.activeStep + 1
+                  )
+                ),
+                if(
+                  or(
+                    index(
+                      index(
+                        ri!refProcessWfActionType,
+                        wherecontains(
+                          tointeger(
+                            ri!uniqueIdentifiers.selectedCard
+                          ),
+                          tointeger(
+                            index(
+                              ri!refProcessWfActionType,
+                              "wf_action_id",
+                              null
+                            )
+                          )
+                        ),
+                        {}
+                      ),
+                      "isactive",
+                      null
+                    )
+                  ),
+                  {
+                    a!save(
+                      ri!uniqueIdentifiers.selectedCard,
+                      index(
+                        index(
+                          index(
+                            ri!refProcessWfActionType,
+                            wherecontains(
+                              toboolean(
+                                true()
+                              ),
+                              toboolean(
+                                index(
+                                  ri!refProcessWfActionType,
+                                  "isactive",
+                                  {}
+                                )
+                              )
+                            ),
+                            {}
+                          ),
+                          1,
+                          {}
+                        ),
+                        "wf_action_id",
+                        null
+                      )
+                    ),
+                    a!save(
+                      ri!uniqueIdentifiers.actionTypeActiveStep,
+                      1
+                    )
+                  },
+                  {}
+                ),
+                saveInto: {
+                  a!save(
+                    ri!buttonAction,
+                    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[3]
+                  )
+                }
+              },
+              size: "SMALL",
+              style: "STANDARD",
+              showWhen: and(
+                or(
+                  ri!uniqueIdentifiers.activeStep = 1
+                ),
+                not(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+                    ri!refProcessWfActionType
+                  )
+                ),
+                length(
+                  ri!refProcessWfActionType
+                ) &gt;= 1
+              ),
+              validate: true,
+              submit: if(
+                or(
+                  ri!isReadOnly
+                ),
+                false(),
+                true()
+              )
+            ),
+            #"SYSTEM_SYSRULES_ButtonWidget"(
+              label: "Submit",
+              value: "Submit",
+              submit: true(),
+              saveInto: {
+                ri!buttonAction
+              },
+              size: "SMALL",
+              style: "PRIMARY",
+              showWhen: and(
+                not(
+                  or(
+                    ri!isReadOnly
+                  )
+                ),
+                or(
+                  index(
+                    ri!uniqueIdentifiers,
+                    "activeStep",
+                    {}
+                  ) = 2
+                ),
+                #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_381373"(
+                  refProcessWfActionType: ri!refProcessWfActionType,
+                  macroExecution:ri!macroExecution,
+                  actionTypeInputCopy: ri!actionTypeInputCopy,
+                  actionTypeRefreshPivot: ri!actionTypeRefreshPivot,
+                  sheetCopy: ri!sheetCopy,
+                  refProcessWfOutputCopy: ri!refProcessWfOutputCopy,
+                  customAction: ri!customAction,
+                  sheetFilters: ri!sheetFilters,
+                  fixedCells: ri!fixedCells,
+                  runTimeFixedCell: ri!runTimeFixedCell,
+                  inputCopyEntityMapping: ri!actionTypeInputCopyEntityMapping,
+                  inputCopyEntitySheetFilters: ri!inputCopyEntitySheetFilters,
+                  sheetCopyMapping: ri!sheetCopyMapping,
+                  sheetEntityMapping: ri!refProcessWfSheetEntityMapping,
+                  customActionMapping: ri!customActionMapping,
+                  pivotFilter:ri!pivotFilter,
+                  pivotFilterMapping:ri!pivotFilterMapping,
+                  transposeConfig:ri!transposeConfig, 
+                  transposeMapping:ri!transposeConfigMapping
+                )
+              )
+            ),
+            /*or(ri!uniqueIdentifiers.selectedCard = index(*/
+            /*index(*/
+            /*ri!refProcessWfActionType,*/
+            /*count(*/
+            /*ri!refProcessWfActionType*/
+            /*),*/
+            /*{}*/
+            /*),*/
+            /*"wf_action_id",*/
+            /*{}*/
+            /*),*/
+            /*            */
+            /*            */
+            /*validate: true,*/
+            /*submit: true()*/
+            /*)*/
+            
+          },
+          secondaryButtons: {
+            #"SYSTEM_SYSRULES_ButtonWidget"(
+              label: "Cancel",
+              value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+              submit: true(),
+              saveInto: {
+                ri!buttonAction
+              },
+              size: "SMALL",
+              style: "SECONDARY",
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              validate: false()
+            )
+          }
+        )
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>uniqueIdentifiers</name>
+            <type>
+                <name>EAP_Temp_DataValidationUniqueIdentifiers</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessWfActionType</name>
+            <type>
+                <name>EAP_T_DVActions?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessWfTemplateConfig</name>
+            <type>
+                <name>EAP_V_ProcessDataValidationTemplateConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionTypeInputCopy</name>
+            <type>
+                <name>EAP_T_DVInputCopy?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionTypeInputCopyEntityMapping</name>
+            <type>
+                <name>EAP_T_DVEntitySheetMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionTypeRefreshPivot</name>
+            <type>
+                <name>EAP_T_DVRefreshPivot?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetCopy</name>
+            <type>
+                <name>EAP_T_DVSheetCopy?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetCopyMapping</name>
+            <type>
+                <name>EAP_T_DVSheetCopyMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fixedCells</name>
+            <type>
+                <name>EAP_T_DVFixedCells?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessWfOutputCopy</name>
+            <type>
+                <name>EAP_T_DVOutputCopy?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessWfSheetEntityMapping</name>
+            <type>
+                <name>EAP_T_DVSheetEntityMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isSummaryDashboard</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>customAction</name>
+            <type>
+                <name>EAP_T_DVCustomAction?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>customActionMapping</name>
+            <type>
+                <name>EAP_T_DVCustomActionMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetFilters</name>
+            <type>
+                <name>EAP_T_DVSheetFilters?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>inputCopyEntitySheetFilters</name>
+            <type>
+                <name>EAP_T_DVEntitySheetFilters?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runTimeFixedCell</name>
+            <type>
+                <name>EAP_T_DVRuntimeFixedCells?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pivotFilter</name>
+            <type>
+                <name>EAP_T_DVPivotFilter?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pivotFilterMapping</name>
+            <type>
+                <name>EAP_T_DVPivotFilterMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>transposeConfig</name>
+            <type>
+                <name>EAP_T_DVTransposeConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>transposeConfigMapping</name>
+            <type>
+                <name>EAP_T_DVTransposeMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>transposeConfigFilter</name>
+            <type>
+                <name>EAP_T_DVTransposeFilters?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>macroExecution</name>
+            <type>
+                <name>EAP_T_DVMacroExecution?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonAction</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">{
+  activeStep: 1,
+actionTypeActiveStep: 1
+}</a:value>
+                    <a:nameRef>uniqueIdentifiers</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>refProcessWfActionType</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">{
+  {
+    template_config_id:1,
+  document_version_id: 1
+},
+{template_config_id:2,
+  document_version_id: 2
+}
+}</a:value>
+                    <a:nameRef>refProcessWfTemplateConfig</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>actionTypeInputCopy</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>actionTypeInputCopyEntityMapping</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>actionTypeRefreshPivot</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>sheetCopy</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>sheetCopyMapping</a:nameRef>
+                    <a:id>10</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>fixedCells</a:nameRef>
+                    <a:id>11</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>refProcessWfOutputCopy</a:nameRef>
+                    <a:id>12</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>refProcessWfSheetEntityMapping</a:nameRef>
+                    <a:id>13</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isSummaryDashboard</a:nameRef>
+                    <a:id>14</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>customAction</a:nameRef>
+                    <a:id>15</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>customActionMapping</a:nameRef>
+                    <a:id>16</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>sheetFilters</a:nameRef>
+                    <a:id>17</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>inputCopyEntitySheetFilters</a:nameRef>
+                    <a:id>18</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>runTimeFixedCell</a:nameRef>
+                    <a:id>19</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>pivotFilter</a:nameRef>
+                    <a:id>20</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>pivotFilterMapping</a:nameRef>
+                    <a:id>21</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>transposeConfig</a:nameRef>
+                    <a:id>22</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>transposeConfigMapping</a:nameRef>
+                    <a:id>23</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>transposeConfigFilter</a:nameRef>
+                    <a:id>24</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>macroExecution</a:nameRef>
+                    <a:id>25</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_382657"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_401963"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_421080"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_507248"/>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_562450"/>
+    </history>
+</contentHaul>

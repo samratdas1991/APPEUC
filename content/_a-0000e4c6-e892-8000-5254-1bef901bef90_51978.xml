@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_767327</versionUuid>
+    <constant>
+        <name>EAP_PROCESS_MODELS</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_51978</uuid>
+        <description>Holds Process Models.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>ProcessModel?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>0002e4c7-ab88-8000-556a-1b4d981b4d98</el>
+                <el>000ae4c6-9602-8000-54d2-1b4d981b4d98</el>
+                <el>0002e4d5-2614-8000-5c7a-1b4d981b4d98</el>
+                <el>0002e4c5-573f-8000-541f-1b4d981b4d98</el>
+                <el>0002e4c9-0ecd-8000-5624-1b4d981b4d98</el>
+                <el>0014e4d9-2b11-8000-5e90-1b4d981b4d98</el>
+                <el>0002e4df-a33c-8000-60ae-1b4d981b4d98</el>
+                <el>0002e4cd-1015-8000-5869-1b4d981b4d98</el>
+                <el>0009e4d9-13f8-8000-5e7f-1b4d981b4d98</el>
+                <el>0002e4d2-7cde-8000-5af5-1b4d981b4d98</el>
+                <el>0002e509-bdd3-8000-66c0-1b4d981b4d98</el>
+                <el>0004e509-bf13-8000-66c5-1b4d981b4d98</el>
+                <el>0002e4cb-b03c-8000-5703-1b4d981b4d98</el>
+                <el>0002e4c5-1807-8000-53c2-1b4d981b4d98</el>
+                <el>000ce52a-90bb-8000-6b36-1b4d981b4d98</el>
+                <el>000ee4c8-5e57-8000-5587-1b4d981b4d98</el>
+                <el>0008e50f-1ea4-8000-67d1-1b4d981b4d98</el>
+                <el>0008e4c5-1673-8000-53ba-1b4d981b4d98</el>
+                <el>0002e525-881c-8000-6a9c-1b4d981b4d98</el>
+                <el>0002e50d-bec4-8000-6742-1b4d981b4d98</el>
+                <el>0002e4d5-09ad-8000-5c53-1b4d981b4d98</el>
+                <el>000ae502-f60d-8000-6468-1b4d981b4d98</el>
+                <el>0002e5ce-2c46-8000-7497-1b4d981b4d98</el>
+                <el>0012e5a8-ebab-8000-72cf-1b4d981b4d98</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_51982"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_133375"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_358871"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_419504"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_516238"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_539628"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_767327"/>
+    </history>
+</contentHaul>

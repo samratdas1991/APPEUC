@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_207368</versionUuid>
+    <rule>
+        <name>EAP_IOConfigurationGridRowLayout</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_180956</uuid>
+        <description>Holds grid row layout for io configuration editable grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    contents: {
+      /*Entity Column Name*/
+      if(
+        ri!isReadOnly,
+        #"SYSTEM_SYSRULES_textField"(
+          readOnly: true(),
+          required: true(),
+          value: index(
+            ri!refProcessSheetTransposeConfig[ri!index],
+            "entity_column_name",
+            {}
+          ),
+        ),
+        #"SYSTEM_SYSRULES_dropdownField"(
+          placeholderLabel: "--Select Entity Column--",
+          choiceLabels: {
+            union(
+              index(
+                #"_a-0000e4c6-e892-8000-5254-1bef901bef90_25128"(
+                  tableName: index(
+                    index(
+                      ri!fileEntityMapping,
+                      wherecontains(
+                        tointeger(
+                          index(
+                            ri!refProcessSheetTransposeConfig,
+                            "in_file_entity_mapping_id",
+                            {}
+                          )
+                        ),
+                        tointeger(
+                          index(
+                            ri!fileEntityMapping,
+                            "in_file_entity_mapping_id",
+                            {}
+                          )
+                        )
+                      )
+                    ),
+                    "entity_name",
+                    {}
+                  )
+                ),
+                "columnName",
+                {}
+              ),
+              index(
+                #"_a-0000e4c6-e892-8000-5254-1bef901bef90_25128"(
+                  tableName: index(
+                    index(
+                      ri!fileEntityMapping,
+                      wherecontains(
+                        tointeger(
+                          index(
+                            ri!refProcessSheetTransposeConfig,
+                            "in_file_entity_mapping_id",
+                            {}
+                          )
+                        ),
+                        tointeger(
+                          index(
+                            ri!fileEntityMapping,
+                            "in_file_entity_mapping_id",
+                            {}
+                          )
+                        )
+                      )
+                    ),
+                    "entity_name",
+                    {}
+                  )
+                ),
+                "columnName",
+                {}
+              ))
+          },
+          choiceValues: {
+            union(index(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_25128"(
+                tableName: index(
+                  index(
+                    ri!fileEntityMapping,
+                    wherecontains(
+                      tointeger(
+                        index(
+                          ri!refProcessSheetTransposeConfig,
+                          "in_file_entity_mapping_id",
+                          {}
+                        )
+                      ),
+                      tointeger(
+                        index(
+                          ri!fileEntityMapping,
+                          "in_file_entity_mapping_id",
+                          {}
+                        )
+                      )
+                    )
+                  ),
+                  "entity_name",
+                  {}
+                )/*index(ri!fileEntityMapping,"tableName",{})*/
+
+              ),
+              "columnName",
+              {}
+            ),index(
+              #"_a-0000e4c6-e892-8000-5254-1bef901bef90_25128"(
+                tableName: index(
+                  index(
+                    ri!fileEntityMapping,
+                    wherecontains(
+                      tointeger(
+                        index(
+                          ri!refProcessSheetTransposeConfig,
+                          "in_file_entity_mapping_id",
+                          {}
+                        )
+                      ),
+                      tointeger(
+                        index(
+                          ri!fileEntityMapping,
+                          "in_file_entity_mapping_id",
+                          {}
+                        )
+                      )
+                    )
+                  ),
+                  "entity_name",
+                  {}
+                )/*index(ri!fileEntityMapping,"tableName",{})*/
+
+              ),
+              "columnName",
+              {}
+            ))
+
+            /*cons!EUC_ENTITY_COLUMN_NAME*/
+
+          },
+          value: index(
+            ri!refProcessSheetTransposeConfig[ri!index],
+            "entity_column_name",
+            {}
+          ),
+          saveInto: a!save(
+            ri!refProcessSheetTransposeConfig[ri!index].entity_column_name,
+            save!value
+          ),
+          required: true()
+        )
+      ),
+      /*Transpose type*/
+      if(
+        ri!isReadOnly,
+        #"SYSTEM_SYSRULES_textField"(
+          readOnly: ri!isReadOnly,
+          value: index(
+            ri!refProcessSheetTransposeConfig[ri!index],
+            "transpose_type",
+            {}
+          )
+        ),
+      #"SYSTEM_SYSRULES_dropdownField"(
+        placeholderLabel: "-- Select Transpose Type --",
+        choiceLabels: {
+          /*cons!EUC_TRANSPOSE_TYPE*/
+         #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+           MasterLookup:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+             masterLookUpData:ri!masterLookUpData,
+             categoryGroup:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[2]
+           ), 
+          UniqueKey:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108436"[7], 
+          Column:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+          )
+        },
+        choiceValues: {
+          /*cons!EUC_TRANSPOSE_TYPE*/
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+            MasterLookup:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+              masterLookUpData:ri!masterLookUpData,
+              categoryGroup:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[2]
+            ), 
+            UniqueKey:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108436"[7], 
+            Column:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+          )
+        },
+        value: if(
+          contains(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData:ri!masterLookUpData,
+                categoryGroup:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[2]
+              ), 
+              UniqueKey:#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108436"[7], 
+              Column:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            ),
+            index(
+              ri!refProcessSheetTransposeConfig[ri!index],
+              "transpose_type",
+              {}
+            )
+          ),
+          index(
+            ri!refProcessSheetTransposeConfig[ri!index],
+            "transpose_type",
+            {}
+          ),
+          null
+          /*rule!EAP_Utils_CheckIsNull(*/
+            /*index(*/
+              /*ri!refProcessSheetTransposeConfig[ri!index],*/
+              /*"transpose_type",*/
+              /*{}*/
+            /*)*/
+          /*),*/
+          /*NULL,*/
+          
+        ),
+        saveInto: {
+          ri!refProcessSheetTransposeConfig[ri!index].transpose_type,
+        a!save(
+          ri!refProcessSheetTransposeConfig.created_by,
+          loggedInUser()
+        ),
+        a!save(
+          ri!refProcessSheetTransposeConfig.modified_by,
+          loggedInUser()
+        ),
+        a!save(
+          ri!refProcessSheetTransposeConfig.created_on,
+          now()
+        ),
+        a!save(
+          ri!refProcessSheetTransposeConfig.modified_on,
+          now()
+        )
+        },
+        choiceLayout: "COMPACT"
+      )
+      ),
+      /*start_cell_position*/
+      #"SYSTEM_SYSRULES_textField"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "start_cell_position",
+          {}
+        ),
+        saveInto: ri!refProcessSheetTransposeConfig[ri!index].start_cell_position,
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value:index(
+                ri!refProcessSheetTransposeConfig[ri!index],
+                "start_cell_position",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[3]
+            )
+          )
+        }
+      ),
+      /*start_cell_value*/
+      #"SYSTEM_SYSRULES_textField"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "start_cell_value",
+          {}
+        ),
+        saveInto: ri!refProcessSheetTransposeConfig[ri!index].start_cell_value,
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value:index(
+                ri!refProcessSheetTransposeConfig[ri!index],
+                "start_cell_value",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[4]
+            )
+          )
+        }
+      ),
+      /*end_cell_position*/
+      #"SYSTEM_SYSRULES_textField"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "end_cell_position",
+          {}
+        ),
+        saveInto: ri!refProcessSheetTransposeConfig[ri!index].end_cell_position,
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value:index(
+                ri!refProcessSheetTransposeConfig[ri!index],
+                "end_cell_position",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[3]
+            )
+          )
+        }
+      ),
+      /*end_cell_value*/
+      #"SYSTEM_SYSRULES_textField"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "end_cell_value",
+          {}
+        ),
+        saveInto: ri!refProcessSheetTransposeConfig[ri!index].end_cell_value,
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value:index(
+                ri!refProcessSheetTransposeConfig[ri!index],
+                "end_cell_value",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[4]
+            )
+          )
+        }
+      ),
+      /*empty_row_strategy*/
+      #"SYSTEM_SYSRULES_textField"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "empty_row_strategy",
+          {}
+        ),
+        saveInto: ri!refProcessSheetTransposeConfig[ri!index].empty_row_strategy,
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value:index(
+                ri!refProcessSheetTransposeConfig[ri!index],
+                "empty_row_strategy",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[2]
+            )
+          )
+        }
+      ),
+      /*parsing_type*/
+      #"SYSTEM_SYSRULES_textField"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "parsing_type",
+          {}
+        ),
+        saveInto: ri!refProcessSheetTransposeConfig[ri!index].parsing_type,
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value:index(
+                ri!refProcessSheetTransposeConfig[ri!index],
+                "parsing_type",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[2]
+            )
+          )
+        }
+      ),
+      /* element_index */
+      #"SYSTEM_SYSRULES_integerField"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "element_index",
+          {}
+        ),
+        saveInto: ri!refProcessSheetTransposeConfig[ri!index].element_index
+      ),
+      /*parsing_format*/
+      #"SYSTEM_SYSRULES_textField"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "parsing_format",
+          {}
+        ),
+        saveInto: ri!refProcessSheetTransposeConfig[ri!index].parsing_format,
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              value:index(
+                ri!refProcessSheetTransposeConfig[ri!index],
+                "parsing_format",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          )
+        }
+      ),
+      /*Is active*/
+      if(
+        ri!isReadOnly,
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          images: {
+            #"SYSTEM_SYSRULES_documentImage"(
+              document: #"SYSTEM_SYSRULES_iconIndicator"(
+                icon: if(
+                  contains(
+                    toboolean(
+                      index(
+                        ri!refProcessSheetTransposeConfig[ri!index],
+                        "is_active",
+                        {}
+                      )
+                    ),
+                    true()
+                  ),
+                  "STATUS_OK",
+                  "STATUS_NOTDONE"
+                )
+              )
+            )
+          },
+          align:"CENTER"
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          value:if(
+            or( tointeger(index(
+              ri!refProcessSheetTransposeConfig[ri!index],
+              "is_active",
+              {}
+            )) = 1),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon:"toggle-on",
+              caption:"Yes",
+              link:#"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    ri!refProcessSheetTransposeConfig[ri!index].is_active,
+                    0
+                  )
+                },
+                showWhen: not(ri!isReadOnly)
+              ),
+              size:"MEDIUM_PLUS"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon:"toggle-off",
+              caption:"No",
+              link:#"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    ri!refProcessSheetTransposeConfig[ri!index].is_active,
+                    1
+                  )
+                },
+                showWhen: not(ri!isReadOnly)
+              ),
+              size:"MEDIUM_PLUS"
+            )
+          ),
+          align:"CENTER"
+        )
+        ),
+      /*Delete*/
+      if(
+        ri!isReadOnly,
+        {},
+        if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(ri!refProcessSheetTransposeConfig[ri!index].sheet_transpose_config_id),
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            showWhen :  if(
+              or(ri!isReadOnly=true()),
+              false(),
+              true()
+            ),
+            label: "Delete ",
+            images: #"SYSTEM_SYSRULES_documentImage"(
+              document: #"SYSTEM_SYSRULES_iconIndicator"(
+                "REMOVE"
+              ),
+              altText: "Remove Document",
+              caption: "Remove",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: ri!index,
+                saveInto: {
+                  a!save(
+                    ri!refProcessSheetTransposeConfig,
+                    remove(
+                      ri!refProcessSheetTransposeConfig,
+                      save!value
+                    )
+                  )
+                }
+              )
+            ),
+            size: "ICON"
+          ),
+          #"SYSTEM_SYSRULES_textField"(readOnly: true())
+        )
+      )
+      
+      
+    }
+  )
+</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessSheetTransposeConfig</name>
+            <type>
+                <name>EAP_T_RefProcessSheetTransposeConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetFieldMapping</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fileEntityMapping</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_180960"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_207368"/>
+    </history>
+</contentHaul>

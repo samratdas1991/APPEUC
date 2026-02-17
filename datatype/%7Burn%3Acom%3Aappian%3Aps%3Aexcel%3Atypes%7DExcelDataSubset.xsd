@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:com:appian:ps:excel:types"
+  xmlns:_20091="http://www.appian.com/ae/types/2009"
+  xmlns:tns="urn:com:appian:ps:excel:types" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import namespace="http://www.appian.com/ae/types/2009" schemaLocation="%7Bhttp%3A%2F%2Fwww.appian.com%2Fae%2Ftypes%2F2009%7DSortInfo.xsd"/>
+  <xsd:complexType name="ExcelDataSubset">
+    <xsd:annotation>
+      <xsd:appinfo source="http://www.appian.com/ae/types/2009">
+        <ns2:Metadata xmlns:ns2="http://www.appian.com/ae/types/2009">
+          <ns2:versionUuid>0001e594-11eb-8000-7242-1b4d981b4d98</ns2:versionUuid>
+          <ns2:history>
+            <ns2:historyInfo versionUuid="0001e5f4-26ff-8000-fb14-7f0000014e7a"/>
+            <ns2:historyInfo versionUuid="0001e594-11eb-8000-7242-1b4d981b4d98"/>
+          </ns2:history>
+        </ns2:Metadata>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="startIndex" type="xsd:int"/>
+      <xsd:element name="batchSize" type="xsd:int"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="sort" type="_20091:SortInfo"/>
+      <xsd:element name="totalCount" type="xsd:int"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="data" type="xsd:anyType"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0"
+        name="identifiers" type="xsd:anyType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

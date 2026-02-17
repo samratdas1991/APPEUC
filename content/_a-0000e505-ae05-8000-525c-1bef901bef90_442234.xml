@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_516957</versionUuid>
+    <interface>
+        <name>EAP_AuditProcessInterface</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_442234</uuid>
+        <description>Interface for audit process </description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!requestDetails:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+    requestId: ri!requestId
+  ),
+  local!processControllerMasterData:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_359325"(processId:index(local!requestDetails,"processId",{})),
+  
+  local!processControllerMasterId,
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    label: "Audit Process",
+    contents: {
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: 
+            #"SYSTEM_SYSRULES_integerField"(
+              label: "Process Id",
+              value: index(local!requestDetails,"processId",{}),
+              readOnly: true()
+            ),
+            
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+              label:"Work Flow Name",
+              placeholderLabel: "--Work Flow Name--",   
+              choiceLabels: touniformstring(index(local!processControllerMasterData,"name",{})),
+              
+              choiceValues:index(local!processControllerMasterData,"process_controller_master_id",{}),
+              
+              value: if(
+                #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+                value: local!processControllerMasterId,
+                choiceValue: index(local!processControllerMasterData,"process_controller_master_id",{})
+              ),
+              local!processControllerMasterId,null
+              ),
+              saveInto:local!processControllerMasterId
+            )
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: #"SYSTEM_SYSRULES_integerField"(
+              label: "Request Id",
+              value: ri!requestId,
+              saveInto: ri!requestId,
+            ),
+            showWhen:   if(isnull(ri!requestId),true(),false)
+           
+          ),
+
+
+
+        }
+      ),
+
+
+
+
+      #"SYSTEM_SYSRULES_gridField_v1"(
+        data: #"_a-0000e505-ae05-8000-525c-1bef901bef90_442091"(processId: index(local!requestDetails,"processId",{}),
+        requestId:ri!requestId,processControllerMasterId:local!processControllerMasterId   ),
+        columns: {
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Process Name",
+
+            value: fv!row.process_name
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Process Display Name",
+
+            value: fv!row.process_display_name
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Work Flow Name",
+
+            value: fv!row.work_flow_name1
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Step Name",
+
+            value: fv!row.step_name
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Link Config Name",
+
+            value: fv!row.link_config_name
+          )
+        },
+        pageSize: 20,
+        initialSorts: {}
+      )
+    }
+
+  )
+)
+
+
+  
+</definition>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_444141"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_516957"/>
+    </history>
+</contentHaul>

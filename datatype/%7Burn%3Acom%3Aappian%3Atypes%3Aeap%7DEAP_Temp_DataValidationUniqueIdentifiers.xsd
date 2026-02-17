@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:com:appian:types:eap"
+  xmlns:tns="urn:com:appian:types:eap" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="EAP_Temp_DataValidationUniqueIdentifiers">
+    <xsd:annotation>
+      <xsd:appinfo source="http://www.appian.com/ae/types/2009">
+        <ns2:Metadata xmlns:ns2="http://www.appian.com/ae/types/2009">
+          <ns2:versionUuid>0000e506-c592-8000-6562-1b4d981b4d98</ns2:versionUuid>
+          <ns2:history>
+            <ns2:historyInfo versionUuid="0000e506-c592-8000-6562-1b4d981b4d98"/>
+          </ns2:history>
+        </ns2:Metadata>
+      </xsd:appinfo>
+      <xsd:documentation><![CDATA[Holds unique identifiers (Primary Keys) for all the associated tables of DataValidation.]]></xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="process_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="config_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="in_file_type_config_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="in_file_entity_mapping_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="sheet_entity_field_mapping_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="activeStep" nillable="true" type="xsd:int"/>
+      <xsd:element name="actionTypeActiveStep" nillable="true" type="xsd:int"/>
+      <xsd:element name="selectedCard" nillable="true" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(length=255)</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="selectedEntityCard" nillable="true" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(length=255)</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="selectedTemplateType" nillable="true" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(length=255)</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="actionTypeSelectedStep" nillable="true" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(length=255)</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="selectedStep" nillable="true" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(length=255)</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="selectedSheetCopy" nillable="true" type="xsd:int"/>
+      <xsd:element name="selectedOutputCopy" nillable="true" type="xsd:int"/>
+      <xsd:element name="selectedCustomAction" nillable="true" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

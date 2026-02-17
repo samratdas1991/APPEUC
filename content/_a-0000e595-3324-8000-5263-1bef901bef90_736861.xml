@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_761476</versionUuid>
+    <decision>
+        <name>EAP_DWFTargetIntegrationPM</name>
+        <uuid>_a-0000e595-3324-8000-5263-1bef901bef90_736861</uuid>
+        <description>Returns the Process Model based on the Target Integration System Type Code</description>
+        <parentUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_421005</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>fn!override_exception_appian_internal(fn!with(local!decisiondefinition: a!decisiondesigner_cache(uuid: "_a-0000e595-3324-8000-5263-1bef901bef90_736861",versionKey: "2774d4ad-9b1f-4cc0-8320-04f4a1ccf415",value: #"SYSTEM_SYSRULES_dd_dd"('hitPolicy': #"SYSTEM_SYSRULES_dd_dhp"("UNIQUE"), 'inputs': {#"SYSTEM_SYSRULES_dd_di"('name': "systemTypeCode", 'type': 'type!{http://www.appian.com/ae/types/2009}Text', 'id': 1, 'restrictionType': #"SYSTEM_SYSRULES_dd_dirt"("NONE"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_do"('id': 1, 'name': "SystemTypeProcessModelUUID", 'type': 'type!{http://www.appian.com/ae/types/2009}ProcessModel', 'restrictionType': #"SYSTEM_SYSRULES_dd_dort"("NONE"), 'returnListType': false)}, 'rules': {#"SYSTEM_SYSRULES_dd_dr"('id': 1, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 1, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "MANUAL_DOWNLOAD"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}ProcessModel',uuid:"0012e5a8-ebab-8000-72cf-1b4d981b4d98",defaultId:5314)})}, 'annotation': "Generic PM for Manual Download"), #"SYSTEM_SYSRULES_dd_dr"('id': 2, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 2, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': "OUT_EMAIL"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 2, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}ProcessModel',uuid:"0002e5b3-b682-8000-7343-1b4d981b4d98",defaultId:5364)})}, 'annotation': "Generic PM for Output Email")}, 'isUnique': true, 'defaultOutputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}ProcessModel',uuid:"0012e5a8-ebab-8000-72cf-1b4d981b4d98",defaultId:5314)})}, 'defaultAnnotation': "Default PM, if System Type does not match")),#"SYSTEM_SYSRULES_dd_exr"(decisionDefinition:local!decisiondefinition,executionInputs:{#"SYSTEM_SYSRULES_dd_dei"(decisionInputId:1,value:'ri!systemTypeCode')})))</definition>
+        <namedTypedValue>
+            <name>systemTypeCode</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <outputMetadataList>
+            <outputMetadata>
+                <outputId>1</outputId>
+                <nameRef>SystemTypeProcessModelUUID</nameRef>
+                <typeName>{http://www.appian.com/ae/types/2009}ProcessModel</typeName>
+            </outputMetadata>
+        </outputMetadataList>
+        <hitPolicy>UNIQUE</hitPolicy>
+    </decision>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_736872"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_761476"/>
+    </history>
+</contentHaul>

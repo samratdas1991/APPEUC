@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e58b-f438-8000-5262-1bef901bef90_720053</versionUuid>
+    <rule>
+        <name>EAP_CheckInvalidGroup</name>
+        <uuid>_a-0000e58b-f438-8000-5262-1bef901bef90_719203</uuid>
+        <description>Hold rule to check invalid groups</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!processGroups: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),
+  {},
+  #"_a-0000e4c6-4628-8000-5253-1bef901bef90_17287"(
+    processId: ri!processId
+  )
+  ),
+  local!processMakerGroup:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+    local!processGroups,
+    "maker_group",
+    {}
+  )),
+  {}, 
+  #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+    inputUUID: index(
+      local!processGroups,
+      "maker_group",
+      {}
+    )
+  )),
+  local!processCheckerGroup: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+    local!processGroups,
+    "checker_group",
+    {}
+  )),
+  {},
+  #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+    inputUUID: index(
+      local!processGroups,
+      "checker_group",
+      {}
+    )
+  )),
+  local!operationalGroup: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+    local!processGroups,
+    "operations_team_group",
+    {}
+  )),
+  {},#"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+    inputUUID: index(
+      local!processGroups,
+      "operations_team_group",
+      {}
+    )
+  )),
+  local!technicalGroup: if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+    local!processGroups,
+    "technical_support_group",
+    {}
+  )),
+  {},#"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+    inputUUID: index(
+      local!processGroups,
+      "technical_support_group",
+      {}
+    )
+  )),
+  local!escalationGroup:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+    local!processGroups,
+    "escalation_group",
+    {}
+  )),
+  {},#"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+    inputUUID: index(
+      local!processGroups,
+      "escalation_group",
+      {}
+    )
+  )),
+  local!adminGroup:if(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+    local!processGroups,
+    "admin_maintenance_group",
+    {}
+  )),
+  {},#"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+    inputUUID: index(
+      local!processGroups,
+      "admin_maintenance_group",
+      {}
+    )
+  )),
+  if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!processGroups),
+    null,
+    'type!{urn:com:appian:types:eap}EAP_T_RefProcessGroup'(
+      process_group_id:index(local!processGroups,"process_group_id",null),
+      process_id:ri!processId, 
+      maker_group:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          local!processMakerGroup
+        ),
+        null,
+        index(local!processGroups,"maker_group",null)
+      ), 
+      checker_group:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          local!processCheckerGroup
+        ),
+        null,
+        index(local!processGroups,"checker_group",null)
+      ), 
+      operations_team_group:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          local!operationalGroup
+        ),
+        null,
+        index(local!processGroups,"operations_team_group",null)
+      ), 
+      technical_support_group:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          local!technicalGroup
+        ),
+        null,
+        index(local!processGroups,"technical_support_group",null)
+      ), 
+      escalation_group:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          local!escalationGroup
+        ),
+        null,
+        index(local!processGroups,"escalation_group",null)
+      ), 
+      admin_maintenance_group:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          local!adminGroup
+        ),
+        null,
+        index(local!processGroups,"admin_maintenance_group",null)
+      ), 
+      created_by:index(local!processGroups,"created_by",{}), 
+      created_on:index(local!processGroups,"created_on",{}) ,
+      modified_by:index(local!processGroups,"modified_by", {}),
+      modified_on:index(local!processGroups,"modified_on",{})
+    )
+  )
+  )</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_720053"/>
+    </history>
+</contentHaul>

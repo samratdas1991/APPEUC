@@ -1,0 +1,938 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_706488</versionUuid>
+    <rule>
+        <name>EAP_QE_ViewRunConfigDetails</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_161438</uuid>
+        <description>Hold query rule for complete run config details</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_queryEntity_v1"(
+  entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_161444",
+  query: #"SYSTEM_SYSRULES_query"(
+    selection: #"SYSTEM_SYSRULES_querySelection"(
+      columns: {
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "id"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "run_config_id"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "trigger_time"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "process_id"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "recurrence_type"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "recurrence_frequency"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "processing_month"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "processing_weekdays"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "start_businesss_days"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "end_business_days"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "next_trigger_datetime"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "process_model_uuid"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "process_display_name"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "is_process_trigger"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "is_adhoc_trigger"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "next_trigger_datetime_gmt"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "is_active"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "created_by"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "created_on"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "modified_by"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "modified_on"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "process_name"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "calendar_id"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "calendar_name"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "country_name"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "region_name"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "timezone_id"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "next_trigger_completion_datetime"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field: "next_trigger_completion_datetime_gmt"
+        ), #"SYSTEM_SYSRULES_queryColumn"(
+          field: "end_completion_time"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field:"last_trigger_datetime"
+        ),
+        #"SYSTEM_SYSRULES_queryColumn"(
+          field:"last_trigger_datetime_gmt"
+        )
+      }
+    ),
+    logicalExpression: if(
+      and(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!timezoneId
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!regionName
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!maximumTriggerDate
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!countryName
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!calendarId
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!isAdhocTrigger
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!processDisplayName
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!isProcessTrigger
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!id
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!runConfigId
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!processId
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!processModelUUid
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!recurrrenceType
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!recurrenceFrequency
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!processingMonth
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!processingWeekdays
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!startBusinessDays
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!endBusinessDays
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!triggerTime
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!nextTriggerDatetime
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!isActive
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!createdBy
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!createdOn
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!modifiedBy
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!modifiedOn
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!nextTriggerDatetimeGmt
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!nextTriggerDatetimeGmtStartDate
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!nextTriggerDatetimeGmtEndDate
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!nextTriggerCompletionDatetime
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!nextTriggerCompletionDatetimeGmt
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!endCompletionTime
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!lastTriggerDateTime
+        ),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!lastTriggerDateTimeGmt
+        )
+        
+      ),
+      null,
+      #"SYSTEM_SYSRULES_queryLogicalExpression"(
+        operator: "AND",
+        filters: {
+          if(
+            or(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!nextTriggerDatetimeGmtStartDate
+              ),
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                ri!nextTriggerDatetimeGmtEndDate
+              )
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "next_trigger_datetime_gmt",
+              operator: "between",
+              value: {
+                ri!nextTriggerDatetimeGmtStartDate,
+                ri!nextTriggerDatetimeGmtEndDate
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!timezoneId
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "timezone_id",
+              operator: "IN",
+              value: {
+                ri!timezoneId
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!regionName
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "region_name",
+              operator: "IN",
+              value: {
+                ri!regionName
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!countryName
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "country_name",
+              operator: "IN",
+              value: {
+                ri!countryName
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!calendarId
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "calendar_id",
+              operator: "IN",
+              value: {
+                ri!calendarId
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!isAdhocTrigger
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "is_adhoc_trigger",
+              operator: "IN",
+              value: {
+                ri!isAdhocTrigger
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!processDisplayName
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "process_display_name",
+              operator: "IN",
+              value: {
+                ri!processDisplayName
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!isProcessTrigger
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "is_process_trigger",
+              operator: "IN",
+              value: {
+                ri!isProcessTrigger
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!id
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "id",
+              operator: "IN",
+              value: {
+                ri!id
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!runConfigId
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "run_config_id",
+              operator: "IN",
+              value: {
+                ri!runConfigId
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!nextTriggerDatetimeGmt
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "next_trigger_datetime_gmt",
+              operator: "IN",
+              value: {
+                ri!nextTriggerDatetimeGmt
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!maximumTriggerDate
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "next_trigger_datetime_gmt",
+              operator: "&lt;=",
+              value: 
+                ri!maximumTriggerDate
+              
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!processId
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "process_id",
+              operator: "IN",
+              value: {
+                ri!processId
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!processModelUUid
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "process_model_uuid",
+              operator: "IN",
+              value: {
+                ri!processModelUUid
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!recurrrenceType
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "recurrrence_type",
+              operator: "IN",
+              value: {
+                ri!recurrrenceType
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!recurrenceFrequency
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "recurrence_frequency",
+              operator: "IN",
+              value: {
+                ri!recurrenceFrequency
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!processingMonth
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "processing_month",
+              operator: "IN",
+              value: {
+                ri!processingMonth
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!processingWeekdays
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "processing_weekdays",
+              operator: "IN",
+              value: {
+                ri!processingWeekdays
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!startBusinessDays
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "start_businesss_days",
+              operator: "IN",
+              value: {
+                ri!startBusinessDays
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!endBusinessDays
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "end_business_days",
+              operator: "IN",
+              value: {
+                ri!endBusinessDays
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!triggerTime
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "trigger_time",
+              operator: "IN",
+              value: {
+                ri!triggerTime
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!nextTriggerDatetime
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "next_trigger_datetime",
+              operator: "IN",
+              value: {
+                ri!nextTriggerDatetime
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!isActive
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "is_active",
+              operator: "IN",
+              value: {
+                ri!isActive
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!createdBy
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "created_by",
+              operator: "IN",
+              value: {
+                ri!createdBy
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!createdOn
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "created_on",
+              operator: "IN",
+              value: {
+                ri!createdOn
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!modifiedBy
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "modified_by",
+              operator: "IN",
+              value: {
+                ri!modifiedBy
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!modifiedOn
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "modified_on",
+              operator: "IN",
+              value: {
+                ri!modifiedOn
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!nextTriggerCompletionDatetime
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "next_trigger_completion_datetime",
+              operator: "IN",
+              value: {
+                ri!nextTriggerCompletionDatetime
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!nextTriggerCompletionDatetimeGmt
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "next_trigger_completion_datetime_gmt",
+              operator: "IN",
+              value: {
+                ri!nextTriggerCompletionDatetimeGmt
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!endCompletionTime
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "end_completion_time",
+              operator: "IN",
+              value: {
+                ri!endCompletionTime
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!lastTriggerDateTime
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "last_trigger_datetime",
+              operator: "IN",
+              value: {
+                ri!lastTriggerDateTime
+              }
+            )
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!lastTriggerDateTimeGmt
+            ),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "last_trigger_datetime_gmt",
+              operator: "IN",
+              value: {
+                ri!lastTriggerDateTimeGmt
+              }
+            )
+          ),
+        }
+      )
+    ),
+    pagingInfo: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!pagingInfo
+      ),
+      #"SYSTEM_SYSRULES_pagingInfo"(
+        startIndex: 1,
+        batchSize: - 1
+      ),
+      ri!pagingInfo
+    )
+  )
+).data</definition>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processModelUUid</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>recurrrenceType</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>recurrenceFrequency</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processingMonth</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processingWeekdays</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>startBusinessDays</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>endBusinessDays</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>triggerTime</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextTriggerDatetime</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextTriggerDatetimeGmt</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>id</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isProcessTrigger</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processDisplayName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isAdhocTrigger</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>calendarId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>countryName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>regionName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>timezoneId</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextTriggerDatetimeGmtStartDate</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextTriggerDatetimeGmtEndDate</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>maximumTriggerDate</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextTriggerCompletionDatetime</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextTriggerCompletionDatetimeGmt</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>endCompletionTime</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>lastTriggerDateTime</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>lastTriggerDateTimeGmt</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_171114"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_223559"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_701815"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_706488"/>
+    </history>
+</contentHaul>

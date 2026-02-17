@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_36829</versionUuid>
+    <rule>
+        <name>EAP_GetTransformationRuntimeFilterValue</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_36398</uuid>
+        <description>Hold rule to get drop down for filter value</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!filterValue),
+  null,
+  
+  choose(
+    wherecontains(ri!filterValue,#"_a-0000e4c6-e892-8000-5254-1bef901bef90_36392"),
+    
+    text(today(),"mmm"),
+    text(
+      date(
+        year(
+          today()
+        ),
+        month(
+          today()
+        )- 1,
+        day(today())
+      ) ,
+      "mmm"
+    ),
+    text(
+      date(
+        year(
+          today()
+        ),
+        month(
+          today()
+        )+1,
+        day(today())
+      ) ,
+      "mmm"
+    ),
+    year(today()),
+    year(today())+1,
+    year(today())-1,
+    today()-1,
+    today(),
+    today()+1
+)
+
+
+
+)</definition>
+        <namedTypedValue>
+            <name>filterValue</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_36829"/>
+    </history>
+</contentHaul>

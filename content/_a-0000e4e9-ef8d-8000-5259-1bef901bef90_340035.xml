@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_358716</versionUuid>
+    <constant>
+        <name>EAP_RELATED_ACTION</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_340035</uuid>
+        <description>Hold all the related action name
+1) Manage Parsing Configuration
+2) Create Transformation Configuration
+3) Manage Run Configuration
+4) Create New IO Configuration
+5) Create New Output Generation
+6. Manage Process Group
+7. Manage Process Users
+8. Manage Process
+9. Manage Runtime Filter Key
+10. Manage Entity Name
+</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>Manage Parsing Configurations</el>
+                <el>Create Transformation Configurations</el>
+                <el>Manage Run Configuration</el>
+                <el>Create New IO Configuration</el>
+                <el>Create New Output Generation</el>
+                <el>Manage Process Group</el>
+                <el>Manage Process Users</el>
+                <el>Manage Process</el>
+                <el>Manage Runtime Filter Key</el>
+                <el>Manage Entity Name</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_358716"/>
+    </history>
+</contentHaul>

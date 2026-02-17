@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_708348</versionUuid>
+    <rule>
+        <name>EAP_UploadHistoricDataGridRowLayoutV1</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_674468</uuid>
+        <description>Grid Row Layout For Historic data</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  a!localVariables(
+    local!checkTransStatus: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!tempHistoricData[ri!index].RequestId
+      ),
+      {},
+      #"_a-0000e54c-ce50-8000-5260-1bef901bef90_617732"(
+        requestId:ri!tempHistoricData[ri!index].RequestId,
+        histParsingStatus: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_86234"[1]
+      )
+    ),
+    local!histTrans: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!tempHistoricData[ri!index].RequestId
+      ),
+      {},#"_a-0000e54c-ce50-8000-5260-1bef901bef90_617663"(
+        requestId:ri!tempHistoricData[ri!index].RequestId
+    )),
+    #"SYSTEM_SYSRULES_gridRowLayout"(
+      id: ri!index,
+      contents: {
+        #"SYSTEM_SYSRULES_dateField"(
+          value:index(ri!tempHistoricData[ri!index],"daily",null),
+          showWhen: or(ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[1]),
+         readOnly: true(),
+        
+        ),
+        #"SYSTEM_SYSRULES_textField"(
+          value:index(ri!tempHistoricData[ri!index],"year",null),
+          showWhen: or(ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[2],ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[3]),
+          readOnly: true(),
+          align: "RIGHT"
+        ),
+        #"SYSTEM_SYSRULES_textField"(
+          value:index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+            type: "PROCESSING_MONTH",
+            code: index(ri!tempHistoricData[ri!index],"month",null)),"label",{}),
+          showWhen: or(ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[2]),
+          readOnly: true()
+        ),
+        /*entity dropdown from hist entity table*/
+    #"SYSTEM_SYSRULES_textField"(
+      value:index(
+        #"_a-0000e54c-ce50-8000-5260-1bef901bef90_612826"(histEntityMappingId:
+      index(ri!tempHistoricData[ri!index],"histEntityMappingId",null)),"entity_name",{}),
+    readOnly: true(),
+    validations: {
+     }
+    ),
+    
+   
+        /*appian doc upload field*/
+        #"SYSTEM_SYSRULES_fileUploadField_v1"(
+          label: "Upload Document",
+          target: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_22231",
+          buttonStyle: "STANDARD",
+          buttonSize: "STANDARD",
+          required:if(
+            index(
+              ri!tempHistoricData[ri!index],
+              "isapplicable",
+              {}
+            )=1,
+            true(),
+            false()
+          ),
+          maxSelections: 1,
+          value: index(
+            ri!tempHistoricData[ri!index],
+            "appianDocumentId",
+            {}
+          ),
+          saveInto: {
+            a!save(
+              ri!tempHistoricData[ri!index].appianDocumentId,
+              tointeger(
+                save!value
+              )
+            ),
+            
+          },
+          validations: {
+            if(
+              tostring(
+                upper(
+                  fv!files.extension
+                )
+              ) = "XLSX",
+              {},
+              "Please Provide Correct Format xLsx"
+            )
+          },
+          disabled: if(
+            index(
+              ri!tempHistoricData[ri!index],
+              "isapplicable",
+              {}
+            )=1,
+          false(),
+           true()
+          )
+        ),
+        if(
+          if(
+            ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[1],
+            or(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+              ri!tempHistoricData,
+              "processId",
+              {}
+            )),
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+              ri!tempHistoricData[ri!index],
+              "daily",
+              {}
+            )),
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+              ri!tempHistoricData[ri!index],
+              "runConfigId",
+              {}
+            ))
+            ),
+            if(
+              ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[2],
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                ri!tempHistoricData,
+                "processId",
+                {}
+              )),
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                ri!tempHistoricData[ri!index],
+                "year",
+                {}
+              )),
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!tempHistoricData[ri!index],
+                  "month",
+                  {}
+                )),
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                  ri!tempHistoricData[ri!index],
+                  "runConfigId",
+                  {}
+                ))
+              ),
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                ri!tempHistoricData,
+                "processId",
+                {}
+              )),
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                ri!tempHistoricData[ri!index],
+                "year",
+                {}
+              )),
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                ri!tempHistoricData[ri!index],
+                "runConfigId",
+                {}
+              ))
+              )
+            )
+          ),
+
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            align: "CENTER",
+            value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text:"N/A"
+            )
+          ),
+          if(
+           #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!tempHistoricData[ri!index],"RequestId",{})),
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                align: "CENTER",
+                value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                  text:"N/A"
+                )
+              ),
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                align: "CENTER",
+                value:{
+
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text:"Click here to visit the record for RequestId - " &amp; 
+                    index(ri!tempHistoricData[ri!index],"RequestId",{})
+                    ,
+                    link:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_350812"(
+                      label:"",
+                      identifier:index(ri!tempHistoricData[ri!index],"RequestId",{}),
+                      recordType: #"_a-0000e56b-0831-8000-5261-1bef901bef90_624818",
+                      siteUrl:#"_a-0000e56b-0831-8000-5261-1bef901bef90_705353",
+                      showWhen: if(
+                        contains(
+                          tointeger(index(local!histTrans,"request_id",{})),
+                          tointeger(index(ri!tempHistoricData[ri!index],"RequestId",{}))
+                        ),
+                        true(),
+                        false()
+                      )
+                    )
+
+                  )
+                }
+              )
+          )
+
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: if(
+            or(
+              tostring(
+                index(
+                  ri!tempHistoricData[ri!index],
+                  "action",
+                  {}
+                )
+              ) = "insert",
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!tempHistoricData[ri!index],
+                  "action",
+                  {}
+                )
+              )
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "times-circle-o",
+              size: "MEDIUM",
+              color: "NEGATIVE"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "check-circle",
+              size: "MEDIUM",
+              color: "POSITIVE",
+
+            )
+          ),
+
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            if(
+              or(
+                toboolean(
+                  index(
+                    ri!tempHistoricData[ri!index],
+                    "isapplicable",
+                    {}
+                  )
+                ) 
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "toggle-on",
+                caption: "Yes",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  value: true(),
+                  showWhen: if(
+                    contains(
+                      tointeger(
+                        index(
+                          local!checkTransStatus,
+                          "hist_entity_mapping_id",
+                          {}
+                        )
+                      ),
+                      tointeger(
+                        index(
+                          ri!tempHistoricData[ri!index],
+                          "histEntityMappingId",
+                          {}
+                        )
+                      )
+                    ),false() , if(
+                    or(
+                      ri!isReadOnly
+                    ),
+                    false(),
+                    true()
+                  )),
+                  saveInto: {
+                    a!save(
+                      ri!tempHistoricData[ri!index].isapplicable,
+                      0
+                    ),
+                    a!save(ri!tempHistoricData[ri!index].appianDocumentId,null)
+                  }
+                ),
+                linkStyle: "STANDALONE",
+                size: "MEDIUM_PLUS",
+                color: "ACCENT"
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "toggle-off",
+                caption: "No",
+                linkStyle: "STANDALONE",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  value: false(),
+                  showWhen:if(
+                    contains(
+                      tointeger(
+                        index(
+                          local!checkTransStatus,
+                          "hist_entity_mapping_id",
+                          {}
+                        )
+                      ),
+                      tointeger(
+                        index(
+                          ri!tempHistoricData[ri!index],
+                          "histEntityMappingId",
+                          {}
+                        )
+                      )
+                    ),false() ,  if(
+                    or(
+                      ri!isReadOnly
+                    ),
+                    false(),
+                    true()
+                  )),
+                  saveInto: {
+                    a!save(
+                      ri!tempHistoricData[ri!index].isapplicable,
+                      1
+                    ),
+                    a!save(ri!tempHistoricData[ri!index].appianDocumentId,null)
+                  }
+                ),
+                size: "MEDIUM_PLUS",
+                color: "ACCENT"
+              )
+            )
+          }
+        ),
+        if(
+          contains(
+            tointeger(
+              index(
+                local!checkTransStatus,
+                "hist_entity_mapping_id",
+                {}
+              )
+            ),
+            tointeger(
+              index(
+                ri!tempHistoricData[ri!index],
+                "histEntityMappingId",
+                {}
+              )
+            )
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            align:"CENTER",
+            value:{
+
+              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                text: "Already In Progress",
+                color:"ACCENT"
+              )
+            }
+          ),
+         #"SYSTEM_SYSRULES_textField"(
+           readOnly: true()
+         )
+        ),
+      }
+    )
+  )
+}</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>tempHistoricData</name>
+            <type>
+                <name>EAP_Temp_HistoricalDataUpload?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>frequency</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_705460"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_708348"/>
+    </history>
+</contentHaul>

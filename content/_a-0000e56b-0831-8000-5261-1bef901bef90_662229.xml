@@ -1,0 +1,919 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_763052</versionUuid>
+    <rule>
+        <name>EAP_YearGridRowLayout</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_662229</uuid>
+        <description>Hold rule for grid row layout</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!histTrans: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!tempHistoricalDataFrequency[ri!index].requenstId
+    ),
+    {},
+    #"_a-0000e54c-ce50-8000-5260-1bef901bef90_617663"(
+    requestId:ri!tempHistoricalDataFrequency[ri!index].requenstId
+  )),
+  
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+
+  contents:{
+    #"SYSTEM_SYSRULES_dropdownField"(
+    label: "",
+    placeholderLabel: "--Select Year--",
+    choiceLabels: {tointeger(ri!yearRange)},
+    choiceValues:{tointeger(ri!yearRange)},
+    value:if(
+      contains(
+        tointeger(ri!yearRange),
+        index(ri!tempHistoricalDataFrequency[ri!index],"year",{})
+      ),
+    
+      index(ri!tempHistoricalDataFrequency[ri!index],"year",{}),
+      null
+    ),
+    required: true(),
+    showWhen:or(ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[2],ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[3]),
+    saveInto: {ri!tempHistoricalDataFrequency[ri!index].year,
+    a!save(ri!tempHistoricalDataFrequency[ri!index].requenstId,
+    if(
+      length({
+        index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+          processId: index(
+            ri!tempHistoricalDataFrequency,
+            "processId",
+            {}
+          ),
+          runConfigId:index(
+            ri!tempHistoricalDataFrequency,
+            "runConfigId",
+            {}
+          ),
+          requestYear: index(
+            ri!tempHistoricalDataFrequency[ri!Index],
+            "year",
+            {}
+          )
+        ),"requestId",{})
+      })=1,
+      index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+        processId: index(
+          ri!tempHistoricalDataFrequency,
+          "processId",
+          {}
+        ),
+        runConfigId:index(
+          ri!tempHistoricalDataFrequency,
+          "runConfigId",
+          {}
+        ),
+        requestYear: index(
+          ri!tempHistoricalDataFrequency[ri!Index],
+          "year",
+          {}
+        )
+      ),"requestId",{}),
+      null
+    )
+   
+ 
+    ),
+    a!save(ri!tempHistoricalDataFrequency[ri!index].month,null),
+    a!save(ri!tempHistoricalDataFrequency[ri!index].monthYear,
+    concat(ri!tempHistoricalDataFrequency[ri!index].year)
+    )
+    },
+    validations:{
+      if(
+      ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[2],
+      {},
+     
+      if(
+        count(
+          wherecontains(
+            index(ri!tempHistoricalDataFrequency[ri!index],"year",{}),
+            index(ri!tempHistoricalDataFrequency,"year",{})))&gt;1,
+            "Duplicate Error Found",
+            {}
+      )
+    ),
+    if(
+      or(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(  index(ri!tempHistoricalDataFrequency[ri!index],"year",{})),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(  index(index(ri!tempHistoricalDataFrequency,ri!Index + 1,{}),"year",{}))
+      ),
+      {},
+      if(
+        ri!tempHistoricalDataFrequency[ri!index].year &gt;ri!tempHistoricalDataFrequency[ri!index + 1].year,
+        "Please Enter Years In Sequence",
+        {}
+      )
+    )
+   
+    
+    }
+  ),
+  #"SYSTEM_SYSRULES_dateField"(
+    value:index(ri!tempHistoricalDataFrequency[ri!index],"daily",{}),
+    saveInto:{ri!tempHistoricalDataFrequency[ri!index].daily,
+    a!save(ri!tempHistoricalDataFrequency[ri!index].requenstId,
+    if(
+      length({
+        index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+          processId: index(
+            ri!tempHistoricalDataFrequency,
+            "processId",
+            {}
+          ),
+          runConfigId:index(
+            ri!tempHistoricalDataFrequency,
+            "runConfigId",
+            {}
+          ),
+          createdon: index(
+            ri!tempHistoricalDataFrequency[ri!Index],
+            "daily",
+            {}
+          )
+        ),"requestId",{})
+      })=1,
+      index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+        processId: index(
+          ri!tempHistoricalDataFrequency,
+          "processId",
+          {}
+        ),
+        runConfigId:index(
+          ri!tempHistoricalDataFrequency,
+          "runConfigId",
+          {}
+        ),
+        createdon: index(
+          ri!tempHistoricalDataFrequency[ri!Index],
+          "daily",
+          {}
+        )
+      ),"requestId",{}),
+      null
+    )
+    
+    )
+    },
+    required: true(),
+    showWhen:ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[1],
+    validations: {
+
+    if(
+      count(wherecontains(
+        index(ri!tempHistoricalDataFrequency[ri!index],"daily",{}),
+      index(ri!tempHistoricalDataFrequency,"daily",{})))&gt;1,
+      "Duplicate Date Found",
+      {}
+    ),
+    if(
+      or(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(  index(ri!tempHistoricalDataFrequency[ri!index],"daily",{})),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(  index(index(ri!tempHistoricalDataFrequency,ri!Index + 1,{}),"daily",{}))
+      ),
+      {},
+      if(
+        ri!tempHistoricalDataFrequency[ri!index].daily &gt;ri!tempHistoricalDataFrequency[ri!index + 1].daily,
+        "Please Enter Date In Sequence",
+        {}
+      )
+    )
+    }
+  ),
+  #"SYSTEM_SYSRULES_dropdownField"(
+    showWhen: ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[2],
+    label: "Month",
+    placeholderLabel: "--Select Month--",
+    choiceLabels: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!masterLookUpData),
+      null, touniformstring(
+      #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+        MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+          masterLookUpData: ri!masterLookUpData,
+          categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[3]
+
+        ),
+        UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[1],
+        Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+      )
+    )),
+    choiceValues: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!masterLookUpData),
+      null,
+      tointeger(
+        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+          MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+            masterLookUpData: ri!masterLookUpData,
+            categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[3]
+          ),
+          UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[1],
+          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+        )
+      )
+    ),
+    value:if(
+      #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+        value: index(ri!tempHistoricalDataFrequency[ri!index],"month",{}),
+        choiceValue: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!masterLookUpData),
+          null,
+          tointeger(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+              MasterLookup: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_124946"(
+                masterLookUpData: ri!masterLookUpData,
+                categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[3]
+              ),
+              UniqueKey: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108743"[1],
+              Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+            )
+          )
+        )
+      ),
+      index(ri!tempHistoricalDataFrequency[ri!index],"month",{}),
+      null
+    )
+    ,
+    saveInto: {ri!tempHistoricalDataFrequency[ri!index].month,
+    a!save(ri!tempHistoricalDataFrequency[ri!index].requenstId,
+    if(
+      length({index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+        processId: index(
+          ri!tempHistoricalDataFrequency,
+          "processId",
+          {}
+        ),
+        runConfigId:index(
+          ri!tempHistoricalDataFrequency,
+          "runConfigId",
+          {}
+        ),
+        requestMonth: index(
+          ri!tempHistoricalDataFrequency[ri!Index],
+          "month",
+          {}
+        ),
+        requestYear: index(
+          ri!tempHistoricalDataFrequency[ri!Index],
+          "year",
+          {}
+        )
+      ),"requestId",{})})=1,
+      index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+        processId: index(
+          ri!tempHistoricalDataFrequency,
+          "processId",
+          {}
+        ),
+        runConfigId:index(
+          ri!tempHistoricalDataFrequency,
+          "runConfigId",
+          {}
+        ),
+        requestMonth: index(
+          ri!tempHistoricalDataFrequency[ri!Index],
+          "month",
+          {}
+        ),
+        requestYear: index(
+          ri!tempHistoricalDataFrequency[ri!Index],
+          "year",
+          {}
+        )
+      ),"requestId",{}),
+      null
+    )
+    
+    
+    ),
+    a!save(ri!tempHistoricalDataFrequency[ri!index].monthYear,
+    concat(ri!tempHistoricalDataFrequency[ri!index].year,
+    if(
+      len(ri!tempHistoricalDataFrequency[ri!index].month)&lt;2,
+      0,{}
+    ),
+    ri!tempHistoricalDataFrequency[ri!index].month
+    )
+    )
+    }
+
+    ,
+    required: true(),
+    validations: {
+      if(
+        or(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!tempHistoricalDataFrequency[ri!index].month),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!tempHistoricalDataFrequency[ri!index].year)
+        ),
+        {},
+        if(
+          count(
+            wherecontains(
+              index(ri!tempHistoricalDataFrequency[ri!index],"monthYear",{}),
+              index(ri!tempHistoricalDataFrequency,"monthYear",{})))&gt;1,
+              "Duplicate Error Found",
+              {}
+        )
+      )
+     ,
+      if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(  index(ri!tempHistoricalDataFrequency[ri!index],"year",{})),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"( index(ri!tempHistoricalDataFrequency[ri!index],"month",{})),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"( index(ri!tempHistoricalDataFrequency[ri!index],"monthYear",{})),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(  index(index(ri!tempHistoricalDataFrequency,ri!Index + 1,{}),"monthYear",{})),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(  index(index(ri!tempHistoricalDataFrequency,ri!Index + 1,{}),"year",{})),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(  index(index(ri!tempHistoricalDataFrequency,ri!Index + 1,{}),"month",{}))
+        ),
+        {},
+        if(
+          ri!tempHistoricalDataFrequency[ri!index].monthYear &gt;ri!tempHistoricalDataFrequency[ri!index + 1].monthYear,
+          "Please Enter Years And Month In Sequence",
+          {}
+        )
+      )
+    }
+  ),
+  if(
+    if(
+      ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[1],
+      or(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+          ri!tempHistoricalDataFrequency,
+          "processId",
+          {}
+        )),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+          ri!tempHistoricalDataFrequency[ri!index],
+          "daily",
+          {}
+        )),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+          ri!tempHistoricalDataFrequency[ri!index],
+          "runConfigId",
+          {}
+        ))
+      ),
+      if(
+        ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[2],
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+            ri!tempHistoricalDataFrequency,
+            "processId",
+            {}
+          )),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+            ri!tempHistoricalDataFrequency[ri!index],
+            "runConfigId",
+            {}
+          )),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+            ri!tempHistoricalDataFrequency[ri!index],
+            "year",
+            {}
+          )),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            index(
+              ri!tempHistoricalDataFrequency[ri!index],
+              "month",
+              {}
+            ))
+
+        ),
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+            ri!tempHistoricalDataFrequency,
+            "processId",
+            {}
+          )),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+            ri!tempHistoricalDataFrequency[ri!index],
+            "year",
+            {}
+          )),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+            ri!tempHistoricalDataFrequency[ri!index],
+            "runConfigId",
+            {}
+          ))
+        )
+      )
+    ),
+#"SYSTEM_SYSRULES_richTextDisplayField"(
+      align: "CENTER",
+      value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+        text:"N/A"
+      )
+    ),
+    if(
+      if(
+        ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[1],
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+          processId: index(
+            ri!tempHistoricalDataFrequency,
+            "processId",
+            {}
+          ),
+          createdon:  index(
+            ri!tempHistoricalDataFrequency[ri!index],
+            "daily",
+            {}
+          ),
+          runConfigId:       index(
+            ri!tempHistoricalDataFrequency[ri!index],
+            "runConfigId",
+            {}
+          )
+        ),"requestId",{})) ,
+        if(
+          ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[2], 
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+              processId: index(
+                ri!tempHistoricalDataFrequency,
+                "processId",
+                {}
+              ),
+              requestMonth: index(
+                ri!tempHistoricalDataFrequency[ri!Index],
+                "month",
+                {}
+              ),
+              requestYear: index(
+                ri!tempHistoricalDataFrequency[ri!Index],
+                "year",
+                {}
+              ),
+              runConfigId:       index(
+                ri!tempHistoricalDataFrequency[ri!index],
+                "runConfigId",
+                {}
+              )
+            ),"requestId",{})),
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+              processId: index(
+                ri!tempHistoricalDataFrequency,
+                "processId",
+                {}
+              ),
+              runConfigId:       index(
+                ri!tempHistoricalDataFrequency[ri!index],
+                "runConfigId",
+                {}
+              ),
+              requestYear: index(
+                ri!tempHistoricalDataFrequency[ri!Index],
+                "year",
+                {}
+              )
+            ),"requestId",{}))
+        )
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        align: "CENTER",
+        value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text:"N/A"
+        )
+      ),
+      #"SYSTEM_SYSRULES_dropdownField"(
+        placeholderLabel:"--Select Request--",
+        choiceLabels: if(
+          ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[1],
+          index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+            processId: index(
+              ri!tempHistoricalDataFrequency,
+              "processId",
+              {}
+            ),
+            createdon:  index(
+              ri!tempHistoricalDataFrequency[ri!index],
+              "daily",
+              {}
+            ),
+            runConfigId:       index(
+              ri!tempHistoricalDataFrequency[ri!index],
+              "runConfigId",
+              {}
+            )
+          ),"requestId",{}) ,
+          if(
+            ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[2], 
+            index(
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+                processId: index(
+                  ri!tempHistoricalDataFrequency,
+                  "processId",
+                  {}
+                ),
+                requestMonth: index(
+                  ri!tempHistoricalDataFrequency[ri!Index],
+                  "month",
+                  {}
+                ),
+                requestYear: index(
+                  ri!tempHistoricalDataFrequency[ri!Index],
+                  "year",
+                  {}
+                ),
+                runConfigId:       index(
+                  ri!tempHistoricalDataFrequency[ri!index],
+                  "runConfigId",
+                  {}
+                )
+              ),"requestId",{}),
+              index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+                processId: index(
+                  ri!tempHistoricalDataFrequency,
+                  "processId",
+                  {}
+                ),
+                runConfigId:       index(
+                  ri!tempHistoricalDataFrequency[ri!index],
+                  "runConfigId",
+                  {}
+                ),
+                requestYear: index(
+                  ri!tempHistoricalDataFrequency[ri!Index],
+                  "year",
+                  {}
+                )
+              ),"requestId",{})
+          )
+        ),
+        choiceValues: if(
+          ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[1],
+          index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+            processId: index(
+              ri!tempHistoricalDataFrequency,
+              "processId",
+              {}
+            ),
+            createdon:  index(
+              ri!tempHistoricalDataFrequency[ri!index],
+              "daily",
+              {}
+            ),
+            runConfigId:       index(
+              ri!tempHistoricalDataFrequency[ri!index],
+              "runConfigId",
+              {}
+            )
+          ),"requestId",{}) ,
+          if(
+            ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[2], 
+            index(
+              #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+                processId: index(
+                  ri!tempHistoricalDataFrequency,
+                  "processId",
+                  {}
+                ),
+                requestMonth: index(
+                  ri!tempHistoricalDataFrequency[ri!Index],
+                  "month",
+                  {}
+                ),
+                requestYear: index(
+                  ri!tempHistoricalDataFrequency[ri!Index],
+                  "year",
+                  {}
+                ),
+                runConfigId:       index(
+                  ri!tempHistoricalDataFrequency[ri!index],
+                  "runConfigId",
+                  {}
+                )
+              ),"requestId",{}),
+              index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+                processId: index(
+                  ri!tempHistoricalDataFrequency,
+                  "processId",
+                  {}
+                ),
+                runConfigId:       index(
+                  ri!tempHistoricalDataFrequency[ri!index],
+                  "runConfigId",
+                  {}
+                ),
+                requestYear: index(
+                  ri!tempHistoricalDataFrequency[ri!Index],
+                  "year",
+                  {}
+                )
+              ),"requestId",{})
+          )
+        ),
+        value: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!tempHistoricalDataFrequency[ri!index].requenstId),
+          null,
+          index(ri!tempHistoricalDataFrequency[ri!index],"requenstId",{})
+        ),
+        required:  if(
+          ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[1],
+          if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+            processId: index(
+              ri!tempHistoricalDataFrequency,
+              "processId",
+              {}
+            ),
+            createdon:  index(
+              ri!tempHistoricalDataFrequency[ri!index],
+              "daily",
+              {}
+            ),
+            runConfigId:       index(
+              ri!tempHistoricalDataFrequency[ri!index],
+              "runConfigId",
+              {}
+            )
+          ),"requestId",{})),
+          false(),
+          true()
+          ),
+          if(
+            ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[2], 
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+                  processId: index(
+                    ri!tempHistoricalDataFrequency,
+                    "processId",
+                    {}
+                  ),
+                  requestMonth: index(
+                    ri!tempHistoricalDataFrequency[ri!Index],
+                    "month",
+                    {}
+                  ),
+                  requestYear: index(
+                    ri!tempHistoricalDataFrequency[ri!Index],
+                    "year",
+                    {}
+                  ),
+                  runConfigId:       index(
+                    ri!tempHistoricalDataFrequency[ri!index],
+                    "runConfigId",
+                    {}
+                  )
+                ),"requestId",{})),
+                false(),
+                true()
+            ),
+           if(
+             #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11203"(
+               processId: index(
+                 ri!tempHistoricalDataFrequency,
+                 "processId",
+                 {}
+               ),
+               runConfigId:       index(
+                 ri!tempHistoricalDataFrequency[ri!index],
+                 "runConfigId",
+                 {}
+               ),
+               requestYear: index(
+                 ri!tempHistoricalDataFrequency[ri!Index],
+                 "year",
+                 {}
+               )
+             ),"requestId",{})),
+             false(),
+             true()
+           )
+              
+          )
+        ),
+        saveInto: ri!tempHistoricalDataFrequency[ri!index].requenstId
+      )
+    )
+  
+  ),
+  if(
+    if(
+      ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[1],
+      or(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+        ri!tempHistoricalDataFrequency,
+        "processId",
+        {}
+      )),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+        ri!tempHistoricalDataFrequency[ri!index],
+        "daily",
+        {}
+      )),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+        ri!tempHistoricalDataFrequency[ri!index],
+        "runConfigId",
+        {}
+      ))
+      ),
+      if(
+        ri!frequency=#"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[2],
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+          ri!tempHistoricalDataFrequency,
+          "processId",
+          {}
+        )),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+          ri!tempHistoricalDataFrequency[ri!index],
+          "runConfigId",
+          {}
+        )),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+          ri!tempHistoricalDataFrequency[ri!index],
+          "year",
+          {}
+        )),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!tempHistoricalDataFrequency[ri!index],
+          "month",
+          {}
+        ))
+        
+        ),
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+          ri!tempHistoricalDataFrequency,
+          "processId",
+          {}
+        )),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+          ri!tempHistoricalDataFrequency[ri!index],
+          "year",
+          {}
+        )),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(
+          ri!tempHistoricalDataFrequency[ri!index],
+          "runConfigId",
+          {}
+        ))
+        )
+      )
+    ),
+  
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      align: "CENTER",
+      value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+        text:"N/A"
+      )
+    ),
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        index(ri!tempHistoricalDataFrequency[ri!index],"requenstId",{})
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        align: "CENTER",
+        value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text:"N/A"
+        )
+      ),
+      if(
+        contains(
+          tointeger(index(local!histTrans,"request_id",{})),
+          tointeger(index(ri!tempHistoricalDataFrequency[ri!index],"requenstId",{}))
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value:{
+
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text:"Click here to visit the record for RequestId - " &amp; 
+              index(ri!tempHistoricalDataFrequency[ri!index],"requenstId",{})
+              ,
+              link:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_350812"(
+                label:"",
+                identifier:  index(ri!tempHistoricalDataFrequency[ri!index],"requenstId",{}),
+                recordType: #"_a-0000e56b-0831-8000-5261-1bef901bef90_624818",
+                siteUrl:#"_a-0000e56b-0831-8000-5261-1bef901bef90_705353",
+                showWhen:true()
+              )
+
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_textField"(
+          readOnly: true(),
+          value: "RequestId - " &amp;index(ri!tempHistoricalDataFrequency[ri!index],"requenstId",{})&amp;" is not initiated from Upload Historcal Console",
+          validations: " This RequestId - " &amp;index(ri!tempHistoricalDataFrequency[ri!index],"requenstId",{})&amp;" is not initiated from Upload Historcal Console",
+          align: "CENTER"
+        )
+      )
+      
+    )
+     
+     
+    
+
+  ),
+  #"SYSTEM_SYSRULES_imageField_v1"(
+    label: "",
+    
+    images: #"SYSTEM_SYSRULES_documentImage"(
+      document: #"SYSTEM_SYSRULES_iconIndicator"(
+        "REMOVE"
+      ),
+      link: #"SYSTEM_SYSRULES_dynamicLink"(
+        saveInto: {
+          a!save(
+            ri!tempHistoricalDataFrequency,
+            remove(
+              ri!tempHistoricalDataFrequency,
+              ri!index
+            )
+          )
+        
+        }
+      )
+    )
+  )
+  }
+))</definition>
+        <namedTypedValue>
+            <name>yearRange</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>frequency</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>tempHistoricalDataFrequency</name>
+            <type>
+                <name>EAP_temp_HistoricalDataFrequency?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_705436"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_708961"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_713648"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_724757"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_763052"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_435867</versionUuid>
+    <rule>
+        <name>EAP_DwfMilestoneGridRowLayout</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_425360</uuid>
+        <description>Hold sub rule for dwf milestone</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  contents: {
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      label: "Name",
+      placeholder: "--Enter Name--",
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            Value: index(
+              ri!milestone[ri!index],
+              "name",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+          )
+        )
+      },
+      value: index(
+        ri!milestone[ri!index],
+        "name",
+        {}
+      ),
+      saveInto: {
+        ri!milestone[ri!index].name,
+        a!save(
+          ri!milestone[ri!index].modified_by,
+          loggedInUser()
+        ),
+        a!save(
+          ri!milestone[ri!index].modified_on,
+          now()
+        )
+      },
+      readOnly: ri!isReadOnly,
+      required: if(
+        or(
+          ri!isReadOnly
+        ),
+        false(),
+        true()
+      ),
+
+    ),
+   #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      label: " ",
+      placeholder: "--Enter Process Model UUID--",
+      value: index(
+        ri!milestone[ri!index],
+        "process_model_uuid",
+        {}
+      ),
+     
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            Value: index(
+              ri!milestone[ri!index],
+              "end_row",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+          )
+        ),
+        if(
+          ri!isReadOnly,
+          {},
+          if(
+            or(tointeger(index(
+              ri!milestone[ri!index],
+              "end_row",
+              null
+
+            ))
+            &lt;tointeger(index(
+              ri!milestone[ri!index],
+              "start_row",
+              null))),
+              if(
+                or(tointeger(index(
+                  ri!milestone[ri!index],
+                  "end_row",
+                  null
+
+                ))
+                = 0),
+                {},
+                "End Row should be greater than Start Row"
+              ),
+              {}
+          )
+        )
+      },
+    
+      saveInto: {ri!milestone[ri!index].process_model_uuid,a!save(
+        ri!milestone[ri!index].modified_by,
+        loggedInUser()
+      ),
+      a!save(
+        ri!milestone[ri!index].modified_on,
+        now()
+      )},
+      readOnly: ri!isReadOnly,
+      align: "RIGHT"
+    ),
+    
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      value: {
+        if(
+          or(
+            tointeger(
+              index(
+                ri!milestone[ri!index],
+                "is_parallel",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 1,
+              saveInto: {a!save(
+                ri!milestone[ri!index].is_parallel,
+                0
+              ),
+              a!save(
+                ri!milestone[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!milestone[ri!index].modified_on,
+                now()
+              )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-off",
+            caption: "No",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 0,
+              saveInto: {a!save(
+                ri!milestone[ri!index].is_parallel,
+                1
+              ),
+              a!save(
+                ri!milestone[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!milestone[ri!index].modified_on,
+                now()
+              )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          )
+        )
+      },
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      value: {
+        if(
+          or(
+            tointeger(
+              index(
+                ri!milestone[ri!index],
+                "is_enable_custom_process_uuid",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 1,
+              saveInto: {a!save(
+                ri!milestone[ri!index].is_enable_custom_process_uuid,
+                0
+              ),
+              a!save(
+                ri!milestone[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!milestone[ri!index].modified_on,
+                now()
+              )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-off",
+            caption: "No",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 0,
+              saveInto: {a!save(
+                ri!milestone[ri!index].is_enable_custom_process_uuid,
+                1
+              ),
+              a!save(
+                ri!milestone[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!milestone[ri!index].modified_on,
+                now()
+              )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          )
+        )
+      },
+      align: "CENTER"
+    ),
+    /* Is Active */
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      value: {
+        if(
+          or(
+            tointeger(
+              index(
+                ri!milestone[ri!index],
+                "is_active",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 1,
+              saveInto: {a!save(
+                ri!milestone[ri!index].is_active,
+                0
+              ),
+              a!save(
+                ri!milestone[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!milestone[ri!index].modified_on,
+                now()
+              )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-off",
+            caption: "No",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 0,
+              saveInto: {a!save(
+                ri!milestone[ri!index].is_active,
+                1
+              ),
+              a!save(
+                ri!milestone[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!milestone[ri!index].modified_on,
+                now()
+              )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          )
+        )
+      },
+      align: "CENTER"
+    ),
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        index(
+          ri!milestone[ri!index],
+          "milestone_id",
+          {}
+        )
+      ),
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        label: "",
+        showWhen: if(
+          or(
+            ri!isReadOnly = true()
+          ),
+          false(),
+          true()
+        ),
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            "REMOVE"
+          ),
+          link: #"SYSTEM_SYSRULES_dynamicLink"(
+            saveInto: {
+              a!save(
+                ri!milestone,
+                remove(
+                  ri!milestone,
+                  ri!index
+                )
+              )
+            }
+          )
+        )
+      ),
+      if(
+        ri!isReadOnly = true(),
+        {},
+        #"SYSTEM_SYSRULES_richTextDisplayField"()
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>milestone</name>
+            <type>
+                <name>EAP_T_DwfMilestone?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_435867"/>
+    </history>
+</contentHaul>

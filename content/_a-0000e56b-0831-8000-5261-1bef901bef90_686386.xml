@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e58b-f438-8000-5262-1bef901bef90_715737</versionUuid>
+    <rule>
+        <name>EAP_SetValueForBulkConfUploadTrans</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_686386</uuid>
+        <description>Hold Set  Value  for EAP_T_BulkConfUploadTrans</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!bulkConfUploadTrans),
+  null,
+
+  #"SYSTEM_SYSRULES_forEach"(
+    items: ri!bulkConfUploadTrans,
+    expression: 
+    'type!{urn:com:appian:types:eap}EAP_T_BulkConfUploadTrans'(
+      bulk_upload_trans_id:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!bulkUploadTransId
+        ),
+        ri!bulkConfUploadTrans[fv!index].bulk_upload_trans_id,
+        ri!bulkUploadTransId
+      ), 
+      bulk_upload_type: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!bulkUploadType
+        ),
+        ri!bulkConfUploadTrans[fv!index].bulk_upload_type,
+        ri!bulkUploadType
+      ), 
+      tran_status:if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!tranStatus
+        ),
+        ri!bulkConfUploadTrans[fv!index].tran_status,
+        ri!tranStatus
+      ),
+      uploaded_filename: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!uploadedFilename
+        ),
+        ri!bulkConfUploadTrans[fv!index].uploaded_filename,
+        ri!uploadedFilename
+      ),
+      appian_doc_id: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!appianDocId
+        ),
+        ri!bulkConfUploadTrans[fv!index].appian_doc_id,
+        ri!appianDocId
+      ),
+      total_record_count: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!totalRecordCount
+        ),
+
+        ri!bulkConfUploadTrans[fv!index].total_record_count,
+        ri!totalRecordCount
+      ),
+      success_count:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!successCount
+        ),
+
+        ri!bulkConfUploadTrans[fv!index].success_count,
+        ri!successCount
+
+      ),
+      failed_count: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!failedCount
+        ),
+        ri!bulkConfUploadTrans[fv!index].failed_count,
+        ri!failedCount
+      ),
+      remarks: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!remarks
+        ),
+        ri!bulkConfUploadTrans[fv!index].remarks,
+        ri!remarks
+      ),
+      created_by: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!createdBy
+        ),
+
+        ri!bulkConfUploadTrans[fv!index].created_by,
+        ri!createdBy
+      ),
+      created_on:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!createdOn
+        ),
+
+        ri!bulkConfUploadTrans[fv!index].created_on,
+        ri!createdOn
+
+      ),
+      updated_by: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!updatedBy
+        ),
+        ri!bulkConfUploadTrans[fv!index].updated_by,
+        ri!updatedBy
+      ),
+      updated_on: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!updatedOn
+        ),
+        ri!bulkConfUploadTrans[fv!index].updated_on,
+        ri!updatedOn
+      )
+    )
+  )
+)
+
+
+
+
+</definition>
+        <namedTypedValue>
+            <name>bulkUploadTransId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>bulkUploadType</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>tranStatus</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>uploadedFilename</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>appianDocId</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>totalRecordCount</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>successCount</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>failedCount</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>remarks</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>updatedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>updatedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>bulkConfUploadTrans</name>
+            <type>
+                <name>EAP_T_BulkConfUploadTrans?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_686397"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_715737"/>
+    </history>
+</contentHaul>

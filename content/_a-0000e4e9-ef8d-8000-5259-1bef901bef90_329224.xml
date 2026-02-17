@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_524556</versionUuid>
+    <interface>
+        <name>EAP_UIViewConfigSummaryDashboard_MasterFrom</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_329224</uuid>
+        <description>Additional summary dashboard for UI View Config</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!RunConfig: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_27579"(
+    processId: ri!processId
+  ),
+  local!activeStep: 1,
+  local!selectedTab:1,
+  {
+    /*rule!EAP_EUCConfigurationSteps(),*/
+    /*Heading*/
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: upper("UI View Configuration"),
+      divider: "ABOVE",
+      marginBelow: "NONE"
+    ),
+    /*Information Bar*/
+    /*a!cardLayout(*/
+      /*contents: {*/
+        /*a!columnsLayout(*/
+          /*columns: {*/
+            /*a!columnLayout(*/
+              /*contents: {*/
+                /*a!sideBySideLayout(*/
+                  /*items: {*/
+                    /*a!sideBySideItem(*/
+                      /*item: a!richTextDisplayField(*/
+                        /*value: {*/
+                          /*a!richTextIcon(*/
+                            /*icon: "list-alt",*/
+                            /*color: cons!EAP_COLORS[1],*/
+                            /*size: "LARGE"*/
+                          /*)*/
+                        /*}*/
+                      /*),*/
+                      /*width: "MINIMIZE"*/
+                    /*),*/
+                    /*a!sideBySideItem(*/
+                      /*item: a!richTextDisplayField(*/
+                        /*value: {*/
+                          /*a!richTextItem(*/
+                            /*text: "EUC Type" &amp; char(*/
+                              /*10*/
+                            /*),*/
+                            /*color: cons!EAP_COLORS[1],*/
+                            /*style: "STRONG"*/
+                          /*),*/
+                          /*a!richTextItem(*/
+                            /*text: "File Parsing"*/
+                          /*)*/
+                        /*}*/
+                      /*),*/
+                      /*width: "AUTO"*/
+                    /*)*/
+                  /*},*/
+                  /*alignVertical: "MIDDLE"*/
+                /*)*/
+              /*}*/
+            /*),*/
+            /*a!columnLayout(*/
+              /*contents: {*/
+                /*a!sideBySideLayout(*/
+                  /*items: {*/
+                    /*a!sideBySideItem(*/
+                      /*item: a!richTextDisplayField(*/
+                        /*value: {*/
+                          /*a!richTextIcon(*/
+                            /*icon: "language",*/
+                            /*color: cons!EAP_COLORS[1],*/
+                            /*size: "LARGE"*/
+                          /*)*/
+                        /*}*/
+                      /*),*/
+                      /*width: "MINIMIZE"*/
+                    /*),*/
+                    /*a!sideBySideItem(*/
+                      /*item: a!richTextDisplayField(*/
+                        /*value: {*/
+                          /*a!richTextItem(*/
+                            /*text: "Process Name",*/
+                            /*color: cons!EAP_COLORS[1],*/
+                            /*style: "STRONG"*/
+                          /*),*/
+                          /*char(*/
+                            /*10*/
+                          /*),*/
+                          /*a!richTextItem(*/
+                            /*text: index(*/
+                              /*local!RunConfig,*/
+                              /*"process_name",*/
+                              /*{}*/
+                            /*)*/
+                          /*)*/
+                        /*}*/
+                      /*),*/
+                      /*width: "AUTO"*/
+                    /*)*/
+                  /*},*/
+                  /*alignVertical: "MIDDLE"*/
+                /*)*/
+              /*}*/
+            /*),*/
+            /*a!columnLayout(*/
+              /*contents: {*/
+                /*a!sideBySideLayout(*/
+                  /*items: {*/
+                    /*a!sideBySideItem(*/
+                      /*item: a!richTextDisplayField(*/
+                        /*value: {*/
+                          /*a!richTextIcon(*/
+                            /*icon: "sun-o",*/
+                            /*color: cons!EAP_COLORS[1],*/
+                            /*size: "LARGE"*/
+                          /*)*/
+                        /*}*/
+                      /*),*/
+                      /*width: "MINIMIZE"*/
+                    /*),*/
+                    /*a!sideBySideItem(*/
+                      /*item: a!richTextDisplayField(*/
+                        /*value: {*/
+                          /*a!richTextItem(*/
+                            /*text: "Cluster Name",*/
+                            /*color: cons!EAP_COLORS[1],*/
+                            /*style: "STRONG"*/
+                          /*),*/
+                          /*char(*/
+                            /*10*/
+                          /*),*/
+                          /*a!richTextItem(*/
+                            /*text: index(*/
+                              /*local!RunConfig,*/
+                              /*"cluster_name",*/
+                              /*{}*/
+                            /*)*/
+                          /*)*/
+                        /*}*/
+                      /*),*/
+                      /*width: "AUTO"*/
+                    /*)*/
+                  /*},*/
+                  /*alignVertical: "MIDDLE"*/
+                /*)*/
+              /*}*/
+            /*),*/
+            /*a!columnLayout(*/
+              /*contents: {*/
+                /*a!sideBySideLayout(*/
+                  /*items: {*/
+                    /*a!sideBySideItem(*/
+                      /*item: a!richTextDisplayField(*/
+                        /*value: {*/
+                          /*a!richTextIcon(*/
+                            /*icon: "cogs",*/
+                            /*color: cons!EAP_COLORS[1],*/
+                            /*size: "LARGE"*/
+                          /*)*/
+                        /*}*/
+                      /*),*/
+                      /*width: "MINIMIZE"*/
+                    /*),*/
+                    /*a!sideBySideItem(*/
+                      /*item: a!richTextDisplayField(*/
+                        /*value: {*/
+                          /*a!richTextItem(*/
+                            /*text: "Sub Cluster",*/
+                            /*color: cons!EAP_COLORS[1],*/
+                            /*style: "STRONG"*/
+                          /*),*/
+                          /*char(*/
+                            /*10*/
+                          /*),*/
+                          /*a!richTextItem(*/
+                            /*text: index(*/
+                              /*local!RunConfig,*/
+                              /*"sub_cluster_name"*/
+                            /*)*/
+                          /*)*/
+                        /*}*/
+                      /*),*/
+                      /*width: "AUTO"*/
+                    /*)*/
+                  /*},*/
+                  /*alignVertical: "MIDDLE"*/
+                /*)*/
+              /*}*/
+            /*),*/
+            /*a!columnLayout(*/
+              /*contents: {*/
+                /*a!sideBySideLayout(*/
+                  /*items: {*/
+                    /*a!sideBySideItem(*/
+                      /*item: a!richTextDisplayField(*/
+                        /*value: {*/
+                          /*a!richTextIcon(*/
+                            /*icon: "user-circle-o",*/
+                            /*color: cons!EAP_COLORS[1],*/
+                            /*size: "LARGE"*/
+                          /*)*/
+                        /*}*/
+                      /*),*/
+                      /*width: "MINIMIZE"*/
+                    /*),*/
+                    /*a!sideBySideItem(*/
+                      /*item: a!richTextDisplayField(*/
+                        /*value: {*/
+                          /*a!richTextItem(*/
+                            /*text: "Assigned To",*/
+                            /*color: cons!EAP_COLORS[1],*/
+                            /*style: "STRONG"*/
+                          /*),*/
+                          /*char(*/
+                            /*10*/
+                          /*),*/
+                          /*a!richTextItem(*/
+                            /*text: rule!EAP_Utils_GetFullNameByUserName(*/
+                              /*loggedInUser()*/
+                            /*)*/
+                          /*)*/
+                        /*}*/
+                      /*),*/
+                      /*width: "AUTO"*/
+                    /*)*/
+                  /*},*/
+                  /*alignVertical: "MIDDLE"*/
+                /*)*/
+              /*}*/
+            /*)*/
+          /*},*/
+          /*marginBelow: "STANDARD"*/
+        /*)*/
+      /*},*/
+      /*style: "#D6DBDF",*/
+      /*height: "AUTO",*/
+      /*marginBelow: "STANDARD",*/
+      /*showBorder: false()*/
+    /*),*/
+    /*Tabs*/
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_310739"(
+      selectedTab: local!selectedTab,
+      activeStep: local!activeStep,
+      tabLabel: {
+        "Input Mapping",
+        "Output Mapping",
+        "Adjustment Mapping"
+      }
+    ),
+    choose(
+      local!selectedTab,
+      /*Input Contents*/
+      {
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_358230"(
+          processId:ri!processId,
+          isReadOnly: ri!isReadOnly,
+          activeStep:local!activeStep
+        )
+      },
+      /*Output Contents*/
+      {
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_358373"(
+          processId:ri!processId,
+          isReadOnly: ri!isReadOnly,
+          activeStep:local!activeStep
+        )
+      },
+      /*Adjustment Contents*/
+      {
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_358513"(
+          processId:ri!processId,
+          isReadOnly: ri!isReadOnly,
+          activeStep:local!activeStep
+        )
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">true</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:int">60</a:value>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_358603"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_524556"/>
+    </history>
+</contentHaul>

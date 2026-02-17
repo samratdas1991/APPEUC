@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<siteHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>3a821a2b-603d-4ed2-a2cb-13c860644cc6</versionUuid>
+  <site a:uuid="121ec4f1-dc03-4685-87d6-21c75257cab1" name="EAP Operations ">
+    <description>Site which holds all the operations dashboards for reporting</description>
+    <urlStub>eap-operations</urlStub>
+    <page a:uuid="66c1ab64-43be-302e-9484-20a55bc0da38">
+      <staticName>Scheduler View</staticName>
+      <urlStub>scheduler-view</urlStub>
+      <uiObject a:uuid="8921ce78-5c9b-4103-a281-3da5f1b5b9ea" xsi:type="a:TempoReport"/>
+      <iconId>f00b</iconId>
+      <visibilityExpr>#"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+  loggedInUser(),
+  group(#"_a-0000e56b-0831-8000-5261-1bef901bef90_659891","id")
+)</visibilityExpr>
+      <pageWidth>FULL</pageWidth>
+      <areUrlParamsEncrypted>true</areUrlParamsEncrypted>
+      <autoContextUpdateEnabled>false</autoContextUpdateEnabled>
+      <siteBrandingEnabled>true</siteBrandingEnabled>
+      <darkThemeEnabled>false</darkThemeEnabled>
+    </page>
+    <page a:uuid="5550fb0b-c9b4-370c-9860-5f34b49eabfe">
+      <staticName>Status Summary</staticName>
+      <urlStub>status-summary</urlStub>
+      <uiObject a:uuid="f87e06c0-3957-4b28-8c5a-60bd772b48c8" xsi:type="a:TempoReport"/>
+      <iconId>f022</iconId>
+      <visibilityExpr>#"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+  loggedInUser(),
+  group(#"_a-0000e56b-0831-8000-5261-1bef901bef90_659891","id")
+)</visibilityExpr>
+      <pageWidth>FULL</pageWidth>
+      <areUrlParamsEncrypted>true</areUrlParamsEncrypted>
+      <autoContextUpdateEnabled>false</autoContextUpdateEnabled>
+      <siteBrandingEnabled>true</siteBrandingEnabled>
+      <darkThemeEnabled>false</darkThemeEnabled>
+    </page>
+    <page a:uuid="60f93aea-ee9d-3b2b-8f46-5c6a8bb0af59">
+      <staticName>Status Milestone</staticName>
+      <urlStub>status-milestone</urlStub>
+      <uiObject a:uuid="14e28c7b-7a7f-4af0-bdce-0ef8de0a6875" xsi:type="a:TempoReport"/>
+      <iconId>f039</iconId>
+      <visibilityExpr>#"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+  loggedInUser(),
+  group(#"_a-0000e56b-0831-8000-5261-1bef901bef90_659891","id")
+)</visibilityExpr>
+      <pageWidth>FULL</pageWidth>
+      <areUrlParamsEncrypted>true</areUrlParamsEncrypted>
+      <autoContextUpdateEnabled>false</autoContextUpdateEnabled>
+      <siteBrandingEnabled>true</siteBrandingEnabled>
+      <darkThemeEnabled>false</darkThemeEnabled>
+    </page>
+    <page a:uuid="ee6771b7-5529-302d-8c4a-2d59fb2e67c8">
+      <staticName>Traceability Report</staticName>
+      <urlStub>traceability-report</urlStub>
+      <uiObject a:uuid="d2dbb4ed-0584-4c75-aefd-c082931d9029" xsi:type="a:TempoReport"/>
+      <iconId>f009</iconId>
+      <visibilityExpr>#"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+  loggedInUser(),
+  group(#"_a-0000e56b-0831-8000-5261-1bef901bef90_659891","id")
+)</visibilityExpr>
+      <pageWidth>FULL</pageWidth>
+      <areUrlParamsEncrypted>true</areUrlParamsEncrypted>
+      <autoContextUpdateEnabled>false</autoContextUpdateEnabled>
+      <siteBrandingEnabled>true</siteBrandingEnabled>
+      <darkThemeEnabled>false</darkThemeEnabled>
+    </page>
+    <visibility>268435456</visibility>
+    <faviconRef a:uuid="SYSTEM_CONTENT_SITES_DEFAULT_FAVICON" xsi:type="a:CollaborationDocument"/>
+    <logoRef a:uuid="SYSTEM_CONTENT_SITES_DEFAULT_LOGO" xsi:type="a:CollaborationDocument"/>
+    <showName>false</showName>
+    <tempoLinkVisibility>HIDDEN</tempoLinkVisibility>
+    <showRecordNews>true</showRecordNews>
+    <tasksInSitesVisibility>HIDDEN</tasksInSitesVisibility>
+    <buttonShape>SQUARED</buttonShape>
+    <navigationBarStyle>STYLE1</navigationBarStyle>
+    <inputShape>SQUARED</inputShape>
+    <isSystem>false</isSystem>
+    <displayName>EAP Operations </displayName>
+    <isStaticDisplayName>true</isStaticDisplayName>
+    <nameExprIsEvaluable>true</nameExprIsEvaluable>
+    <primaryNavLayoutType>TOPBAR</primaryNavLayoutType>
+    <buttonLabelCase>UPPERCASE</buttonLabelCase>
+    <dialogShape>SQUARED</dialogShape>
+    <pageNameCase>UPPERCASE</pageNameCase>
+    <showUserProfile>true</showUserProfile>
+    <showUserSettings>true</showUserSettings>
+  </site>
+  <roleMap>
+    <role name="site_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+        <groupUuid>_e-0000e56b-0831-8000-5261-1b1e941b1e94_351</groupUuid>
+      </groups>
+    </role>
+    <role name="site_viewer">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="f6d676a7-5c4b-4c71-96a7-122076d4add6"/>
+    <historyInfo versionUuid="c5f123ce-36a2-4819-abbf-9ad510f3b45c"/>
+    <historyInfo versionUuid="28c7f69f-fd0c-4104-ab65-5b2f28d32b4d"/>
+    <historyInfo versionUuid="3a821a2b-603d-4ed2-a2cb-13c860644cc6"/>
+  </history>
+</siteHaul>

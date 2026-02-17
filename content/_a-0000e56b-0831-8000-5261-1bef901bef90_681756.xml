@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_765297</versionUuid>
+    <rule>
+        <name>EAP_setInvokeDataParamForHistoricalData</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_681756</uuid>
+        <description>Hold rule to set invoke data</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_forEach"(
+  items: ri!uploadHistoricDataTemp,
+  expression: #"SYSTEM_SYSRULES_toJson_v1"(
+    'type!{urn:com:appian:types}EAP_Temp_HistoricalDataCallParam'(
+      processId: index(
+        fv!item,
+        "processId",
+        null
+      ),
+      requestId: index(
+        ri!requestDetails,
+        "requestId",
+        null
+      ),
+      appianDocumentId: index(
+        fv!item,
+        "appianDocumentId",
+        null
+      ),
+      month: if(
+        or(index(
+          fv!item,
+          "frequency",
+          null
+        ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[1],
+        index(
+          fv!item,
+          "frequency",
+          null
+        ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[3]
+        ),
+        "N/A",
+        index(
+          fv!item,
+          "month",
+          null
+        )
+      ),
+      year: if(
+        index(
+          fv!item,
+          "frequency",
+          null
+        ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[1],
+        "N/A",
+        index(
+          fv!item,
+          "year",
+          null
+        )
+      ),
+      action: index(
+        fv!item,
+        "action",
+        null
+      ),
+      entityMappingId: index(
+        fv!item,
+        "histEntityMappingId",
+        null
+      ),
+      parsingHistTransId: index(ri!historicalTrans,"parsing_hist_trans_id",null),
+      frequency: if(
+        index(
+          fv!item,
+          "frequency",
+          null
+        ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[1],
+        "daily",
+        if(
+          index(
+            fv!item,
+            "frequency",
+            null
+          ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[2],
+          "monthly",
+          "yearly"
+        )
+      ),
+      date: if(
+        or(
+          index(
+            fv!item,
+            "frequency",
+            null
+          ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[2],
+          index(
+            fv!item,
+            "frequency",
+            null
+          ) = #"_a-0000e56b-0831-8000-5261-1bef901bef90_661220"[3]
+        ),
+        "N/A",
+        datetext(
+          gmt(index(
+            fv!item,
+            "daily",
+            null
+          )),
+          "dd/MM/yyy"
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>uploadHistoricDataTemp</name>
+            <type>
+                <name>EAP_Temp_HistoricalDataUpload?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>historicalTrans</name>
+            <type>
+                <name>EAP_T_RefProcessHistTrans</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestDetails</name>
+            <type>
+                <name>EAP_T_ProcessRequest</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_684435"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_765297"/>
+    </history>
+</contentHaul>

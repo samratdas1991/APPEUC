@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_330148</versionUuid>
+    <interface>
+        <name>EAP_CreateMasterLookupForm</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_11421</uuid>
+        <description>Contains form to create new master lookup</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!addLabel,
+  local!category: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    pagingInfo: null,
+  ),
+  local!categoryGroup,
+  local!type,
+  local!isExisting: false,
+  {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_richTextDisplayField"(
+              value: {
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "COG",
+                  color: "SECONDARY",
+                  size: "MEDIUM"
+                ),
+                #"SYSTEM_SYSRULES_richTextItem_v1"(
+                  text: " Add Master Lookup",
+                  size: "MEDIUM",
+                  style: {
+                    "STRONG"
+                  }
+                )
+
+              },
+              align: "CENTER"
+            )
+          }
+        )
+      }
+
+    ),
+    #"SYSTEM_SYSRULES_richTextDisplayField"(),
+    #"SYSTEM_SYSRULES_cardLayout"(
+      contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items:{
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        label: "Do you want to choose existing category?"
+                        ),
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_288522"(
+                        choiceLabels: {"Yes", "No"},
+                        choiceValues: {true, false},
+                        choiceLayout: "COMPACT",
+                        value: local!isExisting,
+                        saveInto: {
+                          a!save(local!isExisting, save!value),
+                          a!save(local!categoryGroup, null)
+                        }
+                      )
+                      ,
+                      width: "2X"
+                    )
+                  }
+                )
+                
+
+              }
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                if(
+                  toboolean(local!isExisting)=true,
+                #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                  label: "Category Group",
+                  labelPosition: "JUSTIFIED",
+                  placeholderLabel: "--Select Category Group--",
+                  choiceLabels: union(
+                    touniformstring(index(local!category, "category_group", {})),
+                    touniformstring(index(local!category, "category_group", {}))
+                    ),
+                  /*cons!EAP_REF_MASTER_CATEGORY_GROUP,*/
+                    choiceValues: union(
+                      touniformstring(index(local!category, "category_group", {})),
+                      touniformstring(index(local!category, "category_group", {}))
+                    ),
+                  /*cons!EAP_REF_MASTER_CATEGORY_GROUP,*/
+                  value: local!categoryGroup,
+                  saveInto: a!save(
+                    local!categoryGroup,
+                    save!Value
+                  ),
+                  required: true(),
+                ),
+                #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+                  label: "Category Group",
+                  placeholder:"--Enter Category Group--",
+                  labelPosition: "JUSTIFIED",
+                  value: trim(local!categoryGroup),
+                  saveInto: a!save(
+                    local!categoryGroup,
+                    trim(save!Value)
+                  ),
+                  required: true(),
+                  validations: if(
+                    or(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!categoryGroup),
+                    ),
+                    {},
+                    if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+                          categoryGroup: local!categoryGroup,
+                        )
+                      ),
+                      {},
+                      "Category group already exist!"
+                    )
+                  )
+                )
+                )
+
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"()
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+                  label: "Name",
+                  placeholder:"--Enter Name--",
+                  labelPosition: "JUSTIFIED",
+                  value: trim(local!type),
+                  saveInto: a!save(
+                    local!type,
+                    trim(save!Value)
+                  ),
+                  required: true(),
+                  validations: if(
+                    or(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!type)
+                    ),
+                    {},
+                    if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+                          type: local!type
+                        )
+                      ),
+                      {},
+                      "Type already exist!"
+                    )
+                  )
+                )
+              }
+            ),
+
+            #"SYSTEM_SYSRULES_columnLayout"()
+          }
+        ),
+        #"SYSTEM_SYSRULES_gridLayout"(
+          headerCells: {
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "Label",
+              align: "LEFT"
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "Code",
+              align: "LEFT"
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "Sort Number",
+              align: "RIGHT"
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              showWhen: count(ri!addNewMasterLookUpkey)&gt;1
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              showWhen: count(ri!addNewMasterLookUpkey)&gt;1
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              showWhen: count(ri!addNewMasterLookUpkey)&gt;1
+            )
+          },
+          columnConfigs: {
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE",
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE",
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE",
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "ICON",
+              showWhen: count(ri!addNewMasterLookUpkey)&gt;1
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "ICON",
+              showWhen: count(ri!addNewMasterLookUpkey)&gt;1
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "ICON",
+              showWhen: count(ri!addNewMasterLookUpkey)&gt;1
+            )
+          },
+          spacing: "DENSE",
+          rows: #"SYSTEM_SYSRULES_forEach"(
+            items: ri!addNewMasterLookUpkey,
+            expression: #"SYSTEM_SYSRULES_gridRowLayout"(
+              contents: {
+                /*label*/
+                 #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+                  value: index(
+                    fv!item,
+                    "label",
+                    {}
+                  ),
+                  saveInto: a!save(
+                    fv!item.label,
+                    trim(
+                      save!value
+                    )
+                  ),
+                  validations: if(
+                    count(
+                      wherecontains(
+                        touniformstring(fv!item.label),
+                        touniformstring(index(ri!addNewMasterLookUpkey, "label", {}))
+                      )
+                    )&gt;1,
+                    "Duplicate labels!",
+                    {}
+                  ),
+                  required: true()
+                ),
+                /*Code*/
+                #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+                  value: index(
+                    fv!item,
+                    "code",
+                    {}
+                  ),
+                  saveInto: {
+                    a!save(
+                      fv!item.code,
+                      trim(
+                        save!value
+                      )
+                    )
+                  },
+                  validations: if(
+                    count(
+                      wherecontains(
+                        touniformstring(fv!item.code),
+                        touniformstring(index(ri!addNewMasterLookUpkey, "code", {}))
+                      )
+                    )&gt;1,
+                    "Duplicate Codes!",
+                    {}
+                  ),
+                  required: true(),
+                  align: "LEFT"
+                ),
+                /*sort number*/
+                #"SYSTEM_SYSRULES_integerField"(
+                  value: fv!item.sort_order,
+                  saveInto: a!save(
+                    fv!item.sort_order,
+                    save!value
+                  ),
+                  readOnly:  true(),
+                  align: "RIGHT"
+                ),
+                /*image field*/
+                #"SYSTEM_SYSRULES_imageField_v1"(
+                  label: "Up ",
+                  images: if(
+                    fv!index=1,
+                    {},
+                    #"SYSTEM_SYSRULES_documentImage"(
+                      document: #"SYSTEM_SYSRULES_iconIndicator"(
+                        icon: "MOVE_UP"
+                      ),
+                      link: #"SYSTEM_SYSRULES_dynamicLink"(
+                        value: fv!index,
+                        saveInto: {
+                          a!save(
+                            local!addLabel,
+                            ri!addNewMasterLookUpkey[fv!index-1]
+                          ),
+                          a!save(
+                            ri!addNewMasterLookUpkey[fv!index-1],
+                            fv!item
+                          ),
+                          a!save(
+                            ri!addNewMasterLookUpkey[fv!index],
+                            local!addLabel
+                          ),
+                          #"SYSTEM_SYSRULES_forEach"(
+                            items: enumerate(
+                              count(ri!addNewMasterLookUpkey)
+                            )+1,
+                            expression: {
+                              a!save(
+                                ri!addNewMasterLookUpkey[fv!item].sort_order,
+                                fv!item
+                              )
+                            }
+                          )
+                        }
+                      )
+                    )
+                  ),
+                  size: "ICON",
+                  showWhen: count(ri!addNewMasterLookUpkey)&gt;1
+                ),
+                #"SYSTEM_SYSRULES_imageField_v1"(
+                  label: "Down ",
+                  images: if(
+                    fv!index=count(ri!addNewMasterLookUpkey),
+                    {},
+                    #"SYSTEM_SYSRULES_documentImage"(
+                      document: #"SYSTEM_SYSRULES_iconIndicator"(
+                        icon: "MOVE_DOWN"
+                      ),
+                      link: #"SYSTEM_SYSRULES_dynamicLink"(
+                        value: fv!index,
+                        saveInto: {
+                          a!save(
+                            local!addLabel,
+                            ri!addNewMasterLookUpkey[fv!index+1]
+                          ),
+                          a!save(
+                            ri!addNewMasterLookUpkey[fv!index+1],
+                            fv!item
+                          ),
+                          a!save(
+                            ri!addNewMasterLookUpkey[fv!index],
+                            local!addLabel
+                          ),
+                          #"SYSTEM_SYSRULES_forEach"(
+                            items: enumerate(
+                              count(ri!addNewMasterLookUpkey)
+                            )+1,
+                            expression: {
+                              a!save(
+                                ri!addNewMasterLookUpkey[fv!item].sort_order,
+                                fv!item
+                              )
+                            }
+                          )
+                        }
+                      )
+
+                    )
+                  ),
+                  size: "ICON",
+                  showWhen: count(ri!addNewMasterLookUpkey)&gt;1
+                ),
+                #"SYSTEM_SYSRULES_imageField_v1"(
+                  label: "delete ",
+                  images: #"SYSTEM_SYSRULES_documentImage"(
+                    document: #"SYSTEM_SYSRULES_iconIndicator"(
+                      "REMOVE"
+                    ),
+                    altText: "Remove Document",
+                    caption: "Remove",
+                    link: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!index,
+                      saveInto: {
+                        #"SYSTEM_SYSRULES_deleteFromDataStoreEntities"(
+                          dataToDelete: #"SYSTEM_SYSRULES_entityDataIdentifiers"(
+                            entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7839",
+                            identifiers: index(
+                              fv!item,
+                              "reference_data_id",
+                              {}
+                            )
+                          )
+                        ),
+                        a!save(
+                          ri!addNewMasterLookUpkey,
+                          remove(
+                            ri!addNewMasterLookUpkey,
+                            save!value
+                          )
+                        ),
+                        #"SYSTEM_SYSRULES_forEach"(
+                          items: enumerate(
+                            count(ri!addNewMasterLookUpkey)
+                          )+1,
+                          expression: {
+                            a!save(
+                              ri!addNewMasterLookUpkey[fv!item].sort_order,
+                              fv!item
+                            )
+                          }
+                        )
+                      }
+                    )
+                  ),
+                  size: "ICON",
+                  showWhen: count(ri!addNewMasterLookUpkey)&gt;1
+                )
+              }
+            )
+          ),
+          addRowLink: #"SYSTEM_SYSRULES_dynamicLink"(
+            label: "Add Master Lookup Values",
+            value: 'type!{urn:com:appian:types:eap}EAP_T_RefMaster'(
+              category_group:  local!categoryGroup,
+              type:  local!type,
+              is_active:  true,
+              created_by:  loggedInUser(),
+              created_on:  now(),
+              modified_by:  loggedInUser(),
+              modified_on:  now(),
+              sort_order: count(ri!addNewMasterLookUpkey)+1
+            ),
+            saveInto: {
+              a!save(
+                ri!addNewMasterLookUpkey,
+                append(
+                  ri!addNewMasterLookUpkey,
+                  save!value
+                )
+              )
+            }
+          ),
+          validations: if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              ri!addNewMasterLookUpkey
+            ),
+            "Please Add Labels",
+            {}
+          ),
+        
+        ),
+        #"SYSTEM_SYSRULES_ButtonLayout"(
+          primaryButtons: {
+            #"SYSTEM_SYSRULES_ButtonWidget"(
+              label: "Save",
+              submit:true(),
+              value:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[4],
+              saveInto:{
+                ri!buttonAction,
+              a!save(
+                ri!addNewMasterLookUpkey,
+                #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7978"(
+                refMaster: ri!addNewMasterLookUpkey,
+                categoryGroup: local!categoryGroup,
+                type: local!type
+              )
+              )
+              /*a!writeToDataStoreEntity(*/
+                /*dataStoreEntity:cons!EAP_DE_REF_MASTER,*/
+                /*valueToStore: ri!addNewMasterLookUpkey,*/
+                /*onSuccess:a!save(ri!addNewMasterLookUpkey,fv!storedValues)*/
+              /*)*/
+              
+
+              },
+              style:"PRIMARY",
+              validate:true()
+            )
+          },
+          secondaryButtons: {
+            #"SYSTEM_SYSRULES_ButtonWidget"(
+              label: "Cancel",
+              submit:true(),
+              value:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+              saveInto:ri!buttonAction,
+              style:"DESTRUCTIVE",
+              validate: false()
+            )
+          }
+        )
+      },
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>addNewMasterLookUpkey</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_61064"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_122264"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_183941"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_330148"/>
+    </history>
+</contentHaul>

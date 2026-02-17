@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_468762</versionUuid>
+    <rule>
+        <name>EAP_ProcessSheetTransposeGridRowLayout</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_10222</uuid>
+        <description>Holds grid row layout for process sheet transpose editable grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  contents: {
+    /*Entity Column Name*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: true(),
+        required: true(),
+        value: index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "entity_column_name",
+          {}
+        ),
+        
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select Entity Column--",
+        choiceLabels: ri!entityColumns,
+        choiceValues: ri!entityColumns,
+        value: if(
+          #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+            value: index(
+              ri!refProcessSheetTransposeConfig[ri!index],
+              "entity_column_name",
+              {}
+            ),
+            choiceValue: ri!entityColumns
+          ),
+          index(
+            ri!refProcessSheetTransposeConfig[ri!index],
+            "entity_column_name",
+            {}
+          ),
+          null
+        ),
+        saveInto: a!save(
+          ri!refProcessSheetTransposeConfig[ri!index].entity_column_name,
+          save!value
+        ),
+        required: true()
+      )
+    ),
+    /*Transpose type*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "transpose_type",
+          {}
+        )
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "-- Select Transpose Type --",
+        choiceLabels: ri!transposeTypeLabel,
+        choiceValues: ri!transposeTypeValue,
+        value: if(
+          contains(
+            ri!transposeTypeValue,
+            index(
+              ri!refProcessSheetTransposeConfig[ri!index],
+              "transpose_type",
+              {}
+            )
+          ),
+          index(
+            ri!refProcessSheetTransposeConfig[ri!index],
+            "transpose_type",
+            {}
+          ),
+          null/*rule!EAP_Utils_CheckIsNull(*/
+          /*index(*/
+          /*ri!refProcessSheetTransposeConfig[ri!index],*/
+          /*"transpose_type",*/
+          /*{}*/
+          /*)*/
+          /*),*/
+          /*NULL,*/
+          
+        ),
+        saveInto: {
+          ri!refProcessSheetTransposeConfig[ri!index].transpose_type,
+          a!save(
+            ri!refProcessSheetTransposeConfig.created_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!refProcessSheetTransposeConfig.modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!refProcessSheetTransposeConfig.created_on,
+            now()
+          ),
+          a!save(
+            ri!refProcessSheetTransposeConfig.modified_on,
+            now()
+          )
+        },
+        choiceLayout: "COMPACT",
+        required: true()
+      )
+    ),
+    /*Delimiter*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "delimiter",
+          {}
+        ),
+        
+      ),
+      /*Delimiter*/
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select Delimiter--",
+        choiceLabels: ri!delimiterLabel,
+        choiceValues:ri!delimiterValue,
+        value: if(
+          contains(
+            ri!delimiterValue,
+            tostring(
+              index(
+                ri!refProcessSheetTransposeConfig[ri!index],
+                "delimiter",
+                {}
+              )
+            )
+          ),
+          index(
+            ri!refProcessSheetTransposeConfig[ri!index],
+            "delimiter",
+            {}
+          ),
+          null
+        ),
+        saveInto: ri!refProcessSheetTransposeConfig[ri!index].delimiter,
+        required: if(
+          tostring(
+            index(
+              ri!refProcessSheetTransposeConfig,
+              "parsing_type",
+              {}
+            )
+          ) = tostring(
+            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_182164"[2]
+          ),
+          true(),
+          false()
+        )
+      )
+    ),
+    /*start_cell_position*/
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      readOnly: ri!isReadOnly,
+      value: index(
+        ri!refProcessSheetTransposeConfig[ri!index],
+        "start_cell_position",
+        {}
+      ),
+      saveInto: ri!refProcessSheetTransposeConfig[ri!index].start_cell_position,
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            value: index(
+              ri!refProcessSheetTransposeConfig[ri!index],
+              "start_cell_position",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[3]
+          )
+        )
+      }
+    ),
+    /*start_cell_value*/
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      readOnly: ri!isReadOnly,
+      value: index(
+        ri!refProcessSheetTransposeConfig[ri!index],
+        "start_cell_value",
+        {}
+      ),
+      saveInto: ri!refProcessSheetTransposeConfig[ri!index].start_cell_value,
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            value: index(
+              ri!refProcessSheetTransposeConfig[ri!index],
+              "start_cell_value",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[4]
+          )
+        )
+      }
+    ),
+    /*end_cell_position*/
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      readOnly: ri!isReadOnly,
+      value: index(
+        ri!refProcessSheetTransposeConfig[ri!index],
+        "end_cell_position",
+        {}
+      ),
+      saveInto: ri!refProcessSheetTransposeConfig[ri!index].end_cell_position,
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            value: index(
+              ri!refProcessSheetTransposeConfig[ri!index],
+              "end_cell_position",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[3]
+          )
+        )
+      }
+    ),
+    /*end_cell_value*/
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      readOnly: ri!isReadOnly,
+      value: index(
+        ri!refProcessSheetTransposeConfig[ri!index],
+        "end_cell_value",
+        {}
+      ),
+      saveInto: ri!refProcessSheetTransposeConfig[ri!index].end_cell_value,
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            value: index(
+              ri!refProcessSheetTransposeConfig[ri!index],
+              "end_cell_value",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[4]
+          )
+        )
+      }
+    ),
+    /*empty_row_strategy*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "empty_row_strategy",
+          {}
+        ),
+        
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select Empty Row Strategy--",
+        choiceLabels:  ri!emptyRowLabel,
+        choiceValues: ri!emptyRowValue,
+        value: if(
+          contains(
+            ri!emptyRowValue,
+            tostring(
+              index(
+                ri!refProcessSheetTransposeConfig[ri!index],
+                "empty_row_strategy",
+                {}
+              )
+            )
+          ),
+          index(
+            ri!refProcessSheetTransposeConfig[ri!index],
+            "empty_row_strategy",
+            {}
+          ),
+          null
+        ),
+        saveInto: ri!refProcessSheetTransposeConfig[ri!index].empty_row_strategy
+      )
+    ),
+    /*parsing type*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "parsing_type",
+          {}
+        )
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "--Select Parsing Type--",
+        choiceLabels: ri!parsingLabel,
+        choiceValues:ri!parsingValue,
+        value: if(
+          contains(
+            ri!parsingValue,
+            index(
+              ri!refProcessSheetTransposeConfig[ri!index],
+              "parsing_type",
+              {}
+            )
+          ),
+          index(
+            ri!refProcessSheetTransposeConfig[ri!index],
+            "parsing_type",
+            {}
+          ),
+          null
+        ),
+        saveInto: {
+          a!save(
+          ri!refProcessSheetTransposeConfig[ri!index].parsing_type,
+          save!value
+        ),
+        a!save(
+            ri!refProcessSheetTransposeConfig[ri!index].parsing_format,
+            null
+        )
+        },
+        required: if(
+          or(
+            ri!isReadOnly
+          ),
+          false(),
+          true()
+        )
+      )
+    ),
+    /* element_index */
+    #"SYSTEM_SYSRULES_integerField"(
+      readOnly: ri!isReadOnly,
+      value: index(
+        ri!refProcessSheetTransposeConfig[ri!index],
+        "element_index",
+        {}
+      ),
+      required: if(
+        or(
+          ri!isReadOnly
+        ),
+        false(),
+        if(
+          tostring(
+            index(
+              ri!refProcessSheetTransposeConfig,
+              "parsing_type",
+              {}
+            )
+          ) = tostring(
+            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_182164"[2]
+          ),
+          true(),
+          false()
+        )
+      ),
+      saveInto: ri!refProcessSheetTransposeConfig[ri!index].element_index,
+      align: "RIGHT",
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          if(
+            tointeger(
+              index(
+                ri!refProcessSheetTransposeConfig[ri!index],
+                "element_index",
+                {}
+              )
+            ) &lt; 1,
+            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_195977"[3],
+            {},
+            
+          )
+        )
+      }
+    ),
+    /*parsing format*/
+    if(
+      ri!isReadOnly,
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "parsing_format",
+          {}
+        ),
+        
+      ),
+      if(
+        index(
+          ri!refProcessSheetTransposeConfig[ri!index],
+          "parsing_type",
+          {}
+        ) = #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_108148"[16],
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+          placeholderLabel: "-- Select Parsing Format --",
+          choiceLabels: ri!parsingFormatLabel,
+          choiceValues: ri!parsingFormatValue,
+          value: if(
+            contains(
+              ri!parsingFormatValue,
+              index(
+                ri!refProcessSheetTransposeConfig[ri!index],
+                "parsing_format",
+                {}
+              )
+            ),
+            index(
+              ri!refProcessSheetTransposeConfig[ri!index],
+              "parsing_format",
+              {}
+            ),
+            null
+          ),
+          saveInto: ri!refProcessSheetTransposeConfig[ri!index].parsing_format,
+          choiceLayout: "COMPACT",
+          /*required:if(*/
+          /*tostring(index(ri!refProcessSheetTransposeConfig,"parsing_type",{}))=tostring(*/
+          /*cons!EAP_PARSING_CATEGORY_TYPE_VALUES[1]*/
+          /*),*/
+          /*true(),*/
+          /*false()*/
+          /*)*/
+
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          value: index(
+            ri!refProcessSheetTransposeConfig[ri!index],
+            "parsing_format",
+            {}
+          ),
+          saveInto: ri!refProcessSheetTransposeConfig[ri!index].parsing_format,
+          readOnly: ri!isReadOnly
+        )
+      )
+    ),
+    /*rule!EAP_SA_GenericTextField(*/
+    /*readOnly: ri!isReadOnly,*/
+    /*value: index(*/
+    /*ri!refProcessSheetTransposeConfig[ri!index],*/
+    /*"parsing_format",*/
+    /*{}*/
+    /*),*/
+    /*saveInto: ri!refProcessSheetTransposeConfig[ri!index].parsing_format,*/
+    /*),*/
+    /*Is active*/
+    if(
+      ri!isReadOnly,
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        images: {
+          #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(
+                contains(
+                  toboolean(
+                    index(
+                      ri!refProcessSheetTransposeConfig[ri!index],
+                      "is_active",
+                      {}
+                    )
+                  ),
+                  true()
+                ),
+                "STATUS_OK",
+                "STATUS_NOTDONE"
+              )
+            )
+          )
+        },
+        align: "CENTER"
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: if(
+          or(
+            tointeger(
+              index(
+                ri!refProcessSheetTransposeConfig[ri!index],
+                "is_active",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!refProcessSheetTransposeConfig[ri!index].is_active,
+                  0
+                )
+              },
+              showWhen: not(
+                ri!isReadOnly
+              )
+            ),
+            size: "MEDIUM_PLUS"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-off",
+            caption: "No",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!refProcessSheetTransposeConfig[ri!index].is_active,
+                  1
+                )
+              },
+              showWhen: not(
+                ri!isReadOnly
+              )
+            ),
+            size: "MEDIUM_PLUS"
+          )
+        ),
+        align: "CENTER"
+      )
+    ),
+    /*Delete*/
+    if(
+      ri!isReadOnly,
+      {},
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+          ri!refProcessSheetTransposeConfig[ri!index].sheet_transpose_config_id
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          showWhen: if(
+            or(
+              ri!isReadOnly = true()
+            ),
+            false(),
+            true()
+          ),
+          label: "Delete ",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            altText: "Remove Document",
+            caption: "Remove",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              value: ri!index,
+              saveInto: {
+                a!save(
+                  ri!refProcessSheetTransposeConfig,
+                  remove(
+                    ri!refProcessSheetTransposeConfig,
+                    save!value
+                  )
+                )
+              }
+            )
+          ),
+          size: "ICON"
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          readOnly: true()
+        )
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessSheetTransposeConfig</name>
+            <type>
+                <name>EAP_T_RefProcessSheetTransposeConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetFieldMapping</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fileEntityMapping</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityColumns</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>transposeTypeLabel</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>transposeTypeValue</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>delimiterLabel</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>delimiterValue</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>emptyRowLabel</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>emptyRowValue</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>parsingLabel</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>parsingValue</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>parsingFormatLabel</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>parsingFormatValue</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_73643"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_131291"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_175987"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_187817"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_212195"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_301855"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_369384"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_402534"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_468762"/>
+    </history>
+</contentHaul>

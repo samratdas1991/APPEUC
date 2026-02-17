@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_418039</versionUuid>
+    <interface>
+        <name>EAP_LinkEucMappingReadOnlyGrid</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_417969</uuid>
+        <description>Holds read only grid for link euc mapping</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!data: #"_a-0000e505-ae05-8000-525c-1bef901bef90_417610"(
+    isActive: true()
+  ),
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(          
+    contents: {
+      /*a!paragraphField(value: local!data),*/
+      #"SYSTEM_SYSRULES_gridField_v1"(
+        data: local!data,
+        columns: {
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Sr. No.",
+            sortField: "link_mapping_id",
+            value: concat("Step: ",fv!identifier)
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Process Name",
+            sortField: "process_id",
+            value: fv!row.process_id
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Process Display Name",
+            sortField: "run_config_id",
+            value: fv!row.run_config_id
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Sequence Order",
+            sortField: "sequence_order",
+            value: fv!row.sequence_order
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Is Active",
+            sortField :"is_active",
+            value:  #"SYSTEM_SYSRULES_imageField_v1"(
+              images: {
+                #"SYSTEM_SYSRULES_documentImage"(
+                  document: #"SYSTEM_SYSRULES_iconIndicator"(
+                    icon: if(
+                      contains(
+                        toboolean(
+                          index(fv!row, "is_active", {})
+                        ),
+                        true()
+                      ),
+                      "STATUS_OK",
+                      "STATUS_NOTDONE"
+                    )
+                  ),
+                  caption: if(
+                    contains(
+                      toboolean(
+                        index(fv!row, "is_active", {})
+                      ),
+                      true()
+                    ),
+                    "Active",
+                    "In-Active"
+                  )
+                )
+              }
+            ),
+            align: "CENTER"
+          )
+
+
+        },
+        pageSize: 10
+      ),
+    }
+  )
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_418039"/>
+    </history>
+</contentHaul>

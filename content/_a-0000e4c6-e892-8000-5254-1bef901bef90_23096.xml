@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e539-32f0-8000-d91d-a7ef90a7ef90_3624452</versionUuid>
+    <rule>
+        <name>EAP_QE_ProcessIntTrans</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_23096</uuid>
+        <description>QE for CDT EAP_PROCESS_INTI_TRANS</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!dataSubSet: #"SYSTEM_SYSRULES_queryEntity_v1"(
+    fetchTotalCount: true(),
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65056",
+    query: #"SYSTEM_SYSRULES_query"(
+      selection: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!columns
+        ),
+        {},
+        #"SYSTEM_SYSRULES_querySelection"(
+          columns: #"SYSTEM_SYSRULES_forEach"(
+            items: ri!columns,
+            expression: #"SYSTEM_SYSRULES_queryColumn"(
+              field: fv!item
+            )
+          )
+        )
+      ),
+      logicalExpression: #"SYSTEM_SYSRULES_queryLogicalExpression"(
+        operator: "AND",
+        filters: {
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "requestId",
+            operator: "=",
+            value: ri!requestId,
+            applyWhen: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9906"(
+              ri!requestId
+            )
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "configId",
+            operator: "=",
+            value: ri!configId,
+            applyWhen: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9906"(
+              ri!configId
+            )
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "transactionId",
+            operator: "IN",
+            value: ri!transactionId,
+            applyWhen: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9906"(
+              ri!transactionId
+            )
+          )
+        }
+      ),
+      pagingInfo: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!pagingInfo
+        ),
+        #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: 1,
+          batchSize: - 1,
+          sort: #"SYSTEM_SYSRULES_sortInfo"(
+            field: "transactionId",
+            ascending: true()
+          )
+        ),
+        ri!pagingInfo
+      )
+    )
+  ),
+  if(
+    ri!returnDataSubset,
+    local!dataSubSet,
+    cast(
+      typeof(
+        {
+          'type!{urn:com:appian:types:EAP}EAP_T_ProcessIntTrans'()
+        }
+      ),
+      {
+        local!dataSubSet.data
+      }
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>columns</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>userId</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>returnDataSubset</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>configId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>transactionId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_82705"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_85990"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_220634"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_519378"/>
+        <historyInfo versionUuid="_a-0000e539-32f0-8000-d91d-a7ef90a7ef90_3624452"/>
+    </history>
+</contentHaul>

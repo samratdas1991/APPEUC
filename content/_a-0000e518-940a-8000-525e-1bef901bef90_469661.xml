@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e595-3324-8000-5263-1bef901bef90_734591</versionUuid>
+    <interface>
+        <name>EAP_LinkEucTransMappingReadOnlyGrid</name>
+        <uuid>_a-0000e518-940a-8000-525e-1bef901bef90_469661</uuid>
+        <description>Hold read only grid for link euc trans mapping</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!data:if(
+    isnull(ri!linkTransId),
+    {},
+    #"_a-0000e505-ae05-8000-525c-1bef901bef90_417868"(
+      linkTransId:ri!linkTransId
+    ) 
+  )
+  ,
+  {
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      value:#"SYSTEM_SYSRULES_richTextItem_v1"(
+        text:"Linked EUC Transaction Mapping",
+        style:"STRONG",
+        size:"MEDIUM",
+        color:"ACCENT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridField_v1"(
+      data:local!data,
+      columns: {
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label:"Request Id",
+          value:fv!row.request_id
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label:"Record Link",
+          value:#"SYSTEM_SYSRULES_richTextDisplayField"(
+            align: "CENTER",
+            value:{
+
+              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                text:"Click here to visit the record for RequestId - " &amp; 
+                fv!row.request_id
+                ,
+                link:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_350812"(
+                  label:"",
+                  identifier: fv!row.request_id,
+                  recordType: #"_a-0000e595-3324-8000-5263-1bef901bef90_734513",
+                  siteUrl:#"_a-0000e595-3324-8000-5263-1bef901bef90_734573",
+                  showWhen:true()
+                )
+
+              )
+            }
+          ),
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label:"Process Name",
+          value:index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+            processId:fv!row.process_id
+          ),"name",{})
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label:"Run Config",
+          value:index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+            runConfigId:fv!row.run_config_id
+          ) ,"process_display_name",{})
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label:"Created By",
+          value:#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251824"(fv!row.created_by)
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label:"Created On",
+          value:todate(fv!row.created_on),
+          align:"END"
+        )
+
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>linkTransId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_472536"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_523875"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_529515"/>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_734591"/>
+    </history>
+</contentHaul>

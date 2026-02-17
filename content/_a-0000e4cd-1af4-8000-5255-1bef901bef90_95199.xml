@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_99754</versionUuid>
+    <interface>
+        <name>EAP_RunConfig_Calendar</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_95199</uuid>
+        <description>Rule to display calendar</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!country,
+  local!viewCal,
+  local!Region,
+  
+  local!todaySymbol: "◈",
+  local!BusySymbol: "◈",
+  local!viewType: "month",
+  local!Holiday: "Independence Day",
+  local!Hdate: today()+32,
+  local!daysInAWeek: 7,
+  local!today: today(),
+  /** Generate calendar data **/
+  local!day: day(
+    local!today
+  ),
+  local!month: month(
+    local!today
+  ),
+  local!year: year(
+    local!today
+  ),
+  /** Create initial array of days **/
+  local!numOfDaysInMonth: daysinmonth(
+    local!month,
+    local!year
+  ),
+  local!arrayOfDatesWithMonth: #"SYSTEM_SYSRULES_forEach"(
+    items: enumerate(
+      local!numOfDaysInMonth
+    ) + 1,
+    expression: date(
+      local!year,
+      local!month,
+      fv!item
+    )
+  ),
+  /** Preappend array with last month's days **/
+  local!firstDayOfMonth: date(
+    local!year,
+    local!month,
+    1
+  ),
+  local!numOfDaysToPrepend: weekday(
+    local!firstDayOfMonth
+  ) - 1,
+  local!lastDayOfMonth: date(
+    local!year,
+    local!month,
+    local!numOfDaysInMonth
+  ),
+  local!previousMonthYear: eomonth(
+    local!today,
+    - 1
+  ),
+  local!numOfDaysInPrevMonth: daysinmonth(
+    month(
+      local!previousMonthYear
+    ),
+    year(
+      local!previousMonthYear
+    )
+  ),
+  local!datesToPrepend: if(
+    local!numOfDaysToPrepend = 0,
+    {},
+    #"SYSTEM_SYSRULES_forEach"(
+      items: index(
+        reverse(
+          enumerate(
+            local!numOfDaysInPrevMonth
+          ) + 1
+        ),
+        {
+          enumerate(
+            local!numOfDaysToPrepend
+          ) + 1
+        },
+        {}
+      ),
+      expression: date(
+        year(
+          local!previousMonthYear
+        ),
+        month(
+          local!previousMonthYear
+        ),
+        fv!item
+      )
+    )
+  ),
+  local!arrayWithPrependedDates: reduce(
+    fn!insert,
+    local!arrayOfDatesWithMonth,
+    local!datesToPrepend,
+    1
+  ),
+  /** Append array with next month's days **/
+  local!monthEndDayOfWeek: weekday(
+    date(
+      local!year,
+      local!month,
+      local!numOfDaysInMonth
+    )
+  ),
+  local!numOfDaysToAppend: local!daysInAWeek - local!monthEndDayOfWeek,
+  local!nextMonth: local!firstDayOfMonth + local!numOfDaysInMonth,
+  local!datesToAppend: if(
+    local!numOfDaysToAppend = 0,
+    {},
+    #"SYSTEM_SYSRULES_forEach"(
+      items: enumerate(
+        local!numOfDaystoAppend
+      ) + 1,
+      expression: date(
+        year(
+          local!nextMonth
+        ),
+        month(
+          local!nextMonth
+        ),
+        fv!item
+      )
+    )
+  ),
+  local!arrayWithAppendedDates: reduce(
+    fn!append,
+    local!arrayWithPrependedDates,
+    local!datesToAppend
+  ),
+  local!numOfWeeks: length(
+    local!arrayWithAppendedDates
+  ) / local!daysInAWeek,
+  local!days: {
+    "SUN",
+    "MON",
+    "TUES",
+    "WED",
+    "THU",
+    "FRI",
+    "SAT"
+  },
+  local!rowDays: #"SYSTEM_SYSRULES_forEach"(
+    items: enumerate(
+      local!numOfWeeks
+    ) + 1,
+    expression: if(
+      fv!isFirst,
+      index(
+        local!arrayWithAppendedDates,
+        enumerate(
+          local!daysInAWeek
+        ) + 1
+      ),
+      index(
+        local!arrayWithAppendedDates,
+        enumerate(
+          local!daysInAWeek
+        ) + 7 * (
+          fv!index - 1
+        ) + 1
+      )
+    )
+  ),
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: "View Calander",
+      contents: {}
+    ),
+    
+    #"SYSTEM_SYSRULES_cardLayout"(
+      contents: {
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_95796"(
+          today: local!today,
+          todaySymbol: local!todaySymbol,
+          viewType: local!viewType,
+          ResetSelectedDate: ri!SelectedDate,
+          country:local!country,
+          region: local!Region
+        ),
+        if(
+          or(
+            isnull(local!Region),
+            isnull(local!country)
+          ),
+          {},
+          {
+            #"SYSTEM_SYSRULES_richTextDisplayField"(),
+            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_99717"(
+              today: local!today,
+              todaySymbol: local!todaySymbol,
+              viewType: local!viewType,
+              ResetSelectedDate: ri!SelectedDate
+            ),
+            
+            #"SYSTEM_SYSRULES_gridLayout"(
+              headerCells: {
+                #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                  label: displayvalue(
+                    weekday(
+                      local!today
+                    ),
+                    enumerate(
+                      local!daysInAWeek
+                    ) + 1,
+                    local!days,
+                    "MON"
+                  )
+                )
+              },
+              rows: #"SYSTEM_SYSRULES_gridRowLayout"(
+                contents: {
+                  if(
+                    #"SYSTEM_SYSRULES_isNativePhone"(),
+                    #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      value: {
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          text: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_95306"(
+                            local!today,
+                            "DD"
+                          ),
+                          style: "STRONG"
+                        ),
+                        char(
+                          10
+                        ),
+                        #"SYSTEM_SYSRULES_richTextIcon"(
+                          icon: "circle",
+                          color: "ACCENT"
+                        )
+                      },
+                      align: "CENTER"
+                    ),
+                    #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      labelPosition: "COLLAPSED",
+                      value: {
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          text: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_95306"(
+                            text: local!today,
+                            format: "DD"
+                          ),
+                          color: "STANDARD",
+                          style: "STRONG"
+                        )
+                      },
+                      align: if(
+                        #"SYSTEM_SYSRULES_isNativePhone"(),
+                        "CENTER",
+                        "LEFT"
+                      )
+                    )
+                  )
+                }
+              ),
+              showWhen: local!viewType = "day",
+              spacing: "DENSE"
+            ),
+            #"SYSTEM_SYSRULES_gridLayout"(
+              headerCells: {
+                #"SYSTEM_SYSRULES_forEach"(
+                  items: local!days,
+                  expression: #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: fv!item,
+                    align: if(
+                      #"SYSTEM_SYSRULES_isNativePhone"(),
+                      "CENTER",
+                      "LEFT"
+                    )
+                  )
+                )
+              },
+              rows: #"SYSTEM_SYSRULES_gridRowLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_forEach"(
+                    items: a!flatten(
+                      index(
+                        local!rowDays,
+                        where(
+                          #"SYSTEM_SYSRULES_forEach"(
+                            items: local!rowDays,
+                            expression: contains(
+                              fv!item,
+                              local!today
+                            )
+                          )
+                        )
+                      )
+                    ),
+                    expression: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      labelPosition: "COLLAPSED",
+                      value: {
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          text: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_95306"(
+                            fv!item,
+                            if(
+                              day(
+                                fv!item
+                              ) = 1,
+                              "MMM DD",
+                              "DD"
+                            )
+                          ),
+                          link: if(
+                            and(
+                              fv!item &gt;= local!firstDayOfMonth,
+                              fv!item &lt;= local!lastDayOfMonth,
+                              fv!item &lt;&gt; ri!SelectedDate
+                            ),
+                            #"SYSTEM_SYSRULES_dynamicLink"(
+                              value: fv!item,
+                              saveInto: ri!SelectedDate
+                            ),
+                            null
+                          ),
+                          linkStyle: "STANDALONE",
+                          color: if(
+                            and(
+                              fv!item &gt;= local!firstDayOfMonth,
+                              fv!item &lt;= local!lastDayOfMonth
+                            ),
+                            "STANDARD",
+                            "SECONDARY"
+                          ),
+                          size: "SMALL",
+                          style: if(
+                            fv!item = today(),
+                            "STRONG",
+                            null
+                          )
+                        )
+                      },
+                      align: if(
+                        #"SYSTEM_SYSRULES_isNativePhone"(),
+                        "CENTER",
+                        "LEFT"
+                      )
+                    )
+                  )
+                }
+              ),
+              showWhen: local!viewType = "week",
+              spacing: "DENSE"
+            ),
+            #"SYSTEM_SYSRULES_gridLayout"(
+              labelPosition: "COLLAPSED",
+              headerCells: {
+                #"SYSTEM_SYSRULES_forEach"(
+                  items: local!days,
+                  expression: #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: fv!item,
+                    align: if(
+                      #"SYSTEM_SYSRULES_isNativePhone"(),
+                      "CENTER",
+                      "LEFT"
+                    )
+                  )
+                )
+              },
+              columnConfigs: {
+                #"SYSTEM_SYSRULES_forEach"(
+                  items: local!days,
+                  expression: #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "ICON"
+                  )
+                )
+              },
+              rows: #"SYSTEM_SYSRULES_forEach"(
+                items: local!rowDays,
+                expression: #"SYSTEM_SYSRULES_gridRowLayout"(
+                  contents: {
+                    a!localVariables(
+                      local!rowDates: fv!item,
+                      #"SYSTEM_SYSRULES_forEach"(
+                        items: local!rowDates,
+                        expression: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                          labelPosition: "COLLAPSED",
+                          value: a!localVariables(
+                            local!Opportunity: index(
+                              ri!eapHolidays,
+                              wherecontains(
+                                todate(
+                                  fv!item
+                                ),
+                                todate(
+                                  index(
+                                    ri!eapHolidays,
+                                    "Date",
+                                    null
+                                  )
+                                )
+                              ),
+                              {}
+                            ),
+                            local!Holiday: index(
+                              ri!eapHolidays,
+                              wherecontains(
+                                todate(
+                                  fv!item
+                                ),
+                                todate(
+                                  index(
+                                    ri!eapHolidays,
+                                    "Name",
+                                    null
+                                  )
+                                )
+                              ),
+                              {}
+                            ),
+                            local!CountOpportunity: if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                local!Opportunity
+                              ),
+                              0,
+                              count(
+                                local!Opportunity
+                              )
+                            ),
+                            local!Task: index(
+                              ri!TaskReport.data,
+                              wherecontains(
+                                todate(
+                                  fv!item
+                                ),
+                                todate(
+                                  index(
+                                    a!flatten(
+                                      index(
+                                        ri!TaskReport,
+                                        "data",
+                                        {}
+                                      )
+                                    ),
+                                    "c6",
+                                    {}
+                                  )
+                                )
+                              ),
+                              {}
+                            ),
+                            local!CountTask: if(
+                              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                                local!Task
+                              ),
+                              0,
+                              count(
+                                local!Task
+                              )
+                            ),
+                            local!TotalCount: sum(
+                              local!CountOpportunity,
+                              local!CountTask
+                            ),
+                            {
+                              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                text: {
+                                  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_95306"(
+                                    fv!item,
+                                    if(
+                                      day(
+                                        fv!item
+                                      ) = 1,
+                                      "MMM DD",
+                                      "DD"
+                                    )
+                                  ),
+                                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                    text: local!todaySymbol,
+                                    showWhen: fv!item = today(),
+                                    color: "#EDBA44",
+                                    size: "SMALL"
+                                  ),
+
+                                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                    text: local!Holiday,
+                                    showWhen: fv!item = local!Hdate,
+                                    /*color: "#EDBA44",*/
+                                    size: "SMALL"
+                                  )
+
+                                },
+                                link: if(
+                                  and(
+                                    fv!item &gt;= local!firstDayOfMonth,
+                                    fv!item &lt;= local!lastDayOfMonth,
+                                    fv!item &lt;&gt; ri!SelectedDate
+                                  ),
+                                  #"SYSTEM_SYSRULES_dynamicLink"(
+                                    value: fv!item,
+                                    saveInto: ri!SelectedDate
+                                  ),
+                                  null
+                                ),
+                                linkStyle: "STANDALONE",
+                                color: if(
+                                  and(
+                                    fv!item &gt;= local!firstDayOfMonth,
+                                    fv!item &lt;= local!lastDayOfMonth
+                                  ),
+                                  "STANDARD",
+                                  "SECONDARY"
+                                ),
+                                size: "SMALL",
+                                style: if(
+                                  fv!item = today(),
+                                  "STRONG",
+                                  null
+                                )
+                              ),
+                              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                text: local!BusySymbol,
+                                color: if(
+                                  local!TotalCount &gt; 3,
+                                  "#ed3434",
+                                  if(
+                                    local!TotalCount = 2,
+                                    "#ff992b",
+                                    if(
+                                      local!TotalCount = 1,
+                                      "#5cbb29",
+                                      "#ffffff"
+                                    )
+                                  )
+                                ),
+                                size: "SMALL"
+                              )
+
+                            }
+                          ),
+                          align: if(
+                            #"SYSTEM_SYSRULES_isNativePhone"(),
+                            "CENTER",
+                            "LEFT"
+                          )
+                        )
+                      )
+                    )
+                  }
+                )
+              ),
+              selectionSaveInto: {},
+              showWhen: local!viewType = "month",
+              height: "AUTO",
+              validations: {},
+              shadeAlternateRows: false,
+              spacing: "DENSE"
+            )
+          }
+         
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+            text: " Back",
+            color: if(tointeger(local!viewCal)=0,"ACCENT","SECONDARY"),
+            style: "STRONG",
+            link:  #"SYSTEM_SYSRULES_dynamicLink"(
+              value: 1
+              ,
+              saveInto: {
+                local!viewCal,
+                a!save(
+                  ri!viewCal,
+                  0
+                )
+              }
+            ),
+          )
+          /*showWhen: or(tointeger(local!viewCal)=0)*/
+        )
+      },
+      height: "AUTO",
+      marginBelow: "NONE",
+      showborder: false
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>events</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedDate</name>
+            <type>
+                <name>date</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>taskReport</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>eapHolidays</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>edit</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>viewCal</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_98354"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_99754"/>
+    </history>
+</contentHaul>

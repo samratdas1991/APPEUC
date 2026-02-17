@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_755177</versionUuid>
+    <interface>
+        <name>EAP_emailTemplateBody</name>
+        <uuid>_a-0000e595-3324-8000-5263-1bef901bef90_739450</uuid>
+        <description>Holds interface for the email template subject body</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!attributeData: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        ri!outEmailTemplateConfig,
+        "out_email_template_config_id",
+        {}
+      )
+    ),
+    {},
+    #"_a-0000e5ac-f704-8000-5264-1bef901bef90_742649"(
+      outEmailTemplateConfigId: index(
+        ri!outEmailTemplateConfig,
+        "out_email_template_config_id",
+        {}
+      ),
+      isActive: true()
+    )
+  ),
+  local!attribute,
+  local!useIn: "Subject",
+  {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          width: "NARROW",
+          contents: {
+            /*Use In*/
+            #"SYSTEM_SYSRULES_radioButtonField"(
+              label: "Use In",
+              choiceLabels: {
+                "Subject",
+                "Body"
+              },
+              choiceValues: {
+                "Subject",
+                "Body"
+              },
+              choiceLayout: "COMPACT",
+              value: local!useIn,
+              saveInto: {
+                a!save(
+                  local!useIn,
+                  save!value
+                ),
+                a!save(
+                  local!attribute,
+                  null
+                )
+              },
+              showWhen: if(
+                ri!isReadOnly,
+                false(),
+                if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    touniformstring(
+                      index(
+                        local!attributeData,
+                        "attribute_name",
+                        {}
+                      )
+                    )
+                  ),
+                  false(),
+                  true()
+                )
+              )
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            /*Attributes*/
+            #"SYSTEM_SYSRULES_dropdownField"(
+              label: "Attributes",
+              placeholderLabel: "-- Select Attribute --",
+              choiceLabels: {
+                touniformstring(
+                  index(
+                    local!attributeData,
+                    "attribute_name",
+                    {}
+                  )
+                )
+              },
+              choiceValues: {
+                touniformstring(
+                  index(
+                    local!attributeData,
+                    "attribute_name",
+                    {}
+                  )
+                )
+              },
+              value: if(
+                contains(
+                  touniformstring(
+                    index(
+                      local!attributeData,
+                      "attribute_name",
+                      {}
+                    )
+                  ),
+                  tostring(
+                    local!attribute
+                  )
+                ),
+                tostring(
+                  local!attribute
+                ),
+                null
+              ),
+              saveInto: {
+                local!attribute,
+                if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!attribute),
+                  null,
+                  if(
+                    local!useIn = "Subject",
+                    a!save(
+                      ri!outEmailTemplateConfig.subject,
+                      concat(
+                        index(
+                          ri!outEmailTemplateConfig,
+                          "Subject",
+                          {}
+                        ),
+                        " $$",
+                        local!attribute,
+                        "$$ "
+                      )
+
+                    ),
+                    a!save(
+                      ri!outEmailTemplateConfig.body,
+                      concat(
+                        index(
+                          ri!outEmailTemplateConfig,
+                          "body",
+                          {}
+                        ),
+                        " $$",
+                        local!attribute,
+                        "$$ "
+                      )
+                    )
+                  )
+
+                ),
+                a!save(
+                  local!attribute,null
+                )
+
+
+
+              },
+              showWhen: if(
+                ri!isReadOnly,
+                false(),
+                if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    touniformstring(
+                      index(
+                        local!attributeData,
+                        "attribute_name",
+                        {}
+                      )
+                    )
+                  ),
+                  false(),
+                  true()
+                )
+              )
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {}
+        )
+      }
+    ),
+    if(
+      ri!isReadOnly,
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: {
+          #"SYSTEM_SYSRULES_richTextItem_v1"(
+            text: "Template Data",
+            style: "STRONG",
+            size: "STANDARD"
+          )
+        }
+      ),
+      {}
+    ),
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        touniformstring(
+          index(
+            local!attributeData,
+            "attribute_name",
+            {}
+          )
+        )
+      ),
+      {},
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        divider: "BELOW"
+      )
+    ),
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_textField"(
+              label: "Subject",
+              readOnly: ri!isReadOnly,
+              /*required: true,*/
+              value: index(
+                ri!outEmailTemplateConfig,
+                "Subject",
+                {}
+              ),
+              saveInto: {
+                ri!outEmailTemplateConfig.subject
+              }
+            )
+          }
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_paragraphField"(
+      label: "Body",
+      readOnly: ri!isReadOnly,
+      /*required: true(),*/
+      value: index(
+        ri!outEmailTemplateConfig,
+        "body",
+        {}
+      ),
+      height: "TALL",
+      saveInto: {
+        ri!outEmailTemplateConfig.body
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>outEmailAttributeConfig</name>
+            <type>
+                <name>EAP_T_OutEmailAttributeConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outEmailTemplateConfig</name>
+            <type>
+                <name>EAP_T_OutEmailTemplateConfig</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_755177"/>
+    </history>
+</contentHaul>

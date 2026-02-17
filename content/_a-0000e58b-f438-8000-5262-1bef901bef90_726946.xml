@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_762535</versionUuid>
+    <rule>
+        <name>EAP_CastTempScheduledView</name>
+        <uuid>_a-0000e58b-f438-8000-5262-1bef901bef90_726946</uuid>
+        <description>Hold rule to cast scheduled view</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>'type!{urn:com:appian:types:eap}EAP_temp_ScheduledView'(
+  euc_id:ri!eucId, 
+  euc_name:ri!eucName, 
+  start_bd:ri!startBD,
+  start_trigger_datetime_gmt:ri!startTriggerDatetimeGMT, 
+  l8_display_name:ri!l8DisplayName, 
+  l7_display_name:ri!l7DisplayName, 
+  end_bd:ri!endBD, 
+  run_config_id:ri!runConfigId, 
+  start_trigger_datetime:concat(todate(ri!startTriggerDatetime)," ",totime(ri!startTriggerDatetime)), 
+  center_name:ri!centerName,
+  timezone_id:ri!timezoneId, 
+  status:ri!status,
+  checkers: reject(
+    isnull(
+      _
+    ),#"SYSTEM_SYSRULES_forEach"(
+    items:split( ri!checkers,";"),
+    expression: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251793"(
+          fv!item
+        )),
+        "",
+        concat(
+          user(
+            fv!item,
+            "firstName"
+          ),
+          " ",
+          user(
+            fv!item,
+            "lastName"
+          )
+        )
+
+    )
+  )),
+  makers: reject(
+    isnull(
+      _
+    ),#"SYSTEM_SYSRULES_forEach"(
+    items:split( ri!makers,";"),
+    expression: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251793"(
+          fv!item
+        )),
+        "",
+        concat(
+          user(
+            fv!item,
+            "firstName"
+          ),
+          " ",
+          user(
+            fv!item,
+            "lastName"
+          )
+        )
+
+    )
+  )),
+  end_trigger_datetime_gmt:ri!endTriggerDatetimeGMT, 
+  end_trigger_datetime:ri!endTriggerDatetime, 
+  total_processing_time:ri!totalProcessingTime,
+  process_end_time:if(
+    or(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processEndTime),
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!timezoneId)
+    ),null,#"_a-0000e56b-0831-8000-5261-1bef901bef90_701127"(
+      dateTime: ri!processEndTime,
+      timeZone: ri!timezoneId
+    ))
+    , 
+    process_ageing:ri!processAgeing, 
+    process_acttual_start_time:if(
+      or(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processActtualStartTime),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!timezoneId)
+      ),null,#"_a-0000e56b-0831-8000-5261-1bef901bef90_701127"(
+        dateTime: ri!processActtualStartTime,
+        timeZone: ri!timezoneId
+      ))
+)</definition>
+        <namedTypedValue>
+            <name>eucId</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>eucName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>startBD</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>startTriggerDatetimeGMT</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>l8DisplayName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>l7DisplayName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>endBD</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>startTriggerDatetime</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>centerName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>timezoneId</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>status</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>checkers</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>makers</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>endTriggerDatetimeGMT</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>endTriggerDatetime</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>totalProcessingTime</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processEndTime</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processAgeing</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processActtualStartTime</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_731285"/>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_735487"/>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_741126"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_762535"/>
+    </history>
+</contentHaul>

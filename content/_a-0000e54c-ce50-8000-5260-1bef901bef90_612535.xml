@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_678220</versionUuid>
+    <interface>
+        <name>EAP_PR_HIST_FileEntityMappingEditableGrid</name>
+        <uuid>_a-0000e54c-ce50-8000-5260-1bef901bef90_612535</uuid>
+        <description>Contains editable grid for file entity mappings.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  
+ 
+  {
+   
+   
+    if(
+     or(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),ri!processId=0,
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!runConfigId),ri!runConfigId=0
+      ),
+      {},
+      #"SYSTEM_SYSRULES_gridLayout"(
+
+        label: "",
+        emptyGridMessage: "No Entity Mappings available!",
+        shadeAlternateRows: false(),
+        spacing: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_40702",
+        headerCells: {
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Entity Name",
+            align: "LEFT",
+            helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+              helpToolTip: "Coming from the Manage Entity Name related action where EntityType: Input &amp; Reference"
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Sheet Name",
+            align: "LEFT"
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Sheet Index",
+            align: "RIGHT"
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Start Row",
+            align: "RIGHT"
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "End Row",
+            align: "RIGHT"
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Is Active",
+            align: if(
+              contains(
+                ri!isReadOnly,
+                true()
+              ),
+              "CENTER",
+              "CENTER"
+            )
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            align: if(
+              contains(
+                ri!isReadOnly,
+                true()
+              ),
+              "CENTER",
+              "LEFT"
+            ),
+            showWhen: if(
+              contains(
+                ri!isReadOnly,
+                true()
+              ),
+              false(),
+              true()
+            )
+          )
+        },
+        columnConfigs: {
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            weight: 2
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            weight: 5
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            weight: 5
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            weight: 5
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE",
+            weight: 5
+          ),
+
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "ICON"
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "ICON",
+            showWhen: if(
+              contains(
+                ri!isReadOnly,
+                true()
+              ),
+              false(),
+              true()
+            )
+          )
+        },
+        rows: {
+          #"SYSTEM_SYSRULES_applyComponents"(
+            function: #"_a-0000e54c-ce50-8000-5260-1bef901bef90_612542"(
+              index: _,
+              fileEntityMapping: ri!fileEntityMapping,
+
+              isReadOnly: ri!isReadOnly,
+              entityData: union(
+                ri!entityData,
+                ri!entityData
+              ),
+              uniqueIdentifiers: ri!uniqueIdentifiers,
+              selectedFileType: ri!selectedFileType,
+
+            ),
+            array: if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!fileEntityMapping
+                ),
+                count(
+                  ri!fileEntityMapping
+                ) = 0
+              ),
+              null,
+              tointeger(
+                enumerate(
+                  count(
+                    ri!fileEntityMapping
+                  )
+                ) + 1
+              )
+            )
+          )
+        },
+        selectionSaveInto: {},
+        addRowLink: if(
+          ri!isReadOnly,
+          {},
+          #"SYSTEM_SYSRULES_dynamicLink"(
+            label: "Add line items",
+            value: 'type!{urn:com:appian:types:eap}EAP_T_RefProcessHistEntityMapping'(
+              is_active: 1,
+              process_id: ri!processId,
+              created_by: loggedInUser(),
+              created_on: now(),
+              modified_by: loggedInUser(),
+              modified_on: now(),
+              run_config_id:ri!runConfigId
+            ),
+            saveInto: a!save(
+              ri!fileEntityMapping,
+              append(
+                ri!fileEntityMapping,
+                save!value
+              )
+            )
+          )
+        )
+      )
+    )
+    
+    
+  }
+)</definition>
+        <namedTypedValue>
+            <name>fileEntityMapping</name>
+            <type>
+                <name>EAP_T_RefProcessHistEntityMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedFileType</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>uniqueIdentifiers</name>
+            <type>
+                <name>EAP_Temp_HistoricalUniqueIdentifiers</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>fileEntityMapping</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>selectedFileType</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:EAP" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:EAP_Temp_HistoricalUniqueIdentifiers"/>
+                    <a:nameRef>uniqueIdentifiers</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_97641"(
+  isActive: true(),
+  process_id: 68
+)</a:value>
+                    <a:nameRef>entityData</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>runConfigId</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e54c-ce50-8000-5260-1bef901bef90_616076"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_624988"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_678220"/>
+    </history>
+</contentHaul>

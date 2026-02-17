@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ed19-51a4-8000-9c01-011c48011c48_363154</versionUuid>
+    <rule>
+        <name>EAP_rule_eidFileName</name>
+        <uuid>_a-0000ed19-51a4-8000-9c01-011c48011c48_363141</uuid>
+        <description>rule: construct File name</description>
+        <parentUuid>_a-0000e48f-2bcb-8000-9ba8-011c48011c48_1519396</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>/*a!localVariables(*/
+  /*local!data: split(*/
+    /*cons!EAP_TXT_PDF_GENERATION_SP_NAME_V1,*/
+    /*","*/
+  /*),*/
+  /*index(*/
+    /*local!data,*/
+    /*wherecontains(true(), like(local!data, "LP SCH A*")),*/
+    /*null()*/
+  /*)*/
+/*)*/
+
+a!match(
+  value : ri!spName,
+  equals : "usp_EAP_TRNSFORM_SCHEDULED_DATA_PDF",
+  then: "EID FILE1",
+  equals : "usp_EAP_TRNSFORM_SCHEDULED_DATA_PDF_2",
+  then: "EID FILE2",
+  equals : "usp_EAP_TRNSFORM_SCHEDULED_DATA_PDF_3",
+  then: "EID FILE3",
+  equals : "usp_EAP_TRNSFORM_SCHEDULED_DATA_PDF_4",
+  then: "EID FILE4",
+  default: "empty"
+)</definition>
+        <namedTypedValue>
+            <name>spName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ed19-51a4-8000-9c01-011c48011c48_363154"/>
+    </history>
+</contentHaul>

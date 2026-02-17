@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_231944</versionUuid>
+    <rule>
+        <name>EAP_QE_RefProcessWfSheetEntityMapping</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_10898</uuid>
+        <description>Hold query rule for wf sheet entity mapping</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_queryEntity_v1"(
+
+  entity : #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11015",
+  query:#"SYSTEM_SYSRULES_query"(
+    logicalExpression :if(
+      and(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!sheetEntityMappingId),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!outputCopyId),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!sheetColumnName),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!sheetNumericColumnName),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!entityColumnName),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!generationType),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!generationFormat),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isActive),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdBy),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdOn),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedBy),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedOn),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!terminatingPosition),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!terminatingValue)
+      ),
+      null,
+      #"SYSTEM_SYSRULES_queryLogicalExpression"(
+        operator : "AND",
+        filters  : {
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!sheetEntityMappingId),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "sheet_entity_mapping_id",
+              operator: "IN",
+              value :  {
+                ri!sheetEntityMappingId
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!outputCopyId),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "output_copy_id",
+              operator: "IN",
+              value :  {
+                ri!outputCopyId
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!sheetColumnName),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "sheet_column_name",
+              operator: "IN",
+              value :  {
+                ri!sheetColumnName
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!sheetNumericColumnName),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "sheet_numeric_column_name",
+              operator: "IN",
+              value :  {
+                ri!sheetNumericColumnName
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!entityColumnName),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "entity_column_name",
+              operator: "IN",
+              value :  {
+                ri!entityColumnName
+              }
+
+            )
+          ) ,
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!generationType),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "generation_type",
+              operator: "IN",
+              value :  {
+                ri!generationType
+              }
+
+            )
+          ) ,
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!generationFormat),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "generation_format",
+              operator: "IN",
+              value :  {
+                ri!generationFormat
+              }
+
+            )
+          ) ,
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isActive),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "isactive",
+              operator: "IN",
+              value :  {
+                ri!isActive
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdBy),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "created_by",
+              operator: "IN",
+              value :  {
+                ri!createdBy
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdOn),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "created_on",
+              operator: "IN",
+              value :  {
+                ri!createdOn
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedBy),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "modified_by",
+              operator: "IN",
+              value :  {
+                ri!modifiedBy
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedOn),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "modified_on",
+              operator: "IN",
+              value :  {
+                ri!modifiedOn
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!terminatingPosition),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "terminating_position",
+              operator: "IN",
+              value :  {
+                ri!terminatingPosition
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!terminatingValue),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "terminating_value",
+              operator: "IN",
+              value :  {
+                ri!terminatingValue
+              }
+
+            )
+          )
+
+
+        }
+      )
+
+    ) ,
+    pagingInfo: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!pagingInfo),
+      #"SYSTEM_SYSRULES_pagingInfo"(
+        startIndex : 1, 
+        batchSize :-1 ,
+        sort:#"SYSTEM_SYSRULES_sortInfo"(field:"sheet_entity_mapping_id",ascending: true)
+      ),
+      ri!pagingInfo
+
+    )
+
+  )
+
+).data</definition>
+        <namedTypedValue>
+            <name>sheetEntityMappingId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outputCopyId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetColumnName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetNumericColumnName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityColumnName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>generationType</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>generationFormat</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>terminatingValue</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>terminatingPosition</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c6-e892-8000-5254-1bef901bef90_41834"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_91938"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_231944"/>
+    </history>
+</contentHaul>

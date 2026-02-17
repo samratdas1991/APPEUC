@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_512145</versionUuid>
+    <interface>
+        <name>EAP_IOConfigParamSummaryDasboard</name>
+        <uuid>_a-0000e518-940a-8000-525e-1bef901bef90_511000</uuid>
+        <description>Hold Summary Dasboard of io config param</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!depParamId,
+  local!ParamId,
+  local!paramId2,
+  local!isParam:false(),
+  local!isDepPara:false(),
+  local!depParam:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_57426"(
+    systemParameterId:local!paramId2
+  ),
+  local!Param:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_57331"(
+    lookupSystemTypeCode:ri!lookupSystemCode
+  ),
+  local!ParamDetails:#"_a-0000e4c6-e892-8000-5254-1bef901bef90_57331"(
+    systemParameterId:local!ParamId
+  ),
+ {
+ 
+   #"SYSTEM_SYSRULES_gridField_v1"(
+  label:"System Parameters Details",
+  data:local!Param,
+  columns:{
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label:"Parameter Label",
+      sortField: "parameter_label",
+      value: fv!row.parameter_label,
+      align:"START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label:"Parameter Code",
+      sortField: "parameter_code",
+      value: fv!row.parameter_code,
+      align:"START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label:"Generation Type",
+      sortField: "generation_type",
+      value: fv!row.generation_type,
+      align:"START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label:"Parameter Type",
+      sortField: "parameter_type",
+      value: fv!row.parameter_type,
+      align:"START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label:"Master Ref Data Type",
+      sortField: "master_refdata_type",
+      value: fv!row.master_refdata_type,
+      align:"START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "View Details",
+      value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: {
+          #"SYSTEM_SYSRULES_richTextItem_v1"(
+            text: if(
+              tointeger(fv!row.system_parameter_id)
+              =tointeger(local!ParamId),
+              {
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "eye-slash",
+                  caption: "Close"
+                ),
+              },
+              {
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "eye",
+                  caption: "View"
+                ),
+              }
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              value: if(
+                tointeger(fv!row.system_parameter_id)
+                =tointeger(local!ParamId),
+                null,
+                tointeger(fv!row.system_parameter_id)
+              ),
+              saveInto: {
+                a!save(
+                  local!ParamId,
+                  save!value
+                ),
+                a!save(local!ParamId2,null)
+              }
+            )
+          )
+        }
+      ),
+      align:"CENTER",
+      width: "NARROW_PLUS"
+    ),
+   
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label:"Dependent Parameter Config",
+      value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: {
+          #"SYSTEM_SYSRULES_richTextItem_v1"(
+            text: if(
+              tointeger(fv!row.system_parameter_id)
+              =tointeger(local!paramId2),
+              {
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "eye-slash",
+                  caption: "Close"
+                ),
+              },
+              {
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "eye",
+                  caption: "View"
+                ),
+              }
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              value: if(
+                tointeger(fv!row.system_parameter_id)
+                =tointeger(local!paramId2),
+                null,
+                tointeger(fv!row.system_parameter_id)
+              ),
+              saveInto: {
+                a!save(
+                  local!paramId2,
+                  save!value
+                ),
+               a!save(local!ParamId,null),
+               a!save(local!depParamId,null)
+              }
+            )
+          )
+        }
+      ),
+      align:"CENTER",
+      width: "NARROW_PLUS"
+    )
+  },
+  pageSize: 5,
+  emptyGridMessage:"No data available"
+),
+if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!ParamId),
+  {},
+  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_138927"(
+    refIntSysParam:local!ParamDetails,
+
+    isReadOnly: true(),
+    lookupTypeSystemCode: ri!lookupSystemCode,
+
+  )
+ 
+),
+if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(local!ParamId2),
+  {},
+  {#"SYSTEM_SYSRULES_richTextDisplayField"(),
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    label:"IO Config Dependent Parameters"
+  ),
+  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146082"(
+    refIntSysDepParam: local!depParam,
+    readOnly:true(),
+    systemParameterId:local!paramId2,
+    depParaId:local!depParamId
+  )}
+  
+)
+
+}
+)</definition>
+        <namedTypedValue>
+            <name>lookupSystemCode</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_511287"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_512145"/>
+    </history>
+</contentHaul>

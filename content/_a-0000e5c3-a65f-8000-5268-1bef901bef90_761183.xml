@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ea-27a1-8000-5269-1bef901bef90_774708</versionUuid>
+    <rule>
+        <name>EAP_getExportableDataForReportStatusMilestone</name>
+        <uuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_761183</uuid>
+        <description>Hold rule to get export to excel for status milestone report</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!json: #"SYSTEM_SYSRULES_fromJson"(
+    ri!input
+  ),
+ local!paginfInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+   startIndex:1,
+   batchSize:#"_a-0000e56b-0831-8000-5261-1bef901bef90_694158"
+ ),
+ 
+ local!FilteredData: a!flatten(index(#"_a-0000e5c3-a65f-8000-5268-1bef901bef90_759350"(
+   
+   
+   rowLimit: #"_a-0000e56b-0831-8000-5261-1bef901bef90_694158",
+   centerSegMappingId:local!json.CENTER_SEG_MAPPING_ID,
+   makers: local!json.MAKERS,
+   checkers:local!json.CHECKERS,
+   eucNumber: local!json.EUC_NUMBER,
+   centerId: local!json.CENTER_ID,
+   mgdSegL7Id:local!json.MGDSEGL7_ID,
+   mgdSegL8Id: local!json.MGDSEGL8_ID,
+   periodFrom:local!json.PERIOD_FROM,
+   periodTo:local!json.PERIOD_TO,
+   status:local!json.STATUS
+ ),"P_OUTPUT1",{})),
+
+local!newData:apply(
+  #"_a-0000e5c3-a65f-8000-5268-1bef901bef90_761201"( 
+    centerName:_,
+    l7DisplayName:_,
+    l8DisplayName:_, 
+    eucId:_, 
+    eucName:_,
+    recurrenceType:_, 
+    startTriggerDatetimeGMT:_,
+    endTriggerDatetimeGMT:_,
+    endTriggerDatetime:_,
+    startTriggerDatetime:_,
+    endBD:_, 
+    startBD:_,
+    makers:_, 
+    checkers:_,
+    timezoneId:_,  
+    processActtualStartTime:_,
+    processEndTime:_,
+    totalProcessingTime:_,
+    processAgeing:_,
+    status:_,
+    stepId:_,
+    stepName:_,
+    milestoneName:_,
+    startTime:_,
+    competionTime:_,
+    milestoneStatus:_
+  ),
+  merge(
+    {
+      index(local!FilteredData,"CENTER_NAME",{})
+    },
+    {
+      index(local!FilteredData,"L7_DISPLAY_NAME",{})
+    },
+    {
+      index(local!FilteredData,"L8_DISPLAY_NAME",{})
+    },
+    {
+      index(local!FilteredData,"EUC_ID",{})
+    },
+    {
+      index(local!FilteredData,"EUC_NAME",{})
+    },
+    {
+      index(local!FilteredData,"RECURRENCE_TYPE",{})
+    },
+    {
+      index(local!FilteredData,"START_TRIGGER_DATETIME_GMT",{})
+    },
+    {
+      index(local!FilteredData,"END_TRIGGER_DATETIME_GMT",{})
+
+    },
+    {
+      index(local!FilteredData,"END_TRIGGER_DATETIME",{})
+    },
+    {
+      index(local!FilteredData,"START_TRIGGER_DATETIME",{})
+    },
+    {
+      index(local!FilteredData,"END_BD",{})
+    },
+    {
+      index(local!FilteredData,"START_BD",{}),
+
+    },
+    {
+      index(local!FilteredData,"MAKERS",{})
+    }, 
+    {
+      index(local!FilteredData,"CHECKERS",{})
+    },
+    {
+      index(local!FilteredData,"TIMEZONE_ID",{})
+    }, 
+    {
+      index(local!FilteredData,"PROCESS_ACTTUAL_START_TIME",{})
+    },
+    {
+      index(local!FilteredData,"PROCESS_END_TIME",{})
+    },
+    {
+      index(local!FilteredData,"TOTAL_PROCESSING_TIME",{})
+    },
+    {
+      index(local!FilteredData,"PROCESS_AGEING",{})
+    },
+    {
+      index(local!FilteredData,"STATUS",{})
+    },
+    {
+      index(local!FilteredData,"STEP_ID",{})
+    },
+    {
+      index(local!FilteredData,"STEP_NAME",{})
+    },
+    {
+      index(local!FilteredData,"MILESTONE_NAME",{})
+    },
+    {
+      index(local!FilteredData,"START_TIME",{})
+    },
+    {
+      index(local!FilteredData,"COMPETION_TIME",{})
+    },
+    {
+      index(local!FilteredData,"MILESTONE_STATUS",{})
+    }
+ 
+    
+  )
+),
+
+  local!DataSubset: todatasubset(
+    local!newData,
+    local!paginfInfo
+  ),
+  local!output:'type!{urn:com:appian:ps:excel:types}ExportableDataSubset'(
+    filename: concat(
+      "Status Milestone Report - ",
+      loggedInUser()," - ",
+      text(
+        now(),
+        "_ddmmyyyy_hhmmss"
+      )
+    ),
+    fieldNames: {
+      "euc_id",
+      "euc_name",
+      "start_bd",
+      "end_bd",
+      "makers",
+      "checkers",
+      "status",
+      "process_acttual_start_time",
+      "process_ageing",
+      "process_end_time",
+      "total_processing_time",
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[2]),
+        "center_name",{}
+      ),
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[4]),
+        "l8_display_name",{}
+      ),
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[3]),
+        "l7_display_name",{}
+      ),
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[17]),
+        "start_trigger_datetime",{}
+      ),
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[18]),
+        "end_trigger_datetime",{}
+      ), 
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[19]),
+        "start_trigger_datetime_gmt",{}
+      ),
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[20]),
+        "end_trigger_datetime_gmt",{}
+      ),
+      "step_id",
+      "step_name",
+      "milestone_name",
+      "start_time",
+      "competion_time",
+      "milestone_status"
+      
+    },
+    fieldLabels: {
+      "EUC#
+(Request#)",
+      "EUC Name",
+      "Start BD(Timezone)",
+      "End BD",
+      "Maker(s)",
+      "Checker(s)",
+      "Status",
+      "Process Actual Start Time",
+      "Process Aging(Hrs/Mins)",
+      "Process End Time",
+      "Total Processing Time(Hrs/Mins)",
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[2]),
+        "Center",{}),
+        if(
+          contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[4]),
+          "Managed Segment L8",{}),
+          if(
+            contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[3]),
+            "Managed Segment L7",{}),
+            if(
+              contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[17]),
+              "Expected Start Datetime",{}
+            ),
+            if(
+              contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[18]),
+              "Expected End Datetime",{}
+            ),
+  
+    
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[19]),
+        "Expected Start Datatime(GMT)",{}
+      ),
+      if(
+        contains(touniformstring({local!json.COLUMNS}),#"_a-0000e56b-0831-8000-5261-1bef901bef90_637534"[20]),
+        "Expected End Datetime(GMT)",{}
+      ),
+      "Step Id",
+      "Step Name",
+      "Milestone Name",
+      "Start Time",
+      "End Time",
+      "Milestone Status"
+      
+      
+    },
+    datasubset: local!DataSubset
+  ),
+  local!output
+)
+</definition>
+        <namedTypedValue>
+            <name>input</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name>Test case 1</a:name>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string">{"CENTER_SEG_MAPPING_ID":"5,1","MAKERS":null,"CHECKERS":null,"EUC_NUMBER":null,"CENTER_ID":null,"MGDSEGL7_ID":null,"MGDSEGL8_ID":null,"PERIOD_FROM":"12/15/2020","PERIOD_TO":"01/14/2021"}</a:value>
+                    <a:nameRef>input</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_768108"/>
+        <historyInfo versionUuid="_a-0000e5ea-27a1-8000-5269-1bef901bef90_773853"/>
+        <historyInfo versionUuid="_a-0000e5ea-27a1-8000-5269-1bef901bef90_774708"/>
+    </history>
+</contentHaul>

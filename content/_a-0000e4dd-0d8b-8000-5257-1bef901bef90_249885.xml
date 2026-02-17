@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_249978</versionUuid>
+    <rule>
+        <name>EAP_GetDefaultRowsInSheetFixedCellsConfig</name>
+        <uuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_249885</uuid>
+        <description>Contains expression rule for creating a default datasubset for Sheet Fixed Cells Config Grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!columns: {
+    index(
+      #"_a-0000e4c6-e892-8000-5254-1bef901bef90_25128"(
+        tableName: index(
+          index(
+            ri!selectedFileEntityMapping,
+            wherecontains(
+              tointeger(
+                index(
+                  ri!uniqueIdentifiers,
+                  "in_file_entity_mapping_id",
+                  {}
+                )
+              ),
+              tointeger(
+                index(
+                  ri!selectedFileEntityMapping,
+                  "in_file_entity_mapping_id",
+                  {}
+                )
+              )
+            )
+          ),
+          "entity_name",
+          {}
+        )
+      ),
+      "columnName",
+      {}
+    )
+  },
+  #"SYSTEM_SYSRULES_forEach"(
+    items: local!columns,
+    expression:'type!{urn:com:appian:types:eap}EAP_T_RefProcessSheetFixedCellsConfig'(
+      entity_column_name: fv!item,
+      is_active: 1,
+      process_id: index(
+        ri!uniqueIdentifiers,
+        "process_id",
+        null
+      ),
+      created_by: loggedInUser(),
+      created_on: now(),
+      modified_by: loggedInUser(),
+      modified_on: now(),
+      in_file_entity_mapping_id: index(
+        ri!uniqueIdentifiers,
+        "in_file_entity_mapping_id",
+        null
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>uniqueIdentifiers</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedFileEntityMapping</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sheetFixedCellsConfig</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_249978"/>
+    </history>
+</contentHaul>

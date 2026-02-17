@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_416834</versionUuid>
+    <rule>
+        <name>EAP_SetValueForRefProcessWfSheetCopy</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_11515</uuid>
+        <description>Hold set value rule for wf sheet copy</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+    ri!processWfSheetCopy
+  ),
+  null,
+#"SYSTEM_SYSRULES_forEach"(
+  items: ri!processWfSheetCopy,
+  expression: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11444"(
+    sheetCopyId:if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!sheetCopyId
+      ),
+      ri!processWfSheetCopy[fv!index].sheet_copy_id,
+      ri!sheetCopyId
+    ), 
+    wfActionId:if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!wfActionId
+      ),
+      ri!processWfSheetCopy[fv!index].wf_action_id,
+      ri!wfActionId
+    ),
+    fromSheetName:if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!fromSheetName
+      ),
+      ri!processWfSheetCopy[fv!index].from_sheet_name,
+      ri!fromSheetName
+    ), 
+    toSheetName:if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!toSheetName
+      ),
+      ri!processWfSheetCopy[fv!index].to_sheet_name,
+      ri!toSheetName
+    ), 
+    fromStartRow:if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!fromStartRow
+      ),
+      ri!processWfSheetCopy[fv!index].from_start_row,
+      ri!fromStartRow
+    ),
+    fromEndRow:if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!fromEndRow
+      ),
+      ri!processWfSheetCopy[fv!index].from_end_row,
+      ri!fromEndRow
+    ), 
+    toStartRow:if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!toStartRow
+      ),
+      ri!processWfSheetCopy[fv!index].to_start_row,
+      ri!toStartRow
+    ),
+    toEndRow:if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!toEndRow
+      ),
+      ri!processWfSheetCopy[fv!index].to_end_row,
+      ri!toEndRow
+    ), 
+    isActive: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!isActive
+      ),
+      ri!processWfSheetCopy[fv!index].isactive,
+      ri!isActive
+    ),
+    createdBy: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!createdBy
+      ),
+      
+      ri!processWfSheetCopy[fv!index].created_by,
+      ri!createdBy
+    ),
+    createdOn: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!createdOn
+      ),
+     
+      ri!processWfSheetCopy[fv!index].created_on,
+      ri!createdOn
+    ),
+    modifiedBy: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!modifiedBy
+      ),
+      ri!processWfSheetCopy[fv!index].modified_by,
+      ri!modifiedBy
+    ),
+    modifiedOn: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!modifiedOn
+      ),
+      ri!processWfSheetCopy[fv!index].modified_on,
+      ri!modifiedOn
+    ),
+    isPasteAppend: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!isPasteAppend
+      ),
+      ri!processWfSheetCopy[fv!index].is_paste_append,
+      ri!isPasteAppend
+    ),
+    applyFormulaCopy: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!applyFormulaCopy
+      ),
+      ri!processWfSheetCopy[fv!index].apply_formula_copy,
+      ri!applyFormulaCopy
+    )
+  )
+)
+
+)
+
+
+
+
+
+
+
+
+</definition>
+        <namedTypedValue>
+            <name>sheetCopyId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>wfActionId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fromSheetName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>toSheetName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fromStartRow</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fromEndRow</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>toStartRow</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>toEndRow</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processWfSheetCopy</name>
+            <type>
+                <name>EAP_T_RefProcessWfSheetCopy?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isPasteAppend</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>applyFormulaCopy</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c3-ab68-8000-5250-1bef901bef90_11533"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_170907"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_416834"/>
+    </history>
+</contentHaul>

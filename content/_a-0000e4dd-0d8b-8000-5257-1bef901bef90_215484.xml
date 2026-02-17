@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_233638</versionUuid>
+    <interface>
+        <name>EAP_CustomGenerationGrid</name>
+        <uuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_215484</uuid>
+        <description>Hold interface to fill data to generate Custom Generation</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  #"SYSTEM_SYSRULES_cardLayout"(
+    style: "INFO",
+    contents: {
+      #"SYSTEM_SYSRULES_gridLayout"(
+        label: "Custom Generation ",
+        labelPosition: "ABOVE",
+        headerCells: {
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Custom Generator Name",
+            align: "LEFT"
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+            label: "Is Active",
+            align: "CENTER"
+          ),
+          if(
+            ri!isReadonly = true(),
+            {},
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "",
+              align: "RIGHT"
+            )
+          ),
+          
+        },
+        columnConfigs: {
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "DISTRIBUTE"/*weight: 2*/
+            
+          ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+            width: "ICON"
+          ),
+          if(
+            ri!isReadonly = true(),
+            {},
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "ICON"
+            )
+          )
+        },
+        rows: {
+          #"SYSTEM_SYSRULES_applyComponents"(
+            function: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_215736"(
+              index: _,
+              isReadOnly: ri!isReadOnly,
+              customGeneration: ri!customGeneration
+            ),
+            array: if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  ri!customGeneration
+                ),
+                count(
+                  ri!customGeneration
+                ) = 0
+              ),
+              null,
+              tointeger(
+                enumerate(
+                  count(
+                    ri!customGeneration
+                  )
+                ) + 1
+              )
+            )
+          )
+        },
+        addRowLink: if(
+          or(
+            ri!isReadonly
+          ),
+          {},
+          #"SYSTEM_SYSRULES_dynamicLink"(
+            label: if(
+              ri!isReadonly = true(),
+              {},
+              "Add items"
+            ),
+            value: #"_a-0000e4dd-0d8b-8000-5257-1bef901bef90_213924"(
+              isActive: 1,
+              createdBy: loggedInUser(),
+              createdOn: now(),
+              processId: ri!processId,
+              outFileTypeConfigId: ri!outFileTypeConfigId
+            ),
+            saveInto: a!save(
+              ri!customGeneration,
+              append(
+                ri!customGeneration,
+                save!value
+              )
+            )
+          )
+        ),
+        validations: {},
+        shadeAlternateRows: false(),
+        
+      ),
+      #"SYSTEM_SYSRULES_ButtonLayout"(
+        primaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Submit",
+          value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[1],
+          saveInto: ri!buttonAction,
+          submit: true(),
+          validate: true(),
+          style: "PRIMARY"
+        ),
+        secondaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Cancel",
+          value: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_13888"[2],
+          saveInto: ri!buttonAction,
+          submit: true(),
+          validate: false(),
+          style: "DESTRUCTIVE"
+        ),
+        showWhen: if(
+          ri!isReadOnly,
+          false,
+          true
+        )
+      )
+    }
+  )
+}</definition>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>customGeneration</name>
+            <type>
+                <name>EAP_T_GtCustomGeneration?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outFileTypeConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_224380"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_233638"/>
+    </history>
+</contentHaul>

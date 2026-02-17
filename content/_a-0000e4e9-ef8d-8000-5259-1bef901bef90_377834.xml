@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_396938</versionUuid>
+    <interface>
+        <name>EAP_DataValidation_TemplateVersionPagingGrid</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377834</uuid>
+        <description>Hold template version grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  
+  local!viewData:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377303"(
+    processId: ri!processId,
+    templateConfigId:ri!templateConfigId
+  ),
+  #"SYSTEM_SYSRULES_gridField_v1"(
+    data:local!viewData,
+  columns:{
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label:"Template Name",
+      value:fv!row.version_description
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Template",
+      value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: {
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "download",
+            color: "ACCENT",
+
+          ),
+          #"SYSTEM_SYSRULES_richTextItem_v1"(
+            text: " "
+          ),
+          #"SYSTEM_SYSRULES_richTextItem_v1"(
+            text: if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  fv!row,
+                  "appian_document_id",
+                  {}
+                )
+              ),
+              {},
+              extract( 
+                getcontentdetailsbyuuid(
+                  index(
+                    fv!row,
+                    "appian_document_id",
+                    {}
+                  )
+                ),
+                "Name:",
+                ","
+              ) 
+
+            )
+            
+            
+    /*        document(
+              index(
+                fv!row,
+                "appian_document_id",
+                {}
+              ),
+              "name"
+            ) */  ,
+            linkStyle: "STANDALONE",
+            link:if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  fv!row,
+                  "appian_document_id",
+                  {}
+                )
+              ),
+              {},
+              #"SYSTEM_SYSRULES_documentDownloadLink"(
+              document:
+              todocument(
+                stripwith(
+                  index(
+                    split(
+                      getcontentdetailsbyuuid(
+                        index(
+                          fv!row,
+                          "appian_document_id",
+                          {}
+                        )
+                      ),
+                      ","
+                    ),2,{}),
+                    "Id: ")
+              )           
+              
+              
+            /*  todocument(
+                index(
+                  fv!row,
+                  "appian_document_id",
+                  {}
+                )
+              )  */
+            )
+            ),
+            showWhen: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9906"(index(
+              fv!row,
+              "appian_document_id",
+              {}
+            ))
+          )
+        }
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Created By",
+      value: if(
+        isusernametaken(
+          index(
+            fv!row,
+            "created_by",
+            {}
+          )
+        ),
+        concat(
+          user(
+            index(fv!row,"created_by",{}),
+            "firstName"
+          ),
+          " ",
+          user(
+            index(fv!row,"created_by",{}),
+            "lastName"
+          )
+        ),
+        index(
+          fv!row,
+          "created_by",
+          {}
+        )
+      )
+    ),
+  
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Created Date",
+      value: todate(
+        index(fv!row,"created_on",{})
+      ),
+      align: "END"
+    )
+  }
+))</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>templateConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377838"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_396938"/>
+    </history>
+</contentHaul>

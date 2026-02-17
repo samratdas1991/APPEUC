@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_746614</versionUuid>
+    <rule>
+        <name>EAP_DwfCheckIsEucNonHybrid</name>
+        <uuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_746603</uuid>
+        <description>Rule to check whether euc is hybrid or not</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+ #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),
+ {},
+ if(
+   or(
+     contains(
+       #"_a-0000e54f-9d27-8000-d937-a7ef90a7ef90_4801099",
+       ri!processId
+     ),
+     tointeger(index(
+       #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+         processId: ri!processId
+       ),
+       "is_hybrid_euc",
+       {}
+     ) )= 0,
+   ),
+   true(),
+   false()
+ )
+  
+)</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_746614"/>
+    </history>
+</contentHaul>

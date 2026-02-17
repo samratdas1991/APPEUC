@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_421416</versionUuid>
+    <rule>
+        <name>EAP_ActionTypeInputCopyGridRowLayout</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_14726</uuid>
+        <description>Hold sub rule for input copy</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  contents: {
+    /* Entity/Table Name */
+    if(
+      ri!isReadOnly = true(),
+     #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        label: "Entity Name",
+        value: index(
+          ri!actionTypeInputCopy[ri!index],
+          "table_name",
+          {}
+        ),
+        readOnly: true()
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        label: "Entity Name",
+        placeholderLabel: "--Select Entity Name--",
+        required: if(
+          or(
+            ri!isReadOnly
+          ),
+          false(),
+          true()
+        ),
+        choiceLabels: ri!entityNames,
+        choiceValues: ri!entityNames,
+        value: if(
+          #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+            value: index(
+              ri!actionTypeInputCopy[ri!index],
+              "table_name",
+              {}
+            ),
+            choiceValue: ri!entityNames
+          ),
+          index(
+            ri!actionTypeInputCopy[ri!index],
+            "table_name",
+            {}
+          ),
+          null
+        ),
+        validations: {
+          if(
+            ri!isReadOnly,
+            {},
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+              Value: index(
+                ri!actionTypeInputCopy[ri!index],
+                "table_name",
+                {}
+              ),
+              ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+            )
+          )
+        },
+        saveInto: {
+          ri!actionTypeInputCopy[ri!index].table_name,
+          a!save(
+            ri!actionTypeInputCopy[ri!index].modified_by,
+            loggedInUser()
+          ),
+          a!save(
+            ri!actionTypeInputCopy[ri!index].modified_on,
+            now()
+          )
+        },
+        readOnly: ri!isReadOnly
+      ),
+      
+    ),
+    /* Sheet Name */
+   #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      label: "Sheet Name",
+      placeholder: "--Enter Sheet Name--",
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            Value: index(
+              ri!actionTypeInputCopy[ri!index],
+              "sheet_name",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+          )
+        )
+      },
+      value: index(
+        ri!actionTypeInputCopy[ri!index],
+        "sheet_name",
+        {}
+      ),
+      saveInto: {
+        ri!actionTypeInputCopy[ri!index].sheet_name,
+        a!save(
+          ri!actionTypeInputCopy[ri!index].modified_by,
+          loggedInUser()
+        ),
+        a!save(
+          ri!actionTypeInputCopy[ri!index].modified_on,
+          now()
+        )
+      },
+      readOnly: ri!isReadOnly,
+      required: if(
+        or(
+          ri!isReadOnly
+        ),
+        false(),
+        true()
+      ),
+      
+    ),
+    /* Start Row */
+   #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      label: "Start Row",
+      placeholder: "--Enter Start Row--",
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            Value: index(
+              ri!actionTypeInputCopy[ri!index],
+              "start_row",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+          )
+        ),
+        if(
+          index(
+            ri!actionTypeInputCopy[ri!index],
+            "start_row",
+            {}
+          )&lt;=0,
+          "Start Row should not be smaller than or equals to 0",
+          {}
+        )
+      },
+      value: index(
+        ri!actionTypeInputCopy[ri!index],
+        "start_row",
+        {}
+      ),
+      required: if(
+        or(
+          ri!isReadOnly
+        ),
+        false(),
+        true()
+      ),
+      saveInto: {ri!actionTypeInputCopy[ri!index].start_row,a!save(
+        ri!actionTypeInputCopy[ri!index].modified_by,
+        loggedInUser()
+      ),
+      a!save(
+        ri!actionTypeInputCopy[ri!index].modified_on,
+        now()
+      )},
+      readOnly: ri!isReadOnly,
+      align: "RIGHT"
+    ),
+    /* End Row */
+   #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+      label: "End Row",
+      placeholder: "--Enter End Row--",
+      value: index(
+        ri!actionTypeInputCopy[ri!index],
+        "end_row",
+        {}
+      ),
+      required: if(
+        ri!isReadOnly = true(),
+        false(),
+        true()
+      ),
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            Value: index(
+              ri!actionTypeInputCopy[ri!index],
+              "end_row",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[5]
+          )
+        ),
+        if(
+          ri!isReadOnly,
+          {},
+          if(
+            or(tointeger(index(
+              ri!actionTypeInputCopy[ri!index],
+              "end_row",
+              null
+
+            ))
+            &lt;tointeger(index(
+              ri!actionTypeInputCopy[ri!index],
+              "start_row",
+              null))),
+              if(
+                or(tointeger(index(
+                  ri!actionTypeInputCopy[ri!index],
+                  "end_row",
+                  null
+
+                ))
+                = 0),
+                {},
+                "End Row should be greater than Start Row"
+              ),
+              {}
+          )
+        )
+      },
+      /*required:if(or(ri!isReadOnly),false(),true()),*/
+      saveInto: {ri!actionTypeInputCopy[ri!index].end_row,a!save(
+        ri!actionTypeInputCopy[ri!index].modified_by,
+        loggedInUser()
+      ),
+      a!save(
+        ri!actionTypeInputCopy[ri!index].modified_on,
+        now()
+      )},
+      readOnly: ri!isReadOnly,
+      align: "RIGHT"
+    ),
+    /* Apply Formula Copy */
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      value: {
+        if(
+          or(
+            tointeger(
+              index(
+                ri!actionTypeInputCopy[ri!index],
+                "apply_formula_copy",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 1,
+              saveInto: {a!save(
+                ri!actionTypeInputCopy[ri!index].apply_formula_copy,
+                0
+              ),
+              a!save(
+                ri!actionTypeInputCopy[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!actionTypeInputCopy[ri!index].modified_on,
+                now()
+              )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-off",
+            caption: "No",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 0,
+              saveInto: {a!save(
+                ri!actionTypeInputCopy[ri!index].apply_formula_copy,
+                1
+              ),
+              a!save(
+                ri!actionTypeInputCopy[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!actionTypeInputCopy[ri!index].modified_on,
+                now()
+              )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          )
+        )
+      },
+      align: "CENTER"
+    ),
+
+    /* Is Active */
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      value: {
+        if(
+          or(
+            tointeger(
+              index(
+                ri!actionTypeInputCopy[ri!index],
+                "isactive",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 1,
+              saveInto: {a!save(
+                ri!actionTypeInputCopy[ri!index].isactive,
+                0
+              ),
+              a!save(
+                ri!actionTypeInputCopy[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!actionTypeInputCopy[ri!index].modified_on,
+                now()
+              )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-off",
+            caption: "No",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 0,
+              saveInto: {a!save(
+                ri!actionTypeInputCopy[ri!index].isactive,
+                1
+              ),
+              a!save(
+                ri!actionTypeInputCopy[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!actionTypeInputCopy[ri!index].modified_on,
+                now()
+              )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          )
+        )
+      },
+      align: "CENTER"
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actionTypeInputCopy</name>
+            <type>
+                <name>EAP_T_RefProcessWfInputCopy?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookup</name>
+            <type>
+                <name>EAP_T_RefMaster?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>allTables</name>
+            <type>
+                <name>EAP_V_AllTables?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityNames</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_84023"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_90899"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_98230"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_102645"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_158773"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_195468"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_365586"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_414900"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_421416"/>
+    </history>
+</contentHaul>

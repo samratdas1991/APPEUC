@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_249950</versionUuid>
+    <interface>
+        <name>EAP_CountryNonWorkingDayEditableGrid</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_63514</uuid>
+        <description>Contains editable grid for non working days</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>
+  {     
+
+    #"SYSTEM_SYSRULES_boxLayout"(
+      label: "Non Working Days",
+      isCollapsible:true(),
+      contents: {
+        
+        #"SYSTEM_SYSRULES_gridLayout"(
+          label: "",
+          shadeAlternateRows: false(),
+          headerCells: {
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "Day",
+              align: "LEFT",
+            ),
+
+
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "Status",
+              align: if(
+                contains(
+                  ri!isReadOnly,
+                  true()
+                ),
+                "CENTER",
+                "LEFT"
+              )
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              align: if(
+                contains(
+                  ri!isReadOnly,
+                  true()
+                ),
+                "CENTER",
+                "LEFT"
+              ),
+              showWhen: if(
+                contains(
+                  ri!isReadOnly,
+                  true()
+                ),
+                false(),
+                true()
+              )
+            )
+          },
+          columnConfigs: {
+
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE",
+              weight: 4
+            ),    
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE"
+              
+
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "ICON",
+              showWhen: if(
+                contains(
+                  ri!isReadOnly,
+                  true()
+                ),
+                false(),
+                true()
+              )
+            )
+          },
+          rows: {
+            #"SYSTEM_SYSRULES_applyComponents"(
+              function: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_63520"(
+                index: _,
+                nonWorkingDay: ri!nonWorkingDay,
+                isReadOnly: ri!isReadOnly
+              ),
+              array: if(
+                or(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!nonWorkingDay
+                  ),
+                  count(
+                    ri!nonWorkingDay
+                  ) = 0
+                ),
+                null,
+                tointeger(
+                  enumerate(
+                    count(
+                      ri!nonWorkingDay
+                    )
+                  ) + 1
+                )
+              )
+            )
+          },
+          selectionSaveInto: {},
+          addRowLink: if(
+            ri!isReadOnly,
+            {},
+            #"SYSTEM_SYSRULES_dynamicLink"(
+              label: "Add",
+              value: 'type!{urn:com:appian:types:eap}EAP_T_RefCalendarNonWorkingDay'(
+                is_active: 1,
+                created_by: loggedInUser(),
+                created_on: now(),
+                modified_by: loggedInUser(),
+                modified_on: now()               
+
+              ),
+              saveInto: a!save(
+                ri!nonWorkingDay,
+                append(
+                  ri!nonWorkingDay,
+                  save!value
+                )
+              )
+            )
+          )
+        )
+      }
+    )
+    /*
+    a!buttonLayout(
+      primaryButtons: {
+        a!buttonWidget(
+          label: "Submit",
+          submit: true(),
+          validate: true(),
+          value: cons!EAP_BUTTON_ACTION[1],
+          saveInto: ri!buttonAction,
+          style: "PRIMARY"
+        )
+      },
+      secondaryButtons:  a!buttonWidget(
+        label: "Cancel",
+        submit: true(),
+        value: cons!EAP_BUTTON_ACTION[2],
+        saveInto: ri!buttonAction
+      )
+    )
+    */
+  }
+</definition>
+        <namedTypedValue>
+            <name>nonWorkingDay</name>
+            <type>
+                <name>EAP_T_RefCalendarNonWorkingDay?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_125445"(
+  calendarId: 10
+)</a:value>
+                    <a:nameRef>nonWorkingDay</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonAction</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_63832"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_94417"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_154443"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_188569"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_249950"/>
+    </history>
+</contentHaul>

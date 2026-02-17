@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_559693</versionUuid>
+    <interface>
+        <name>EAP_AuditChecklistGridView</name>
+        <uuid>_a-0000e518-940a-8000-525e-1bef901bef90_559410</uuid>
+        <description>Checklist grid view for Requests</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!checklistData: #"_a-0000e518-940a-8000-525e-1bef901bef90_559302"(
+    ri!requestId
+  ),
+  local!headings: union(
+    index(
+      local!checklistData,
+      "CHECKLIST_TYPE",
+      {}
+    ),
+    index(
+      local!checklistData,
+      "CHECKLIST_TYPE",
+      {}
+    )
+  ),
+  {
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        local!checklistData
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text: "No Checklist Data Found For Your Request!",
+          style: {
+            "EMPHASIS",
+            "STRONG"
+          },
+          color: "ACCENT",
+          size: "MEDIUM"
+        )
+      ),
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "Audit Checklist",
+        contents: {
+          /*a!richTextDisplayField(),*/
+          #"SYSTEM_SYSRULES_forEach"(
+            items: local!headings,
+            expression: {
+              #"SYSTEM_SYSRULES_richTextDisplayField"(),
+              #"SYSTEM_SYSRULES_gridLayout"(
+                label: fv!item,
+                headerCells: {
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Number"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Reviewed",
+                    align:"CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Not Applicable",
+                    align:"CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Check Description"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Comment"
+                  )
+                },
+                columnConfigs: {
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    weight: 1
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    weight: 1
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    weight: 1
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    weight: 5
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    weight: 3
+                  )
+                },
+                rows: {
+                  #"SYSTEM_SYSRULES_forEach"(
+                    items: index(
+                      local!checklistData,
+                      wherecontains(
+                        tostring(
+                          fv!item
+                        ),
+                        touniformstring(
+                          index(
+                            local!checklistData,
+                            "CHECKLIST_TYPE",
+                            {}
+                          )
+                        )
+                      ),
+                      {}
+                    ),
+                    expression: {
+                      #"SYSTEM_SYSRULES_gridRowLayout"(
+                        contents: {
+                          #"SYSTEM_SYSRULES_integerField"(
+                            value: fv!index,
+                            readOnly: true
+                          ),
+                          #"SYSTEM_SYSRULES_checkboxField"(
+                            align:"CENTER",
+                            choiceLabels: {
+                              ""
+                            },
+                            choiceValues: tointeger(
+                              {
+                                true
+                              }
+                            ),
+                            value: if(
+                              tointeger(
+                                index(
+                                  fv!item,
+                                  "IS_REVIEWED",
+                                  null
+                                )
+                              ) = 1,
+                              1,
+                              null
+                            ),
+                            disabled: true()
+                          ),
+                          #"SYSTEM_SYSRULES_checkboxField"(
+                            align:"CENTER",
+                            choiceLabels: {
+                              ""
+                            },
+                            choiceValues: tointeger(
+                              {
+                                true
+                              }
+                            ),
+                            value: if(
+                              tointeger(
+                                index(
+                                  fv!item,
+                                  "IS_NOT_APPLICABLE",
+                                  null
+                                )
+                              ) = 1,
+                              1,
+                              null
+                            ),
+                            disabled: true()
+                          ),
+                          #"SYSTEM_SYSRULES_textField"(
+                            value: index(
+                              index(
+                                local!checklistData,
+                                "CHECKLIST_DESC",
+                                {}
+                              ),
+                              wherecontains(
+                                tointeger(
+                                  fv!item.CHECKLIST_ID
+                                ),
+                                tointeger(
+                                  index(
+                                    local!checklistData,
+                                    "CHECKLIST_ID",
+                                    {}
+                                  )
+                                )
+                              ),
+                              null
+                            ),
+                            readOnly: true
+                          ),
+                          #"SYSTEM_SYSRULES_textField"(
+                            value: index(fv!item,"REJECTION_COMMENTS",{}),
+                            readOnly: true()
+                          )
+                        }
+                      )
+                    }
+                  )
+                }
+              )
+            }
+          )
+        }
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_559693"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:com:appian:types:EAP"
+  xmlns:tns="urn:com:appian:types:EAP" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="EAP_Temp_DwfUniqueIdentifiers">
+    <xsd:annotation>
+      <xsd:appinfo source="http://www.appian.com/ae/types/2009">
+        <ns2:Metadata xmlns:ns2="http://www.appian.com/ae/types/2009">
+          <ns2:versionUuid>0000e5cf-6e84-8000-74bd-1b4d981b4d98</ns2:versionUuid>
+          <ns2:history>
+            <ns2:historyInfo versionUuid="0000e504-9123-8000-6508-1b4d981b4d98"/>
+            <ns2:historyInfo versionUuid="0000e509-9f81-8000-66a3-1b4d981b4d98"/>
+            <ns2:historyInfo versionUuid="0001e514-020e-8000-687a-1b4d981b4d98"/>
+            <ns2:historyInfo versionUuid="0001e525-5b80-8000-6a85-1b4d981b4d98"/>
+            <ns2:historyInfo versionUuid="0000e546-3946-8000-6c5b-1b4d981b4d98"/>
+            <ns2:historyInfo versionUuid="0000e55e-2392-8000-6cf5-1b4d981b4d98"/>
+            <ns2:historyInfo versionUuid="0000e5cf-6e84-8000-74bd-1b4d981b4d98"/>
+          </ns2:history>
+        </ns2:Metadata>
+      </xsd:appinfo>
+      <xsd:documentation><![CDATA[Holds all the unique fields to run the dynamic workflow]]></xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="process_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="run_config_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="process_controller_configId" nillable="true" type="xsd:int"/>
+      <xsd:element name="process_controller_audit_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="process_controller_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="action" nillable="true" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(length=255)</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="is_initiated_first_time" nillable="true" type="xsd:boolean"/>
+      <xsd:element name="process_controller_master_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="link_mapping_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="link_config_id" nillable="true" type="xsd:int"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0"
+        name="io_config_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="parsing_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="output_config_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="transformation_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="data_validation_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="link_transaction_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="link_transaction_mapping_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="step_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="milestone_id" nillable="true" type="xsd:int"/>
+      <xsd:element name="rejection_comments" nillable="true" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(length=4000)</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="process_param_pg_id" nillable="true" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

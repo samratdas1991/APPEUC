@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_240318</versionUuid>
+    <rule>
+        <name>EAP_QE_RefIntSysParam</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_57331</uuid>
+        <description>Rule to query data from ref int system parameters.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_queryEntity_v1"(
+  entity : #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65044",
+  query:#"SYSTEM_SYSRULES_query"(
+    logicalExpression :if(
+      and(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!systemParameterId),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!integratedSystemId),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!lookupSystemTypeCode),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!parameterLabel),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!parameterCode),        
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!parameterType),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!masterRefDataType),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!defaultValueExpression),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isActive),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdBy),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdOn),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedBy),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedOn),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!calculatedValueExpression),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!minLength),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!validationExpression),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!maxLength),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isRequired),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isReadOnly),
+      
+      ),
+      null,
+      #"SYSTEM_SYSRULES_queryLogicalExpression"(
+        operator : "AND",
+        filters  : {
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!systemParameterId),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "system_parameter_id",
+              operator: "IN",
+              value :  {
+                ri!systemParameterId
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!integratedSystemId),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "integrated_system_id",
+              operator: "IN",
+              value :  {
+                ri!integratedSystemId
+              }
+
+            )
+          ),
+          
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!lookupSystemTypeCode),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "lookup_system_type_code",
+              operator: "IN",
+              value :  {
+                ri!lookupSystemTypeCode
+              }
+
+            )
+          ),
+          
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!parameterLabel),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "parameter_label",
+              operator: "IN",
+              value :  {
+                ri!parameterLabel
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!parameterCode),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "parameter_code",
+              operator: "IN",
+              value :  {
+                ri!parameterCode
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!parameterType),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "parameter_type",
+              operator: "IN",
+              value :  {
+                ri!parameterType
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!masterRefDataType),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "master_refdata_type",
+              operator: "IN",
+              value :  {
+                ri!masterRefDataType
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!defaultValueExpression),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "default_value_expression",
+              operator: "IN",
+              value :  {
+                ri!defaultValueExpression
+              }
+
+            )
+          ) ,
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!calculatedValueExpression),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "calculated_value_expression",
+              operator: "IN",
+              value :  {
+                ri!calculatedValueExpression
+              }
+
+            )
+          ) ,
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isActive),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "is_active",
+              operator: "IN",
+              value :  {
+                ri!isActive
+              }
+
+            )
+          ), 
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdBy),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "created_by",
+              operator: "IN",
+              value :  {
+                ri!createdBy
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!createdOn),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "created_on",
+              operator: "IN",
+              value :  {
+                ri!createdOn
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedBy),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "modified_by",
+              operator: "IN",
+              value :  {
+                ri!modifiedBy
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!modifiedOn),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "modified_on",
+              operator: "IN",
+              value :  {
+                ri!modifiedOn
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!maxLength),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "max_length",
+              operator: "IN",
+              value :  {
+                ri!maxLength
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!validationExpression),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "validation_expression",
+              operator: "IN",
+              value :  {
+                ri!validationExpression
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!minLength),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "min_length",
+              operator: "IN",
+              value :  {
+                ri!minLength
+              }
+
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isRequired),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "is_required",
+              operator: "=",
+              value : ri!isRequired
+            )
+          ),
+          if( 
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!isReadOnly),
+            {},
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field : "is_read_only",
+              operator: "=",
+              value : ri!isReadOnly
+            )
+          )
+        }
+      )
+
+    ) ,
+    pagingInfo: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!pagingInfo),
+      #"SYSTEM_SYSRULES_pagingInfo"(
+        startIndex : 1, 
+        batchSize :-1        
+      ),
+      ri!pagingInfo
+
+    )
+
+  )
+
+).data</definition>
+        <namedTypedValue>
+            <name>systemParameterId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>integratedSystemId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>lookupSystemTypeCode</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>parameterLabel</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>parameterCode</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>parameterType</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterRefDataType</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>defaultValueExpression</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>calculatedValueExpression</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>validationExpression</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>minLength</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>maxLength</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isRequired</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_74291"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_240318"/>
+    </history>
+</contentHaul>

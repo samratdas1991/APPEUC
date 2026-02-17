@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_173979</versionUuid>
+    <rule>
+        <name>EAP_TransformWriteToMultipleDatastoreEntity</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_21935</uuid>
+        <description>Contains rule to fetch datastore entities for transformation</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  /*1. EAP_DE_REF_PROCESS_WF_ACTIONS*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10712",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessWfActionTypeList
+      ),
+      {},
+      pv!refProcessWfActionTypeList
+    )
+  },
+  /*2. EAP_DE_REF_PROCESS_WF_TEMPLATE_CONFIG*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10610",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessWfTemplateConfigList
+      ),
+      {},
+      pv!refProcessWfTemplateConfigList
+    )
+  },
+  /*3. EAP_DE_REF_PROCESS_WF_INPUT_COPY*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10780",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!actionTypeInputCopyList
+      ),
+      {},
+      pv!actionTypeInputCopyList
+    )
+  },
+  /*4. EAP_DE_REF_PROCESS_WF_ENTITY_SHEET_MAPPING*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10741",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!actionTypeInputCopyEntityMappingList
+      ),
+      {},
+      pv!actionTypeInputCopyEntityMappingList
+    )
+  },
+  /*5. EAP_DE_REF_PROCESS_WF_REFRESH_PIVOT*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11321",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!actionTypeRefreshPivotList
+      ),
+      {},
+      pv!actionTypeRefreshPivotList
+    )
+  },
+  /*6. EAP_DE_REF_PROCESS_WF_SHEET_COPY*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11109",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!sheetCopyList
+      ),
+      {},
+      pv!sheetCopyList
+    )
+  },
+  /*7. EAP_DE_REF_PROCESS_WF_SHEET_COPY_MAPPING*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11055",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!sheetCopyMappingList
+      ),
+      {},
+      pv!sheetCopyMappingList
+    )
+  },
+  /*8. EAP_DE_REF_PROCESS_WF_FIXED_CELLS*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11265",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!fixedCellsList
+      ),
+      {},
+      pv!fixedCellsList
+    )
+  },
+  /*9. EAP_DE_REF_PROCESS_WF_OUTPUT_COPY*/
+  {
+    entity: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_24098",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessWfOutputCopyList
+      ),
+      {},
+      pv!refProcessWfOutputCopyList
+    )
+  },
+  /*10. EAP_DE_REF_PROCESS_WF_SHEET_ENTITY_MAPPING*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11015",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessWfSheetEntityMappingLIst
+      ),
+      {},
+      pv!refProcessWfSheetEntityMappingLIst
+    )
+  },
+  /*11. EAP_DE_REF_PROCESS_WF_CUSTOM_ACTION*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10519",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!customActionList
+      ),
+      {},
+      pv!customActionList
+    )
+  },
+  /*12. EAP_DE_REF_PROCESS_WF_CUSTOM_ACTION_MAPPING*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10814",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!customActionMappingList
+      ),
+      {},
+      pv!customActionMappingList
+    )
+  },
+  /*13. EAP_DE_REF_PROCESS_WF_SHEET_FILTERS*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11170",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!sheetFiltersList
+      ),
+      {},
+      pv!sheetFiltersList
+    )
+  },
+  /*14. EAP_DE_WF_ENTITY_SHEET_FILTERS*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_70510",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!inputCopyEntitySheetFiltersList
+      ),
+      {},
+      pv!inputCopyEntitySheetFiltersList
+    )
+  },
+  
+  /*15. Runtime Fixed cell*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_106584",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!runTimeFixedCell
+      ),
+      {},
+      pv!runTimeFixedCell
+    )
+  },
+  /*16. Template versions*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10660",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessWFTemplateVersionsList
+      ),
+      {},
+      pv!refProcessWFTemplateVersionsList
+    )
+  }
+}</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_70968"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_173979"/>
+    </history>
+</contentHaul>

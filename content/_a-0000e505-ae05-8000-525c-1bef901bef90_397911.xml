@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_402229</versionUuid>
+    <interface>
+        <name>EAP_ReadOnlyForDwfAudit</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_397911</uuid>
+        <description>holds the paging grid for dwf audit</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    label: "Filters",
+    contents: {
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Process Id",
+                value: ri!processId,
+                saveInto: ri!processId,
+                refreshAfter: "KEYPRESS"
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Run Config Id",
+                value: ri!runConfigId,
+                saveInto: ri!runConfigId,
+                refreshAfter: "KEYPRESS"
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Request Id",
+                value: ri!requestId,
+                saveInto: ri!requestId,
+                refreshAfter: "KEYPRESS"
+              )
+            }
+          )
+        }
+      )
+    },
+    isCollapsible: true()
+  ),
+  #"SYSTEM_SYSRULES_boxLayout"(
+    label: "Audit Details",
+    style: "INFO",
+    contents: {
+      #"SYSTEM_SYSRULES_gridField_v1"(
+        data: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_383490"(
+          processId: ri!processId,
+          runConfigId: ri!runConfigId,
+          requestId: ri!requestId
+        ),
+        columns: {
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Request Id",
+            sortField: "request_id",
+            value: fv!row.request_id
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Process Contoller Id",
+            sortField: "process_controller_id",
+            value: fv!row.process_controller_id
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Process Id",
+            sortField: "process_id",
+            value: fv!row.process_id
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Process Id",
+            sortField: "process_controller_master_id",
+            value: fv!row.process_conroller_master_id
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Run Config Id",
+            sortField: "run_config_id",
+            value: fv!row.run_config_id
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Process Controller Audit Id",
+            sortField: "process_controller_audit_id",
+            value: fv!row.process_controller_audit_id
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Controller Config Id",
+            sortField: "controller_config_id",
+            value: fv!row.controller_config_id
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Milestone Id",
+            sortField: "milestone_id",
+            value: fv!row.milestone_id
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Is Completed",
+            sortField: "is_completed",
+            value: fv!row.is_completed
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Is Active",
+            sortField: "is_active",
+            value: fv!row.is_active
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Modified On",
+            sortField: "modified_on",
+            value: fv!row.modified_on
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Created On",
+            sortField: "created_on",
+            value: fv!row.created_on
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Modified By",
+            sortField: "modified_by",
+            value: fv!row.modified_by
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Created By",
+            sortField: "created_by",
+            value: fv!row.created_by
+          ),
+     
+          
+        },
+        pageSize: 20,
+        initialSorts: {}
+      )
+    }
+  )
+}</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_402229"/>
+    </history>
+</contentHaul>

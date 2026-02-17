@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eda1-5e46-8000-9c0e-011c48011c48_740679</versionUuid>
+    <rule>
+        <name>EAP_QueryAnalyticsForTaskReport</name>
+        <uuid>_a-0000e518-940a-8000-525e-1bef901bef90_518672</uuid>
+        <description>Holds the query process analytics for task report</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!queryProcessAnalytics(
+  query: #"SYSTEM_SYSRULES_query"(
+    logicalExpression: #"SYSTEM_SYSRULES_queryLogicalExpression"(
+      operator: "AND",
+      logicalExpressions: {
+        #"SYSTEM_SYSRULES_queryLogicalExpression"(
+          operator: "OR",
+          filters: {
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "c10",
+              operator: "=",
+              value: ri!assignTo,
+              applyWhen: a!isNotNullOrEmpty(ri!assignTo)
+            ),
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "c10",
+              operator: "includes",
+              value: ri!assignTo &amp; ",",
+              applyWhen: a!isNotNullOrEmpty(ri!assignTo)
+            ),
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "c10",
+              operator: "includes",
+              value: "," &amp; ri!assignTo &amp; ",",
+              applyWhen: a!isNotNullOrEmpty(ri!assignTo)
+            ),
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "c10",
+              operator: "includes",
+              value: "," &amp; ri!assignTo,
+              applyWhen: a!isNotNullOrEmpty(ri!assignTo)
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_queryLogicalExpression"(
+          operator: "AND",
+          filters: {
+            #"SYSTEM_SYSRULES_queryFilter"(field: "c1", operator: "in", value: { 0, 1 }),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!TaskName),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "c0",
+                operator: "includes",
+                value: ri!TaskName
+              )
+            ),
+            if(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!RequestStatus),
+              {},
+              #"SYSTEM_SYSRULES_queryFilter"(
+                field: "c8",
+                operator: "in",
+                value: { ri!RequestStatus }
+              )
+            )
+          }
+        )
+      }
+    ),
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: - 1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(field: "c3", ascending: false())
+    )
+  ),
+  contextProcessModels: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_51978",
+  report: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_290373"[2]
+)</definition>
+        <namedTypedValue>
+            <name>TaskName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>RequestStatus</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>TaskGroup</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assignTo</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_519088"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_526981"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_539464"/>
+        <historyInfo versionUuid="_a-0000e994-b588-8000-529b-1bef901bef90_790149"/>
+        <historyInfo versionUuid="_a-0000eda1-5e46-8000-9c0e-011c48011c48_740679"/>
+    </history>
+</contentHaul>

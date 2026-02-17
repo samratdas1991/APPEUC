@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_257601</versionUuid>
+    <interface>
+        <name>EAP_sectionHeadingSimple_V2</name>
+        <uuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_255309</uuid>
+        <description>Returns a richTextDisplayField including an optional icon and some text</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_cardLayout"(
+  contents: {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        /*a!columnLayout(*/
+        /*contents: {*/
+        /*a!richTextDisplayField(*/
+        /*labelPosition: "COLLAPSED",*/
+        /*value: {*/
+        /*a!richTextItem(text: { "Process Details" }, size: "LARGE")*/
+        /*}*/
+        /*)*/
+        /*}*/
+        /*),*/
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_richTextDisplayField"(
+              labelPosition: "COLLAPSED",
+              value: {
+                #"SYSTEM_SYSRULES_richTextItem_v1"(
+                  text: {
+                    #"SYSTEM_SYSRULES_richTextIcon"(
+                      icon: ri!icon,
+                      color: #"_a-0000e518-940a-8000-525e-1bef901bef90_524789"(ri!color, "SECONDARY"),
+                      size: "MEDIUM"
+                    ),
+                    if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!icon),
+                      "",
+                      " "
+                    ),
+                    ri!label
+                  },
+                  color: #"_a-0000e518-940a-8000-525e-1bef901bef90_524789"(ri!color, "SECONDARY"),
+                  size: #"_a-0000e518-940a-8000-525e-1bef901bef90_524789"(ri!size, "MEDIUM"),
+                  style: #"_a-0000e518-940a-8000-525e-1bef901bef90_524789"(ri!style, "STRONG")
+
+                )
+              },
+              align: "LEFT",
+              marginAbove: "LESS",
+              marginBelow: "NONE"
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_sideBySideLayout"(
+              items: {
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    label: "",
+                    labelPosition: "ABOVE",
+
+                    value: {
+                      #"SYSTEM_SYSRULES_richTextItem_v1"(text: "Status", style: "STRONG"),
+                      "  ",
+                      if(
+                        ri!refProcess.is_active = 1,
+                        #"SYSTEM_SYSRULES_richTextIcon"(
+                          icon: "check",
+                          color: "POSITIVE",
+                          size: "MEDIUM"
+                        ),
+                        #"SYSTEM_SYSRULES_richTextIcon"(
+                          icon: "times-circle",
+                          color: "NEGATIVE",
+                          size: "MEDIUM"
+                        )
+                      )
+                    },
+                    align: "CENTER",
+                    marginBelow: "NONE"
+                  )
+                ),
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    label: "",
+
+                    value: {
+                      #"SYSTEM_SYSRULES_richTextItem_v1"(text: "Is Hybrid EUC", style: "STRONG"),
+                      "   ",
+                      if(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          index(ri!refProcess, "is_hybrid_euc", null)
+                        ),
+                        if(
+                          contains(
+                            #"_a-0000e54f-9d27-8000-d937-a7ef90a7ef90_4801099",
+                            tointeger(index(ri!refProcess, "process_id", null))
+                          ),
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "times-circle",
+                            color: "NEGATIVE",
+                            size: "MEDIUM"
+                          ),
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "check",
+                            color: "POSITIVE",
+                            size: "MEDIUM"
+                          )
+                        ),
+                        if(
+                          ri!refProcess.is_hybrid_euc = 1,
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "check",
+                            color: "POSITIVE",
+                            size: "MEDIUM"
+                          ),
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "times-circle",
+                            color: "NEGATIVE",
+                            size: "MEDIUM"
+                          )
+                        )
+                      )
+                    },
+                    align: "CENTER",
+                    marginBelow: "NONE"
+                  )
+                )
+              }
+            )
+          }
+        )
+      },
+      alignVertical: "MIDDLE"
+    )
+  },
+  style: "TRANSPARENT",
+  padding: "NONE",
+  marginBelow: "NONE",
+  showBorder: false
+)</definition>
+        <namedTypedValue>
+            <name>showWhen</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>icon</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>size</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>label</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>style</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>color</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcess</name>
+            <type>
+                <name>EAP_T_RefProcess</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_257601"/>
+    </history>
+</contentHaul>

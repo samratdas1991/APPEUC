@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_512423</versionUuid>
+    <rule>
+        <name>EAP_DynamicEditableGridSubRule</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_163102</uuid>
+        <description>Used to generate dynamic editable grid</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  id: ri!index,
+  contents: {
+    /*Config Name*/
+    if(
+      or(
+        ri!isReadOnly
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: ri!isReadOnly,
+        value: index(
+          ri!editableGridData[ri!index],
+          "parameter_code",
+          {}
+        )
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+        placeholderLabel: "-- Select --",
+        choiceLabels: {
+          touniformstring(
+            index(
+              ri!formData,
+              "parameter_label",
+              {}
+            )
+          )
+        },
+        choiceValues: {
+          touniformstring(
+            index(
+              ri!formData,
+              "parameter_code",
+              {}
+            )
+          )
+        },
+        value: if(
+          contains(
+            touniformstring(
+              index(
+                ri!formData,
+                "parameter_code",
+                {}
+              )
+            ),
+            tostring(
+              index(
+                ri!editableGridData[ri!index],
+                "parameter_code",
+                {}
+              )
+            )
+          ),
+          index(
+            ri!editableGridData[ri!index],
+            "parameter_code",
+            {}
+          ),
+          null
+        ),
+        saveInto: {
+          a!save(
+            ri!editableGridData[ri!index].parameter_code,
+            save!value
+          ),
+          a!save(
+            ri!editableGridData[ri!index].parameter_value,
+            if(
+              or(
+                #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                  index(
+                    index(
+                      ri!formData,
+                      wherecontains(
+                        tostring(
+                          ri!editableGridData[ri!index].parameter_code
+                        ),
+                        touniformstring(
+                          index(
+                            ri!formData,
+                            "parameter_code",
+                            {}
+                          )
+                        )
+                      ),
+                      {}
+                    ),
+                    "default_value_expression",
+                    null
+                  )
+                )
+              ),
+              null,
+              #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+                input: index(
+                  index(
+                    ri!formData,
+                    wherecontains(
+                      tostring(
+                        ri!editableGridData[ri!index].parameter_code
+                      ),
+                      touniformstring(
+                        index(
+                          ri!formData,
+                          "parameter_code",
+                          {}
+                        )
+                      )
+                    ),
+                    {}
+                  ),
+                  "default_value_expression",
+                  null
+                )
+              )
+            )
+          )
+        },
+        required: true(),
+        validations: {
+          if(
+            count(
+              wherecontains(
+                tostring(
+                  ri!editableGridData[ri!index].parameter_code
+                ),
+                touniformstring(
+                  index(
+                    ri!editableGridData,
+                    "parameter_code",
+                    {}
+                  )
+                )
+              )
+            ) &gt; 1,
+            "User can not select the duplicate parameter code",
+            null
+          )
+        }
+      )
+    ),
+    /*File Config Name*/
+    if(
+      or(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          index(
+            ri!editableGridData[ri!index],
+            "parameter_code",
+            {}
+          )
+        )
+      ),
+      #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+        readOnly: true()
+      ),
+      #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_144808"(
+        input: index(
+          ri!formData,
+          wherecontains(
+            tostring(
+              ri!editableGridData[ri!index].parameter_code
+            ),
+            touniformstring(
+              index(
+                ri!formData,
+                "parameter_code",
+                {}
+              )
+            )
+          ),
+          {}
+        ),
+        cdt: ri!editableGridData[ri!index],
+        masterLookUpData: ri!masterLookupData,
+        isEditableGrid: true(),
+        sectionDetails: ri!sectionDetails,
+        editableGridDetails: ri!editableGridDetails,
+        isReadOnly: ri!isReadOnly
+      )
+    ),
+    /*File Type*/
+    if(
+      ri!isReadOnly,
+      {},
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+          ri!editableGridData[ri!index].id
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!editableGridData,
+                  remove(
+                    index(
+                      ri!editableGridData,
+                      wherecontains(
+                        tointeger(
+                          index(
+                            index(
+                              ri!formData,
+                              "system_parameter_id",
+                              null
+                            ),
+                            1,
+                            null
+                          )
+                        ),
+                        tointeger(
+                          index(
+                            ri!editableGridData,
+                            "system_parameter_id",
+                            null
+                          )
+                        )
+                      ),
+                      {}
+                    ),
+                    ri!index
+                  )
+                )
+              }
+            )
+          )
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          readOnly: true()
+        )
+      )
+      
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>editableGridData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookupData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>formData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sectionDetails</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>editableGridDetails</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_168217"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_189023"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_221035"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_329636"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_426319"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_512423"/>
+    </history>
+</contentHaul>

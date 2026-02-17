@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<siteHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>04db32f1-a20d-497e-aab9-406c337faad9</versionUuid>
+  <site a:uuid="0bfd8965-a96e-49fb-b5c4-8059a9f6a560" name="EAP Requests">
+    <description>Hold all the end user computing related requests</description>
+    <urlStub>eap-requests</urlStub>
+    <page a:uuid="ea4c514a-0ce0-3c9a-b489-c75bdcb05354">
+      <staticName>My Request</staticName>
+      <description/>
+      <urlStub>my-requests</urlStub>
+      <uiObject a:uuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_255134" xsi:type="a:ContentFreeformRule"/>
+      <iconId>f00b</iconId>
+      <visibilityExpr>fn!true()</visibilityExpr>
+      <pageWidth>FULL</pageWidth>
+      <areUrlParamsEncrypted>true</areUrlParamsEncrypted>
+      <autoContextUpdateEnabled>false</autoContextUpdateEnabled>
+      <siteBrandingEnabled>true</siteBrandingEnabled>
+      <darkThemeEnabled>false</darkThemeEnabled>
+    </page>
+    <page a:uuid="9fe38d2f-c271-313c-aec7-8a24ee2e6f28">
+      <staticName>My Task</staticName>
+      <description/>
+      <urlStub>my-task</urlStub>
+      <uiObject a:uuid="3cd892e1-d92b-4b85-92c4-80977da1fc35" xsi:type="a:TempoReport"/>
+      <iconId>f0ae</iconId>
+      <visibilityExpr>fn!true()</visibilityExpr>
+      <pageWidth>FULL</pageWidth>
+      <areUrlParamsEncrypted>true</areUrlParamsEncrypted>
+      <autoContextUpdateEnabled>false</autoContextUpdateEnabled>
+      <siteBrandingEnabled>true</siteBrandingEnabled>
+      <darkThemeEnabled>false</darkThemeEnabled>
+    </page>
+    <page a:uuid="b75b7ee0-6b8c-3300-8fb1-928fb8c2feee">
+      <staticName>Process</staticName>
+      <description/>
+      <urlStub>process</urlStub>
+      <uiObject a:uuid="4a338280-fe3d-4ed7-8aeb-b06bd1245eeb" xsi:type="a:RecordType"/>
+      <iconId>f03a</iconId>
+      <visibilityExpr>fn!true()</visibilityExpr>
+      <pageWidth>FULL</pageWidth>
+      <areUrlParamsEncrypted>true</areUrlParamsEncrypted>
+      <autoContextUpdateEnabled>false</autoContextUpdateEnabled>
+      <siteBrandingEnabled>true</siteBrandingEnabled>
+      <darkThemeEnabled>false</darkThemeEnabled>
+    </page>
+    <visibility>268435456</visibility>
+    <headerBackgroundColor>#003b70</headerBackgroundColor>
+    <selectedTabBackgroundColor>#d9261C</selectedTabBackgroundColor>
+    <faviconRef a:uuid="SYSTEM_CONTENT_SITES_DEFAULT_FAVICON" xsi:type="a:CollaborationDocument"/>
+    <logoRef a:uuid="SYSTEM_CONTENT_SITES_DEFAULT_LOGO" xsi:type="a:CollaborationDocument"/>
+    <accentColor>#003b70</accentColor>
+    <showName>false</showName>
+    <tempoLinkVisibility>HIDDEN</tempoLinkVisibility>
+    <showRecordNews>true</showRecordNews>
+    <tasksInSitesVisibility>HIDDEN</tasksInSitesVisibility>
+    <buttonShape>SQUARED</buttonShape>
+    <navigationBarStyle>STYLE1</navigationBarStyle>
+    <inputShape>SQUARED</inputShape>
+    <isSystem>false</isSystem>
+    <displayName>EAP Requests</displayName>
+    <isStaticDisplayName>true</isStaticDisplayName>
+    <nameExprIsEvaluable>true</nameExprIsEvaluable>
+    <primaryNavLayoutType>TOPBAR</primaryNavLayoutType>
+    <buttonLabelCase>UPPERCASE</buttonLabelCase>
+    <dialogShape>SQUARED</dialogShape>
+    <pageNameCase>UPPERCASE</pageNameCase>
+    <showUserProfile>true</showUserProfile>
+    <showUserSettings>true</showUserSettings>
+  </site>
+  <roleMap>
+    <role name="site_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+      </groups>
+    </role>
+    <role name="site_viewer">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e753-0d97-8000-527e-1b1e941b1e94_533</groupUuid>
+        <groupUuid>_e-0000e753-0d97-8000-527e-1b1e941b1e94_535</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="97936df5-11de-4af2-a2f8-bfaa378fe414"/>
+    <historyInfo versionUuid="6589a832-8423-4cf3-9070-dabd64cd7503"/>
+    <historyInfo versionUuid="06f78084-1739-492e-bd9a-8552c6f0151c"/>
+    <historyInfo versionUuid="949bee1c-da6c-4551-bb64-84611435a16c"/>
+    <historyInfo versionUuid="04db32f1-a20d-497e-aab9-406c337faad9"/>
+  </history>
+</siteHaul>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_135059</versionUuid>
+    <rule>
+        <name>EAP_RunConfigRecordListView</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_12064</uuid>
+        <description>Expression Backed Record lisrt view for run config.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!data: todatasubset(
+    {
+      {
+        cluster_id: 12675,
+        sub_cluster_id: 179,
+        name: "EUC 1",
+        description: "EUC for run config - EUC 1",
+        created_by: loggedInUser(),
+        created_on: today(),
+        
+      },
+      {
+        cluster_id: 17977,
+        sub_cluster_id: 245,
+        name: "EUC 2",
+        description: "EUC for run config - EUC 2",
+        created_by: loggedInUser(),
+        created_on: today()
+      },
+      {
+        cluster_id: 12465,
+        sub_cluster_id: 179,
+        name: "EUC 3",
+        description: "EUC for run config - EUC 2",
+        created_by: loggedInUser(),
+        created_on: today()
+      }
+    }
+  ),
+  #"SYSTEM_SYSRULES_forEach"(
+    items: local!data,
+    expression: 'type!{urn:com:appian:types:eap}EAP_T_RefProcess'(
+      cluster_id: index(
+        fv!item,
+        "cluster_id",
+        {}
+      ),
+      sub_cluster_id: index(
+        fv!item,
+        "sub_cluster_id",
+        {}
+      ),
+      name: index(
+        fv!item,
+        "name",
+        {}
+      ),
+      description: index(
+        fv!item,
+        "description",
+        {}
+      ),
+      created_by: index(
+        fv!item,
+        "created_by",
+        {}
+      ),
+      created_on: index(
+        fv!item,
+        "created_on",
+        {}
+      ),
+      
+    )
+  )
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c3-ab68-8000-5250-1bef901bef90_12231"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_135059"/>
+    </history>
+</contentHaul>

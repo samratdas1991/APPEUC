@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>fabe30c7-3849-4411-8e7e-85ba602fdbf5</versionUuid>
+  <recordType a:uuid="215137f6-2e5e-4054-a058-325760b36aba" name="EAP Lookup System">
+    <a:pluralName>EAP Lookup Systems</a:pluralName>
+    <a:description>Hold record list view of lookup system</a:description>
+    <a:urlStub>xHN5RQ</a:urlStub>
+    <a:source
+      a:uuid="29508fe7-e5e3-4614-924f-ce6dd9debf1c@_a-0000e4cd-1af4-8000-5255-1bef901bef90_85228" xsi:type="a:DataStoreEntity"/>
+    <a:listViewTemplateExpr>#"SYSTEM_SYSRULES_recordGridLayoutColumns"(
+  columns: {
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Lookup System Type Code",
+      field: "lookup_system_type_code",
+      component: #"SYSTEM_SYSRULES_recordGrid_linkField"(
+        links: #"SYSTEM_SYSRULES_recordLink"(
+          label: rf!lookup_system_type_code,
+          recordType: rp!type,
+          identifier: rp!id
+        )
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "System Type",
+      field: "system_type",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayValue: rf!system_type,
+        align: null
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Integration Pattern Desc",
+      field: "integration_pattern_desc",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayValue: rf!integration_pattern_desc,
+        align: null
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Allow Optional",
+      width: "DISTRIBUTE",
+      align: "CENTER",
+      component: #"SYSTEM_SYSRULES_recordGrid_imageField_v1"(
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            icon: if(
+              contains(
+                toboolean(
+                  rf!allow_optional
+                ),
+                true()
+              ),
+              "STATUS_OK",
+              "STATUS_NOTDONE"
+            )
+          ),
+          caption: if(
+            contains(
+              toboolean(
+                rf!allow_optional
+              ),
+              true()
+            ),
+            "Active",
+            "In-Active"
+          )
+        ),
+        size: "ICON",
+        isThumbnail: false,
+        style: "STANDARD",
+        align: "CENTER"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Is Active",
+      width: "DISTRIBUTE",
+      align: "CENTER",
+      component: #"SYSTEM_SYSRULES_recordGrid_imageField_v1"(
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            icon: if(
+              contains(
+                toboolean(
+                  rf!is_active
+                ),
+                true()
+              ),
+              "STATUS_OK",
+              "STATUS_NOTDONE"
+            )
+          ),
+          caption: if(
+            contains(
+              toboolean(
+                rf!is_active
+              ),
+              true()
+            ),
+            "Active",
+            "In-Active"
+          )
+        ),
+        size: "ICON",
+        isThumbnail: false,
+        style: "STANDARD",
+        align: "CENTER"
+      )
+    )
+  },
+  pageSize: 50,
+  defaultSort: #"SYSTEM_SYSRULES_sortInfo"(
+    field: "lookup_system_type_code",
+    ascending: fn!true()
+  ),
+  shadeAlternateRows: true
+)</a:listViewTemplateExpr>
+    <a:fieldCfg name="Lookup System">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>a!localVariables(
+  local!lookupSystem:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    categoryGroup: "IO Config",
+    type:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[24],
+    pagingInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex:1,
+      batchSize:-1,
+      sort:#"SYSTEM_SYSRULES_sortInfo"(
+        field:"label",
+        ascending:true()
+      )
+    )
+  ),
+
+
+  #"SYSTEM_SYSRULES_recordFilterList"(
+    name:"Lookup System Code",
+    options:#"SYSTEM_SYSRULES_forEach"(
+      items:local!lookupSystem,
+      expression:#"SYSTEM_SYSRULES_recordFilterListOption"(
+        id:fv!index,
+        name:fv!item.label,
+        filter:#"SYSTEM_SYSRULES_queryFilter"(
+          field:"lookup_system_type_code",
+          operator:"=",
+          value:fv!item.code
+        )
+      )
+    )
+  )
+)
+
+
+
+</a:facetExpr>
+      <a:sortOrderIndex>0</a:sortOrderIndex>
+      <a:facetOrderIndex>0</a:facetOrderIndex>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>#"SYSTEM_SYSRULES_rtd_getDefaultSummaryViewName"()</a:nameExpr>
+      <a:uiExpr>#"_a-0000e518-940a-8000-525e-1bef901bef90_490661"(
+  lookupSystemCode:rf!lookup_system_type_code
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>summary</a:urlStub>
+      <a:relatedActionCfg>cd093458-cbe9-4278-8a76-2e0eb81fb6ad</a:relatedActionCfg>
+      <a:relatedActionCfg>895c45d5-3c63-4977-996d-74318adfa0fa</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"IO Config Parameters"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e518-940a-8000-525e-1bef901bef90_511000"(
+  lookupSystemCode:rf!lookup_system_type_code
+ 
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_MpjFQg</a:urlStub>
+      <a:relatedActionCfg>19a98230-454b-4736-825e-e8977fcacd7a</a:relatedActionCfg>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="000ae526-7294-8000-6aaa-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  lookupSytemCode: rf!lookup_system_type_code /* Text */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>cd093458-cbe9-4278-8a76-2e0eb81fb6ad</a:refId>
+      <a:staticTitleString>Manage Integrated System</a:staticTitleString>
+      <a:staticDescriptionString>Click here to create integartion System</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e525-881c-8000-6a9c-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  isManage: true(), /* Boolean */
+  lookupSystemCode: rf!lookup_system_type_code /* Text */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>895c45d5-3c63-4977-996d-74318adfa0fa</a:refId>
+      <a:staticTitleString>Manage Lookup System</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage lookup system</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0002e4d6-13db-8000-5cc6-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  lookupSystemTypeCode: rf!lookup_system_type_code /* Text */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>19a98230-454b-4736-825e-e8977fcacd7a</a:refId>
+      <a:staticTitleString>Manage Integrated System Parameter</a:staticTitleString>
+      <a:staticDescriptionString>Click here to manage integrated system parameter</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:isSystem>false</a:isSystem>
+    <a:titleExpr>"Lookup System Code - "&amp; rf!lookup_system_type_code</a:titleExpr>
+    <a:layoutType>GRID</a:layoutType>
+    <a:security>16383</a:security>
+    <a:hideLatestNews>false</a:hideLatestNews>
+    <a:hideNewsView>false</a:hideNewsView>
+    <a:hideRelatedActionsView>false</a:hideRelatedActionsView>
+    <a:isExportable>true</a:isExportable>
+    <a:recordListActionCfg>
+      <a:staticTitle>Create New Lookup System</a:staticTitle>
+      <a:iconId>f0e7</a:iconId>
+      <a:target a:uuid="0002e525-881c-8000-6a9c-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>true</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:recordListActionCfg>
+    <a:listAutoRefreshInterval>0.0</a:listAutoRefreshInterval>
+    <a:enabledFeatures>32</a:enabledFeatures>
+    <a:isVisibleInRecordTypeList>true</a:isVisibleInRecordTypeList>
+    <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+    <a:showSearchBox>true</a:showSearchBox>
+    <a:isVisibleInDataFabric>true</a:isVisibleInDataFabric>
+    <a:usesRollingSyncLimit>false</a:usesRollingSyncLimit>
+    <a:usesRecoverySync>false</a:usesRecoverySync>
+    <a:isScheduledIndexingEnabled>false</a:isScheduledIndexingEnabled>
+    <a:smartSearchAcceptableFailureRate>0.0</a:smartSearchAcceptableFailureRate>
+    <a:skipFailedSmartServicesSync>false</a:skipFailedSmartServicesSync>
+  </recordType>
+  <roleMap>
+    <role name="record_type_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+      </groups>
+    </role>
+    <role name="record_type_viewer">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="61e781be-3c7a-477d-a9a3-ac837bec0274"/>
+    <historyInfo versionUuid="962d172c-6768-47eb-ab26-73580c645da7"/>
+    <historyInfo versionUuid="fabe30c7-3849-4411-8e7e-85ba602fdbf5"/>
+  </history>
+  <migrationVersion>1</migrationVersion>
+</recordTypeHaul>

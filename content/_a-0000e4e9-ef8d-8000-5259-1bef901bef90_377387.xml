@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-ae05-8000-525c-1bef901bef90_395678</versionUuid>
+    <interface>
+        <name>EAP_DataValidationBillboard</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_377387</uuid>
+        <description>Billboard of data validation</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!runConfig: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_27579"(
+    processId :ri!processId
+  ),
+  {
+    #"SYSTEM_SYSRULES_cardLayout"(
+      contents: {
+        #"SYSTEM_SYSRULES_richTextDisplayField"(),
+        
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "list-alt",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "EUC Type" &amp; char(
+                              10
+                            ),
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Data Validation"
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "hashtag",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Process #" &amp; char(
+                              10
+                            ),
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: ri!processId
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "language",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Process Name",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(
+                            10
+                          ),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: index(local!runConfig, "process_name", {})
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "sun-o",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Cluster Name",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(
+                            10
+                          ),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: index(
+                              local!runConfig, "cluster_name", {}
+                            )
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sideBySideLayout"(
+                  items: {
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextIcon"(
+                            icon: "cogs",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            size: "LARGE"
+                          )
+                        }
+                      ),
+                      width: "MINIMIZE"
+                    ),
+                    #"SYSTEM_SYSRULES_sideBySideItem"(
+                      item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: "Sub Cluster",
+                            color: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3236865"[1],
+                            style: "STRONG"
+                          ),
+                          char(
+                            10
+                          ),
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: index(local!runConfig, "sub_cluster_name",{})
+                          )
+                        }
+                      ),
+                      width: "AUTO"
+                    )
+                  },
+                  alignVertical: "MIDDLE"
+                )
+              }
+            )
+          },
+          marginBelow: "STANDARD"
+        ) ,
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+
+           
+          },
+          alignVertical: "BOTTOM",
+          marginBelow: "STANDARD"
+        ) 
+      },
+      height: "AUTO",
+      style: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12981"[5],
+      showBorder: false()
+    ),
+  }
+)</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_383163"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_395678"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_493986</versionUuid>
+    <constant>
+        <name>EAP_CATEGORY_GROUP_TRANSFORMATION</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_109143</uuid>
+        <description>1:ACTION_TYPE
+2:ADJUSTMENTS
+3:CURRENCY_FORMAT
+4:CUSTOM_ACTION_MILESTONE_STEPS
+5:DATE_FORMAT
+6:DB_FIXED_COPY_MILESTONE_STEPS
+7:ENTITY_TYPE
+8:FILTER_CATEGORY
+9:FILTER_GENERATION
+10:GENERATION_TYPE
+11:INPUT
+12:INPUT_COPY_MILESTONE_STEPS
+13:LOOKUP
+14:OUTPUT_COPY_MILESTONE_STEPS
+15:PASTE_OPTIONS
+16:REFRESH_PIVOT_MILESTONE_STEPS
+17:SHEET_FILTERS_MILESTONE_STEPS
+18:SHEET_TO_SHEET_COPY_MILESTONE_STEPS
+19:TRANSFORM_ENTITY_TYPE
+20:RUNTIME_FIXED_COPY_MILESTONE_STEPS
+21:PIVOT_FILTER_TYPE
+22:PIVOT_FILTER_MILESTONE_STEPS
+23:TRANSPOSE_MILESTONE_STEPS
+24.MACRO_EXECUTION_MIESTONE_STEPS</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>ACTION_TYPE</el>
+                <el>ADJUSTMENTS</el>
+                <el>CURRENCY_FORMAT</el>
+                <el>CUSTOM_ACTION_MILESTONE_STEPS</el>
+                <el>DATE_FORMAT</el>
+                <el>DB_FIXED_COPY_MILESTONE_STEPS</el>
+                <el>ENTITY_TYPE</el>
+                <el>FILTER_CATEGORY</el>
+                <el>FILTER_GENERATION</el>
+                <el>GENERATION_TYPE</el>
+                <el>INPUT</el>
+                <el>INPUT_COPY_MILESTONE_STEPS</el>
+                <el>LOOKUP</el>
+                <el>OUTPUT_COPY_MILESTONE_STEPS</el>
+                <el>PASTE_OPTIONS</el>
+                <el>REFRESH_PIVOT_MIESTONE_STEPS</el>
+                <el>SHEET_FILTERS_MILESTONE_STEPS</el>
+                <el>SHEET_TO_SHEET_COPY_MILESTONE_STEPS</el>
+                <el>TRANSFORM_ENTITY_TYPE</el>
+                <el>RUNTIME_FIXED_COPY_MILESTONE_STEPS</el>
+                <el>PIVOT_FILTER_TYPE</el>
+                <el>PIVOT_FILTER_MILESTONE_STEPS</el>
+                <el>TRANSPOSE_MILESTONE_STEPS</el>
+                <el>MACRO_EXECUTION_MIESTONE_STEPS</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_136007"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_310819"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_369673"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_493986"/>
+    </history>
+</contentHaul>

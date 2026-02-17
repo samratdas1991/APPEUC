@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_249970</versionUuid>
+    <rule>
+        <name>EAP_RunConfigWriteToMultipleDatastoreEntity</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_130252</uuid>
+        <description>Contains rule to fetch datastore entities for Run Config.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  /*1. EAP_DE_REF_CLUSTER*/
+  {
+    entity: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_16952",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refClusterList
+      ),
+      {},
+      pv!refClusterList
+    )
+  },
+  /*2. EAP_DE_REF_SUB_CLUSTER*/
+  {
+    entity: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_17642",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refSubClusterList
+      ),
+      {},
+      pv!refSubClusterList
+    )
+  },
+  /*3. EAP_DE_REF_PROCESS*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12001",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessList
+      ),
+      {},
+      pv!refProcessList
+    )
+  },
+  /*4. EAP_DE_REF_RUN_CONFIG*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11813",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refRunConfigList
+      ),
+      {},
+      pv!refRunConfigList
+    )
+  },
+  /*5. EAP_DE_REF_PROCESS_GROUP*/
+  {
+    entity: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_17293",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessGrouptList
+      ),
+      {},
+      pv!refProcessGrouptList
+    )
+  },
+  /*6. EAP_DE_REF_PROCESS_USERS*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9900",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessUsersList
+      ),
+      {},
+      pv!refProcessUsersList
+    )
+  },
+  /*11. EAP_DE_REF_CALENDAR_EXCEPTION_WORKINGDAY*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_127020",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!calendarExceptionWorkingDayList
+      ),
+      {},
+      pv!calendarExceptionWorkingDayList
+    )
+  },
+  /*12. EAP_DE_REF_CALENDAR_HOLIDAY*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_127072",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!calendarHolidayList
+      ),
+      {},
+      pv!calendarHolidayList
+    )
+  },
+  /*13. EAP_DE_REFCALENDAR_NONWORKING_DAY*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_125439",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refCalendarNonWorkingDayList
+      ),
+      {},
+      pv!refCalendarNonWorkingDayList
+    )
+  },
+  /*14. EAP_DE_CALENDAR_COUNTRY_DETAILS*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_125191",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refCalendarCountryDetailsList
+      ),
+      {},
+      pv!refCalendarCountryDetailsList
+    )
+  }
+}</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_131240"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_249970"/>
+    </history>
+</contentHaul>

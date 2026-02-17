@@ -1,0 +1,1997 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e595-3324-8000-5263-1bef901bef90_728514</versionUuid>
+    <rule>
+        <name>EAP_ProcessUsersGridRowLayout</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_71665</uuid>
+        <description>holds the rule to create editable grid for process users</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    contents: {
+      if(
+        or(
+          toboolean(
+            ri!isReadOnly
+          ) = true()
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: if(
+            or(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!refProcessUsers[ri!index],
+                  "userSoeId",
+                  null
+                )
+              ),
+              not(
+                #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(
+                  index(
+                    ri!refProcessUsers[ri!index],
+                    "userSoeId",
+                    null
+                  )
+                )
+              )
+            ),
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: index(
+                ri!refProcessUsers[ri!index],
+                "userSoeId",
+                null
+              )
+            ),
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: concat(
+                user(
+                  index(
+                    ri!refProcessUsers[ri!index],
+                    "userSoeId",
+                    null
+                  ),
+                  "firstName"
+                ),
+                " ",
+                user(
+                  index(
+                    ri!refProcessUsers[ri!index],
+                    "userSoeId",
+                    null
+                  ),
+                  "lastName"
+                )
+              )
+            )
+          )
+        ),
+        #"SYSTEM_SYSRULES_pickerFieldUsers"(
+          label: "User Soe Id",
+          required: true(),
+          placeholder: "--enter user soeId--",
+          value: if(
+            or(
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                index(
+                  ri!refProcessUsers[ri!index],
+                  "userSoeId",
+                  null
+                )
+              ),
+              not(
+                #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(
+                  index(
+                    ri!refProcessUsers[ri!index],
+                    "userSoeId",
+                    null
+                  )
+                )
+              )
+            ),
+            null,
+            index(
+              ri!refProcessUsers[ri!index],
+              "userSoeId",
+              null
+            )
+          ),
+          saveInto: {
+            a!save(
+              ri!refProcessUsers[ri!index].userSoeId,
+              save!value
+            ),
+            a!save(
+              ri!refProcessUsers[ri!index].isPrimaryMaker,
+              if(
+                or(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!refProcessUsers[ri!index].userSoeId
+                  ),
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      ri!refProcessGroup,
+                      "maker_group",
+                      {}
+                    )
+                  )
+                ),
+                0,
+                if(
+                  #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                    index(
+                      ri!refProcessUsers[ri!index],
+                      "userSoeId",
+                      {}
+                    ),
+                    #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                      inputUUID: index(
+                        ri!refProcessGroup,
+                        "maker_group",
+                        {}
+                      )
+                    )
+                  ),
+                  1,
+                  0
+                )
+              )
+            ),
+            a!save(
+              ri!refProcessUsers[ri!index].isSecondaryMaker,
+              if(
+                or(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!refProcessUsers[ri!index].userSoeId
+                  ),
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      ri!refProcessGroup,
+                      "maker_group",
+                      {}
+                    )
+                  )
+                ),
+                0,
+                if(
+                  #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                    index(
+                      ri!refProcessUsers[ri!index],
+                      "userSoeId",
+                      {}
+                    ),
+                    #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                      inputUUID: index(
+                        ri!refProcessGroup,
+                        "maker_group",
+                        {}
+                      )
+                    )
+                  ),
+                  1,
+                  0
+                )
+              )
+            ),
+            a!save(
+              ri!refProcessUsers[ri!index].isPrimaryChecker,
+              if(
+                or(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!refProcessUsers[ri!index].userSoeId
+                  ),
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      ri!refProcessGroup,
+                      "checker_group",
+                      {}
+                    )
+                  )
+                ),
+                0,
+                if(
+                  #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                    index(
+                      ri!refProcessUsers[ri!index],
+                      "userSoeId",
+                      {}
+                    ),
+                    #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                      inputUUID: index(
+                        ri!refProcessGroup,
+                        "checker_group",
+                        {}
+                      )
+                    )
+                  ),
+                  1,
+                  0
+                )
+              )
+            ),
+            a!save(
+              ri!refProcessUsers[ri!index].isSecondaryChecker,
+              if(
+                or(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!refProcessUsers[ri!index].userSoeId
+                  ),
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      ri!refProcessGroup,
+                      "checker_group",
+                      {}
+                    )
+                  )
+                ),
+                0,
+                if(
+                  #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                    index(
+                      ri!refProcessUsers[ri!index],
+                      "userSoeId",
+                      {}
+                    ),
+                    #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                      inputUUID: index(
+                        ri!refProcessGroup,
+                        "checker_group",
+                        {}
+                      )
+                    )
+                  ),
+                  1,
+                  0
+                )
+              )
+            ),
+            a!save(
+              ri!refProcessUsers[ri!index].isDoa,
+              if(
+                or(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    ri!refProcessUsers[ri!index].userSoeId
+                  ),
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      ri!refProcessGroup,
+                      "checker_group",
+                      {}
+                    )
+                  ),
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      ri!refProcessGroup,
+                      "maker_group",
+                      {}
+                    )
+                  )
+                ),
+                0,
+                if(
+                  or(
+                    #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                      index(
+                        ri!refProcessUsers[ri!index],
+                        "userSoeId",
+                        {}
+                      ),
+                      #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                        inputUUID: index(
+                          ri!refProcessGroup,
+                          "checker_group",
+                          {}
+                        )
+                      )
+                    ),
+                    #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                      index(
+                        ri!refProcessUsers[ri!index],
+                        "userSoeId",
+                        {}
+                      ),
+                      #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                        inputUUID: index(
+                          ri!refProcessGroup,
+                          "maker_group",
+                          {}
+                        )
+                      )
+                    )
+                  ),
+                  1,
+                  0
+                )
+              )
+            ),
+            /*a!save(*/
+            /*ri!refProcessUsers[ri!index].isPowerUser,*/
+            /*if(*/
+            /*or(*/
+            /*rule!EAP_Utils_CheckIsNull(*/
+            /*ri!refProcessUsers[ri!index].userSoeId*/
+            /*),*/
+            /*rule!EAP_Utils_CheckIsNull(*/
+            /*index(*/
+            /*ri!refProcessGroup,*/
+            /*"checker_group",*/
+            /*{}*/
+            /*)*/
+            /*),*/
+            /*rule!EAP_Utils_CheckIsNull(*/
+            /*index(*/
+            /*ri!refProcessGroup,*/
+            /*"maker_group",*/
+            /*{}*/
+            /*)*/
+            /*)*/
+            /*),*/
+            /*0,*/
+            /*if(*/
+            /*or(*/
+            /*isusermemberofgroup(*/
+            /*index(*/
+            /*ri!refProcessUsers[ri!index],*/
+            /*"userSoeId",*/
+            /*{}*/
+            /*),*/
+            /*rule!EAP_Utils_GetGroupNameByUUID(*/
+            /*inputUUID: index(*/
+            /*ri!refProcessGroup,*/
+            /*"maker_group",*/
+            /*{}*/
+            /*)*/
+            /*)*/
+            /*),*/
+            /*isusermemberofgroup(*/
+            /*index(*/
+            /*ri!refProcessUsers[ri!index],*/
+            /*"userSoeId",*/
+            /*{}*/
+            /*),*/
+            /*rule!EAP_Utils_GetGroupNameByUUID(*/
+            /*inputUUID: index(*/
+            /*ri!refProcessGroup,*/
+            /*"checker_group",*/
+            /*{}*/
+            /*)*/
+            /*)*/
+            /*)),*/
+            /*1,*/
+            /*0*/
+            /*)*/
+            /*)*/
+            /*),*/
+            a!save(
+              ri!refProcessUsers.updatedBy,
+              loggedInUser()
+            ),
+            a!save(
+              ri!refProcessUsers.updatedOn,
+              now()
+            ),
+         
+          },
+          /*readOnly: ri!isReadOnly,*/
+          maxSelections: 1,
+          validations: if(
+            count(
+              wherecontains(
+                index(
+                  ri!refProcessUsers[ri!Index],
+                  "userSoeId",
+                  null
+                ),
+                index(
+                  ri!refProcessUsers,
+                  "userSoeId",
+                  null
+                )
+              )
+            ) &gt; 1,
+            "Duplicate Users Found",
+            {}
+          )
+        )
+      ),
+      if(
+        #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(
+          index(
+            ri!refProcessUsers[ri!index],
+            "userSoeId",
+            {}
+          )
+        ),
+        if(
+          or(
+            toboolean(
+              ri!isReadOnly
+            ) = true()
+          ),
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            images: {
+              #"SYSTEM_SYSRULES_documentImage"(
+                document: #"SYSTEM_SYSRULES_iconIndicator"(
+                  icon: if(
+                    or(
+                      tointeger(
+                        index(
+                          ri!refProcessUsers[ri!index],
+                          "isPrimaryMaker",
+                          {}
+                        )
+                      ) = 1
+                    ),
+                    "STATUS_OK",
+                    "STATUS_NOTDONE"
+                  )
+                ),
+                caption: if(
+                  or(
+                    tointeger(
+                      index(
+                        ri!refProcessUsers[ri!index],
+                        "isPrimaryMaker",
+                        {}
+                      )
+                    ) = 1
+                  ),
+                  "Yes",
+                  "No"
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            align: "CENTER",
+            value: {
+              if(
+                or(
+                  tointeger(
+                    index(
+                      ri!refProcessUsers[ri!index],
+                      "isPrimaryMaker",
+                      {}
+                    )
+                  ) = 1
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-on",
+                  caption: "Yes",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 0,
+                    saveInto: {
+                      a!save(
+                        ri!refProcessUsers[ri!index].isPrimaryMaker,
+                        0
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedBy,
+                        loggedInUser()
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedOn,
+                        now()
+                      )
+                    },
+                    showWhen: if(
+                      ri!isReadOnly = true(),
+                      false(),
+                      if(
+                        or(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            ri!refProcessUsers[ri!index].userSoeId
+                          )
+                        ),
+                        true(),
+                        if(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            index(
+                              ri!refProcessGroup,
+                              "maker_group",
+                              {}
+                            )
+                          ),
+                          false(),
+                          or(
+                            #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                              index(
+                                ri!refProcessUsers[ri!index],
+                                "userSoeId",
+                                {}
+                              ),
+                              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                                inputUUID: index(
+                                  ri!refProcessGroup,
+                                  "maker_group",
+                                  {}
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-off",
+                  caption: "No",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 1,
+                    saveInto: {
+                      a!save(
+                        ri!refProcessUsers[ri!index].isPrimaryMaker,
+                        1
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedBy,
+                        loggedInUser()
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedOn,
+                        now()
+                      )
+                    },
+                    showWhen: if(
+                      ri!isReadOnly = true(),
+                      false(),
+                      if(
+                        or(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            ri!refProcessUsers[ri!index].userSoeId
+                          )
+                        ),
+                        true(),
+                        if(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            index(
+                              ri!refProcessGroup,
+                              "maker_group",
+                              {}
+                            )
+                          ),
+                          false(),
+                          or(
+                            #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                              index(
+                                ri!refProcessUsers[ri!index],
+                                "userSoeId",
+                                {}
+                              ),
+                              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                                inputUUID: index(
+                                  ri!refProcessGroup,
+                                  "maker_group",
+                                  {}
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                )
+              )
+            }
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "N/A "
+            )
+          }
+        )
+      ),
+      if(
+        #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(
+          index(
+            ri!refProcessUsers[ri!index],
+            "userSoeId",
+            {}
+          )
+        ),
+        if(
+          or(
+            toboolean(
+              ri!isReadOnly
+            ) = true()
+          ),
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            images: {
+              #"SYSTEM_SYSRULES_documentImage"(
+                document: #"SYSTEM_SYSRULES_iconIndicator"(
+                  icon: if(
+                    or(
+                      tointeger(
+                        index(
+                          ri!refProcessUsers[ri!index],
+                          "isSecondaryMaker",
+                          {}
+                        )
+                      ) = 1
+                    ),
+                    "STATUS_OK",
+                    "STATUS_NOTDONE"
+                  )
+                ),
+                caption: if(
+                  or(
+                    tointeger(
+                      index(
+                        ri!refProcessUsers[ri!index],
+                        "isSecondaryMaker",
+                        {}
+                      )
+                    ) = 1
+                  ),
+                  "Yes",
+                  "No"
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            align: "CENTER",
+            value: {
+              if(
+                or(
+                  tointeger(
+                    index(
+                      ri!refProcessUsers[ri!index],
+                      "isSecondaryMaker",
+                      {}
+                    )
+                  ) = 1
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-on",
+                  caption: "Yes",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 0,
+                    saveInto: {
+                      a!save(
+                        ri!refProcessUsers[ri!index].isSecondaryMaker,
+                        0
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedBy,
+                        loggedInUser()
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedOn,
+                        now()
+                      )
+                    },
+                    showWhen: if(
+                      ri!isReadOnly = true(),
+                      false(),
+                      if(
+                        or(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            ri!refProcessUsers[ri!index].userSoeId
+                          )
+                        ),
+                        true(),
+                        if(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            index(
+                              ri!refProcessGroup,
+                              "maker_group",
+                              {}
+                            )
+                          ),
+                          false(),
+                          or(
+                            #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                              index(
+                                ri!refProcessUsers[ri!index],
+                                "userSoeId",
+                                {}
+                              ),
+                              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                                inputUUID: index(
+                                  ri!refProcessGroup,
+                                  "maker_group",
+                                  {}
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-off",
+                  caption: "No",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 1,
+                    saveInto: {
+                      a!save(
+                        ri!refProcessUsers[ri!index].isSecondaryMaker,
+                        1
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedBy,
+                        loggedInUser()
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedOn,
+                        now()
+                      )
+                    },
+                    showWhen: if(
+                      ri!isReadOnly = true(),
+                      false(),
+                      if(
+                        or(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            ri!refProcessUsers[ri!index].userSoeId
+                          )
+                        ),
+                        true(),
+                        if(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            index(
+                              ri!refProcessGroup,
+                              "maker_group",
+                              {}
+                            )
+                          ),
+                          false(),
+                          or(
+                            #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                              index(
+                                ri!refProcessUsers[ri!index],
+                                "userSoeId",
+                                {}
+                              ),
+                              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                                inputUUID: index(
+                                  ri!refProcessGroup,
+                                  "maker_group",
+                                  {}
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                )
+              )
+            }
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "N/A "
+            )
+          }
+        )
+      ),
+      if(
+        #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(
+          index(
+            ri!refProcessUsers[ri!index],
+            "userSoeId",
+            {}
+          )
+        ),
+        if(
+          or(
+            toboolean(
+              ri!isReadOnly
+            ) = true()
+          ),
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            images: {
+              #"SYSTEM_SYSRULES_documentImage"(
+                document: #"SYSTEM_SYSRULES_iconIndicator"(
+                  icon: if(
+                    or(
+                      tointeger(
+                        index(
+                          ri!refProcessUsers[ri!index],
+                          "isPrimaryChecker",
+                          {}
+                        )
+                      ) = 1
+                    ),
+                    "STATUS_OK",
+                    "STATUS_NOTDONE"
+                  )
+                ),
+                caption: if(
+                  or(
+                    tointeger(
+                      index(
+                        ri!refProcessUsers[ri!index],
+                        "isPrimaryChecker",
+                        {}
+                      )
+                    ) = 1
+                  ),
+                  "Yes",
+                  "No"
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            align: "CENTER",
+            value: {
+              if(
+                or(
+                  tointeger(
+                    index(
+                      ri!refProcessUsers[ri!index],
+                      "isPrimaryChecker",
+                      {}
+                    )
+                  ) = 1
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-on",
+                  caption: "Yes",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 0,
+                    saveInto: {
+                      a!save(
+                        ri!refProcessUsers[ri!index].isPrimaryChecker,
+                        0
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedBy,
+                        loggedInUser()
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedOn,
+                        now()
+                      )
+                    },
+                    showWhen: if(
+                      ri!isReadOnly = true(),
+                      false(),
+                      if(
+                        or(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            ri!refProcessUsers[ri!index].userSoeId
+                          )
+                        ),
+                        true(),
+                        if(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            index(
+                              ri!refProcessGroup,
+                              "checker_group",
+                              {}
+                            )
+                          ),
+                          false(),
+                          or(
+                            #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                              index(
+                                ri!refProcessUsers[ri!index],
+                                "userSoeId",
+                                {}
+                              ),
+                              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                                inputUUID: index(
+                                  ri!refProcessGroup,
+                                  "checker_group",
+                                  {}
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-off",
+                  caption: "No",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 1,
+                    saveInto: {
+                      a!save(
+                        ri!refProcessUsers[ri!index].isPrimaryChecker,
+                        1
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedBy,
+                        loggedInUser()
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedOn,
+                        now()
+                      )
+                    },
+                    showWhen: if(
+                      ri!isReadOnly = true(),
+                      false(),
+                      if(
+                        or(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            ri!refProcessUsers[ri!index].userSoeId
+                          )
+                        ),
+                        true(),
+                        if(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            index(
+                              ri!refProcessGroup,
+                              "checker_group",
+                              {}
+                            )
+                          ),
+                          false(),
+                          or(
+                            #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                              index(
+                                ri!refProcessUsers[ri!index],
+                                "userSoeId",
+                                {}
+                              ),
+                              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                                inputUUID: index(
+                                  ri!refProcessGroup,
+                                  "checker_group",
+                                  {}
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                )
+              )
+            }
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "N/A "
+            )
+          }
+        )
+      ),
+      if(
+        #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(
+          index(
+            ri!refProcessUsers[ri!index],
+            "userSoeId",
+            {}
+          )
+        ),
+        if(
+          or(
+            toboolean(
+              ri!isReadOnly
+            ) = true()
+          ),
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            images: {
+              #"SYSTEM_SYSRULES_documentImage"(
+                document: #"SYSTEM_SYSRULES_iconIndicator"(
+                  icon: if(
+                    or(
+                      tointeger(
+                        index(
+                          ri!refProcessUsers[ri!index],
+                          "isSecondaryChecker",
+                          {}
+                        )
+                      ) = 1
+                    ),
+                    "STATUS_OK",
+                    "STATUS_NOTDONE"
+                  )
+                ),
+                caption: if(
+                  or(
+                    tointeger(
+                      index(
+                        ri!refProcessUsers[ri!index],
+                        "isSecondaryChecker",
+                        {}
+                      )
+                    ) = 1
+                  ),
+                  "Yes",
+                  "No"
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            align: "CENTER",
+            value: {
+              if(
+                or(
+                  tointeger(
+                    index(
+                      ri!refProcessUsers[ri!index],
+                      "isSecondaryChecker",
+                      {}
+                    )
+                  ) = 1
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-on",
+                  caption: "Yes",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 0,
+                    saveInto: {
+                      a!save(
+                        ri!refProcessUsers[ri!index].isSecondaryChecker,
+                        0
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedBy,
+                        loggedInUser()
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedOn,
+                        now()
+                      )
+                    },
+                    showWhen: if(
+                      ri!isReadOnly = true(),
+                      false(),
+                      if(
+                        or(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            ri!refProcessUsers[ri!index].userSoeId
+                          )
+                        ),
+                        true(),
+                        if(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            index(
+                              ri!refProcessGroup,
+                              "checker_group",
+                              {}
+                            )
+                          ),
+                          false(),
+                          or(
+                            #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                              index(
+                                ri!refProcessUsers[ri!index],
+                                "userSoeId",
+                                {}
+                              ),
+                              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                                inputUUID: index(
+                                  ri!refProcessGroup,
+                                  "checker_group",
+                                  {}
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-off",
+                  caption: "No",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 1,
+                    saveInto: {
+                      a!save(
+                        ri!refProcessUsers[ri!index].isSecondaryChecker,
+                        1
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedBy,
+                        loggedInUser()
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedOn,
+                        now()
+                      )
+                    },
+                    showWhen: if(
+                      ri!isReadOnly = true(),
+                      false(),
+                      if(
+                        or(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            ri!refProcessUsers[ri!index].userSoeId
+                          )
+                        ),
+                        true(),
+                        if(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            index(
+                              ri!refProcessGroup,
+                              "checker_group",
+                              {}
+                            )
+                          ),
+                          false(),
+                          or(
+                            #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                              index(
+                                ri!refProcessUsers[ri!index],
+                                "userSoeId",
+                                {}
+                              ),
+                              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                                inputUUID: index(
+                                  ri!refProcessGroup,
+                                  "checker_group",
+                                  {}
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                )
+              )
+            }
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "N/A "
+            )
+          }
+        )
+      ),
+      if(
+        #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(
+          index(
+            ri!refProcessUsers[ri!index],
+            "userSoeId",
+            {}
+          )
+        ),
+        if(
+          or(
+            toboolean(
+              ri!isReadOnly
+            ) = true()
+          ),
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            images: {
+              #"SYSTEM_SYSRULES_documentImage"(
+                document: #"SYSTEM_SYSRULES_iconIndicator"(
+                  icon: if(
+                    or(
+                      tointeger(
+                        index(
+                          ri!refProcessUsers[ri!index],
+                          "isDoa",
+                          {}
+                        )
+                      ) = 1
+                    ),
+                    "STATUS_OK",
+                    "STATUS_NOTDONE"
+                  )
+                ),
+                caption: if(
+                  or(
+                    tointeger(
+                      index(
+                        ri!refProcessUsers[ri!index],
+                        "isDoa",
+                        {}
+                      )
+                    ) = 1
+                  ),
+                  "Yes",
+                  "No"
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            align: "CENTER",
+            value: {
+              if(
+                or(
+                  tointeger(
+                    index(
+                      ri!refProcessUsers[ri!index],
+                      "isDoa",
+                      {}
+                    )
+                  ) = 1
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-on",
+                  caption: "Yes",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 0,
+                    saveInto: {
+                      a!save(
+                        ri!refProcessUsers[ri!index].isDoa,
+                        0
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedBy,
+                        loggedInUser()
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedOn,
+                        now()
+                      )
+                    },
+                    showWhen: if(
+                      ri!isReadOnly = true(),
+                      false(),
+                      if(
+                        or(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            ri!refProcessUsers[ri!index].userSoeId
+                          )
+                        ),
+                        true(),
+                        if(
+                          and(
+                            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                              index(
+                                ri!refProcessGroup,
+                                "checker_group",
+                                {}
+                              )
+                            ),
+                            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                              index(
+                                ri!refProcessGroup,
+                                "maker_group",
+                                {}
+                              )
+                            )
+                          ),
+                          false(),
+                          or(
+                            #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                              index(
+                                ri!refProcessUsers[ri!index],
+                                "userSoeId",
+                                {}
+                              ),
+                              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                                inputUUID: index(
+                                  ri!refProcessGroup,
+                                  "checker_group",
+                                  {}
+                                )
+                              )
+                            ),
+                            #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                              index(
+                                ri!refProcessUsers[ri!index],
+                                "userSoeId",
+                                {}
+                              ),
+                              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                                inputUUID: index(
+                                  ri!refProcessGroup,
+                                  "maker_group",
+                                  {}
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-off",
+                  caption: "No",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 1,
+                    saveInto: {
+                      a!save(
+                        ri!refProcessUsers[ri!index].isDoa,
+                        1
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedBy,
+                        loggedInUser()
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedOn,
+                        now()
+                      )
+                    },
+                    showWhen: if(
+                      ri!isReadOnly = true(),
+                      false(),
+                      if(
+                        or(
+                          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                            ri!refProcessUsers[ri!index].userSoeId
+                          )
+                        ),
+                        true(),
+                        if(
+                          and(
+                            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                              index(
+                                ri!refProcessGroup,
+                                "checker_group",
+                                {}
+                              )
+                            ),
+                            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                              index(
+                                ri!refProcessGroup,
+                                "maker_group",
+                                {}
+                              )
+                            )
+                          ),
+                          false(),
+                          or(
+                            #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                              index(
+                                ri!refProcessUsers[ri!index],
+                                "userSoeId",
+                                {}
+                              ),
+                              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                                inputUUID: index(
+                                  ri!refProcessGroup,
+                                  "checker_group",
+                                  {}
+                                )
+                              )
+                            ),
+                            #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                              index(
+                                ri!refProcessUsers[ri!index],
+                                "userSoeId",
+                                {}
+                              ),
+                              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                                inputUUID: index(
+                                  ri!refProcessGroup,
+                                  "maker_group",
+                                  {}
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                )
+              )
+            }
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "N/A "
+            )
+          }
+        )
+      ),
+      /*Is power User*/
+      if(
+        #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(
+          index(
+            ri!refProcessUsers[ri!index],
+            "userSoeId",
+            {}
+          )
+        ),
+        if(
+          or(
+            toboolean(
+              ri!isReadOnly
+            ) = true()
+          ),
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            images: {
+              #"SYSTEM_SYSRULES_documentImage"(
+                document: #"SYSTEM_SYSRULES_iconIndicator"(
+                  icon: if(
+                    or(
+                      tointeger(
+                        index(
+                          ri!refProcessUsers[ri!index],
+                          "isPowerUser",
+                          {}
+                        )
+                      ) = 1
+                    ),
+                    "STATUS_OK",
+                    "STATUS_NOTDONE"
+                  )
+                ),
+                caption: if(
+                  or(
+                    tointeger(
+                      index(
+                        ri!refProcessUsers[ri!index],
+                        "isPowerUser",
+                        {}
+                      )
+                    ) = 1
+                  ),
+                  "Yes",
+                  "No"
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            align: "CENTER",
+            value: {
+              if(
+                or(
+                  tointeger(
+                    index(
+                      ri!refProcessUsers[ri!index],
+                      "isPowerUser",
+                      {}
+                    )
+                  ) = 1
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-on",
+                  caption: "Yes",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 0,
+                    saveInto: {
+                      a!save(
+                        ri!refProcessUsers[ri!index].isPowerUser,
+                        0
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedBy,
+                        loggedInUser()
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedOn,
+                        now()
+                      )
+                    },
+                    showWhen: not(
+                      ri!isReadOnly
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-off",
+                  caption: "No",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 1,
+                    saveInto: {
+                      a!save(
+                        ri!refProcessUsers[ri!index].isPowerUser,
+                        1
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedBy,
+                        loggedInUser()
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedOn,
+                        now()
+                      )
+                    },
+                    showWhen: not(
+                      ri!isReadOnly
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                )
+              )
+            }
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "N/A "
+            )
+          }
+        )
+      ),
+      /*Auditor*/
+      if(
+        #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(
+          index(
+            ri!refProcessUsers[ri!index],
+            "userSoeId",
+            {}
+          )
+        ),
+        if(
+          or(
+            toboolean(
+              ri!isReadOnly
+            ) = true()
+          ),
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            images: {
+              #"SYSTEM_SYSRULES_documentImage"(
+                document: #"SYSTEM_SYSRULES_iconIndicator"(
+                  icon: if(
+                    or(
+                      tointeger(
+                        index(
+                          ri!refProcessUsers[ri!index],
+                          "isAuditor",
+                          {}
+                        )
+                      ) = 1
+                    ),
+                    "STATUS_OK",
+                    "STATUS_NOTDONE"
+                  )
+                ),
+                caption: if(
+                  or(
+                    tointeger(
+                      index(
+                        ri!refProcessUsers[ri!index],
+                        "isAuditor",
+                        {}
+                      )
+                    ) = 1
+                  ),
+                  "Yes",
+                  "No"
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            align: "CENTER",
+            value: {
+              if(
+                or(
+                  tointeger(
+                    index(
+                      ri!refProcessUsers[ri!index],
+                      "isAuditor",
+                      {}
+                    )
+                  ) = 1
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-on",
+                  caption: "Yes",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 0,
+                    saveInto: {
+                      a!save(
+                        ri!refProcessUsers[ri!index].isAuditor,
+                        0
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedBy,
+                        loggedInUser()
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedOn,
+                        now()
+                      )
+                    },
+                    showWhen: not(
+                      ri!isReadOnly
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-off",
+                  caption: "No",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 1,
+                    saveInto: {
+                      a!save(
+                        ri!refProcessUsers[ri!index].isAuditor,
+                        1
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedBy,
+                        loggedInUser()
+                      ),
+                      a!save(
+                        ri!refProcessUsers.updatedOn,
+                        now()
+                      )
+                    },
+                    showWhen: not(
+                      ri!isReadOnly
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                )
+              )
+            }
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "N/A "
+            )
+          }
+        )
+      ),
+      /*Viewer*/
+      if(
+        #"_a-0000e58b-f438-8000-5262-1bef901bef90_722585"(
+          index(
+            ri!refProcessUsers[ri!index],
+            "userSoeId",
+            {}
+          )
+        ),
+        if(
+          or(
+            toboolean(
+              ri!isReadOnly
+            ) = true()
+          ),
+          #"SYSTEM_SYSRULES_imageField_v1"(
+            images: {
+              #"SYSTEM_SYSRULES_documentImage"(
+                document: #"SYSTEM_SYSRULES_iconIndicator"(
+                  icon: if(
+                    or(
+                      tointeger(
+                        index(
+                          ri!refProcessUsers[ri!index],
+                          "isViewer",
+                          {}
+                        )
+                      ) = 1
+                    ),
+                    "STATUS_OK",
+                    "STATUS_NOTDONE"
+                  )
+                ),
+                caption: if(
+                  or(
+                    tointeger(
+                      index(
+                        ri!refProcessUsers[ri!index],
+                        "isViewer",
+                        {}
+                      )
+                    ) = 1
+                  ),
+                  "Yes",
+                  "No"
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            align: "CENTER",
+            value: {
+              if(
+                or(
+                  tointeger(
+                    index(
+                      ri!refProcessUsers[ri!index],
+                      "isViewer",
+                      {}
+                    )
+                  ) = 1
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-on",
+                  caption: "Yes",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 0,
+                    saveInto: a!save(
+                      ri!refProcessUsers[ri!index].isViewer,
+                      0
+                    ),
+                    showWhen: not(
+                      ri!isReadOnly
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                ),
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "toggle-off",
+                  caption: "No",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: 1,
+                    saveInto: a!save(
+                      ri!refProcessUsers[ri!index].isViewer,
+                      1
+                    ),
+                    showWhen: not(
+                      ri!isReadOnly
+                    )
+                  ),
+                  size: "MEDIUM_PLUS"
+                )
+              )
+            }
+          )
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "N/A "
+            )
+          }
+        )
+      ),
+      if(
+        or(
+          toboolean(
+            ri!isReadOnly
+          ) = true()
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          images: {
+            #"SYSTEM_SYSRULES_documentImage"(
+              document: #"SYSTEM_SYSRULES_iconIndicator"(
+                icon: if(
+                  or(
+                    tointeger(
+                      index(
+                        ri!refProcessUsers[ri!index],
+                        "isActive",
+                        {}
+                      )
+                    ) = 1
+                  ),
+                  "STATUS_OK",
+                  "STATUS_NOTDONE"
+                )
+              ),
+              caption: if(
+                or(
+                  tointeger(
+                    index(
+                      ri!refProcessUsers[ri!index],
+                      "isActive",
+                      {}
+                    )
+                  ) = 1
+                ),
+                "Yes",
+                "No"
+              )
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: {
+            if(
+              or(
+                tointeger(
+                  index(
+                    ri!refProcessUsers[ri!index],
+                    "isActive",
+                    {}
+                  )
+                ) = 1
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "toggle-on",
+                caption: "Active",
+                linkStyle: "STANDALONE",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  value: 0,
+                  saveInto: a!save(
+                    ri!refProcessUsers[ri!index].isActive,
+                    0
+                  ),
+                  showWhen: not(
+                    ri!isReadOnly
+                  )
+                ),
+                size: "MEDIUM_PLUS"
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "toggle-off",
+                caption: "In-active",
+                linkStyle: "STANDALONE",
+                link: #"SYSTEM_SYSRULES_dynamicLink"(
+                  value: 1,
+                  saveInto: a!save(
+                    ri!refProcessUsers[ri!index].isActive,
+                    1
+                  ),
+                  showWhen: not(
+                    ri!isReadOnly
+                  )
+                ),
+                size: "MEDIUM_PLUS"
+              )
+            )
+          }
+        )
+      ),
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!refProcessUsers[ri!index].processUserId
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!refProcessUsers,
+                  remove(
+                    ri!refProcessUsers,
+                    ri!index
+                  )
+                )
+              }
+            )
+          )
+        ),
+        #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+          readOnly: true()
+        )
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>refProcessUsers</name>
+            <type>
+                <name>EAP_T_RefProcessUsers?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessGroup</name>
+            <type>
+                <name>EAP_T_RefProcessGroup</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_80259"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_97210"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_150476"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_176585"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_177338"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_219125"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_333783"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_441606"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_487322"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_526796"/>
+        <historyInfo versionUuid="_a-0000e51d-8328-8000-d90d-a7ef90a7ef90_2657923"/>
+        <historyInfo versionUuid="_a-0000e51e-d772-8000-d90e-a7ef90a7ef90_2718812"/>
+        <historyInfo versionUuid="_a-0000e521-c0a2-8000-d911-a7ef90a7ef90_2839365"/>
+        <historyInfo versionUuid="_a-0000e539-32f0-8000-d91d-a7ef90a7ef90_3628549"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_638419"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_718664"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_723234"/>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_724586"/>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_728514"/>
+    </history>
+</contentHaul>

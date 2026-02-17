@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>c9d1dc58-6d6f-4001-b912-4325741bc228</versionUuid>
+  <recordType a:uuid="eb8158ed-b46b-4373-a5af-255df4d235a1" name="EAP HD Request">
+    <a:pluralName>EAP HD Requests</a:pluralName>
+    <a:description>holds request for historical data</a:description>
+    <a:urlStub>vReqMg</a:urlStub>
+    <a:source
+      a:uuid="13c840c2-7749-42c8-8119-ec6e9e3cd3e7@_a-0000e4c3-ab68-8000-5250-1bef901bef90_7357" xsi:type="a:DataStoreEntity"/>
+    <a:listViewTemplateExpr>#"SYSTEM_SYSRULES_recordGridLayoutColumns"(
+  columns: {
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Request Id",
+      field: "requestId",
+      align: "RIGHT",
+      component: #"SYSTEM_SYSRULES_recordGrid_linkField"(
+        links: {
+          #"SYSTEM_SYSRULES_recordLink"(
+            label: rf!requestId,
+            recordtype: rp!type,
+            identifier: rp!id
+          )
+        },
+        align: "RIGHT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Process Name",
+      field: "processId",
+      align: "LEFT",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayValue: index(
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+            processId:rf!processId
+          ),
+          "name",
+          null
+        ),
+        align: null
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Status",
+      width: "DISTRIBUTE",
+      field: "requestCurrStatus",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: index(#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+          type:"WORKFLOW_STATUS",
+          code:rf!requestCurrStatus),"label",{})
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Frequency",
+      width: "DISTRIBUTE",
+      align: "LEFT",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: index(
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_11827"(
+            runConfigId:rf!runConfigId,
+            processId:rf!processId
+          ),"recurrence_type",{}
+        )
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Month",
+      field: "requestMonth",
+      align: "LEFT",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            rf!requestMonth
+          ),
+         "N/A",
+         
+          index(
+            #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+              categoryGroup:"Run time Configuration",
+              type: "PROCESSING_MONTH",
+              code:rf!requestMonth
+            ),
+            "label",
+            null
+          )
+        )
+      
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Year",
+      field: "requestYear",
+      align: "RIGHT",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: if(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(rf!requestYear),
+          "N/A",
+          rf!requestYear
+        ),
+        align: "RIGHT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Created BY",
+      width: "DISTRIBUTE",
+      field: "createdBy",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251824"(rf!createdBy)
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Created Date",
+      width: "DISTRIBUTE",
+      field: "createdOn",
+      align: "RIGHT",
+      component: #"SYSTEM_SYSRULES_recordGrid_dateField"(
+        displayvalue: todate(rf!createdOn),
+        align: "RIGHT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Updated By",
+      field: "updatedBy",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayvalue: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251824"(rf!updatedBy)
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Updated On",
+      width: "DISTRIBUTE",
+      field: "updatedOn",
+      align: "LEFT",
+      component: #"SYSTEM_SYSRULES_recordGrid_dateTimeField"(
+        displayvalue: rf!updatedOn
+      )
+    )
+  },
+  pageSize: 50,
+  defaultSort: #"SYSTEM_SYSRULES_sortInfo"(
+    field: "requestId",
+    ascending: false
+  ),
+  shadeAlternateRows: true
+)</a:listViewTemplateExpr>
+    <a:fieldCfg name="Year">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>a!localVariables(
+  local!status:
+
+  #"SYSTEM_SYSRULES_forEach"(
+    items: enumerate(
+      year(today())-2014
+    ),
+    expression: 2014+fv!index
+  ),
+  #"SYSTEM_SYSRULES_recordFilterList"(
+    name:"year",
+    options:#"SYSTEM_SYSRULES_forEach"(
+      items:local!status,
+      expression:#"SYSTEM_SYSRULES_recordFilterListOption"(
+        id:fv!index,
+        name:fv!item,
+        filter:#"SYSTEM_SYSRULES_queryFilter"(
+          field:"requestYear",
+          operator:"=",
+          value:tointeger(fv!item)
+        )
+      )
+    )
+  )
+)
+
+
+
+</a:facetExpr>
+      <a:sortOrderIndex>0</a:sortOrderIndex>
+      <a:facetOrderIndex>0</a:facetOrderIndex>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:fieldCfg name="Month">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>a!localVariables(
+  local!status:#"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    categoryGroup:"Run time Configuration",
+    type: "PROCESSING_MONTH",
+    pagingInfo:#"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex:1,
+      batchSize:-1,
+      sort:#"SYSTEM_SYSRULES_sortInfo"(
+        field:"sort_order",
+        ascending:true()
+      )
+    )
+  ),
+#"SYSTEM_SYSRULES_recordFilterList"(
+    name:"Month",
+    options:#"SYSTEM_SYSRULES_forEach"(
+      items:local!status,
+      expression:#"SYSTEM_SYSRULES_recordFilterListOption"(
+        id:fv!index,
+        name:fv!item.label,
+        filter:#"SYSTEM_SYSRULES_queryFilter"(
+          field:"requestMonth",
+          operator:"=",
+          value:tointeger(fv!item.code)
+        )
+      )
+    )
+  )
+)
+
+
+
+</a:facetExpr>
+      <a:sortOrderIndex>1</a:sortOrderIndex>
+      <a:facetOrderIndex>1</a:facetOrderIndex>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>#"SYSTEM_SYSRULES_rtd_getDefaultSummaryViewName"()</a:nameExpr>
+      <a:uiExpr>#"_a-0000e54c-ce50-8000-5260-1bef901bef90_617051"(
+  rf!requestId
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>summary</a:urlStub>
+      <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:defaultFilter>
+      <a:field>requestId</a:field>
+      <a:operator>in</a:operator>
+      <a:valueExpression>tointeger(
+  index(#"_a-0000e54c-ce50-8000-5260-1bef901bef90_617663"(requestId:null),"request_id",{}))</a:valueExpression>
+    </a:defaultFilter>
+    <a:relatedActionCfg>
+      <a:target a:uuid="0014e57c-4a53-8000-6f7c-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  isRelatedAction: true(), /* Boolean */
+  requestId: rf!requestId /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>bd9c1132-ad8f-477f-ab7c-93bb30dbf0bd</a:refId>
+      <a:staticTitleString>Manage Bulk Upload Historical Data</a:staticTitleString>
+      <a:staticDescriptionString>Click Here To Upload Bulk Historical Data</a:staticDescriptionString>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:isSystem>false</a:isSystem>
+    <a:titleExpr>"REQUEST |"&amp;rf!requestId</a:titleExpr>
+    <a:layoutType>GRID</a:layoutType>
+    <a:security>16383</a:security>
+    <a:hideLatestNews>false</a:hideLatestNews>
+    <a:hideNewsView>false</a:hideNewsView>
+    <a:hideRelatedActionsView>false</a:hideRelatedActionsView>
+    <a:isExportable>false</a:isExportable>
+    <a:recordListActionCfg>
+      <a:staticTitle>Upload Bulk Historical Data</a:staticTitle>
+      <a:iconId>f067</a:iconId>
+      <a:target a:uuid="0014e57c-4a53-8000-6f7c-1b4d981b4d98" xsi:type="a:ProcessModel"/>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:dialogSize>FIT$FIT</a:dialogSize>
+      <a:showInRecordList>true</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:recordListActionCfg>
+    <a:listAutoRefreshInterval>0.0</a:listAutoRefreshInterval>
+    <a:enabledFeatures>32</a:enabledFeatures>
+    <a:isVisibleInRecordTypeList>true</a:isVisibleInRecordTypeList>
+    <a:recordActionLaunchType>SAME_TAB</a:recordActionLaunchType>
+    <a:showSearchBox>true</a:showSearchBox>
+    <a:isVisibleInDataFabric>true</a:isVisibleInDataFabric>
+    <a:usesRollingSyncLimit>false</a:usesRollingSyncLimit>
+    <a:usesRecoverySync>false</a:usesRecoverySync>
+    <a:isScheduledIndexingEnabled>false</a:isScheduledIndexingEnabled>
+    <a:smartSearchAcceptableFailureRate>0.0</a:smartSearchAcceptableFailureRate>
+    <a:skipFailedSmartServicesSync>false</a:skipFailedSmartServicesSync>
+  </recordType>
+  <roleMap>
+    <role name="record_type_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+      </groups>
+    </role>
+    <role name="record_type_viewer">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="b6283d23-2ab7-4463-bd04-18bce562f64a"/>
+    <historyInfo versionUuid="78010e91-4a36-415b-a583-422a9c2be2a0"/>
+    <historyInfo versionUuid="1fe32a48-723c-45f6-811c-9a26544f7823"/>
+    <historyInfo versionUuid="cd2ab869-b800-412e-a6a6-45eaa1e626e2"/>
+    <historyInfo versionUuid="c9d1dc58-6d6f-4001-b912-4325741bc228"/>
+  </history>
+  <migrationVersion>1</migrationVersion>
+</recordTypeHaul>

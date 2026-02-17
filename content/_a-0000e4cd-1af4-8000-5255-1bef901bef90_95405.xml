@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_96045</versionUuid>
+    <interface>
+        <name>EAP_RunConfig_CalendarHeader</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_95405</uuid>
+        <description>Rule for calendar header</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  #"SYSTEM_SYSRULES_sideBySideLayout"(
+    items: {
+      #"SYSTEM_SYSRULES_sideBySideItem"(
+        item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+          labelPosition: "COLLAPSED",
+          value: {
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "chevron-left",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: if(
+                  ri!viewType = "month",
+                  eomonth(
+                    ri!today,
+                    - 1
+                  ),
+                  if(
+                    ri!viewType = "week",
+                    ri!today - 7,
+                    ri!today - 1
+                  )
+                ),
+                saveInto: ri!today
+
+              ),
+              linkStyle: "STANDALONE",
+              size: "SMALL"
+            ),
+            " ",
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: {
+                ri!todaySymbol,
+                "Today"
+              },
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: today(),
+                saveInto: ri!today
+              ),
+              linkStyle: "STANDALONE",
+              size: "SMALL"
+            ),
+            " ",
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "chevron-right",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: if(
+                  ri!viewType = "month",
+                  ri!today + 30,
+                  if(ri!viewType = "week",
+                  ri!today + 7,
+                  ri!today + 1
+                  )
+                ),
+                saveInto: ri!today
+              ),
+              linkStyle: "STANDALONE",
+              size: "SMALL"
+            )
+
+          }
+        ),
+        width: "MINIMIZE"
+      ),
+      #"SYSTEM_SYSRULES_sideBySideItem"(
+        item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+          labelPosition: "COLLAPSED",
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: text(
+                ri!today,
+                "mmmm"
+              ),
+              size: "SMALL",
+              style: "STRONG"
+            ),
+            " ",
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: text(
+                ri!today,
+                "yyyy"
+              ),
+              size: "SMALL"
+            )
+          },
+          align: "LEFT"
+        ),
+        width: "MINIMIZE"
+      ),
+      /* a!sideBySideItem(
+       item: a!richTextDisplayField(
+         label: "",
+         labelPosition: "COLLAPSED",
+         value: {
+           a!richTextItem(
+             text: {
+               "How busy ?"
+             },
+             size: "SMALL"
+           ),
+           "  ",
+           a!richTextItem(
+             text: {
+               "◈"
+             },
+             color: "#5cbb29",
+             size: "SMALL"
+           ),
+           a!richTextItem(
+             text: {
+               " "
+             },
+             size: "SMALL"
+           ),
+           a!richTextItem(
+             text: {
+               "◈"
+             },
+             color: "#ff992b",
+             size: "SMALL"
+           ),
+           a!richTextItem(
+             text: {
+               " "
+             },
+             size: "SMALL"
+           ),
+           a!richTextItem(
+             text: {
+               "◈"
+             },
+             color: "#ed3434",
+             size: "SMALL"
+           )
+         },
+         align: "RIGHT"
+       )
+     )
+     */
+    }
+  )
+}</definition>
+        <namedTypedValue>
+            <name>today</name>
+            <type>
+                <name>date</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>todaySymbol</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>viewType</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>resetSelectedDate</name>
+            <type>
+                <name>date</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_96045"/>
+    </history>
+</contentHaul>

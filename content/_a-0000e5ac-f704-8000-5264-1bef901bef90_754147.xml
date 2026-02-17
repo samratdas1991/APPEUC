@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_761789</versionUuid>
+    <interface>
+        <name>EAP_EmailTemplateMappingSummaryDashboard</name>
+        <uuid>_a-0000e5ac-f704-8000-5264-1bef901bef90_754147</uuid>
+        <description>Hold interface to show details on summary dashbaord</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  
+  
+  local!emailContacts:if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!outEmailTemplateId
+    ),
+    null,
+    #"_a-0000e5ac-f704-8000-5264-1bef901bef90_744419"(
+      outEmailProcessTemplateMappingId:ri!outEmailTemplateId
+    )
+  ),
+  local!attributeConfig:if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!outEmailTemplateConfigId
+    ),
+    null,
+    #"_a-0000e5ac-f704-8000-5264-1bef901bef90_742649"(
+      outEmailTemplateConfigId:    ri!outEmailTemplateConfigId
+    )),
+    local!attributeMapping:if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        ri!outEmailTemplateId
+      ),
+      null,
+      #"_a-0000e5ac-f704-8000-5264-1bef901bef90_744431"(
+        outEmailProcessTemplateMappingId: ri!outEmailTemplateId
+      )),
+  {
+    
+  #"SYSTEM_SYSRULES_richTextDisplayField"(
+    value:#"SYSTEM_SYSRULES_richTextItem_v1"(
+      text: "Template Mapping For " &amp; ri!confiName,
+      size: "MEDIUM_PLUS",
+      color: "ACCENT",
+      style: "STRONG"
+    )
+  ),
+  #"SYSTEM_SYSRULES_gridField_v1"(
+    
+    data:ri!outEmailTemplateConfig,
+    columns: {
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "Template Name",
+        value: index(#"_a-0000e5ac-f704-8000-5264-1bef901bef90_742637"(
+          outEmailTemplateConfigId:index(fv!row,"out_email_template_config_id",{}),
+          
+        ),"template_name",{})
+        
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        label: "View",
+        align: "CENTER",
+        width:"NARROW",
+        value:#"SYSTEM_SYSRULES_richTextDisplayField"(align: "CENTER",value: #"SYSTEM_SYSRULES_richTextIcon"(
+          icon: if(
+            or(
+              tointeger(
+                ri!outEmailTemplateId
+              ) = tointeger(
+                index(
+                  
+                  fv!row,
+                  "out_email_process_template_mapping_id",
+                  {}
+                )
+              )
+            ),
+            "eye-slash",
+            "eye"
+          ),
+          size: if(
+            or(
+              tointeger(
+                ri!outEmailTemplateId
+              ) = tointeger(
+                index(
+                  fv!row,
+                  "out_email_process_template_mapping_id",
+                  {}
+                )
+              )
+            ),
+            "MEDIUM",
+            "STANDARD"
+          ),
+          linkStyle: "STANDALONE",
+          link: #"SYSTEM_SYSRULES_dynamicLink"(
+            label: "View",
+            value: if(
+              or(tointeger(ri!outEmailTemplateId) = tointeger(index(
+                fv!row,
+                "out_email_process_template_mapping_id",
+                {}
+              ))),null,
+              tointeger(index(
+                fv!row,
+                "out_email_process_template_mapping_id",
+                {}
+              ))
+            ),
+            saveInto: {
+              ri!outEmailTemplateId,
+              a!save(ri!outEmailTemplateConfigId,
+              index(
+                fv!row,
+                "out_email_template_config_id",
+                {}
+              ))
+              
+            }
+          ),
+          caption: "Click here to view"
+        )),
+      ),
+      #"SYSTEM_SYSRULES_gridColumn"(
+        align: "CENTER",
+        label: "Active",
+        value: if(
+          tointeger(index(fv!row,"is_active",{}))=1,
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            align: "CENTER",
+            value: #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "check-circle",
+              size:"MEDIUM",
+              color:"POSITIVE"
+            )
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            align: "CENTER",
+            value: #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "times-circle",
+              size:"MEDIUM",
+              color:"NEGATIVE"
+            )
+          )
+        ),
+        width:"NARROW"
+      )
+    }
+  ),
+  #"SYSTEM_SYSRULES_richTextDisplayField"(),
+  if(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9906"(ri!outEmailTemplateId),
+    #"_a-0000e595-3324-8000-5263-1bef901bef90_738583"(
+      isReadOnly:true(),
+      systemTypeCode:ri!confiName,
+      processId:ri!processId,
+      emailTemplateContacts:local!emailContacts,
+      outEmailAttributeMapping:local!attributeMapping,
+      outEmailTemplateConfigId:ri!outEmailTemplateConfigId,
+      attributeConfig:local!attributeConfig
+
+    ),
+    {}
+  )
+  
+ 
+})</definition>
+        <namedTypedValue>
+            <name>outEmailTemplateConfig</name>
+            <type>
+                <name>EAP_T_OutEmailProcessTemplateMapping?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>confiName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outEmailTemplateConfigId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>outEmailTemplateId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e5ac-f704-8000-5264-1bef901bef90_754555"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_761789"/>
+    </history>
+</contentHaul>

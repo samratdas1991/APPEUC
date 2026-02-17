@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_253733</versionUuid>
+    <constant>
+        <name>EAP_FIELD_DATA_TYPES</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_145097</uuid>
+        <description>Contains field data types:
+
+1. TEXT_FIELD
+2. INTEGER_FIELD
+3. DROP_DOWN
+4. DATE_FIELD
+5. FILE_UPLOAD
+6. RADIO_BUTTON
+7. EDITABLE_GRID
+8. FLOATING_FIELD
+9. PARAGRAPH_FIELD
+10. RADIO_BOOLEAN
+11. DATE_TIME_FIELD
+12. CHECK_BOX
+13. MULTIPLE_DROP_DOWN</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>TEXT_FIELD</el>
+                <el>INTEGER_FIELD</el>
+                <el>DROP_DOWN</el>
+                <el>DATE_FIELD</el>
+                <el>FILE_UPLOAD</el>
+                <el>RADIO_BUTTON</el>
+                <el>EDITABLE_GRID</el>
+                <el>FLOATING_FIELD</el>
+                <el>PARAGRAPH_FIELD</el>
+                <el>RADIO_BOOLEAN</el>
+                <el>DATE_TIME_FIELD</el>
+                <el>CHECK_BOX</el>
+                <el>MULTIPLE_DROP_DOWN</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_156818"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_222530"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_253733"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_493662</versionUuid>
+    <constant>
+        <name>EAP_ACTION_TYPE</name>
+        <uuid>_a-0000e4c6-e892-8000-5254-1bef901bef90_21929</uuid>
+        <description>1. INPUT_COPY |
+2. REFRESH_PIVOT |
+3. INPUT_COPY_TRANSPOSE |
+4. SHEET_TO_SHEET_COPY |
+5. OUTPUT_COPY |
+6. CUSTOM_ACTION |
+7. SHEET_FILTER |
+8. DB_FIXED_COPY|
+9. RUNTIME_FIXED_COPY|
+10.PIVOT_FILTER |
+11. MACRO_EXECUTION</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>INPUT_COPY</el>
+                <el>REFRESH_PIVOT</el>
+                <el>INPUT_COPY_TRANSPOSE</el>
+                <el>SHEET_TO_SHEET_COPY</el>
+                <el>OUTPUT_COPY</el>
+                <el>CUSTOM_ACTION</el>
+                <el>SHEET_FILTER</el>
+                <el>DB_FIXED_COPY</el>
+                <el>RUNTIME_FIXED_COPY</el>
+                <el>PIVOT_FILTER</el>
+                <el>MACRO_EXECUTION</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_62253"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_107224"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_310810"/>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_420077"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_493662"/>
+    </history>
+</contentHaul>

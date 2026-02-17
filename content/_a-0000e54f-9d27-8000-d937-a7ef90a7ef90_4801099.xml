@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e5c3-a65f-8000-5268-1bef901bef90_761234</versionUuid>
+    <constant>
+        <name>EAP_DWF_ENABLED_PROCESS_IDS</name>
+        <uuid>_a-0000e54f-9d27-8000-d937-a7ef90a7ef90_4801099</uuid>
+        <description>Proces Ids those are enabaled for DWF hybrid workflow</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>561</el>
+                <el>524</el>
+                <el>661</el>
+                <el>729</el>
+                <el>844</el>
+                <el>140</el>
+                <el>9</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e55f-7063-8000-d945-a7ef90a7ef90_5636864"/>
+        <historyInfo versionUuid="_a-0000e563-1019-8000-d948-a7ef90a7ef90_5811188"/>
+        <historyInfo versionUuid="_a-0000e570-923c-8000-d94f-a7ef90a7ef90_6262581"/>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_738126"/>
+        <historyInfo versionUuid="_a-0000e5c3-a65f-8000-5268-1bef901bef90_761234"/>
+    </history>
+</contentHaul>

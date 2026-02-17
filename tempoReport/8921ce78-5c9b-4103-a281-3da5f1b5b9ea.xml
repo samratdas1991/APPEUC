@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tempoReportHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>27097d72-6358-4760-84ce-237092dfbeb8</versionUuid>
+    <tempoReport a:uuid="8921ce78-5c9b-4103-a281-3da5f1b5b9ea" name="EAP_OpsDashboardSchedulerView">
+        <a:description>Report for Ops Dasboard Scheduler View</a:description>
+        <a:uiExpr>=#"_a-0000e56b-0831-8000-5261-1bef901bef90_627322"()</a:uiExpr>
+        <a:urlStub>QGBwow</a:urlStub>
+    </tempoReport>
+    <roleMap>
+        <role name="report_administrator">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_46</groupUuid>
+                <groupUuid>_e-0000e56b-0831-8000-5261-1b1e941b1e94_351</groupUuid>
+            </groups>
+        </role>
+        <role name="report_viewer">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e4c3-ab68-8000-5250-1b1e941b1e94_43</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="27097d72-6358-4760-84ce-237092dfbeb8"/>
+    </history>
+</tempoReportHaul>

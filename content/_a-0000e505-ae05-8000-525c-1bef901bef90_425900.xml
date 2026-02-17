@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_519127</versionUuid>
+    <rule>
+        <name>EAP_DwfMilestoneConfigGridRowLayout</name>
+        <uuid>_a-0000e505-ae05-8000-525c-1bef901bef90_425900</uuid>
+        <description>Hold sub rule for dwf milestone config</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  contents: {
+    /* Milestone */
+    #"SYSTEM_SYSRULES_dropdownField"(
+      label: "Milestone",
+      placeholderLabel: "--Select Milestone--",
+     
+     
+      choiceLabels: #"SYSTEM_SYSRULES_forEach"(
+        items:ri!milestoneData,
+        expression: concat(
+          index(
+          fv!item,"name",{}
+          )," - ",index(
+           fv!item,"milestone_id",{}
+          ))),
+          choiceValues:if(
+            isnull(ri!milestoneId),
+            null,
+            ri!milestoneId
+          ),
+      saveInto: {
+        ri!milestoneConfig[ri!index].milestone_id,
+        a!save(
+          ri!milestoneConfig[ri!index].modified_by,
+          loggedInUser()
+        ),
+        a!save(
+          ri!milestoneConfig[ri!index].modified_on,
+          now()
+        )
+      },
+      value:    if(
+        #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+          value: index(
+            ri!milestoneConfig[ri!index],
+            "milestone_id",
+            {}
+          ),
+          choiceValue:if(
+            isnull(ri!milestoneId),
+            null,
+            ri!milestoneId
+          )
+        ),
+        index(
+          ri!milestoneConfig[ri!index],
+          "milestone_id",
+          {}
+        ),
+        null
+      ),
+      readOnly: ri!isReadOnly,
+      required: if(
+        or(
+          ri!isReadOnly
+        ),
+        false(),
+        true()
+      ),
+
+    ),
+   
+
+    /* Next Milestone */
+    #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+      label: "Milestone",
+      placeholderLabel: "--Select Next Milestone--",
+
+ 
+      choiceLabels:#"SYSTEM_SYSRULES_forEach"(
+        items:ri!milestoneData,
+        expression: concat(
+          index(
+            fv!item,"name",{}
+          )," - ",index(
+            fv!item,"milestone_id",{}
+          ))),
+          choiceValues:if(
+            isnull(ri!milestoneId),
+            null,
+            ri!milestoneId
+          ) ,
+          value:if(
+            #"_a-0000e4c6-e892-8000-5254-1bef901bef90_47169"(
+              value:index(
+                ri!milestoneConfig[ri!index],
+                "next_milestone_id",
+                {}
+              ),
+              choiceValue:if(
+                isnull(ri!milestoneId),
+                null,
+                ri!milestoneId
+              )
+            ),
+            index(
+              ri!milestoneConfig[ri!index],
+              "next_milestone_id",
+              {}
+            ),
+            null
+          ) ,
+      saveInto: {
+        ri!milestoneConfig[ri!index].next_milestone_id,
+        a!save(
+          ri!milestoneConfig[ri!index].modified_by,
+          loggedInUser()
+        ),
+        a!save(
+          ri!milestoneConfig[ri!index].modified_on,
+          now()
+        )
+      },
+      readOnly: ri!isReadOnly,
+      required: if(
+        or(
+          ri!isReadOnly
+        ),
+        false(),
+        true()
+      ),
+
+    ),
+    
+
+
+    /* Is Active */
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      value: {
+        if(
+          or(
+            tointeger(
+              index(
+                ri!milestoneConfig[ri!index],
+                "is_active",
+                {}
+              )
+            ) = 1
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-on",
+            caption: "Yes",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 1,
+              saveInto: {a!save(
+                ri!milestoneConfig[ri!index].is_active,
+                0
+              ),
+              a!save(
+                ri!milestoneConfig[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!milestoneConfig[ri!index].modified_on,
+                now()
+              )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            linkStyle: "STANDALONE",
+            icon: "toggle-off",
+            caption: "No",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              showWhen: not(
+                or(
+                  ri!isReadOnly
+                )
+              ),
+              value: 0,
+              saveInto: {a!save(
+                ri!milestoneConfig[ri!index].is_active,
+                1
+              ),
+              a!save(
+                ri!milestoneConfig[ri!index].modified_by,
+                loggedInUser()
+              ),
+              a!save(
+                ri!milestoneConfig[ri!index].modified_on,
+                now()
+              )
+              }
+            ),
+            size: "MEDIUM_PLUS",
+            color: "ACCENT"
+          )
+        )
+      },
+      align: "CENTER"
+    ),
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        index(
+          ri!milestoneConfig[ri!index],
+          "milestone_id",
+          {}
+        )
+      ),
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        label: "",
+        showWhen: if(
+          or(
+            ri!isReadOnly = true()
+          ),
+          false(),
+          true()
+        ),
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            "REMOVE"
+          ),
+          link: #"SYSTEM_SYSRULES_dynamicLink"(
+            saveInto: {
+              a!save(
+                ri!milestoneConfig,
+                remove(
+                  ri!milestoneConfig,
+                  ri!index
+                )
+              )
+            }
+          )
+        )
+      ),
+      if(
+        ri!isReadOnly = true(),
+        {},
+        #"SYSTEM_SYSRULES_richTextDisplayField"()
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>milestoneConfig</name>
+            <type>
+                <name>EAP_T_DwfMilestoneConfig?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>milestoneData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>milestoneId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e505-ae05-8000-525c-1bef901bef90_427371"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_475251"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_519127"/>
+    </history>
+</contentHaul>

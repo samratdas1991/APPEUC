@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_705349</versionUuid>
+    <constant>
+        <name>EAP_OPSDASHBOARD_STATUS_SUMMARY_GRID_COLUMNS</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_637534</uuid>
+        <description>1 Manager |
+2 Center |
+3 Managed Segment L7 |
+4 Managed Segment L8 |
+5 EUC# |
+6 EUC Name |
+7 Start BD |
+8 End BD |
+9 Maker(s) |
+10 Checker(s) |
+11 Status |
+12 Overdue Status Reason |
+13 Process Actual Start Time |
+14 Process Ageing (Hrs/Mins) |
+15 Process End Time |
+16 Total Processing Time (Hrs/Mins) |
+17 Expected Start Date &amp; Time |
+18 Expected End Date &amp; Time |
+19 Start Date &amp; Time (GMT) |
+ 20 End Date &amp; Time (GMT) |</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>Manager</el>
+                <el>Center</el>
+                <el>Managed Segment L7</el>
+                <el>Managed Segment L8</el>
+                <el>EUC# (Request#)</el>
+                <el>EUC Name</el>
+                <el>Start BD (TimeZone)</el>
+                <el>End BD</el>
+                <el>Maker(s)</el>
+                <el>Checker(s)</el>
+                <el>Status</el>
+                <el>Overdue Status Reason</el>
+                <el>Process Actual Start Time</el>
+                <el>Process Ageing (Hrs/Mins)</el>
+                <el>Process End Time</el>
+                <el>Total Processing Time (Hrs/Mins)</el>
+                <el>Expected Start Date &amp; Time</el>
+                <el>Expected End Date &amp; Time</el>
+                <el>Start Date &amp; Time (GMT)</el>
+                <el>End Date &amp; Time (GMT)</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_685354"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_690130"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_694555"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_705349"/>
+    </history>
+</contentHaul>

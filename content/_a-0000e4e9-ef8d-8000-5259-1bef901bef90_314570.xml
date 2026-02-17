@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-dc46-8000-9be9-011c48011c48_255740</versionUuid>
+    <interface>
+        <name>EAP_UIVConfig_InEntityMappingEditableGrid</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_314570</uuid>
+        <description>Holds editable grid  for Ui View Config &gt; In Entity Mapping</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridLayout"(
+  label: "",
+  shadeAlternateRows: false(),
+  spacing: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_40702",
+  headerCells: {
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Display Name",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Entity Name",
+      align: "CENTER",
+      helpTooltip:#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+          helpToolTip: "Coming from the Related Action: Manage Entity Name where Entity Type: Input"
+        )
+    ),
+    
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Display Type",
+      align: "CENTER",
+      helpTooltip: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_259403"(
+        categoryGroup : #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[7] ,
+        uniqueKey :#"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_328718"[1]
+      )
+    ),
+    /*a!gridLayoutHeaderCell(*/
+      /*label: "Display Order",*/
+      /*align: "LEFT"*/
+    /*),*/
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "Is Active",
+      align: if(
+        contains(
+          ri!isReadOnly,
+          true()
+        ),
+        "CENTER",
+        "CENTER"
+      )
+    ),
+
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "",
+      align: "CENTER",
+      showWhen: if(
+        or(
+          ri!isReadonly=true(),
+          count(ri!inEntityMappingDetails)&lt;2
+        ),
+        false(),
+        true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      label: "",
+      align: "CENTER",
+      showWhen: if(
+        or(
+          ri!isReadonly=true(),
+          count(ri!inEntityMappingDetails)&lt;2
+        ),
+        false(),
+        true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+      align: if(
+        contains(
+          ri!isReadOnly,
+          true()
+        ),
+        "CENTER",
+        "LEFT"
+      ),
+      showWhen: if(
+        contains(
+          ri!isReadOnly,
+          true()
+        ),
+        false(),
+        true()
+      )
+    )
+  },
+  columnConfigs: {
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5,
+     
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "DISTRIBUTE",
+      weight: 5
+    ),
+    /*a!gridLayoutColumnConfig(*/
+      /*width: "DISTRIBUTE",*/
+      /*weight: 5*/
+    /*),*/
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON"
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON",
+      showWhen: if(
+        or(
+          ri!isReadonly=true(),
+          count(ri!inEntityMappingDetails)&lt;2
+        ),
+        false(),
+        true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON",
+      showWhen: if(
+        or(
+          ri!isReadonly=true(),
+          count(ri!inEntityMappingDetails)&lt;2
+        ),
+        false(),
+        true()
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+      width: "ICON",
+      showWhen: if(
+        contains(
+          ri!isReadOnly,
+          true()
+        ),
+        false(),
+        true()
+      )
+    )
+  },
+  rows: {
+    #"SYSTEM_SYSRULES_applyComponents"(
+      function: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_315360"(
+        index: _,
+        isReadOnly: ri!isReadOnly,
+        inEntityMappingDetails: ri!inEntityMappingDetails ,
+        entityNames : union(
+          ri!entityNames,
+          ri!entityNames
+        ),
+        masterLookUpData: ri!masterLookUpData
+      ),
+      array: if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            ri!inEntityMappingDetails
+          ),
+          count(
+            ri!inEntityMappingDetails
+          ) = 0
+        ),
+        null,
+        tointeger(
+          enumerate(
+            count(
+              ri!inEntityMappingDetails
+            )
+          ) + 1
+        )
+      )
+    )
+  },
+  selectionSaveInto: {},
+  addRowLink: #"SYSTEM_SYSRULES_dynamicLink"(
+    label: "Add line items",
+    value: 'type!{urn:com:appian:types:EAP}EAP_T_UiInEntityMapping'(
+      isActive: 1,
+      processId: ri!processId,
+      createdBy: loggedInUser(),
+      createdOn: now(),
+      modifiedBy: loggedInUser(),
+      modifiedOn: now(),
+      
+    ),
+    saveInto: {
+      a!save(
+      ri!inEntityMappingDetails,
+      append(
+        ri!inEntityMappingDetails,
+        save!value
+      )
+    ),
+    #"SYSTEM_SYSRULES_forEach"(
+      items:ri!inEntityMappingDetails,
+      expression: a!save(
+        fv!item.displayOrder,
+        fv!index
+      )
+    )
+    },
+    showWhen: if(
+      ri!isReadOnly,
+      false(),
+      true()
+    )
+  ),
+  
+)</definition>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>inEntityMappingDetails</name>
+            <type>
+                <name>EAP_T_UiInEntityMapping?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>entityNames</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">'type!{urn:com:appian:types:EAP}EAP_T_UiInEntityFieldMapping'(
+  
+)</a:value>
+                    <a:nameRef>inEntityMappingDetails</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>entityNames</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>masterLookUpData</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_354312"/>
+        <historyInfo versionUuid="_a-0000eab6-dc46-8000-9be9-011c48011c48_255740"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_94119</versionUuid>
+    <rule>
+        <name>EAP_WriteToMultipleDatastoreEntityForProcessGroupsUsers</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_68677</uuid>
+        <description>Returns datastore entities to be write </description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  /*1. EAP_DE_REF_PROCESS*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12001",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcess
+      ),
+      {},
+      pv!refProcess
+    )
+  },
+  /*2. EAP_DE_REF_PROCESS_GROUP*/
+  {
+    entity: #"_a-0000e4c6-4628-8000-5253-1bef901bef90_17293",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessGroups
+      ),
+      {},
+      pv!refProcessGroups
+    )
+  },
+  /*3. EAP_DE_REF_PROCESS_USERS*/
+  {
+    entity: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9900",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refProcessUsers
+      ),
+      {},
+      pv!refProcessUsers
+    )
+  }
+}</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_82859"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_94119"/>
+    </history>
+</contentHaul>

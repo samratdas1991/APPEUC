@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_707442</versionUuid>
+    <rule>
+        <name>EAP_RunConfig_CalculateNextTriggerTime</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_69694</uuid>
+        <description>Rule to calculate next trigger time</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+local!simulatorAudit: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_295529"(
+  isActive: 1
+),
+  local!nonWorkingDay:ri!nonWorkingDay,
+  /*rule!EAP_QE_RefCalendarNonWorkingDay(*/
+  /*calendarId:ri!calendarId,*/
+  /*isActive:1*/
+  /*),*/
+  /*{1,7},*/
+  local!holidayDate:ri!holidayDate,
+  /*rule!EAP_QE_RefCalendarHoliDay(*/
+  /*calendarId:ri!calendarId,*/
+  /*isActive:1*/
+  /*),*/
+  /*todate("7/19/2020"),*/
+  local!exceptionWorkingDay:ri!exceptionWorkingDay,
+  /*rule!EAP_QE_RefCalendarExceptionWorkingDay(*/
+  /*calendarId:ri!calendarId,*/
+  /*isActive:1*/
+  /*),*/
+  /*todate("8/19/2020"),*/
+  local!startBusinessDay:index(
+    reject(
+      isnull(_),
+      split(ri!startBusinessDay ,"-")
+    ),
+    1,
+    {}
+  ),
+  local!year:year(addyears(ri!triggerDateTime ,ri!recurrenceFrequency)),
+  local!month:month(ri!triggerDateTime),
+  local!yearlyDate:if(
+    or(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!startBusinessDay),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processingMonth)
+    ),
+    null,
+    todate(
+      if(
+        ri!startBusinessDay &lt;0,
+        eomonth(concat("01/01/",local!year),ri!processingMonth-1)-tointeger(local!startBusinessDay)+1,
+        date(local!year,ri!processingMonth,tointeger(local!startBusinessDay))
+      )
+    )
+  ),
+  local!monthlyDate:if(
+    or(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!startBusinessDay),
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!recurrenceFrequency)
+    ),
+    null,
+  if(
+    ri!startBusinessDay &lt;0,
+    eomonth(addmonths(ri!triggerDateTime,ri!recurrenceFrequency),0)-tointeger(local!startBusinessDay)+1,
+    date(
+      year(addmonths(ri!triggerDateTime,ri!recurrenceFrequency)),
+      tointeger(month(addmonths(ri!triggerDateTime,ri!recurrenceFrequency))),
+      tointeger(local!startBusinessDay )
+    )
+  )
+  ),
+  if(
+    ri!triggerDateTimeGMT&gt;
+    if(tointeger(index(local!simulatorAudit,"is_enable",{}))=1,
+    todatetime(
+      concat(
+        index(local!simulatorAudit,"trigger_date",{}),
+        " ",
+        totime(
+          now()
+        ),
+        text(
+          now(),
+          "Z"
+        )
+      )
+    ),
+    now()),
+    ri!triggerDateTime, 
+  if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!recurrenceType),
+  {},
+  if(
+    ri!recurrenceType=#"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[1],
+    {
+      concat(index(
+        reject(
+          isnull(_),
+          #"SYSTEM_SYSRULES_forEach"(
+            items: if(
+              tointeger(ri!startBusinessDay)&lt;0,
+              local!yearlyDate-enumerate(30),
+              local!yearlyDate+enumerate(30)
+            ),
+            expression: if(
+              and(
+                or(
+                  contains(
+                    tointeger(local!nonWorkingDay),
+                    weekday(fv!item)
+                  ),
+                  contains(
+                    todate(local!holidayDate),
+                    todate(fv!item)
+                  )
+
+                ),
+                not(
+                  contains(
+                    todate(local!exceptionWorkingDay),
+                    todate(fv!item)
+                  )
+                )
+              ),
+              null,
+              fv!item
+            )
+          )
+        ),
+        1,
+        {}
+      )," ",ri!triggerTime)
+    },
+    if(
+      ri!recurrenceType=#"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[2],
+      {
+        concat(index(
+          reject(
+            isnull(_),
+            #"SYSTEM_SYSRULES_forEach"(
+              items: if(
+                tointeger(ri!startBusinessDay)&lt;0,
+                local!monthlyDate-enumerate(30),
+                local!monthlyDate+enumerate(30)
+              ),
+              expression: if(
+                and(
+                  or(
+                    contains(
+                      tointeger(local!nonWorkingDay),
+                      weekday(fv!item)
+                    ),
+                    contains(
+                      todate(local!holidayDate),
+                      todate(fv!item)
+                    )
+
+                  ),
+                  not(
+                    contains(
+                      todate(local!exceptionWorkingDay),
+                      todate(fv!item)
+                    )
+                  )
+                ),
+                null,
+                fv!item
+              )
+            )
+          ),
+          1,
+          {}
+        )," ",ri!triggerTime)
+      },
+      if(
+        ri!recurrenceType=#"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[3],
+        {
+          index(
+            reject(
+              isnull(_),
+              #"SYSTEM_SYSRULES_forEach"(
+                items: if(weekday(ri!triggerDateTime)&gt;=max(tointeger(ri!processingWeekday)),
+                ri!triggerDateTime + tointeger(7)*tointeger(ri!recurrenceFrequency-tointeger(1))+enumerate(30)+1,
+                ri!triggerDateTime +enumerate(30)+1
+                ),     
+                expression: if(
+                  contains(tointeger(ri!processingWeekday),weekday(fv!item)),
+                    if(
+                      and(
+                    or(
+                      contains(
+                        tointeger(local!nonWorkingDay),
+                        weekday(fv!item)
+                      ),
+                      contains(
+                        todate(local!holidayDate),
+                        todate(fv!item)
+                      )
+                    ),
+                    not(
+                      contains(
+                        todate(local!exceptionWorkingDay),
+                        todate(fv!item)
+                      )
+                    )
+                  ),
+                  null,                 
+                  fv!item
+                  ),
+                  null
+                )
+              )
+            ),
+            1,
+            {}
+          ) 
+        },
+        if(
+          ri!recurrenceType=#"_a-0000e4c6-e892-8000-5254-1bef901bef90_22735"[4],
+          {
+            index(
+              reject(
+                isnull(_),
+                #"SYSTEM_SYSRULES_forEach"(
+                  items: 
+                  ri!triggerDateTime + tointeger(ri!recurrenceFrequency) + enumerate(30),
+                  expression: if(
+                    and(
+                      or(
+                        contains(
+                          tointeger(local!nonWorkingDay),
+                          weekday(fv!item)
+                        ),
+                        contains(
+                          todate(local!holidayDate),
+                          todate(fv!item)
+                        )
+
+                      ),
+                      not(
+                        contains(
+                          todate(local!exceptionWorkingDay),
+                          todate(fv!item)
+                        )
+                      )
+                    ),
+                    null,
+                    fv!item
+                  )
+                )
+              ),
+              1,
+              {}
+            ) 
+          },
+          {}
+        )
+      )
+    )
+  )
+)
+)
+)</definition>
+        <namedTypedValue>
+            <name>recurrenceType</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>recurrenceFrequency</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>startBusinessDay</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>triggerDateTime</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nonWorkingDay</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>holidayDate</name>
+            <type>
+                <name>Date?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>exceptionWorkingDay</name>
+            <type>
+                <name>Date?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processingWeekday</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>triggerDateTimeGMT</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>triggerTime</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processingMonth</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_78082"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_162039"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_190953"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_213915"/>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_326164"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_707442"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e520-265e-8000-d90f-a7ef90a7ef90_2768026</versionUuid>
+    <rule>
+        <name>EAP_processEscalationEmailSubject</name>
+        <uuid>_a-0000e518-940a-8000-525e-1bef901bef90_473491</uuid>
+        <description>Used to generate email subject</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(index(ri!tempRecipientAudit,"process_controller_id",null)),
+  tostring(
+    "
+
+Escalation &lt; " &amp; index(ri!processDetails,"euc_reference_number",null)  &amp;" &gt; Breached for Request# "&amp; index(ri!tempRecipientAudit,"request_id",null) 
+
+  ),
+  tostring(
+    "
+Escalation &lt; " &amp; index(ri!processDetails,"euc_reference_number",null)  &amp;" &gt; - Breached for Request# "&amp; index(ri!tempRecipientAudit,"request_id",null) &amp;" | Step Name &lt; "&amp; index(ri!tempRecipientAudit,"step_name",null) &amp; " &gt; - Milestone Name
+&lt; "&amp; index(ri!tempRecipientAudit,"milestone_name",null)&amp;" &gt;" 
+
+  )
+)
+</definition>
+        <namedTypedValue>
+            <name>tempRecipientAudit</name>
+            <type>
+                <name>EAP_Temp_ProcessEscalationRecipientAudit?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processDetails</name>
+            <type>
+                <name>EAP_T_RefProcess?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_474239"/>
+        <historyInfo versionUuid="_a-0000e520-265e-8000-d90f-a7ef90a7ef90_2768026"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eda1-5e46-8000-9c0e-011c48011c48_739893</versionUuid>
+    <interface>
+        <name>EAP_ProcessUsersForValidAndInvalidUsers</name>
+        <uuid>_a-0000e58b-f438-8000-5262-1bef901bef90_717505</uuid>
+        <description>holds the UI for managing the process groups and users</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  
+ 
+  {
+
+    if(
+      or(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId).
+      tointeger(ri!processId)=0
+      ),
+      {},
+      if(
+        or(
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+              inputUUID: index(ri!refProcessGroup,"maker_group",{})
+            )
+
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+              inputUUID:index(ri!refProcessGroup,"checker_group",{})
+            )
+
+          ),
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+            #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+              inputUUID:index(ri!refProcessGroup,"operations_team_group",{})
+            )),
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+              #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                inputUUID: index(ri!refProcessGroup,"technical_support_group",{})
+              )),
+              #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                #"_a-0000e4e8-bfcb-8000-5258-1bef901bef90_256415"(
+                  inputUUID:index(ri!refProcessGroup,"escalation_group",{})
+                )
+              )
+        ),
+
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align:"CENTER",
+          value:#"SYSTEM_SYSRULES_richTextItem_v1"(
+            text:"Invalid User Groups Entered",
+            style:"EMPHASIS",
+            color:"NEGATIVE"
+          )
+        ),
+        {
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!invalidUsers),
+            {},
+            {
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value:{
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: "Invalid Users",
+                    color: "ACCENT",
+                    style:"STRONG",
+                    size:"MEDIUM"
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_gridLayout"(
+                label: "",
+                shadeAlternateRows: false(),
+                headerCells: {
+                  if(
+                    ri!isReadOnly=true(),
+                    {},
+                    #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                      label: "Is Invalid User",
+                      align: "CENTER"
+                    )
+                  )
+                  ,
+
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "User Soe Id",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Primary Maker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Secondary Maker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Primary Checker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Secondary Checker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "DOA",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Power User",
+                    align: "CENTER"
+                  ),
+
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Auditor",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Viewer",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Status",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "",
+                    align: "CENTER"
+                  )
+                },
+                columnConfigs: {
+
+
+                  if(
+                    ri!isReadOnly=true(),
+                    {},
+                    #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                      width: "DISTRIBUTE"
+                    )
+                  )
+                  ,
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "ICON"
+                  )
+                },
+                rows: {
+                  #"SYSTEM_SYSRULES_applyComponents"(
+                    function: #"_a-0000e56b-0831-8000-5261-1bef901bef90_659480"(
+                      refProcessUsers :ri!invalidUsers,
+                      index: _,
+                      refProcessGroup: ri!refProcessGroup,
+                      isReadOnly: false(),
+                     
+                      buttonAction:ri!buttonAction,
+                      processId:ri!processId,
+                      isInvalidUser:ri!isInvalid
+                    ),
+                    array: if(
+                      or(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          ri!invalidUsers
+                        ),
+                        count(
+                          ri!invalidUsers
+                        ) = 0
+                      ),
+                      null,
+                      tointeger(
+                        enumerate(
+                          count(
+                            ri!invalidUsers
+                          )
+                        ) + 1
+                      )
+                    )
+                  )
+                },
+                addRowLink:{}
+              )
+            }
+
+          ),
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!validUser),
+            {},
+            {
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value:{
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: "User(s) does not exist in relevant group(s)",
+                    color: "ACCENT",
+                    style:"STRONG",
+                    size:"MEDIUM"
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value:{
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: "Instructions : ",
+                    style:"EMPHASIS",
+                    color:"STANDARD"
+                  ),
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: "Yes/No values marked in red and green color represents the current value and expected value respectively",
+                    style:"EMPHASIS",
+                    color:"NEGATIVE"
+                  )
+                }
+              ),
+              #"_a-0000e56b-0831-8000-5261-1bef901bef90_711916"(
+                tempUsers:ri!validUser
+              )}
+          )
+          ,
+
+          if(
+            #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!validGroupAndUser),
+            {},
+            {
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value:{
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: "Valid Users",
+                    color: "ACCENT",
+                    style:"STRONG",
+                    size:"MEDIUM"
+                  )
+                }
+              ), 
+              #"SYSTEM_SYSRULES_gridLayout"(
+                label: "",
+                shadeAlternateRows: false(),
+                headerCells: {
+
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "User Soe Id",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Primary Maker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Secondary Maker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Primary Checker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Secondary Checker",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "DOA",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Power User",
+                    align: "CENTER"
+                  ),
+
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Auditor",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Viewer",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "Status",
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+                    label: "",
+                    align: "CENTER"
+                  )
+                },
+                columnConfigs: {
+
+
+
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "DISTRIBUTE"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "ICON"
+                  ),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+                    width: "ICON"
+                  )
+                },
+                rows: {
+                  #"SYSTEM_SYSRULES_applyComponents"(
+                    function: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_71665"(
+                      refProcessUsers :ri!validGroupAndUser,
+                      index: _,
+                      refProcessGroup: ri!refProcessGroup,
+                      isReadOnly: false(),
+                   
+                      
+                    ),
+                    array: if(
+                      or(
+                        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                          ri!validGroupAndUser
+                        ),
+                        count(
+                          ri!validGroupAndUser
+                        ) = 0
+                      ),
+                      null,
+                      tointeger(
+                        enumerate(
+                          count(
+                            ri!validGroupAndUser
+                          )
+                        ) + 1
+                      )
+                    )
+                  )
+                },
+                addRowLink: #"SYSTEM_SYSRULES_dynamicLink"(
+                  label: if(
+                    or(#"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processId),ri!processId=0),
+                    {},
+                    "Add User"
+                  ),
+                  value:'type!{urn:com:appian:types:eap}EAP_Temp_ProcessUsers'(
+                    processId:ri!processId,
+                    createdBy: loggedInUser(),
+                    createdOn: now(),
+                    updatedBy: loggedInUser(),
+                    updatedOn: now(),
+                    isAuditor: 1,
+                    isViewer: 1,
+                    isActive: 1
+                  ),
+                  saveInto: {
+                    a!save(ri!validGroupAndUser,append(ri!validGroupAndUser,save!value)),
+                    a!save(ri!buttonAction,null)
+                  }
+                )
+              ),
+
+            }
+          )
+        }
+      )
+    )
+   
+  },
+
+)</definition>
+        <namedTypedValue>
+            <name>refProcessUser</name>
+            <type>
+                <name>EAP_T_RefProcessUsers?list</name>
+                <namespace>urn:com:appian:types:EAP</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>refProcessGroup</name>
+            <type>
+                <name>EAP_T_RefProcessGroup</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isInvalid</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>validUser</name>
+            <type>
+                <name>EAP_Temp_ProcessUsers?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>invalidUsers</name>
+            <type>
+                <name>EAP_Temp_ProcessUsers?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>validGroupAndUser</name>
+            <type>
+                <name>EAP_Temp_ProcessUsers?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>refProcessUser</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>refProcessGroup</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isReadOnly</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonAction</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>processId</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>isInvalid</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>validUser</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>invalidUsers</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>validGroupAndUser</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e58b-f438-8000-5262-1bef901bef90_718801"/>
+        <historyInfo versionUuid="_a-0000e595-3324-8000-5263-1bef901bef90_728963"/>
+        <historyInfo versionUuid="_a-0000eda1-5e46-8000-9c0e-011c48011c48_739893"/>
+    </history>
+</contentHaul>

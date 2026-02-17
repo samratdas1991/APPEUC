@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_671263</versionUuid>
+    <rule>
+        <name>EAP_IntEmailWhitelistGridRowLayout</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_79835</uuid>
+        <description>Holds grid row layout for int email whitelist.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridRowLayout"(
+  id: ri!index,
+  contents: {
+    /*Messaging Type*/
+    if(
+      ri!isReadOnly = true(),
+      #"SYSTEM_SYSRULES_textField"(
+        readOnly: true(),
+        value: index(
+          ri!emailWhitelist[ri!index],
+          "messaging_type",
+          {}
+        )/*align: "RIGHT"*/
+        /*required: true()*/
+        
+      ),
+      #"SYSTEM_SYSRULES_dropdownField"(
+        placeholderLabel: "--Select Messaging Type--",
+        choiceLabels: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+          MasterLookup: ri!masterLookUpData,
+          UniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[37],
+          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[2]
+        ),
+        choiceValues: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12255"(
+          MasterLookup: ri!masterLookUpData,
+          UniqueKey: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[37],
+          Column: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_16271"[3]
+        ),
+        value: index(
+          ri!emailWhitelist[ri!index],
+          "messaging_type",
+          {}
+        ),
+        saveInto: {
+          a!save(
+            ri!emailWhitelist[ri!index].messaging_type,
+            save!value
+          )
+        },
+        /*validations: {*/
+        /*if(*/
+        /*ri!isReadOnly,*/
+        /*{},*/
+        /*rule!EAP_Utils_CheckTextLengthValidation(*/
+        /*value: index(*/
+        /*ri!emailWhitelist[ri!index],*/
+        /*"messaging_type",*/
+        /*{}*/
+        /*),*/
+        /*ValidationLength: cons!EAP_VALID_FIELD_LENGTH[10]*/
+        /*)*/
+        /*)*/
+        /*},*/
+        required: true()
+      )
+    ),
+    /*User Email Address*/
+    #"SYSTEM_SYSRULES_textField"(
+      readOnly: ri!isReadOnly,
+      value: index(
+        ri!emailWhitelist[ri!index],
+        "user_email_address",
+        {}
+      ),
+      saveInto: {
+        a!save(
+          ri!emailWhitelist[ri!index].user_email_address,
+          save!value
+        )
+      },
+      validations: {
+        if(
+          ri!isReadOnly,
+          {},
+          #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251505"(
+            value: index(
+              ri!emailWhitelist[ri!index],
+              "user_email_address",
+              {}
+            ),
+            ValidationLength: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_42536"[2]
+          )
+        ),
+        if(
+          or(
+            length(
+              split(
+                trim(
+                  index(
+                    ri!emailWhitelist[ri!index],
+                    "user_email_address",
+                    {}
+                  )
+                ),
+                " "
+              )
+            ) &gt; 1,
+            count(
+              split(
+                index(
+                  ri!emailWhitelist[ri!index],
+                  "user_email_address",
+                  {}
+                ),
+                "@"
+              )
+            ) &lt;&gt; 2
+          ),
+          "Please enter a valid email address",
+          {}
+        ),
+        if(
+          count(
+            wherecontains(
+              tostring(
+                index(
+                  ri!emailWhitelist[ri!index],
+                  "user_email_address",
+                  {}
+                )
+              ),
+              touniformstring(
+                index(
+                  index(
+                    ri!emailWhitelist,
+                    wherecontains(
+                      tostring(
+                        index(
+                          ri!emailWhitelist[ri!index],
+                          "messaging_type",
+                          {}
+                        )
+                      ),
+                      touniformstring(
+                        index(
+                          ri!emailWhitelist,
+                          "messaging_type",
+                          {}
+                        )
+                      )
+                    ),
+                    {}
+                  ),
+                  "user_email_address"
+                )
+              )
+            )
+          ) &gt; 1,
+          "Same Address Encountered for Messaging Type" &amp; ri!emailWhitelist[ri!index].messaging_type,
+          {}
+        )
+      },
+      /*align: "RIGHT"*/
+      required: true()
+    ),
+    /*Is Active*/
+    if(
+      ri!isReadOnly,
+      #"SYSTEM_SYSRULES_imageField_v1"(
+        images: {
+          #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              icon: if(
+                contains(
+                  toboolean(
+                    index(
+                      ri!emailWhitelist[ri!index],
+                      "is_active",
+                      {}
+                    )
+                  ),
+                  true()
+                ),
+                "STATUS_OK",
+                "STATUS_NOTDONE"
+              )
+            )
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: if(
+          tointeger(
+            index(
+              ri!emailWhitelist[ri!index],
+              "is_active",
+              {}
+            )
+          ) = 1,
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-on",
+            caption: "Yes",
+            linkStyle: "STANDALONE",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!emailWhitelist[ri!index].is_active,
+                  0
+                )
+              },
+              showWhen: not(
+                ri!isReadOnly
+              )
+            ),
+            size: "MEDIUM_PLUS"
+          ),
+          #"SYSTEM_SYSRULES_richTextIcon"(
+            icon: "toggle-off",
+            caption: "No",
+            linkStyle: "STANDALONE",
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!emailWhitelist[ri!index].is_active,
+                  1
+                )
+              },
+              showWhen: not(
+                ri!isReadOnly
+              )
+            ),
+            size: "MEDIUM_PLUS"
+          )
+        ),
+        align: "CENTER"
+      )
+    ),
+    /*Delete*/
+    if(
+      ri!isReadOnly,
+      {},
+      if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3251951"(
+          ri!emailWhitelist[ri!index].process_email_whitelist_id
+        ),
+        #"SYSTEM_SYSRULES_imageField_v1"(
+          label: "",
+          images: #"SYSTEM_SYSRULES_documentImage"(
+            document: #"SYSTEM_SYSRULES_iconIndicator"(
+              "REMOVE"
+            ),
+            link: #"SYSTEM_SYSRULES_dynamicLink"(
+              saveInto: {
+                a!save(
+                  ri!emailWhitelist,
+                  remove(
+                    ri!emailWhitelist,
+                    ri!index
+                  )
+                )
+              }
+            )
+          ),
+          
+        ),
+        #"SYSTEM_SYSRULES_textField"(
+          readOnly: true()
+        )
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>emailWhitelist</name>
+            <type>
+                <name>EAP_T_EmailWhitelist?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReadOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>masterLookUpData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_79933"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_166795"/>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_671263"/>
+    </history>
+</contentHaul>

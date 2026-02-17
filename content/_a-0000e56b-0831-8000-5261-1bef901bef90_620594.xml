@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e56b-0831-8000-5261-1bef901bef90_623402</versionUuid>
+    <rule>
+        <name>EAP_updateHistoricalDetailsIntegrationTransCall</name>
+        <uuid>_a-0000e56b-0831-8000-5261-1bef901bef90_620594</uuid>
+        <description>Expression rule to update Historical Details Trans data.</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!histDetailTransData: if(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9906"(
+      ri!response
+    ),
+    #"_a-0000e54c-ce50-8000-5260-1bef901bef90_617732"(
+      requestId: ri!response.requestId,
+      histEntityMappingId: ri!response.entityMappingId,
+      parsingHistTransId: ri!response.parsingHistTransId
+    ),
+    null
+  ),
+  local!statusCode: index(
+    ri!integrationResponse,
+    "statusCode",
+    null
+  ),
+  local!body: index(
+    ri!integrationResponse,
+    "body",
+    null
+  ),
+  if(
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_9906"(
+      local!histDetailTransData
+    ),
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!histDetailTransData,
+      expression: cast(
+        typeof(
+          'type!{urn:com:appian:types:eap}EAP_T_RefProcessHistDetailTrans'()
+        ),
+        updatedictionary(
+          fv!item,
+          {
+            parsing_status: if(
+              200 = tointeger(
+                local!statusCode
+              ),
+              #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_86234"[1],
+              #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_86234"[3]
+            ),
+            exception_type: if(
+              200 = tointeger(
+                local!statusCode
+              ),
+              "NA",
+              "Historic Data integration Error"
+            ),
+            exception_message: if(
+              200 = tointeger(
+                local!statusCode
+              ),
+              "NA",
+              local!body
+            ),
+            
+          }
+        )
+      )
+    ),
+    {}
+  )
+)</definition>
+        <namedTypedValue>
+            <name>response</name>
+            <type>
+                <name>EAP_Temp_HistoricalDataCallParam?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>integrationResponse</name>
+            <type>
+                <name>HttpResponse</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e56b-0831-8000-5261-1bef901bef90_623402"/>
+    </history>
+</contentHaul>

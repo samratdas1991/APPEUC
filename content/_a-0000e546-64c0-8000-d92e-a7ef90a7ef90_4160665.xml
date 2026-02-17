@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e563-1019-8000-d948-a7ef90a7ef90_5811170</versionUuid>
+    <rule>
+        <name>EAP_DwfSetAuditComments</name>
+        <uuid>_a-0000e546-64c0-8000-d92e-a7ef90a7ef90_4160665</uuid>
+        <description>Holds rule to set audit comments</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>joinarray(
+  {
+    ri!name,
+    ri!systemName,
+    ri!sourceType,
+    ri!comments,
+    ri!statusType,
+    if(
+      or(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!statusType),
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!sourceType)
+
+      ),
+      {},
+      concat(     
+        index(
+          #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+            categoryGroup: #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3238117"[4],
+            type: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_10379"[41],
+            code: #"_a-0000e54a-56dc-8000-d92f-a7ef90a7ef90_4470424"(statusType: ri!statusType, sourceCode: ri!sourceType)
+          ),
+          "label",
+          {}
+        )      
+      )
+    )
+  },
+  " - "
+)</definition>
+        <namedTypedValue>
+            <name>name</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>systemName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sourceType</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>comments</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>statusType</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e553-9305-8000-d939-a7ef90a7ef90_4918981"/>
+        <historyInfo versionUuid="_a-0000e563-1019-8000-d948-a7ef90a7ef90_5811170"/>
+    </history>
+</contentHaul>

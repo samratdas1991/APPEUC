@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e518-940a-8000-525e-1bef901bef90_524488</versionUuid>
+    <interface>
+        <name>EAP_CalendarAdditionalDashboard</name>
+        <uuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_271984</uuid>
+        <description>holds the additional dashboard for calendar</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!selectedYear: year(
+    today()
+  ),
+  local!ProcessViewDetails: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processId
+    ),
+    {},
+    #"_a-0000e4c6-e892-8000-5254-1bef901bef90_27579"(
+      processId: ri!processId
+    )
+  ),
+  local!process: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      ri!processId
+    ),
+    {},
+    #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_12194"(
+      processId: ri!processId
+    )
+  ),
+  local!calendarDetails: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!process,
+        "calendar_id",
+        {}
+      )
+    ),
+    {},
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_125209"(
+      calendarId: index(
+        local!process,
+        "calendar_id",
+        {}
+      )
+    )
+  ),
+  local!nonWorkinDays: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!process,
+        "calendar_id",
+        {}
+      )
+    ),
+    {},
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_125445"(
+      calendarId: index(
+        local!process,
+        "calendar_id",
+        {}
+      )
+    )
+  ),
+  local!holiday: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!process,
+        "calendar_id",
+        {}
+      )
+    ),
+    {},
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_127093"(
+      calendarId: index(
+        local!process,
+        "calendar_id",
+        {}
+      ),
+      year: local!selectedYear
+    )
+  ),
+  local!exceptionWorkinDays: if(
+    #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+      index(
+        local!process,
+        "calendar_id",
+        {}
+      )
+    ),
+    {},
+    #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_69112"(
+      calendarId: index(
+        local!process,
+        "calendar_id",
+        {}
+      ),
+      year: local!selectedYear
+    )
+  ),
+  {
+    /*rule!EAP_EUCConfigurationSteps(),*/
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: "Calendar Details",
+      contents: {
+        /*a!cardLayout(*/
+          /*contents: {*/
+            /*a!columnsLayout(*/
+              /*columns: {*/
+                /*a!columnLayout(*/
+                  /*contents: {*/
+                    /*a!sideBySideLayout(*/
+                      /*items: {*/
+                        /*a!sideBySideItem(*/
+                          /*item: a!richTextDisplayField(*/
+                            /*value: {*/
+                              /*a!richTextIcon(*/
+                                /*icon: "hashtag",*/
+                                /*color: cons!EAP_COLORS[1],*/
+                                /*size: "LARGE"*/
+                              /*)*/
+                            /*}*/
+                          /*),*/
+                          /*width: "MINIMIZE"*/
+                        /*),*/
+                        /*a!sideBySideItem(*/
+                          /*item: a!richTextDisplayField(*/
+                            /*value: {*/
+                              /*a!richTextItem(*/
+                                /*text: "EUC #",*/
+                                /*color: cons!EAP_COLORS[1],*/
+                                /*style: "STRONG"*/
+                              /*),*/
+                              /*char(*/
+                                /*10*/
+                              /*),*/
+                              /*a!richTextItem(*/
+                                /*text: if(*/
+                                  /*rule!EAP_Utils_CheckIsNull(*/
+                                    /*local!ProcessViewDetails*/
+                                  /*),*/
+                                  /*"N/A",*/
+                                  /*index(*/
+                                    /*local!ProcessViewDetails,*/
+                                    /*"euc_reference_number"*/
+                                  /*)*/
+                                /*),*/
+                                /*color: cons!EAP_COLORS[12]*/
+                              /*)*/
+                            /*}*/
+                          /*),*/
+                          /*width: "AUTO"*/
+                        /*)*/
+                      /*},*/
+                      /*alignVertical: "MIDDLE"*/
+                    /*)*/
+                  /*}*/
+                /*),*/
+                /*a!columnLayout(*/
+                  /*contents: {*/
+                    /*a!sideBySideLayout(*/
+                      /*items: {*/
+                        /*a!sideBySideItem(*/
+                          /*item: a!richTextDisplayField(*/
+                            /*value: {*/
+                              /*a!richTextIcon(*/
+                                /*icon: "hashtag",*/
+                                /*color: cons!EAP_COLORS[1],*/
+                                /*size: "LARGE"*/
+                              /*)*/
+                            /*}*/
+                          /*),*/
+                          /*width: "MINIMIZE"*/
+                        /*),*/
+                        /*a!sideBySideItem(*/
+                          /*item: a!richTextDisplayField(*/
+                            /*value: {*/
+                              /*a!richTextItem(*/
+                                /*text: "Process #",*/
+                                /*color: cons!EAP_COLORS[1],*/
+                                /*style: "STRONG"*/
+                              /*),*/
+                              /*char(*/
+                                /*10*/
+                              /*),*/
+                              /*a!richTextItem(*/
+                                /*text: if(*/
+                                  /*rule!EAP_Utils_CheckIsNull(*/
+                                    /*local!ProcessViewDetails*/
+                                  /*),*/
+                                  /*"N/A",*/
+                                  /*index(*/
+                                    /*local!ProcessViewDetails,*/
+                                    /*"process_id"*/
+                                  /*)*/
+                                /*),*/
+                                /*color: cons!EAP_COLORS[12]*/
+                              /*)*/
+                            /*}*/
+                          /*),*/
+                          /*width: "AUTO"*/
+                        /*)*/
+                      /*},*/
+                      /*alignVertical: "MIDDLE"*/
+                    /*)*/
+                  /*}*/
+                /*),*/
+                /*a!columnLayout(*/
+                  /*contents: {*/
+                    /*a!sideBySideLayout(*/
+                      /*items: {*/
+                        /*a!sideBySideItem(*/
+                          /*item: a!richTextDisplayField(*/
+                            /*value: {*/
+                              /*a!richTextIcon(*/
+                                /*icon: "language",*/
+                                /*color: cons!EAP_COLORS[1],*/
+                                /*size: "LARGE"*/
+                              /*)*/
+                            /*}*/
+                          /*),*/
+                          /*width: "MINIMIZE"*/
+                        /*),*/
+                        /*a!sideBySideItem(*/
+                          /*item: a!richTextDisplayField(*/
+                            /*value: {*/
+                              /*a!richTextItem(*/
+                                /*text: "Process Name",*/
+                                /*color: cons!EAP_COLORS[1],*/
+                                /*style: "STRONG"*/
+                              /*),*/
+                              /*char(*/
+                                /*10*/
+                              /*),*/
+                              /*a!richTextItem(*/
+                                /*text: if(*/
+                                  /*rule!EAP_Utils_CheckIsNull(*/
+                                    /*local!ProcessViewDetails*/
+                                  /*),*/
+                                  /*"N/A",*/
+                                  /*index(*/
+                                    /*local!ProcessViewDetails,*/
+                                    /*"process_name"*/
+                                  /*)*/
+                                /*)*/
+                              /*)*/
+                            /*}*/
+                          /*),*/
+                          /*width: "AUTO"*/
+                        /*)*/
+                      /*},*/
+                      /*alignVertical: "MIDDLE"*/
+                    /*)*/
+                  /*}*/
+                /*),*/
+                /*a!columnLayout(*/
+                  /*contents: {*/
+                    /*a!sideBySideLayout(*/
+                      /*items: {*/
+                        /*a!sideBySideItem(*/
+                          /*item: a!richTextDisplayField(*/
+                            /*value: {*/
+                              /*a!richTextIcon(*/
+                                /*icon: "sun-o",*/
+                                /*color: cons!EAP_COLORS[1],*/
+                                /*size: "LARGE"*/
+                              /*)*/
+                            /*}*/
+                          /*),*/
+                          /*width: "MINIMIZE"*/
+                        /*),*/
+                        /*a!sideBySideItem(*/
+                          /*item: a!richTextDisplayField(*/
+                            /*value: {*/
+                              /*a!richTextItem(*/
+                                /*text: "Cluster",*/
+                                /*color: cons!EAP_COLORS[1],*/
+                                /*style: "STRONG"*/
+                              /*),*/
+                              /*char(*/
+                                /*10*/
+                              /*),*/
+                              /*a!richTextItem(*/
+                                /*text: if(*/
+                                  /*rule!EAP_Utils_CheckIsNull(*/
+                                    /*local!ProcessViewDetails*/
+                                  /*),*/
+                                  /*"N/A",*/
+                                  /*index(*/
+                                    /*local!ProcessViewDetails,*/
+                                    /*"cluster_name",*/
+                                    /*{}*/
+                                  /*)*/
+                                /*)*/
+                              /*)*/
+                            /*}*/
+                          /*),*/
+                          /*width: "AUTO"*/
+                        /*)*/
+                      /*},*/
+                      /*alignVertical: "MIDDLE"*/
+                    /*)*/
+                  /*}*/
+                /*),*/
+                /*a!columnLayout(*/
+                  /*contents: {*/
+                    /*a!sideBySideLayout(*/
+                      /*items: {*/
+                        /*a!sideBySideItem(*/
+                          /*item: a!richTextDisplayField(*/
+                            /*value: {*/
+                              /*a!richTextIcon(*/
+                                /*icon: "cogs",*/
+                                /*color: cons!EAP_COLORS[1],*/
+                                /*size: "LARGE"*/
+                              /*)*/
+                            /*}*/
+                          /*),*/
+                          /*width: "MINIMIZE"*/
+                        /*),*/
+                        /*a!sideBySideItem(*/
+                          /*item: a!richTextDisplayField(*/
+                            /*value: {*/
+                              /*a!richTextItem(*/
+                                /*text: "Sub Cluster",*/
+                                /*color: cons!EAP_COLORS[1],*/
+                                /*style: "STRONG"*/
+                              /*),*/
+                              /*char(*/
+                                /*10*/
+                              /*),*/
+                              /*a!richTextItem(*/
+                                /*text: if(*/
+                                  /*rule!EAP_Utils_CheckIsNull(*/
+                                    /*local!ProcessViewDetails*/
+                                  /*),*/
+                                  /*"N/A",*/
+                                  /*index(*/
+                                    /*local!ProcessViewDetails,*/
+                                    /*"sub_cluster_name"*/
+                                  /*)*/
+                                /*)*/
+                              /*)*/
+                            /*}*/
+                          /*),*/
+                          /*width: "AUTO"*/
+                        /*)*/
+                      /*},*/
+                      /*alignVertical: "MIDDLE"*/
+                    /*)*/
+                  /*}*/
+                /*),*/
+/*                */
+              /*},*/
+              /*marginBelow: "STANDARD"*/
+            /*)*/
+          /*},*/
+          /*height: "AUTO",*/
+          /*style: "#D6DBDF",*/
+          /*showBorder: false()*/
+        /*),*/
+        #"SYSTEM_SYSRULES_richTextDisplayField"(),
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+                label: "Calendar Name",
+                readOnly: true(),
+                value: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      local!calendarDetails,
+                      "calendar_name",
+                      {}
+                    )
+                  ),
+                  "N/A",
+                  index(
+                    local!calendarDetails,
+                    "calendar_name",
+                    {}
+                  )
+                )
+              )
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+                label: "Region Name",
+                readOnly: true(),
+                value: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      local!calendarDetails,
+                      "region_name",
+                      {}
+                    )
+                  ),
+                  "N/A",
+                  index(
+                    local!calendarDetails,
+                    "region_name",
+                    {}
+                  )
+                )
+              )
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+                label: "Country Name",
+                readOnly: true(),
+                value: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      local!calendarDetails,
+                      "country_name",
+                      {}
+                    )
+                  ),
+                  "N/A",
+                  index(
+                    local!calendarDetails,
+                    "country_name",
+                    {}
+                  )
+                )
+              )
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+                label: "Timezone",
+                readOnly: true(),
+                value: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      local!calendarDetails,
+                      "timezone_id",
+                      {}
+                    )
+                  ),
+                  "N/A",
+                  index(
+                    local!calendarDetails,
+                    "timezone_id",
+                    {}
+                  )
+                )
+              )
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+                label: "Start Working Time",
+                readOnly: true(),
+                value: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      local!calendarDetails,
+                      "start_working_time",
+                      {}
+                    )
+                  ),
+                  "N/A",
+                  index(
+                    local!calendarDetails,
+                    "start_working_time",
+                    {}
+                  )
+                )
+              )
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+                readOnly: true(),
+                value: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      local!calendarDetails,
+                      "calendar_name",
+                      {}
+                    )
+                  ),
+                  "N/A",
+                  index(
+                    local!calendarDetails,
+                    "end_working_time",
+                    {}
+                  )
+                )
+              )
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+                label: "Locale",
+                readOnly: true(),
+                value: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      local!calendarDetails,
+                      "locale",
+                      {}
+                    )
+                  ),
+                  "N/A",
+                  index(
+                    local!calendarDetails,
+                    "locale",
+                    {}
+                  )
+                )
+              )
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_285963"(
+                label: "Year",
+                readOnly: true(),
+                value: if(
+                  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                    index(
+                      local!holiday,
+                      "Year",
+                      {}
+                    )
+                  ),
+                  "N/A",
+                  index(
+                    local!holiday,
+                    "Year",
+                    {}
+                  )
+                )
+              )
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                label: "Status",
+                value: #"SYSTEM_SYSRULES_richTextImage"(
+                  image: #"SYSTEM_SYSRULES_documentImage"(
+                    document: #"SYSTEM_SYSRULES_iconIndicator"(
+                      icon: if(
+                        or(
+                          tointeger(
+                            index(
+                              local!calendarDetails,
+                              "is_active",
+                              {}
+                            )
+                          ) = 1
+                        ),
+                        "STATUS_OK",
+                        "STATUS_NOTDONE"
+                      )
+                    ),
+                    caption: if(
+                      or(
+                        tointeger(
+                          index(
+                            local!calendarDetails,
+                            "is_active",
+                            {}
+                          )
+                        ) = 1
+                      ),
+                      "Yes",
+                      "No"
+                    )
+                  )
+                )
+              )
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(),
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: /*if(*/
+              /*rule!EAP_Utils_CheckIsNull(*/
+              /*local!nonWorkinDays*/
+              /*),*/
+              /*a!richTextDisplayField(*/
+              /*value: a!richTextItem(*/
+              /*text: "No Non Working Days",*/
+              /*color: "SECONDARY",*/
+              /*size: "MEDIUM_PLUS",*/
+              /*style: {*/
+              /*"STRONG",*/
+              /*"EMPHASIS"*/
+              /*}*/
+              /*),*/
+              /*align: "CENTER"*/
+              /*),*/
+              #"SYSTEM_SYSRULES_gridField_v1"(
+                label: "Non Working Days",
+                data: local!nonWorkinDays,
+                columns: {
+                  #"SYSTEM_SYSRULES_gridColumn"(
+                    label: "Days",
+                    sortField: "non_working_day",
+                    value: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        index(
+                          fv!row,
+                          "non_working_day",
+                          {}
+                        )
+                      ),
+                      "N/A",
+                      if(
+                        tointeger(
+                          index(
+                            fv!row,
+                            "non_working_day",
+                            {}
+                          )
+                        ) = 1,
+                        "Sunday",
+                        if(
+                          tointeger(
+                            index(
+                              fv!row,
+                              "non_working_day",
+                              {}
+                            )
+                          ) = 2,
+                          "Monday",
+                          if(
+                            tointeger(
+                              index(
+                                fv!row,
+                                "non_working_day",
+                                {}
+                              )
+                            ) = 3,
+                            "Tuesday",
+                            if(
+                              tointeger(
+                                index(
+                                  fv!row,
+                                  "non_working_day",
+                                  {}
+                                )
+                              ) = 4,
+                              "Wednesday",
+                              if(
+                                tointeger(
+                                  index(
+                                    fv!row,
+                                    "non_working_day",
+                                    {}
+                                  )
+                                ) = 5,
+                                "Thursday",
+                                if(
+                                  tointeger(
+                                    index(
+                                      fv!row,
+                                      "non_working_day",
+                                      {}
+                                    )
+                                  ) = 6,
+                                  "Friday",
+                                  "Saturday"
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  #"SYSTEM_SYSRULES_gridColumn"(
+                    label: "Status",
+                    sortField: "is_active",
+                    value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      label: "Status",
+                      value: #"SYSTEM_SYSRULES_richTextImage"(
+                        image: #"SYSTEM_SYSRULES_documentImage"(
+                          document: #"SYSTEM_SYSRULES_iconIndicator"(
+                            icon: if(
+                              or(
+                                tointeger(
+                                  index(
+                                    fv!row,
+                                    "is_active",
+                                    {}
+                                  )
+                                ) = 1
+                              ),
+                              "STATUS_OK",
+                              "STATUS_NOTDONE"
+                            )
+                          ),
+                          caption: if(
+                            or(
+                              tointeger(
+                                index(
+                                  fv!row,
+                                  "is_active",
+                                  {}
+                                )
+                              ) = 1
+                            ),
+                            "Yes",
+                            "No"
+                          )
+                        )
+                      )
+                    ),
+                    align: "CENTER",
+                    width: "NARROW"
+                  )
+                },
+                pageSize: 5
+              )
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_richTextDisplayField"(),
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"_a-0000e4e9-ef8d-8000-5259-1bef901bef90_287171"(
+                  label: "Year",
+                  placeholderLabel: "Select Year",
+                  choiceLabels: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_154377",
+                  choiceValues: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_154377",
+                  value: local!selectedYear,
+                  saveInto: local!selectedYear
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(),
+            #"SYSTEM_SYSRULES_columnLayout"()
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: #"SYSTEM_SYSRULES_gridField_v1"(
+                label: "Holidays",
+                data: local!holiday,
+                columns: {
+                  #"SYSTEM_SYSRULES_gridColumn"(
+                    label: "Name",
+                    sortField: "name",
+                    value: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        index(
+                          fv!row,
+                          "name",
+                          {}
+                        )
+                      ),
+                      "N/A",
+                      index(
+                        fv!row,
+                        "name",
+                        {}
+                      )
+                    )
+                  ),
+                  #"SYSTEM_SYSRULES_gridColumn"(
+                    label: "Description",
+                    sortField: "description",
+                    value: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        index(
+                          fv!row,
+                          "description",
+                          {}
+                        )
+                      ),
+                      "N/A",
+                      index(
+                        fv!row,
+                        "description",
+                        {}
+                      )
+                    )
+                  ),
+                  #"SYSTEM_SYSRULES_gridColumn"(
+                    label: "Holiday Date",
+                    sortField: "holiday_date",
+                    value: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        index(
+                          fv!row,
+                          "holiday_date",
+                          {}
+                        )
+                      ),
+                      "N/A",
+                      index(
+                        fv!row,
+                        "holiday_date",
+                        {}
+                      )
+                    ),
+                    align: "END"
+                  ),
+                  #"SYSTEM_SYSRULES_gridColumn"(
+                    label: "Status",
+                    sortField: "is_active",
+                    value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      label: "Status",
+                      value: #"SYSTEM_SYSRULES_richTextImage"(
+                        image: #"SYSTEM_SYSRULES_documentImage"(
+                          document: #"SYSTEM_SYSRULES_iconIndicator"(
+                            icon: if(
+                              or(
+                                tointeger(
+                                  index(
+                                    fv!row,
+                                    "is_active",
+                                    {}
+                                  )
+                                ) = 1
+                              ),
+                              "STATUS_OK",
+                              "STATUS_NOTDONE"
+                            )
+                          ),
+                          caption: if(
+                            or(
+                              tointeger(
+                                index(
+                                  fv!row,
+                                  "is_active",
+                                  {}
+                                )
+                              ) = 1
+                            ),
+                            "Yes",
+                            "No"
+                          )
+                        )
+                      )
+                    ),
+                    align: "CENTER"
+                  )
+                },
+                pageSize: 5
+              )
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: #"SYSTEM_SYSRULES_gridField_v1"(
+                label: "Exception Working Days",
+                data: local!exceptionWorkinDays,
+                columns: {
+                  #"SYSTEM_SYSRULES_gridColumn"(
+                    label: "Exception Working Date",
+                    sortField: "exception_working_date",
+                    value: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        index(
+                          fv!row,
+                          "exception_working_date",
+                          {}
+                        )
+                      ),
+                      "N/A",
+                      index(
+                        fv!row,
+                        "exception_working_date",
+                        {}
+                      )
+                    ),
+                    align: "END"
+                  ),
+                  #"SYSTEM_SYSRULES_gridColumn"(
+                    label: "Description",
+                    sortField: "description",
+                    value: if(
+                      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+                        index(
+                          fv!row,
+                          "description",
+                          {}
+                        )
+                      ),
+                      "N/A",
+                      index(
+                        fv!row,
+                        "description",
+                        {}
+                      )
+                    )
+                  ),
+                  #"SYSTEM_SYSRULES_gridColumn"(
+                    label: "Status",
+                    sortField: "is_active",
+                    value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      label: "Status",
+                      value: #"SYSTEM_SYSRULES_richTextImage"(
+                        image: #"SYSTEM_SYSRULES_documentImage"(
+                          document: #"SYSTEM_SYSRULES_iconIndicator"(
+                            icon: if(
+                              or(
+                                tointeger(
+                                  index(
+                                    fv!row,
+                                    "is_active",
+                                    {}
+                                  )
+                                ) = 1
+                              ),
+                              "STATUS_OK",
+                              "STATUS_NOTDONE"
+                            )
+                          ),
+                          caption: if(
+                            or(
+                              tointeger(
+                                index(
+                                  fv!row,
+                                  "is_active",
+                                  {}
+                                )
+                              ) = 1
+                            ),
+                            "Yes",
+                            "No"
+                          )
+                        )
+                      )
+                    ),
+                    align: "CENTER"
+                  )
+                },
+                pageSize: 5
+              )
+            )
+          }
+        )
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_333613"/>
+        <historyInfo versionUuid="_a-0000e518-940a-8000-525e-1bef901bef90_524488"/>
+    </history>
+</contentHaul>

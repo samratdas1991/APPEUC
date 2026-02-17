@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_9413</versionUuid>
+    <rule>
+        <name>EAP_SetValueForRefProcessInFileParsingTrans</name>
+        <uuid>_a-0000e4c3-ab68-8000-5250-1bef901bef90_8087</uuid>
+        <description>Hold set value rule for ref process in file parsing trans</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(ri!processInFileParsingTrans),
+  null,
+  #"SYSTEM_SYSRULES_forEach"(
+    items: ri!processInFileParsingTrans,
+    expression: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7893"(
+      parsingTransactionId: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!parsingTransactionId
+        ),
+        ri!processInFileParsingTrans[fv!index].parsing_transaction_id,
+        ri!parsingTransactionId
+      ),
+      requestId:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!requestId
+        ),
+        ri!processInFileParsingTrans[fv!index].request_id,
+        ri!requestId
+      ),
+      runDate:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!runDate
+        ),
+        ri!processInFileParsingTrans[fv!index].run_date,
+        ri!runDate
+      ),
+      systemTypeCode:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!systemTypeCode
+        ),
+        ri!processInFileParsingTrans[fv!index].system_type_code,
+        ri!systemTypeCode
+      ),
+      parsingStatus: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!parsingStatus
+        ),
+        ri!processInFileParsingTrans[fv!index].parsing_status,
+        ri!parsingStatus
+      ) ,
+      fileName:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!fileName
+        ),
+        ri!processInFileParsingTrans[fv!index].file_name,
+        ri!fileName
+      ),
+      exceptionType:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!exceptionType
+        ),
+        ri!processInFileParsingTrans[fv!index].exception_type,
+        ri!exceptionType
+      ),
+      exceptionMessage:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!exceptionMessage
+        ),
+        ri!processInFileParsingTrans[fv!index].exception_message,
+        ri!exceptionMessage
+      ),
+      action:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!action
+        ),
+        ri!processInFileParsingTrans[fv!index].action,
+        ri!action
+      ),
+      updatedBy:  if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!updatedBy
+        ),
+        ri!processInFileParsingTrans[fv!index].updated_by,
+        ri!updatedBy
+      ),
+      updatedOn: if(
+        #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+          ri!updatedOn
+        ),
+        ri!processInFileParsingTrans[fv!index].updated_on,
+        ri!updatedOn
+      )
+    )
+  )
+
+
+)
+
+
+</definition>
+        <namedTypedValue>
+            <name>parsingTransactionId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>runDate</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>systemTypeCode</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>parsingStatus</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>updatedOn</name>
+            <type>
+                <name>Datetime?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>updatedBy</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fileName</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>exceptionType</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>exceptionMessage</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>action</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processInFileParsingTrans</name>
+            <type>
+                <name>EAP_T_ProcessInFileParsingTrans?list</name>
+                <namespace>urn:com:appian:types:eap</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4c3-ab68-8000-5250-1bef901bef90_9413"/>
+    </history>
+</contentHaul>

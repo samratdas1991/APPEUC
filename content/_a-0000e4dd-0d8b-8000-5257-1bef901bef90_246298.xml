@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4e9-ef8d-8000-5259-1bef901bef90_267485</versionUuid>
+    <interface>
+        <name>EAP_IOIntegrationDynamicFormAdditionalDasboard</name>
+        <uuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_246298</uuid>
+        <description>Used to show the prefilled information in additional dashboard</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6580</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!intSysParameterList: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_57331"(
+    lookupSystemTypeCode:tostring(
+      index(
+        #"_a-0000e4c6-e892-8000-5254-1bef901bef90_57368"(
+          systemTypeCode:
+          index(#"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65407"(configId: ri!configId),"system_type_code",{})
+          
+        ),
+        "lookup_system_type_code",
+        {}
+      )
+    ),
+    isActive: true()
+  ),
+  local!intParameterList: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_70461"(
+    configId: ri!configId
+  ),
+  local!intDepParameterList: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_68407"(
+    processParameterId: index(
+      local!intParameterList,
+      "process_parameter_id",
+      {}
+    ),
+    
+  ),
+  local!columnLayoutSize: 3,
+  local!cdt: /*{*/
+  /*id:1*/
+  /*},*/
+  /*  */
+  #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_146004"(
+    input: concat(
+      "{",
+      joinarray(
+        #"SYSTEM_SYSRULES_forEach"(
+          items: local!intParameterList,
+          expression: concat(
+            index(
+              fv!item,
+              "parameter_code",
+              null
+            ),
+            ":""",
+            index(
+              fv!item,
+              "parameter_value",
+              null
+            ),
+            """"
+          )
+        ),
+        ", "
+      ),
+      "}"
+    )
+  ),
+  local!EditableGridUniqueIds: union(
+    index(
+      index(
+        local!intSysParameterList,
+        wherecontains(
+          tostring(
+            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_145097"[7]
+          ),
+          touniformstring(
+            index(
+              local!intSysParameterList,
+              "parameter_type",
+              {}
+            )
+          )
+        ),
+        {}
+      ),
+      "system_parameter_id",
+      {}
+    ),
+    index(
+      index(
+        local!intSysParameterList,
+        wherecontains(
+          tostring(
+            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_145097"[7]
+          ),
+          touniformstring(
+            index(
+              local!intSysParameterList,
+              "parameter_type",
+              {}
+            )
+          )
+        ),
+        {}
+      ),
+      "system_parameter_id",
+      {}
+    )
+  ),
+  local!EditableGridUniqueParameterCode: union(
+    index(
+      index(
+        local!intSysParameterList,
+        wherecontains(
+          tostring(
+            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_145097"[7]
+          ),
+          touniformstring(
+            index(
+              local!intSysParameterList,
+              "parameter_type",
+              {}
+            )
+          )
+        ),
+        {}
+      ),
+      "parameter_code",
+      {}
+    ),
+    index(
+      index(
+        local!intSysParameterList,
+        wherecontains(
+          tostring(
+            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_145097"[7]
+          ),
+          touniformstring(
+            index(
+              local!intSysParameterList,
+              "parameter_type",
+              {}
+            )
+          )
+        ),
+        {}
+      ),
+      "parameter_code",
+      {}
+    )
+  ),
+  local!uniqueProcessParameterIds: index(
+    index(
+      local!intParameterList,
+      wherecontains(
+        touniformstring(
+          local!EditableGridUniqueParameterCode
+        ),
+        touniformstring(
+          index(
+            local!intParameterList,
+            "parameter_code",
+            {}
+          )
+        )
+      ),
+      {}
+    ),
+    "process_parameter_id",
+    {}
+  ),
+  local!UpdatedFormData: remove(
+    local!intSysParameterList,
+    wherecontains(
+      tostring(
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_145097"[7]
+      ),
+      touniformstring(
+        index(
+          local!intSysParameterList,
+          "parameter_type",
+          {}
+        )
+      )
+    )
+  ),
+  local!EditableGridData: #"_a-0000e4c6-e892-8000-5254-1bef901bef90_57426"(
+    systemParameterId: local!EditableGridUniqueIds,
+    isActive: true()
+  ),
+  local!nestedCDT: {
+    if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        local!intDepParameterList
+      ),
+      #"SYSTEM_SYSRULES_forEach"(
+        items: local!EditableGridUniqueParameterCode,
+        expression: {
+          process_parameter_id: index(
+            index(
+              local!intParameterList,
+              wherecontains(
+                tostring(
+                  fv!item
+                ),
+                touniformstring(
+                  index(
+                    local!intParameterList,
+                    "parameter_code",
+                    {}
+                  )
+                )
+              ),
+              {}
+            ),
+            "process_parameter_id",
+            {}
+          ),
+          system_parameter_id: index(
+            index(
+              local!intSysParameterList,
+              wherecontains(
+                tostring(
+                  fv!item
+                ),
+                touniformstring(
+                  index(
+                    local!intSysParameterList,
+                    "parameter_code",
+                    {}
+                  )
+                )
+              ),
+              {}
+            ),
+            "system_parameter_id",
+            {}
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_forEach"(
+        items: local!intDepParameterList,
+        expression: {
+          process_parameter_id: index(
+            fv!item,
+            "process_parameter_id",
+            {}
+          ),
+          parameter_code: index(
+            fv!item,
+            "parameter_code",
+            {}
+          ),
+          system_parameter_id: index(
+            index(
+              local!EditableGridData,
+              wherecontains(
+                tostring(
+                  index(
+                    fv!item,
+                    "parameter_code",
+                    {}
+                  )
+                ),
+                touniformstring(
+                  index(
+                    local!EditableGridData,
+                    "parameter_code",
+                    {}
+                  )
+                )
+              ),
+              {}
+            ),
+            "system_parameter_id",
+            {}
+          ),
+          parameter_value: index(
+            fv!item,
+            "parameter_value",
+            {}
+          )
+        }
+      )
+    )
+  },
+  local!DesignLayout: true(),
+  local!masterLookUpData: #"_a-0000e4c3-ab68-8000-5250-1bef901bef90_7827"(
+    type: {
+      index(
+        local!intSysParameterList,
+        "master_refdata_type",
+        null
+      ),
+      index(
+        local!EditableGridData,
+        "master_refdata_type",
+        null
+      )
+    },
+    isActive: true(),
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      1,
+      - 1,
+      #"SYSTEM_SYSRULES_sortInfo"(
+        "reference_data_id",
+        true()
+      )
+    )
+  ),
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: "Basic Details (Int Sys Param)",
+      contents: {
+        #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_156658"(
+          cdt: local!cdt,
+          masterLookUpData: local!masterLookUpData,
+          formData: local!UpdatedFormData,
+          columnLayoutSize: local!columnLayoutSize,
+          sectionDetails: local!cdt,
+          editableGridDetails: local!nestedCDT,
+          isReadOnly: true()
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(),
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(),
+    {
+      #"SYSTEM_SYSRULES_forEach"(
+        items: local!EditableGridUniqueIds,
+        expression: #"SYSTEM_SYSRULES_sectionLayout_v1"(
+          label: concat(
+            index(
+              index(
+                local!intSysParameterList,
+                wherecontains(
+                  tointeger(
+                    fv!item
+                  ),
+                  tointeger(
+                    index(
+                      local!intSysParameterList,
+                      "system_parameter_id",
+                      {}
+                    )
+                  )
+                ),
+                {}
+              ),
+              "parameter_label",
+              {}
+            ),
+            " (Int Sys Dep Param)"
+          ),
+          contents: {
+            #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_158564"(
+              isReadOnly: true(),
+              editableGridData: local!nestedCDT,
+              masterLookupData: local!masterLookUpData,
+              formData: index(
+                local!EditableGridData,
+                wherecontains(
+                  tointeger(
+                    fv!item
+                  ),
+                  tointeger(
+                    index(
+                      local!EditableGridData,
+                      "system_parameter_id",
+                      {}
+                    )
+                  )
+                ),
+                {}
+              ),
+              sectionDetails: local!cdt,
+              editableGridDetails: local!nestedCDT
+            )
+          }
+        )
+      )
+    }
+  }
+)</definition>
+        <namedTypedValue>
+            <name>configId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">145</a:value>
+                    <a:nameRef>configId</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e4e9-ef8d-8000-5259-1bef901bef90_267485"/>
+    </history>
+</contentHaul>

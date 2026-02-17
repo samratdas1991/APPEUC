@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e4dd-0d8b-8000-5257-1bef901bef90_212843</versionUuid>
+    <rule>
+        <name>EAP_IOConfigurationWriteToMultipleDatastoreEntity</name>
+        <uuid>_a-0000e4cd-1af4-8000-5255-1bef901bef90_129586</uuid>
+        <description>Contains rule to fetch datastore entities for IO Configuration</description>
+        <parentUuid>_a-0000e4c3-7a1b-8000-524f-1bef901bef90_6574</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  /*1. EAP_DE_INT_SYS*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_64889",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!integratedSystemConfig
+      ),
+      {},
+      pv!integratedSystemConfig
+    )
+  },
+  /*2. EAP_DE_INT_SYS_PARAM*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65044",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!refIntSysParam
+      ),
+      {},
+      pv!refIntSysParam
+    )
+  },
+  /*3. EAP_DE_INT_SYS_DEP_PARAM*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65050",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!intSysDepParam
+      ),
+      {},
+      pv!intSysDepParam
+    )
+  },
+  /*4. EAP_DE_EMAIL_WHITELIST*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65190",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!emailWhitelist
+      ),
+      {},
+      pv!emailWhitelist
+    )
+  },
+  /*5. EAP_DE_INT*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65062",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!intList
+      ),
+      {},
+      pv!intList
+    )
+  },
+  /*6. EAP_DE_INT_ESCALATION*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65184",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!intEscalationList
+      ),
+      {},
+      pv!intEscalationList
+    )
+  },
+  /*7. EAP_DE_INT_PARAM*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_64899",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!intParameterList
+      ),
+      {},
+      pv!intParameterList
+    )
+  },
+  /*8. EAP_DE_INT_DEP_PARAM*/
+  {
+    entity: #"_a-0000e4cd-1af4-8000-5255-1bef901bef90_65038",
+    data: if(
+      #"_a-0000e4b2-6487-8000-2b63-01ef9001ef90_3233095"(
+        pv!intDepParameterList
+      ),
+      {},
+      pv!intDepParameterList
+    )
+  }
+}</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_163386"/>
+        <historyInfo versionUuid="_a-0000e4cd-1af4-8000-5255-1bef901bef90_187915"/>
+        <historyInfo versionUuid="_a-0000e4dd-0d8b-8000-5257-1bef901bef90_212843"/>
+    </history>
+</contentHaul>
